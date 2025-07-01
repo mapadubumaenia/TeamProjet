@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<nav class="navbar">
+<div class="custom-header">
   <div class="brand">
     <a class="navbar-brand" href="#">RecipeCode</a>
   </div>
@@ -15,7 +15,7 @@
   <div class="menu-toggle">
   <img alt="메뉴" src="/images/02.png" width="20">
   </div>
-  
+ 
   <nav class="main-nav pr4">
     <ul class="menu">
       <li class="nav-item dropdown">
@@ -62,5 +62,11 @@
         </li>
     </ul>
   </nav>
-</nav>
+  <div class="search-bar pt3">
+  <form action="/search" method="get">
+    <input type="text" name="query" placeholder="검색어를 입력하세요" aria-label="검색어 입력" />
+    <button type="submit">검색</button>
+  </form>
+</div>
+</div>
 
