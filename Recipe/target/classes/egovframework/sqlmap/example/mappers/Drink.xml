@@ -40,18 +40,6 @@
     </select>
 
 
-<delete id="delete"
-            parameterType="DrinkVO">
-	DELETE TB_FILE_DB
-	WHERE UUID=#{uuid}
-    
-    </delete>
-
-
-
-
-
-
 
 
 
