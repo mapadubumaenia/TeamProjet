@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="egovframework.example.media.service.impl.MediaMapper">
+<select id="MediaList" parameterType="Criteria" resultType="egovframework.example.media.service.MediaVO">
+		SELECT * FROM MEDIA_RECIPES
+		OFFSET #{firstIndex} ROWS
+		FETCH NEXT #{pageUnit} ROWS ONLY
+</select>
+
+</mapper>
