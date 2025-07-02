@@ -27,12 +27,21 @@ public class DrinkVO extends Criteria{
 	
 	
 	
+	
+	
+	
 //	COLUMN_ID	NUMBER
 //	USER_ID	VARCHAR2(50 BYTE)
 //	COLUMN_TITLE	VARCHAR2(150 BYTE)
 //	COLUMN_CONTENT	CLOB
 //	COLUMN_CATEGORY	VARCHAR2(20 BYTE)
 //	COLUMN_CREATED_AT	DATE
+	
+	
+	
+	
+	
+	
 	
 	
 	
