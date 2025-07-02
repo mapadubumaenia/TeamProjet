@@ -25,17 +25,27 @@
 
 <insert id="insert"
             parameterType="DrinkVO">
-   INSERT INTO FOOD_COLUMNS(COLUMN_ID,USER_ID,COLUMN_TITLE,COLUMN_CONTENT,COLUMN_CATEGORY,COLUMN_CREATED_AT)
-	VALUES(#{uuid},#{fileTitle},#{fileContent},#{fileData},#{fileUrl},
-    TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'))
+   INSERT INTO FOOD_COLUMNS(COLUMN_ID,USER_ID,COLUMN_TITLE,COLUMN_CONTENT,COLUMN_CATEGORY,COLUMN_CREATED_AT,COLUMN_URL)
+	VALUES(#{column_id},#{user_id},#{column_title},#{column_content},#{column_category},
+    TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'),#{column_url})
    
    </insert>
 
+<select id="selectDrink"
+            parameterType="String"
+            resultType="DrinkVO" >
+
+	SELECT * FROM FOOD_COLUMNS
+	WHERE COLUMN_ID=#{column_id}
+    </select>
 
 
-
-
-
+<delete id="delete"
+            parameterType="DrinkVO">
+	DELETE TB_FILE_DB
+	WHERE UUID=#{uuid}
+    
+    </delete>
 
 
 
