@@ -16,6 +16,7 @@
     </select>
 
 
+
 <select id="selectDrinkListTotCnt"
              parameterType="Criteria"
              resultType="int"
