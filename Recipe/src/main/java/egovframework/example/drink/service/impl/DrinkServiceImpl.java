@@ -39,17 +39,17 @@ public class DrinkServiceImpl implements DrinkService {
 
 	//상세조회
 	@Override
-	public DrinkVO selectDrink(int column_id) {
+	public DrinkVO selectDrink(String uuid) {
 		// TODO Auto-generated method stub
-		return drinkMapper.selectDrink(column_id);
+		return drinkMapper.selectDrink(uuid);
 	}
 
 	
 	//삭제
 	@Override
-	public int delete(int column_id) {
+	public int delete(String uuid) {
 		// TODO Auto-generated method stub
-		return drinkMapper.delete(column_id);
+		return drinkMapper.delete(uuid);
 	}
 	
 	

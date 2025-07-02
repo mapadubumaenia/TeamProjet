@@ -13,9 +13,9 @@ public interface DrinkService {
 
 	int insert(DrinkVO drinkVO); // insert
 
-	DrinkVO selectDrink(int column_id); // 상세조회
+	DrinkVO selectDrink(String uuid); // 상세조회
 
-	int delete(int column_id); // 삭제
+	int delete(String uuid); // 삭제
 	
 	
 	
