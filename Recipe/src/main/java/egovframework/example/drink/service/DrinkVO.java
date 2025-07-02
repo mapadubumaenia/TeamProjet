@@ -20,27 +20,47 @@ public class DrinkVO extends Criteria{
 
 	
 	
-	private int uuid;
-	private String userId;
-	private String columnTitle;
-	private String columnContent;
-	private String columnCategory;
-	private String columnCreatedAt;
+	private String uuid;                 //기본키
+	private String userId;               // 아이디
+	private String columnTitle;            //제목
+	private String columnContent;          //내용
+	private byte[] columnData;         //첨부파일
+	private String columnCreatedAt;        //날짜
 	private MultipartFile image;        //내부 목적 사용
-	private String columnUrl;
+	private String columnUrl;             //이미지 다운로드를 위한 URL
 	
 	
-	
-	public DrinkVO(int uuid, String userId, String columnTitle, String columnContent, String columnCategory,
+	public DrinkVO(String uuid, String userId, String columnTitle, String columnContent, byte[] columnData,
 			String columnCreatedAt) {
 		super();
 		this.uuid = uuid;
 		this.userId = userId;
 		this.columnTitle = columnTitle;
 		this.columnContent = columnContent;
-		this.columnCategory = columnCategory;
+		this.columnData = columnData;
 		this.columnCreatedAt = columnCreatedAt;
 	}
+
+
+	public DrinkVO(String columnTitle, String columnContent, byte[] columnData) {
+		super();
+		this.columnTitle = columnTitle;
+		this.columnContent = columnContent;
+		this.columnData = columnData;
+	}
+	
+	
+	
+	
+
+
+	
+
+
+	
+	
+	
+	
 	
 	
 	

@@ -16,11 +16,40 @@
     </select>
 
 
+<select id="selectDrinkListTotCnt"
+             parameterType="Criteria"
+             resultType="int"
+             >
+	SELECT COUNT (*) FROM FOOD_COLUMNS
+	WHERE COLUMN_TITLE LIKE '%' ||#{searchKeyword}|| '%'
+     </select>
 
 
+<insert id="insert"
+            parameterType="DrinkVO">
+   INSERT INTO FOOD_COLUMNS(UUID,USER_ID,COLUMN_TITLE,COLUMN_CREATED_AT,COLUMN_URL,COLUMN_CONTENT)
+	VALUES(#{uuid},#{userId},#{columnTitle},TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'),#{columnUrl},
+    #{columnContent})
+   
+   </insert>
 
 
+<!--상세조회  -->
+<select id="selectDrink"
+            parameterType="String"
+            resultType="DrinkVO" >
 
+	SELECT * FROM FOOD_COLUMNS
+	WHERE UUID=#{uuid}
+    </select>
+
+
+   <delete id="delete"
+            parameterType="DrinkVO">
+	DELETE FOOD_COLUMNS
+	WHERE UUID=#{uuid}
+
+</delete>
 
 
 
