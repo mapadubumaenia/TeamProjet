@@ -15,8 +15,8 @@ public interface DrinkMapper {
 	     public List<?> selectDrinkList(Criteria criteria);  //전체 조회
 	     public int  selectDrinkListTotCnt(Criteria criteria);  //총 갯수 구하기
 		 public int insert(DrinkVO drinkVO);     // insert
-		 public DrinkVO selectDrink(int column_id);     //상세조회
-		 public int delete(int column_id);      //삭제
+		 public DrinkVO selectDrink(String uuid);     //상세조회
+		 public int delete(String uuid);      //삭제
 	
 		 
 		 
