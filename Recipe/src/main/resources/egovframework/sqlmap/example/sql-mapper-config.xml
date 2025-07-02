@@ -19,6 +19,6 @@
 		<typeAlias alias="sampleVO" type="egovframework.example.sample.service.SampleVO"/>
 		<typeAlias alias="DrinkVO" type="egovframework.example.drink.service.DrinkVO"/>
 		
-		<typeAlias type="egovframework.example.common.Criteria" alias="Criteria"/>
+		<typeAlias alias="Criteria"  type="egovframework.example.common.Criteria" />
     </typeAliases>
 </configuration>
