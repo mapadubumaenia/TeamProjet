@@ -1,7 +1,6 @@
 package egovframework.example.drink.service.impl;
 
 
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
@@ -13,7 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import egovframework.example.common.Criteria;
 import egovframework.example.drink.service.DrinkService;
+
 import egovframework.example.drink.service.DrinkVO;
+
 import lombok.extern.log4j.Log4j2;
 
 
@@ -52,6 +53,7 @@ class DrinkServiceImplTest {
 		
 		
 	}
+
 
 	// 페이지 총 갯수 구하기
 	@Test
@@ -97,6 +99,5 @@ class DrinkServiceImplTest {
 	}
 	
 	
-	
-	
+
 }

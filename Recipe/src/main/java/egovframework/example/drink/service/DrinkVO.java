@@ -20,6 +20,7 @@ public class DrinkVO extends Criteria{
 
 	
 	
+
 	private String uuid;                 //기본키
 	private String userId;               // 아이디
 	private String columnTitle;            //제목
@@ -47,8 +48,12 @@ public class DrinkVO extends Criteria{
 		this.columnTitle = columnTitle;
 		this.columnContent = columnContent;
 		this.columnData = columnData;
+
 	}
 	
+	
+	
+
 	
 	
 	
