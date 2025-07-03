@@ -9,6 +9,8 @@
    <!--    개발자 css -->
    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/exstyle.css">
+    <link rel="stylesheet" href="/css/Drinkstyle.css">
+  
 
 
 </head>
@@ -39,14 +41,14 @@
       
          <!--카드 이미지  -->
          <c:forEach var="data"  items="${drinks}">
-         <div class="col3">
-            <div class="card">
+         <div class="col4">
+            <div class="card"  data-uuid="${data.uuid}">
                <img src="<c:out value='${data.columnUrl}' />" class="card-img-top"
                   alt="이미지">
                <div class="card-body">
                   <h5 class="card-title">${data.columnTitle}</h5>
-                  <p class="card-text">${data.columnContent}</p>
-                  <a href="#" class="btn btn-danger" onclick="fn_delete('${data.uuid}')">삭제</a>
+                  <%-- <p class="card-text">${data.columnContent}</p> --%>
+                  <%-- <a href="#" class="btn btn-danger" onclick="fn_delete('${data.uuid}')">삭제</a> --%>
                </div>
             </div>
          </div>
@@ -112,6 +114,69 @@ $('#pagination').twbsPagination({
 });
 
 </script>
+
+<!-- 카드 클릭시 모달 뛰우는 ajax 스크립트  -->
+<script>
+  $(function(){
+    // 카드 클릭 시 AJAX 호출 & 모달 띄우기
+    $(document).on('click', '.col4 .card', function(){
+      const uuid = $(this).data('uuid');
+      const $body = $('#drinkDetailBody');
+
+      // 로딩 스피너
+      $body.html(`
+        <div class="text-center py-5">
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      `);
+
+      // 모달 오픈
+      const modal = new bootstrap.Modal(document.getElementById('drinkDetailModal'));
+      modal.show();
+
+      // AJAX 요청
+      $.ajax({
+        url: '<c:url value="/drink/detailFragment.do"/>',
+        data: { uuid: uuid },
+        success: function(html){
+          $body.html(html);
+        },
+        error: function(){
+          $body.html('<div class="alert alert-danger">데이터를 불러오는 중 오류가 발생했습니다.</div>');
+        }
+      });
+    });
+  });
+</script>
+
+
+
+<!-- 상세 모달 (drink_all.jsp 맨 아래) -->
+<div class="modal fade" id="drinkDetailModal" tabindex="-1" aria-hidden="true" 
+ >      <!--주위 어두워지는거 끄는 함수  -->
+   <div class="modal-dialog modal-lg modal-dialog-centered">  <!-- 중앙에 모달 띄우기 -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">음료 상세 정보</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="drinkDetailBody">
+        <div class="text-center py-5">
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 </body>
 </html>

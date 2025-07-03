@@ -55,13 +55,16 @@ public class DrinkController {
 				log.info("테스트2 :"+totCnt);
 				model.addAttribute("paginationInfo",paginationInfo);
 		
+				
+				
+				
 		return "drink/drink_all";
 }
 	
 	
 	    //추가페이지 열기
 	@GetMapping("/drink/addition.do")
-	   public String createFileDbView(Model model) {
+	   public String createDrinkView(Model model) {
 		model.addAttribute("drinkVO",new DrinkVO());
 		return "drink/add_drink";
 	}
@@ -122,6 +125,17 @@ public class DrinkController {
 	
 	
 	
+
+    // + AJAX 모달용 상세 프래그먼트 반환 메서드 추가
+    @GetMapping("/drink/detailFragment.do")
+    public String detailFragment(@RequestParam String uuid, Model model) {
+        DrinkVO vo = drinkService.selectDrink(uuid);
+        model.addAttribute("drink", vo);
+        return "drink/detailFragment";  
+        // -> /WEB-INF/views/drink/detailFragment.jsp 를 렌더링
+    }
+
+   
 	
 	
 	
