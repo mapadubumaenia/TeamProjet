@@ -46,7 +46,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<c:url value='/drink/drink.do'/>">드링크</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">손질법</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/drink/addition.do'/>">손질법</a></li>
             <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">보관법</a></li>
           </ul>
         </li>

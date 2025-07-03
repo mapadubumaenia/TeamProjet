@@ -1,0 +1,304 @@
+/*drink css 수정하지 마시오  */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap');
+@font-face {
+    font-family: 'GowunBatang-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+:root {
+    --black: black;
+    --gray: gray;
+    --dark: #6d4929;
+    --mocha: #A47764;
+}
+* {margin: 0;padding: 0;box-sizing: border-box;}
+
+body {
+  font-family: 'GowunBatang-Regular', 'Montserrat','Noto Sans KR', sans-serif;
+  margin: 0;
+}
+li {list-style-type: none;}
+a {text-decoration: none; color: var(--black);}
+
+/* 공통 여백 정하기 */
+/* 마진 위 5개 */
+.mt0 {margin-top:0.25rem !important;}
+.mt1 {margin-top:0.5rem !important;}
+.mt2 {margin-top:0.75rem !important;}
+.mt3 {margin-top:1rem !important;}
+.mt4 {margin-top:1.25rem !important;}
+.mt5 {margin-top:1.5rem !important;}
+/* 마진 오른쪽 5개 */
+.mr0 {margin-right:0.25rem !important;}
+.mr1 {margin-right:0.5rem !important;}
+.mr2 {margin-right:0.75rem !important;}
+.mr3 {margin-right:1rem !important;}
+.mr4 {margin-right:1.25rem !important;}
+.mr5 {margin-right:1.5rem !important;}
+/* 마진 하 5개 */
+.mb0 {margin-bottom:0.25rem !important;}
+.mb1 {margin-bottom:0.5rem !important;}
+.mb2 {margin-bottom:0.75rem !important;}
+.mb3 {margin-bottom:1rem !important;}
+.mb4 {margin-bottom:1.25rem !important;}
+.mb5 {margin-bottom:1.5rem !important;}
+/* 마진 좌 5개 */
+.ml0 {margin-left:0.25rem !important;}
+.ml1 {margin-left:0.5rem !important;}
+.ml2 {margin-left:0.75rem !important;}
+.ml3 {margin-left:1rem !important;}
+.ml4 {margin-left:1.25rem !important;}
+.ml5 {margin-left:1.5rem !important;}
+
+/* 패딩 위 5개 */
+.pt0 {padding-top:0.25rem !important;}
+.pt1 {padding-top:0.5rem !important;}
+.pt2 {padding-top:0.75rem !important;}
+.pt3 {padding-top:1rem !important;}
+.pt4 {padding-top:1.25rem !important;}
+.pt5 {padding-top:1.5rem !important;}
+/* 패딩 오른쪽 5개 */
+.pr0 {padding-right:0.25rem !important;}
+.pr1 {padding-right:0.5rem !important;}
+.pr2 {padding-right:0.75rem !important;}
+.pr3 {padding-right:1rem !important;}
+.pr4 {padding-right:1.25rem !important;}
+.pr5 {padding-right:1.5rem !important;}
+/* 패딩 아래 5개 */
+.pb0 {padding-bottom:0.25rem !important;}
+.pb1 {padding-bottom:0.5rem !important;}
+.pb2 {padding-bottom:0.75rem !important;}
+.pb3 {padding-bottom:1rem !important;}
+.pb4 {padding-bottom:1.25rem !important;}
+.pb5 {padding-bottom:1.5rem !important;}
+/* 패딩 왼쪽 5개 */
+.pl0 {padding-left:0.25rem !important;}
+.pl1 {padding-left:0.5rem !important;}
+.pl2 {padding-left:0.75rem !important;}
+.pl3 {padding-left:1rem !important;}
+.pl4 {padding-left:1.25rem !important;}
+.pl5 {padding-left:1.5rem !important;}
+
+/* 글자 중앙정렬 */
+.tcenter{text-align:center !important;}
+/* 박스 중앙정렬 */
+.flex-center{display:block;}
+.flex-vcenter{display:block;}
+/* float 해제 */
+.clear {clear:both;}
+
+.flex-center {clear:both;}
+
+.page {width:99vw; margin: 0 auto;}
+/* 박스 3개 배치: 핸드폰(1개) */
+.col2,.col3,.col4 {width: 99% !important; padding:1% !important; float:left !important;}
+
+
+/* 카드 호버 시 확대 & 그림자 효과 */
+.col4 .card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;          /* 클릭 가능한 포인터 커서 */
+}
+.col4 .card:hover {
+  transform: scale(1.03);   /* 3% 확대 */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  z-index: 1;               /* 겹칠 때 앞으로 오도록 */
+}
+
+
+/* —————————————————————————————— */
+/* 아날로그 레시피 카드 모달 스타일 */
+/* —————————————————————————————— */
+
+#drinkDetailModal .modal-dialog {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+#drinkDetailModal .modal-content {
+  background: #f9f1e9;              /* 살짝 누런 종이 느낌 */
+  border: 1px solid #c9b8a0;        /* 차분한 테두리 */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  border-radius: 0;                 /* 둥근 모서리 제거 */
+  font-family: 'GowunBatang-Regular', serif;
+  color: #3f3021;
+  overflow: visible;
+}
+
+/* 헤더 */
+#drinkDetailModal .modal-header {
+  border-bottom: 1px dashed #c9b8a0;
+  background: none;
+  padding: 0.8rem 1rem;
+}
+#drinkDetailModal .modal-title {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: normal;
+  letter-spacing: 0.03em;
+}
+
+/* 바디 */
+#drinkDetailModal .modal-body {
+  padding: 1rem 1.2rem;
+  background: none;
+  line-height: 1.5;
+}
+#drinkDetailModal .modal-body img {
+  display: block;
+  width: 100%;
+  margin: 0 auto 0.8rem;
+  border: 1px solid #e4d8c3;       /* 사진도 살짝 프레임 */
+}
+
+/* 푸터 */
+#drinkDetailModal .modal-footer {
+  border-top: 1px dashed #c9b8a0;
+  background: none;
+  justify-content: flex-end;
+  padding: 0.6rem 1rem;
+}
+#drinkDetailModal .btn-secondary {
+  background: none;
+  border: 1px solid #3f3021;
+  color: #3f3021;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 0;
+}
+#drinkDetailModal .btn-secondary:hover {
+  background: rgba(0,0,0,0.03);
+}
+/*-------------------  */
+
+/* ────────────────────────────────── */
+/* 종이책 레이아웃 페이지네이션 */
+/* ────────────────────────────────── */
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem 0;
+}
+
+#pagination li {
+  list-style: none;
+}
+
+/* 공통 버튼 스타일 */
+#pagination li a,
+#pagination li span {
+  display: inline-block;
+  min-width: 2.5rem;           /* 최소 너비 */
+  padding: 0 0.6rem;           /* 좌우 패딩으로 유연하게 */
+  height: 2.5rem;
+  line-height: 2.5rem;         /* 수직 중앙 정렬 */
+  text-align: center;
+  font-weight: 500;
+  text-decoration: none;
+  color: #3f3021;              /* 진한 갈색 텍스트 */
+  background: #faf4e1;         /* 종이빛 배경 */
+  border: 1px solid #ddd;      /* 연한 회색 테두리 */
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,0.05),   /* 종이 질감 안쪽 라인 */
+    0 2px 4px rgba(0,0,0,0.08);         /* 외곽 그림자 */
+  border-radius: 0.15rem;
+  transition: background 0.2s, color 0.2s;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* 호버 */
+#pagination li a:hover {
+  background: #f5e8d6;         /* 약간 더 진한 종이 색 */
+  color: var(--mocha);
+}
+
+/* 활성화 페이지 */
+#pagination li.active span {
+  background: var(--mocha);
+  color: #faf4e1;
+  border-color: var(--mocha);
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,0.1),
+    0 2px 4px rgba(0,0,0,0.12);
+}
+
+/* 이전/다음 버튼 (화살표) */
+#pagination li .page-link {
+  font-size: 1rem;
+}
+
+/* disabled 상태 */
+#pagination li.disabled span {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* —————————————————————————————— */
+/* 카드 이미지 크롭 & 이미지/본문 비율 복원 */
+/* —————————————————————————————— */
+
+.col4 .card {
+  display: flex;
+  flex-direction: column;
+  /* 전체 카드 높이를 고정하고 싶으면 아래 주석 해제 
+  height: 350px;
+  */
+}
+
+/* 1) 이미지 영역: 높이 고정 + object-fit 으로 크롭 */
+.col4 .card-img-top {
+  width: 100%;
+  height: 200px;         /* 이미지 높이: 필요에 따라 조정 */
+  object-fit: cover;     /* 넘치는 부분은 잘라냄 */
+  object-position: center center;
+}
+
+/* 2) 본문 영역: 남은 공간 전부 차지 */
+.col4 .card-body {
+  flex: 1;
+  padding: 0.75rem;      /* 이전 패딩 비슷하게 */
+  display: flex;
+  align-items: center;   /* 제목이 세로 가운데 정렬 */
+  justify-content: center;
+  text-align: center;
+}
+
+/* 3) 제목 폰트 사이즈 원복 (이전 스타일) */
+.col4 .card-title {
+  font-size: 1rem;       /* 필요에 따라 조정 */
+  font-weight: 500;
+  margin: 0;
+}
+
+
+
+
+
+/* TODO: 태블릿 */
+@media screen and (min-width: 768px){
+   /* 박스 중앙정렬 */
+   .flex-center{display:flex; justify-content: center;}
+   .flex-vcenter{display:flex; align-items: center;}
+    .page {width: 90vw;}
+    /* 박스 2개 배치 */
+    .col2 {width:49% !important;}
+    /* 박스 3개 배치 */
+    .col4 {width:32% !important;}
+   
+   
+   
+   
+    
+}
+/* TODO: pc */
+@media screen and (min-width: 1024px){
+    .page {width: 60vw;  }
+    .col4 {width:24% !important;}
+}
