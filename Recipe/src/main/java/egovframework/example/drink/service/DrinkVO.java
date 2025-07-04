@@ -29,6 +29,7 @@ public class DrinkVO extends Criteria{
 	private String columnCreatedAt;        //날짜
 	private MultipartFile image;        //내부 목적 사용
 	private String columnUrl;             //이미지 다운로드를 위한 URL
+	 private String category;            // ← 추가
 	
 	
 	public DrinkVO(String uuid, String userId, String columnTitle, String columnContent, byte[] columnData,
@@ -43,12 +44,24 @@ public class DrinkVO extends Criteria{
 	}
 
 
-	public DrinkVO(String columnTitle, String columnContent, byte[] columnData) {
+	
+
+
+	
+	 public String getCategory() { return category; }
+	 public void setCategory(String category) { this.category = category; }
+
+
+
+
+
+
+	public DrinkVO(String columnTitle, String columnContent,  String category, byte[] columnData) {
 		super();
 		this.columnTitle = columnTitle;
 		this.columnContent = columnContent;
+		this.category = category;
 		this.columnData = columnData;
-
 	}
 	
 	

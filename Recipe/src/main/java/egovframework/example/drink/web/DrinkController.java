@@ -32,6 +32,7 @@ public class DrinkController {
 	
 	@GetMapping("/drink/drink.do")
 	public String selectDrinkList( @ModelAttribute Criteria criteria,
+			@RequestParam(name="category", required=false, defaultValue="") String category,
 	          Model model) {
 		
 		
@@ -42,6 +43,12 @@ public class DrinkController {
 		paginationInfo.setRecordCountPerPage(criteria.getPageUnit());
 		//등차를 자동 계산 결과: paginationInfo.getFirstRecordIndex 여기에있음
 		criteria.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		
+		  // 카테고리 세팅
+		 if (!category.isEmpty()) {
+		        criteria.setCategory(category);
+		    }
+		    model.addAttribute("selectedCategory", category);
 		
 		//전체조회 서비스 메소드 실행
 		List<?> drinks= drinkService.selectDrinkList(criteria);
@@ -77,8 +84,9 @@ public class DrinkController {
 	   @PostMapping("/drink/add.do")
 	  public String insert(@RequestParam(defaultValue = "") String columnTitle,
 			  @RequestParam(defaultValue = "") String columnContent,
+			  @RequestParam(defaultValue="") String category, 
 			  @RequestParam(required = false) MultipartFile image) throws Exception {
-		   DrinkVO drinkVO=new DrinkVO(columnTitle,columnContent,image.getBytes());
+		   DrinkVO drinkVO=new DrinkVO(columnTitle,columnContent,category,image.getBytes());
 		
 		   drinkService.insert(drinkVO);
 		return  "redirect:/drink/drink.do";
