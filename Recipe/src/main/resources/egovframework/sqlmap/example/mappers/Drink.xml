@@ -32,6 +32,7 @@
      </select>
 
 
+
 <insert id="insert" parameterType="DrinkVO">
   INSERT INTO FOOD_COLUMNS
     (UUID, USER_ID, COLUMN_TITLE, COLUMN_CREATED_AT,
@@ -40,6 +41,7 @@
     (#{uuid}, #{userId}, #{columnTitle}, SYSDATE,
      #{columnUrl}, #{columnContent}, #{columnData}, #{category})
 </insert>
+
 
 
 <!--상세조회  -->

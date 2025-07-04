@@ -52,7 +52,7 @@
       <br>
       
       
-      
+
       
         <!-- 여기부터 drinkListContainer 시작 -->
   <div id="drinkListContainer">
@@ -63,6 +63,7 @@
             <img src="${data.columnUrl}" class="card-img-top" alt="${data.columnTitle}">
             <div class="card-body">
               <h5 class="card-title">${data.columnTitle}</h5>
+
             </div>
           </div>
         </div>

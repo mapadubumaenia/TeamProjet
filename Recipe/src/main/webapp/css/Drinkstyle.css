@@ -276,6 +276,7 @@ a {text-decoration: none; color: var(--black);}
   font-weight: 500;
   margin: 0;
 }
+
 /* --------------------------------------------------- */
 
 /* —————————————— */
@@ -338,6 +339,7 @@ a {text-decoration: none; color: var(--black);}
   outline: none;
   box-shadow: 0 0 0 3px rgba(164,119,100,0.4); /* mocha 40% */
 }
+
 
 
 
