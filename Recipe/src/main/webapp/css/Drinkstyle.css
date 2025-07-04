@@ -276,7 +276,68 @@ a {text-decoration: none; color: var(--black);}
   font-weight: 500;
   margin: 0;
 }
+/* --------------------------------------------------- */
 
+/* —————————————— */
+/* drink 게시판 카테고리 버튼 */
+/* —————————————— */
+.category-btn-group {
+  display: flex;
+  gap: 1rem;               /* 버튼 사이 여유 */
+  justify-content: center; /* 가운데 정렬 */
+  margin: 1.5rem 0;
+}
+
+/* 실제 라디오 숨기기 */
+.category-btn-group .btn-check {
+  position: absolute;
+  clip: rect(0,0,0,0);
+  pointer-events: none;
+}
+
+/* 라벨(버튼) 기본 스타일 */
+.category-btn-group label {
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  background: #faf4e1;           /* 종이빛 베이스 */
+  border: 2px solid var(--mocha);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 
+    background 0.3s ease, 
+    color 0.3s ease, 
+    transform 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Bootstrap .btn-outline-primary:hover 덮어쓰기 */
+.category-btn-group label.btn-outline-primary:hover {
+  /* 배경을 모카 색상으로 */
+  background: var(--mocha) !important;
+  /* 테두리도 모카 색상으로 */
+  border-color: var(--mocha) !important;
+  /* 글씨는 종이빛으로 */
+  color: #faf4e1 !important;
+  /* 살짝 띄우기 */
+  transform: translateY(-2px);
+}
+
+/* 선택(checked) 상태 */
+.category-btn-group .btn-check:checked + label {
+  background: var(--dark);
+  color: #faf4e1;
+  border-color: var(--dark);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 포커스(탭키) 시 */
+.category-btn-group .btn-check:focus + label {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(164,119,100,0.4); /* mocha 40% */
+}
 
 
 

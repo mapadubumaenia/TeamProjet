@@ -25,6 +25,8 @@ public class Criteria {
 
 	/** 검색사용여부 */
 	private String searchUseYn = "";
+	
+	private String category;    // ← 추가(카테고리용)
 
 	
 	/** 현재페이지 */

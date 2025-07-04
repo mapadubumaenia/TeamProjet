@@ -27,39 +27,52 @@
        <!--컨트롤러로 보낼 페이지 번호  -->
        <input type="hidden" id="pageIndex" name="pageIndex">
 
-      <!-- <div class="input-group mb3 mt3">
-         <input type="text" class="form-control" id="searchKeyword" 
-               name="searchKeyword"
-            placeholder="검색어입력">
-         <button class="btn btn-primary" 
-                 type="button" onclick="fn_egov_selectList()"
-         >
-           검색
-         </button> 
-      </div> -->
+
+        <!-- ★여기에 바로 카테고리 그룹을 넣습니다-->
+  <div class="category-btn-group" role="group" aria-label="카테고리 선택">
+    <input type="radio" class="btn-check" name="category" id="btnAll" value=""
+           autocomplete="off" ${selectedCategory==''?'checked':''}>
+    <label class="btn btn-outline-primary" for="btnAll">전체보기</label>
+
+    <input type="radio" class="btn-check" name="category" id="btnCocktail" value="cocktail"
+           autocomplete="off" ${selectedCategory=='cocktail'?'checked':''}>
+    <label class="btn btn-outline-primary" for="btnCocktail">칵테일</label>
+
+    <input type="radio" class="btn-check" name="category" id="btnSmoothie" value="smoothie"
+           autocomplete="off" ${selectedCategory=='smoothie'?'checked':''}>
+    <label class="btn btn-outline-primary" for="btnSmoothie">스무디&쥬스</label>
+
+    <input type="radio" class="btn-check" name="category" id="btnCoffee" value="coffee"
+           autocomplete="off" ${selectedCategory=='coffee'?'checked':''}>
+    <label class="btn btn-outline-primary" for="btnCoffee">커피&티</label>
+  </div>
+
+      
+      <br>
+      <br>
       
       
-         <!--카드 이미지  -->
-         <c:forEach var="data"  items="${drinks}">
-         <div class="col4">
-            <div class="card"  data-uuid="${data.uuid}">
-               <img src="<c:out value='${data.columnUrl}' />" class="card-img-top"
-                  alt="이미지">
-               <div class="card-body">
-                  <h5 class="card-title">${data.columnTitle}</h5>
-                  <%-- <p class="card-text">${data.columnContent}</p> --%>
-                  <%-- <a href="#" class="btn btn-danger" onclick="fn_delete('${data.uuid}')">삭제</a> --%>
-               </div>
+      
+      
+        <!-- 여기부터 drinkListContainer 시작 -->
+  <div id="drinkListContainer">
+    <div class="row">
+      <c:forEach var="data" items="${drinks}">
+        <div class="col4">
+          <div class="card" data-uuid="${data.uuid}">
+            <img src="${data.columnUrl}" class="card-img-top" alt="${data.columnTitle}">
+            <div class="card-body">
+              <h5 class="card-title">${data.columnTitle}</h5>
             </div>
-         </div>
-         
-         </c:forEach>
-         
-         
-         <!--페이지 번호  -->
-        <div class="flex-center">
+          </div>
+        </div>
+      </c:forEach>
+    </div>
+    <div class="flex-center">
       <ul class="pagination" id="pagination"></ul>
-      </div>
+    </div>
+  </div>
+  <!-- drinkListContainer 끝 -->
          
 
    </form>
@@ -98,6 +111,24 @@ function fn_egov_selectList() {
     }
     
 </script>
+
+<!-- 카테고리 버튼 함수 -->
+<script>
+$(function(){
+  $('.category-btn-group .btn-check').on('change', function(){
+    const category = $(this).val();
+    // query parameter 형태로 GET 요청
+    const url = '<c:url value="/drink/drink.do"/>' + '?category=' + encodeURIComponent(category);
+
+    // 전체 페이지가 아닌 #drinkListContainer 부분만 GET으로 로드
+    $('#drinkListContainer').load(
+      url + ' #drinkListContainer'
+    );
+  });
+});
+</script>
+
+
 
 <script type="text/javascript">
 <!-- 페이징 처리 -->

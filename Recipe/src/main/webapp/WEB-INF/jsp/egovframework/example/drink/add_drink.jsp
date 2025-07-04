@@ -42,6 +42,24 @@
                   name="columnContent"
                    />
         </div>
+        
+          <!-- ▶ 카테고리 선택 추가 -->
+  <div class="mb3">
+    <label for="category" class="form-label">카테고리</label>
+    <select id="category"
+            name="category"
+            class="form-select"
+            required>
+      <option value="" disabled selected>-- 선택하세요 --</option>
+      <option value="cocktail">칵테일</option>
+      <option value="smoothie">스무디&amp;쥬스</option>
+      <option value="coffee">커피&amp;티</option>
+    </select>
+  </div>
+        
+        
+        
+        
       <div class="input-group">
       <!-- type="file":파일 대화상자가 화면에 보입니다. -->
         <input type="file" 
