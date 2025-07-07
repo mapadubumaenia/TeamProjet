@@ -11,6 +11,8 @@
   </div>
   <div class="col-md-7">
     <h4>${drink.columnTitle}</h4>
+    <p><strong>재료:</strong> ${drink.columnIngredient}</p>
+    <br>
     <p class="mt-3">${drink.columnContent}</p>
     <small class="text-muted">등록일: ${drink.columnCreatedAt}</small>
   </div>

@@ -47,6 +47,12 @@
     <label class="btn btn-outline-primary" for="btnCoffee">커피&티</label>
   </div>
 
+      <div class="drink-upload">
+      <button type="button"
+        class="btn btn-mocha"
+        onclick="location.href='<c:url value='/drink/addition.do'/>'">
+  레시피 올리기
+</button></div>
       
       <br>
       <br>
@@ -69,12 +75,14 @@
         </div>
       </c:forEach>
     </div>
-    <div class="flex-center">
-      <ul class="pagination" id="pagination"></ul>
-    </div>
   </div>
   <!-- drinkListContainer 끝 -->
          
+ <div class="flex-center">
+      <ul class="pagination" id="pagination"></ul>
+    </div>
+
+
 
    </form>
 <!-- jquery -->
@@ -101,7 +109,7 @@ function fn_egov_selectList() {
 		$("#listForm").attr("action", '<c:out value="/drink/drink.do" />')
 				.submit();
 	}
-    /* 삭제 */
+    /* 삭제 버튼은 아직 구현안했음(필요없으면 안할예정) */
    function fn_delete(uuid) {
     	/*전체조회: mrthod="get"이다, 하지만 삭제는 post로 보내랴함.변경해서 전달  */
     	$("#uuid").val(uuid);
@@ -187,7 +195,7 @@ $('#pagination').twbsPagination({
 
 <!-- 상세 모달 (drink_all.jsp 맨 아래) -->
 <div class="modal fade" id="drinkDetailModal" tabindex="-1" aria-hidden="true" 
- >      <!--주위 어두워지는거 끄는 함수  -->
+ >     
    <div class="modal-dialog modal-lg modal-dialog-centered">  <!-- 중앙에 모달 띄우기 -->
     <div class="modal-content">
       <div class="modal-header">

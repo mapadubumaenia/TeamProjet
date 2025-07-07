@@ -1,5 +1,7 @@
 package egovframework.example.drink.web;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -85,8 +87,9 @@ public class DrinkController {
 	  public String insert(@RequestParam(defaultValue = "") String columnTitle,
 			  @RequestParam(defaultValue = "") String columnContent,
 			  @RequestParam(defaultValue="") String category, 
+			  @RequestParam(defaultValue="") String columnIngredient, 
 			  @RequestParam(required = false) MultipartFile image) throws Exception {
-		   DrinkVO drinkVO=new DrinkVO(columnTitle,columnContent,category,image.getBytes());
+		   DrinkVO drinkVO=new DrinkVO(columnTitle,columnContent,category,columnIngredient,image.getBytes());
 		
 		   drinkService.insert(drinkVO);
 		return  "redirect:/drink/drink.do";
@@ -144,7 +147,31 @@ public class DrinkController {
     }
 
    
-	
+    // 미리보기 모달 컨트롤러
+    @PostMapping("/drink/preview.do")
+    public String preview(
+            @RequestParam(defaultValue = "") String columnTitle,
+            @RequestParam(defaultValue = "") String columnContent,
+            @RequestParam(defaultValue = "") String category,
+            @RequestParam(defaultValue = "") String columnIngredient,
+            @RequestParam(required = false) MultipartFile image,
+            Model model) throws IOException {
+        DrinkVO previewVO = new DrinkVO();
+        previewVO.setColumnTitle(columnTitle);
+        previewVO.setColumnContent(columnContent);
+        previewVO.setCategory(category);
+        previewVO.setColumnIngredient(columnIngredient);
+        if (image != null && !image.isEmpty()) {
+            byte[] bytes = image.getBytes();
+            previewVO.setColumnData(bytes);
+            String base64 = Base64.getEncoder().encodeToString(bytes);
+            String mime = image.getContentType();
+            // data URL 형태로
+            previewVO.setColumnUrl("data:" + mime + ";base64," + base64);
+        }
+        model.addAttribute("preview", previewVO);
+        return "drink/previewFragment";
+    }
 	
 	
 	
