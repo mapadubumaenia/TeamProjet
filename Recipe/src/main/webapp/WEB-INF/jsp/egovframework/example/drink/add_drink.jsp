@@ -10,6 +10,7 @@
    <!--    개발자 css -->
    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/exstyle.css">
+    <link rel="stylesheet" href="/css/Drinkstyle.css">
 
 
 </head>
@@ -25,7 +26,7 @@
          >
         
         <div class="mb3">
-            <label for="columnTitle" class="form-label">columnTitle</label>
+            <label for="columnTitle" class="form-label">제목</label>
             <input  
                   class="form-control"
                   placeholder="제목" 
@@ -33,17 +34,20 @@
                   name="columnTitle"
                   />
         </div>
+        
         <div class="mb3">
-            <label for="columnContent" class="form-label">columnContent</label>
-            <input 
-                   class="form-control"
-                   placeholder="내용입력" 
-                     id="columnContent"
-                  name="columnContent"
-                   />
+            <label for="columnIngredient" class="form-label">재료</label>
+            <input  
+                  class="form-control"
+                  placeholder="재료" 
+                   id="columnIngredient"
+                  name="columnIngredient"
+                  />
         </div>
         
-          <!-- ▶ 카테고리 선택 추가 -->
+        
+        
+              <!-- ▶ 카테고리 선택 추가 -->
   <div class="mb3">
     <label for="category" class="form-label">카테고리</label>
     <select id="category"
@@ -67,11 +71,39 @@
                 id="image"
                   name="image"
                >
-        <button class="btn btn-primary" 
+       
+      </div>
+        
+        
+        
+        
+        
+        <!-- 내용 입력 멀티라인으로 -->
+  <div class="mb3">
+    <label for="columnContent" class="form-label">내용</label>
+    <textarea
+      id="columnContent"
+      name="columnContent"
+      class="form-control form-content"
+      rows="6"
+      placeholder="내용을 입력하세요"></textarea>
+  </div>
+  
+  <div class="save">
+  <button type="button" class="btn btn-secondary" id="previewBtn">미리보기</button>
+  <button class="btn btn-mocha"
                 type="button"
                 onclick="fn_save()"
                 >저장</button>
-      </div>
+                
+  
+  </div>
+  
+
+
+
+  
+    
     </form>
 </div>
 <!-- jquery -->
@@ -86,6 +118,44 @@
 	}
 </script>
 
+<!-- 미리보기 모달 (팝업) -->
+<div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">미리보기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="previewModalBody">
+        <!-- AJAX로 previewFragment.jsp가 로드됩니다 -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // 미리보기 버튼 클릭 시
+  $('#previewBtn').on('click', function(){
+    var formData = new FormData($('#addForm')[0]);
+    $.ajax({
+      url: '<c:url value="/drink/preview.do"/>',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(html){
+        $('#previewModalBody').html(html);
+        new bootstrap.Modal($('#previewModal')).show();
+      }
+    });
+  });
+
+  
+</script>
 
 
 

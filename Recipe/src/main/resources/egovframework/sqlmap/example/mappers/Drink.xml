@@ -35,10 +35,10 @@
 <insert id="insert" parameterType="DrinkVO">
   INSERT INTO FOOD_COLUMNS
     (UUID, USER_ID, COLUMN_TITLE, COLUMN_CREATED_AT,
-     COLUMN_URL, COLUMN_CONTENT, COLUMN_DATA, CATEGORY)
+     COLUMN_URL, COLUMN_CONTENT, COLUMN_DATA,COLUMN_INGREDIENT, CATEGORY)
   VALUES
     (#{uuid}, #{userId}, #{columnTitle}, SYSDATE,
-     #{columnUrl}, #{columnContent}, #{columnData}, #{category})
+     #{columnUrl}, #{columnContent}, #{columnData},#{columnIngredient}, #{category})
 </insert>
 
 

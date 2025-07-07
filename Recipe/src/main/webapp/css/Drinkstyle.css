@@ -11,6 +11,7 @@
     --gray: gray;
     --dark: #6d4929;
     --mocha: #A47764;
+    
 }
 * {margin: 0;padding: 0;box-sizing: border-box;}
 
@@ -339,6 +340,134 @@ a {text-decoration: none; color: var(--black);}
   box-shadow: 0 0 0 3px rgba(164,119,100,0.4); /* mocha 40% */
 }
 
+/* ====================================================================== */
+
+/* —————————————————————————————— */
+/* 미리보기(Preview) 모달에 디테일 모달 스타일 복제 */
+/* —————————————————————————————— */
+#previewModal .modal-dialog {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+#previewModal .modal-content {
+  background: #f9f1e9;
+  border: 1px solid #c9b8a0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  border-radius: 0;
+  font-family: 'GowunBatang-Regular', serif;
+  color: #3f3021;
+  overflow: visible;
+}
+
+#previewModal .modal-header {
+  border-bottom: 1px dashed #c9b8a0;
+  background: none;
+  padding: 0.8rem 1rem;
+}
+
+#previewModal .modal-title {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: normal;
+  letter-spacing: 0.03em;
+}
+
+#previewModal .modal-body {
+  padding: 1rem 1.2rem;
+  background: none;
+  line-height: 1.5;
+}
+
+#previewModal .modal-body img {
+  display: block;
+  width: 100%;
+  margin: 0 auto 0.8rem;
+  border: 1px solid #e4d8c3;
+}
+
+#previewModal .modal-footer {
+  border-top: 1px dashed #c9b8a0;
+  background: none;
+  justify-content: flex-end;
+  padding: 0.6rem 1rem;
+}
+
+#previewModal .btn-secondary {
+  background: none;
+  border: 1px solid #3f3021;
+  color: #3f3021;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 0;
+}
+
+#previewModal .btn-secondary:hover {
+  background: rgba(0,0,0,0.03);
+}
+/*==================================================  */
+
+
+/* 1) 저장 버튼 모카톤 적용 */
+.btn.btn-mocha {
+  background-color: var(--mocha) !important;
+  border-color:     var(--mocha) !important;
+  color:            #fff       !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.btn.btn-mocha:hover {
+  background-color: var(--dark) !important;
+  border-color:     var(--dark) !important;
+}
+
+/* 2) 내용 입력칸 최소 높이 확보 */
+.form-control.form-content {
+  min-height: 200px !important;
+  resize: vertical !important;
+}
+
+.save {
+	
+	display: block;
+	 width: fit-content;  /* 내용물에 맞춰 너비 조정 (또는 원하는 고정값) */
+  margin: 2rem auto;   /* 상·하 2rem, 좌·우 자동 여백 */
+	
+
+}
+
+/* textarea 엔터(\n) → 화면 줄바꿈으로 반영 */
+#drinkDetailModal .modal-body p,
+#previewModal .modal-body p {
+  white-space: pre-line !important;
+}
+
+
+/* 부모 폼을 relative로 유지 (이미 적용된 상태라면 생략 가능) */
+#listForm {
+  position: relative;
+}
+
+/* 글쓰기 버튼 컨테이너: 절대위치로 카테고리와 같은 라인에 배치 */
+.drink-upload {
+  position: absolute;
+  top: 0.4rem;  /* .category-btn-group 의 margin-top 값과 동일하게 */
+  right: 3.4rem;  /* 원하는 오른쪽 여백 */
+}
+
+/* 글쓰기 버튼: 카테고리 버튼과 동일한 패딩/폰트 사이즈/테두리 두께 */
+.drink-upload .btn {
+  padding: 0.75rem 1.5rem !important;     /* 위아래 0.75rem, 좌우 1.5rem */
+  font-size: 1rem !important;             /* 카테고리 버튼과 동일 */
+  line-height: 1;                         /* 텍스트 세로 중앙 맞춤 */
+  border-width: 2px !important;           /* 카테고리 버튼 테두리 두께와 동일 */
+}
+
+/* 동일한 border-radius 로 둥글기 통일 */
+.drink-upload .btn {
+  border-radius: 0.5rem !important;
+}
 
 
 
