@@ -10,7 +10,7 @@
       FROM FOOD_COLUMNS
      WHERE COLUMN_TITLE LIKE '%' || #{searchKeyword} || '%'
        <if test="category != null and category != ''">
-         -- 카테고리 필터
+           <!-- 카테고리 필터 -->
          AND CATEGORY = #{category}
        </if>
     ORDER BY COLUMN_CREATED_AT DESC
