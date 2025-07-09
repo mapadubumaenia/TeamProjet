@@ -7,6 +7,7 @@ $("#addForm").validate({
     userid: {          // id별명
       required: true, // 필수 입력
       minlength: 4,    //  최소 입력 길이
+
     },
     password: {       // id별명
       required: true, // 필수 입력

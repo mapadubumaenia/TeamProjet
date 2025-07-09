@@ -22,3 +22,4 @@ public class MemberVO extends Criteria {
 	private String phonenum;
 	private String nickname;
 }
+

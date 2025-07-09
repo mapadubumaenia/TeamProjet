@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="egovframework.example.auth.service.impl.MemberMapper">
 	<!-- id="메소드명",parameterType="매개변수자료형",resultType="return자료형"  -->
-	<select id="authenticate"
+	<select id="authenticateMember"
 			parameterType="MemberVO"
 			resultType="MemberVO">
 		SELECT * FROM USERS

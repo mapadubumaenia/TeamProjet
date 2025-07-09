@@ -6,4 +6,5 @@ public interface MemberService {
 	String findId(MemberVO memberVO) throws Exception;
 	MemberVO findPassword(MemberVO memberVO) throws Exception;
 	void updatePassword(MemberVO memberVO) throws Exception;
+
 }

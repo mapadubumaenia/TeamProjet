@@ -14,9 +14,11 @@ public class MemberServiceImpl extends EgovAbstractServiceImpl implements Member
 	MemberMapper memberMapper;
 
 	@Override
+
+
 	public MemberVO authenticateMember(MemberVO loginVO) throws Exception {
 		// TODO Auto-generated method stub
-		MemberVO memberVO = memberMapper.authenticate(loginVO);
+		MemberVO memberVO = memberMapper.authenticateMember(loginVO);
 		
 		if(memberVO==null) throw processException("errors.login");
 		if(memberVO!=null) {
@@ -26,10 +28,11 @@ public class MemberServiceImpl extends EgovAbstractServiceImpl implements Member
 		return memberVO;
 	}
 
+
 	@Override
 	public void register(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
-		MemberVO cmemberVO=memberMapper.authenticate(memberVO);    // 중복가입 확인
+		MemberVO cmemberVO=memberMapper.authenticateMember(memberVO);    // 중복가입 확인
 		if(cmemberVO != null) throw processException("errors.register"); //     중복 존재 -> 예외처리
 		String hashedPassword = BCrypt.hashpw(memberVO.getPassword(),  // 암호 해싱처리 
 				BCrypt.gensalt());     
@@ -59,4 +62,6 @@ public class MemberServiceImpl extends EgovAbstractServiceImpl implements Member
         memberMapper.updatePassword(memberVO);
 
 	}
+
+	
 }

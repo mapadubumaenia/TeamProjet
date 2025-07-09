@@ -23,20 +23,24 @@
     <div class="brandtext mt5">
        <a class="login_home" href="<c:url value='home.do'/>">RecipeCode</a>
     </div>
+
       <div class="error_box">
       <c:if test="${not empty msg}">
 		<br><p class="regi">${msg}</p>
      </c:if>
     </div>
+Stashed changes
     <div class= "inputbox">
     <div class= "input_center">
       <form id="addForm" name="addForm"action="/loginProcess.do" method="post">
 		<div class="form-group mb2">
+
 		    <p class="input_name mt4">아이디</p>
 		    <input type="text" class="form-control"
             		           id="userid"
             		           name="userid"							
 						       placeholder="사용자 아이디"  />
+
 		</div>
 		<div class="form-group mt1 mb2">
 		    <p class="input_name">비밀번호</p>
@@ -44,15 +48,18 @@
             		               id="password"
             		               name="password"										
 								   placeholder="비밀번호"  />
+
 		</div>
 		<div>
 				<button class ="btn mt1">LOGIN</button>
 		</div>
 		<div>
          <ul class="login_menu mt3">
+
             <li><a class="find_id mr3 logmn" href="<c:url value='findid.do'/>">아이디찾기</a></li>
             <li>|</li>
             <li><a class="find_password mr3 ml3 logmn" href="<c:url value='findpassword.do'/>">비밀번호찾기</a></li>
+
             <li>|</li>
             <li><a class="register ml3 logmn" href="<c:url value='register.do'/>">회원가입</a></li>
           </ul>
@@ -66,6 +73,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- 부트스트랩 js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<!-- 토글 애니메이션 js -->
+<script src="/js/nav.js"></script>
 <!-- 유효성체크 플러그인 -->
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/jquery.validate.min.js"></script>
 <script src="/js/auth/login-validation-config.js"></script>

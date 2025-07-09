@@ -23,6 +23,7 @@
   	         <a class="link" href="<c:url value='/logout.do'/>">로그아웃</a>
   	         <a class="link" href="<c:url value='/home.do'/>">마이페이지</a>
         </c:if>
+
   </div>
            <!-- {/* 로그아웃 끝 */} -->
 
