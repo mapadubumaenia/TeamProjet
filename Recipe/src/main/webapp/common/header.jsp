@@ -39,7 +39,7 @@
              recipes
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">나라별</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/country/country.do'/>">나라별</a></li>
             <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">재료별</a></li>
             <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">상황별</a></li>
           </ul>

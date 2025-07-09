@@ -17,13 +17,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Criteria {
-	/** 검색조건 */
+	/** 검색조건 종류 (ex: 제목, 작성자) */
 	private String searchCondition = "";
 
-	/** 검색Keyword */
+	/** 검색 키워드 */
 	private String searchKeyword = "";
 
-	/** 검색사용여부 */
+	/** 검색 사용 여부 (현재 사용 안 함) */
 	private String searchUseYn = "";
 	
 	private String category;    // ← 추가(카테고리용)
@@ -38,14 +38,20 @@ public class Criteria {
 	/** 페이지갯수: 화면에 보일 행 개수 */
 	private int pageUnit10 = 10;
 
-	/** firstIndex 등차숫자 자동 계산*/
+	/** OFFSET 계산용 시작 인덱스 */
 	private int firstIndex = 1;
 
+	/** 등록 시간 (필요시) */
 	private String insertTime;
 
+	/** 수정 시간 (필요시) */
 	private String updateTime;
+
+	/** 정렬 옵션: recent, likes, reviewed */
+	private String sortOption = "recent";
 	
-	public void setSearchKeyword(String searchKeyword) {
-	    this.searchKeyword = (searchKeyword == null) ? "" : searchKeyword;
-	}
+	// filter3 처리용
+	/** 나라별 필터링 */
+	private Integer filterCountryCategoryId;  
+
 }

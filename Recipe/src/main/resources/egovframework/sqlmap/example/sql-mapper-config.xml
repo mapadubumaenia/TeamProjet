@@ -26,5 +26,7 @@
 		
         
 		<typeAlias alias="Criteria"  type="egovframework.example.common.Criteria" />
+		<typeAlias alias="CountryVO"  type="egovframework.example.country.service.CountryVO" />
+		<typeAlias alias="LikeVO"  type="egovframework.example.like.service.LikeVO" />
     </typeAliases>
 </configuration>
