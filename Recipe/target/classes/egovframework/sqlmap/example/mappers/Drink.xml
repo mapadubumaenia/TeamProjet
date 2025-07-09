@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="egovframework.example.drink.service.impl.DrinkMapper">
+
+
+ <select id="selectDrinkList"
+            parameterType="Criteria"
+            resultType="DrinkVO"
+            
+    >
+    SELECT * FROM FOOD_COLUMNS
+    WHERE COLUMN_TITLE LIKE'%' ||#{searchKeyword}|| '%'
+    OFFSET #{firstIndex} ROWS
+    FETCH NEXT #{pageUnit} ROWS ONLY
+    
+    </select>
+
+
+
+<select id="selectDrinkListTotCnt"
+             parameterType="Criteria"
+             resultType="int"
+             >
+	SELECT COUNT (*) FROM FOOD_COLUMNS
+	WHERE COLUMN_TITLE LIKE '%' ||#{searchKeyword}|| '%'
+     </select>
+
+
+<insert id="insert"
+            parameterType="DrinkVO">
+   INSERT INTO FOOD_COLUMNS(UUID,USER_ID,COLUMN_TITLE,COLUMN_CREATED_AT,COLUMN_URL,COLUMN_CONTENT)
+	VALUES(#{uuid},#{userId},#{columnTitle},TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'),#{columnUrl},
+    #{columnContent})
+   
+   </insert>
+
+
+<!--상세조회  -->
+<select id="selectDrink"
+            parameterType="String"
+            resultType="DrinkVO" >
+
+	SELECT * FROM FOOD_COLUMNS
+	WHERE UUID=#{uuid}
+    </select>
+
+
+   <delete id="delete"
+            parameterType="DrinkVO">
+	DELETE FOOD_COLUMNS
+	WHERE UUID=#{uuid}
+
+</delete>
+
+
+
+</mapper> 
+
+
+
+
+
+

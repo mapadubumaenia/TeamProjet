@@ -1,0 +1,90 @@
+.loginbox{
+    width : 450px;
+    height : 550px;
+    border : 2px solid  var(--dark);
+}
+.loginpage{
+    width: 99vw;
+	height: 800px;
+	display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.login_home:hover{
+	color:var(--mocha);
+}
+.login_home{
+	color:var(--dark);
+}
+.brandtext{
+
+	font-size: 40px;
+	display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+}
+.form-control{
+	width : 350px;
+	height : 50px;
+}
+.inputbox{
+	width : 450px;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+.input_center{
+	width : 350px;
+	display:flex;
+}
+.btn{
+	background-color: var(--mocha);
+	color: white;
+	width : 350px;
+	height : 50px;
+	margin-top: 0.75rem;
+}
+
+.btn:hover {
+	background-color: var(--dark);
+	color: white;
+}
+.input_name{
+	margin : 0;
+	font-size : 16px;
+}
+.logmn:hover{
+	color :var(--dark) !important;
+}
+.login_menu{
+	width : 350px;
+	padding : 0;
+	display:flex;
+    justify-content: center;
+	align-items: end;	
+}
+.regi{
+	font-size : 14px !important;
+}
+.error_box{
+	display:flex;
+	justify-content: center;
+}
+.login_error{
+	color: red !important;
+    font-size: 14px;
+}
+label {
+    color: red !important;
+    font-size: 14px;
+    margin-top: 2px;
+    display: block !important; 
+}
+
+@media screen and (min-width: 768px){
+  
+}
+@media screen and (min-width: 1024px){
+
+}

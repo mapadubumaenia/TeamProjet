@@ -1,3 +1,4 @@
+
 /* 머리말 */
 .custom-header {
 	position: sticky;
@@ -26,8 +27,8 @@
 	position: absolute;
 	top: 2rem;
 	right: 3rem;
-	display: flex;
 	gap: 10px;
+    display: flex;
 }
 
 .link {
