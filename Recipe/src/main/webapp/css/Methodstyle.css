@@ -1,0 +1,72 @@
+/* method.css — drink.css를 기반으로 method용으로 복제 */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap');
+@font-face {
+    font-family: 'GowunBatang-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+:root {
+    --black: black;
+    --gray: gray;
+    --dark: #6d4929;
+    --mocha: #A47764;
+}
+* {margin: 0; padding: 0; box-sizing: border-box;}
+body {
+  font-family: 'GowunBatang-Regular','Montserrat','Noto Sans KR', sans-serif;
+  margin: 0;
+}
+li {list-style-type: none;}
+a {text-decoration: none; color: var(--black);} 
+
+/* 공통 여백 */
+.mt0 {margin-top:0.25rem!important;} .mt1 {margin-top:0.5rem!important;} .mt2 {margin-top:0.75rem!important;} .mt3 {margin-top:1rem!important;} .mt4 {margin-top:1.25rem!important;} .mt5 {margin-top:1.5rem!important;}
+.mr0 {margin-right:0.25rem!important;} .mr1 {margin-right:0.5rem!important;} .mr2 {margin-right:0.75rem!important;} .mr3 {margin-right:1rem!important;} .mr4 {margin-right:1.25rem!important;} .mr5 {margin-right:1.5rem!important;}
+.mb0 {margin-bottom:0.25rem!important;} .mb1 {margin-bottom:0.5rem!important;} .mb2 {margin-bottom:0.75rem!important;} .mb3 {margin-bottom:1rem!important;} .mb4 {margin-bottom:1.25rem!important;} .mb5 {margin-bottom:1.5rem!important;}
+.ml0 {margin-left:0.25rem!important;} .ml1 {margin-left:0.5rem!important;} .ml2 {margin-left:0.75rem!important;} .ml3 {margin-left:1rem!important;} .ml4 {margin-left:1.25rem!important;} .ml5 {margin-left:1.5rem!important;}
+.pt0 {padding-top:0.25rem!important;} .pt1 {padding-top:0.5rem!important;} .pt2 {padding-top:0.75rem!important;} .pt3 {padding-top:1rem!important;} .pt4 {padding-top:1.25rem!important;} .pt5 {padding-top:1.5rem!important;}
+.pr0 {padding-right:0.25rem!important;} .pr1 {padding-right:0.5rem!important;} .pr2 {padding-right:0.75rem!important;} .pr3 {padding-right:1rem!important;} .pr4 {padding-right:1.25rem!important;} .pr5 {padding-right:1.5rem!important;}
+.pb0 {padding-bottom:0.25rem!important;} .pb1 {padding-bottom:0.5rem!important;} .pb2 {padding-bottom:0.75rem!important;} .pb3 {padding-bottom:1rem!important;} .pb4 {padding-bottom:1.25rem!important;} .pb5 {padding-bottom:1.5rem!important;}
+.pl0 {padding-left:0.25rem!important;} .pl1 {padding-left:0.5rem!important;} .pl2 {padding-left:0.75rem!important;} .pl3 {padding-left:1rem!important;} .pl4 {padding-left:1.25rem!important;} .pl5 {padding-left:1.5rem!important;}
+.tcenter {text-align:center!important;} .flex-center{display:block;} .flex-vcenter{display:block;} .clear{clear:both;} .page{width:99vw;margin:0 auto;}
+.col2,.col3,.col4{width:99%!important;padding:1%!important;float:left!important;}
+
+/* 카드 호버 */
+.col4 .card {transition:transform .25s ease,box-shadow .25s ease;cursor:pointer;} 
+.col4 .card:hover {transform:scale(1.03);box-shadow:0 10px 20px rgba(0,0,0,0.15);z-index:1;}
+
+/* 상세 모달 스타일 */
+#methodDetailModal .modal-dialog {max-width:1000px;margin:0 auto;}
+#methodDetailModal .modal-content {background:#f9f1e9;border:1px solid #c9b8a0;box-shadow:0 4px 6px rgba(0,0,0,0.15);border-radius:0;font-family:'GowunBatang-Regular',serif;color:#3f3021;overflow:visible;}
+#methodDetailModal .modal-header {border-bottom:1px dashed #c9b8a0;background:none;padding:.8rem 1rem;}
+#methodDetailModal .modal-title {margin:0;font-size:1.3rem;font-weight:normal;letter-spacing:.03em;}
+#methodDetailModal .modal-body {padding:1rem 1.2rem;background:none;line-height:1.5;}
+#methodDetailModal .modal-body img {display:block;width:100%;margin:0 auto .8rem;border:1px solid #e4d8c3;}
+#methodDetailModal .modal-footer {border-top:1px dashed #c9b8a0;background:none;justify-content:flex-end;padding:.6rem 1rem;}
+#methodDetailModal .btn-secondary {background:none;border:1px solid #3f3021;color:#3f3021;padding:.4rem 1rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;border-radius:0;}
+#methodDetailModal .btn-secondary:hover {background:rgba(0,0,0,0.03);}
+
+/* 페이지네이션 */
+#pagination{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;padding:1rem 0;}
+#pagination li{list-style:none;}
+#pagination li a,#pagination li span{display:inline-block;min-width:2.5rem;padding:0 .6rem;height:2.5rem;line-height:2.5rem;text-align:center;font-weight:500;text-decoration:none;color:#3f3021;background:#faf4e1;border:1px solid #ddd;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.05),0 2px 4px rgba(0,0,0,0.08);border-radius:.15rem;transition:background .2s,color .2s;overflow:hidden;white-space:nowrap;}
+#pagination li a:hover{background:#f5e8d6;color:var(--mocha);}#pagination li.active span{background:var(--mocha);color:#faf4e1;border-color:var(--mocha);box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1),0 2px 4px rgba(0,0,0,0.12);}#pagination li .page-link{font-size:1rem;}#pagination li.disabled span{opacity:.5;cursor:default;}
+
+/* 카드 이미지 크롭 */
+.col4 .card{display:flex;flex-direction:column;} .col4 .card-img-top{width:100%;height:200px;object-fit:cover;object-position:center;} .col4 .card-body{flex:1;padding:.75rem;display:flex;align-items:center;justify-content:center;text-align:center;} .col4 .card-title{font-size:1rem;font-weight:500;margin:0;}
+
+/* 카테고리 버튼 */
+.category-btn-group{display:flex;gap:1rem;justify-content:center;margin:1.5rem 0;} .category-btn-group .btn-check{position:absolute;clip:rect(0,0,0,0);pointer-events:none;} .category-btn-group label{position:relative;padding:.75rem 1.5rem;font-size:1rem;font-weight:700;color:var(--dark);background:#faf4e1;border:2px solid var(--mocha);border-radius:.5rem;cursor:pointer;transition:background .3s,color .3s,transform .2s;white-space:nowrap;} .category-btn-group label.btn-outline-primary:hover{background:var(--mocha)!important;border-color:var(--mocha)!important;color:#faf4e1!important;transform:translateY(-2px);} .category-btn-group .btn-check:checked+label{background:var(--dark);color:#faf4e1;border-color:var(--dark);box-shadow:0 4px 12px rgba(0,0,0,0.15);} .category-btn-group .btn-check:focus+label{outline:none;box-shadow:0 0 0 3px rgba(164,119,100,0.4);}
+
+/* Preview 모달 */
+#previewModal .modal-dialog{max-width:1000px;margin:0 auto;}#previewModal .modal-content{background:#f9f1e9;border:1px solid #c9b8a0;box-shadow:0 4px 6px rgba(0,0,0,0.15);border-radius:0;font-family:'GowunBatang-Regular',serif;color:#3f3021;overflow:visible;}#previewModal .modal-header{border-bottom:1px dashed #c9b8a0;background:none;padding:.8rem 1rem;}#previewModal .modal-title{margin:0;font-size:1.3rem;font-weight:normal;letter-spacing:.03em;}#previewModal .modal-body{padding:1rem 1.2rem;background:none;line-height:1.5;}#previewModal .modal-body img{display:block;width:100%;margin:0 auto .8rem;border:1px solid #e4d8c3;}#previewModal .modal-footer{border-top:1px dashed #c9b8a0;background:none;justify-content:flex-end;padding:.6rem 1rem;}#previewModal .btn-secondary{background:none;border:1px solid #3f3021;color:#3f3021;padding:.4rem 1rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;border-radius:0;}#previewModal .btn-secondary:hover{background:rgba(0,0,0,0.03);}
+
+/* 공통 버튼 */
+.btn.btn-mocha{background-color:var(--mocha)!important;border-color:var(--mocha)!important;color:#fff!important;transition:background-color .2s ease,border-color .2s ease;} .btn.btn-mocha:hover{background-color:var(--dark)!important;border-color:var(--dark)!important;}
+.form-control.form-content{min-height:200px!important;resize:vertical!important;} 
+.save{display:block;width:fit-content;margin:2rem auto;} 
+#methodDetailModal .modal-body p,#previewModal .modal-body p{white-space:pre-line!important;}  
+@media screen and (min-width:768px){.flex-center{display:flex;justify-content:center;}.flex-vcenter{display:flex;align-items:center;}.page{width:90vw;}.col2{width:49%!important;}.col4{width:32%!important;}}@media screen and (min-width:1024px){.page{width:60vw;}.col4{width:24%!important;}}
+
+
