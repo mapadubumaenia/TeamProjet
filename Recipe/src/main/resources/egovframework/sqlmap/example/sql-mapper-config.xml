@@ -20,6 +20,7 @@
 		<typeAlias alias="DrinkVO" type="egovframework.example.drink.service.DrinkVO"/>
 		<typeAlias alias="MemberVO" type="egovframework.example.auth.service.MemberVO"/>
 		<typeAlias alias="MethodVO" type="egovframework.example.method.service.MethodVO"/>
+		<typeAlias alias="CommunityVO" type="egovframework.example.community.service.CommunityVO" />
 		
 		<typeAlias alias="Criteria"  type="egovframework.example.common.Criteria" />
     </typeAliases>

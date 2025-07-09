@@ -44,4 +44,8 @@ public class Criteria {
 	private String insertTime;
 
 	private String updateTime;
+	
+	public void setSearchKeyword(String searchKeyword) {
+	    this.searchKeyword = (searchKeyword == null) ? "" : searchKeyword;
+	}
 }
