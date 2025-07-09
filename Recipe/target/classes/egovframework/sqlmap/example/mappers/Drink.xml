@@ -3,6 +3,21 @@
 <mapper namespace="egovframework.example.drink.service.impl.DrinkMapper">
 
 
+<!-- 1) resultMap 정의 -->
+  <resultMap id="DrinkResultMap" type="egovframework.example.drink.service.DrinkVO">
+    <id     property="uuid"             column="UUID"/>
+    <result property="userId"           column="USER_ID"/>
+    <result property="columnTitle"      column="COLUMN_TITLE"/>
+    <result property="columnCreatedAt"  column="COLUMN_CREATED_AT"/>
+    <result property="columnUrl"        column="COLUMN_URL"/>
+    <result property="columnContent"    column="COLUMN_CONTENT"/>
+    <result property="columnData"       column="COLUMN_DATA"/>
+    <result property="columnIngredient" column="COLUMN_INGREDIENT"/>
+    <result property="category"         column="CATEGORY"/>
+    <result property="userNickname"     column="USER_NICKNAME"/>
+  </resultMap>
+
+
   <select id="selectDrinkList"
           parameterType="Criteria"
           resultType="DrinkVO">
@@ -44,14 +59,26 @@
 
 
 
-<!--상세조회  -->
-<select id="selectDrink"
-            parameterType="String"
-            resultType="DrinkVO" >
-
-	SELECT * FROM FOOD_COLUMNS
-	WHERE UUID=#{uuid}
-    </select>
+ <!-- 2) 상세조회 쿼리: JOIN 추가, resultMap 사용 -->
+  <select id="selectDrink"
+          parameterType="String"
+          resultMap="DrinkResultMap">
+    SELECT
+      f.UUID,
+      f.USER_ID,
+      f.COLUMN_TITLE,
+      f.COLUMN_CREATED_AT,
+      f.COLUMN_URL,
+      f.COLUMN_CONTENT,
+      f.COLUMN_DATA,
+      f.COLUMN_INGREDIENT,
+      f.CATEGORY,
+      u.NICKNAME AS USER_NICKNAME
+    FROM FOOD_COLUMNS f
+    LEFT JOIN USERS u
+      ON f.USER_ID = u.USER_ID
+    WHERE f.UUID = #{uuid}
+  </select>
 
 
    <delete id="delete"

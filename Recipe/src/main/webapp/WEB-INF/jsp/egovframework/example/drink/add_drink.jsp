@@ -24,6 +24,7 @@
          method="post"
          enctype="multipart/form-data"
          >
+        <input type="hidden" name="csrf" value="${sessionScope.CSRF_TOKEN}">
         
         <div class="mb3">
             <label for="columnTitle" class="form-label">제목</label>
@@ -118,6 +119,9 @@
 	}
 </script>
 
+
+
+
 <!-- 미리보기 모달 (팝업) -->
 <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -154,8 +158,10 @@
     });
   });
 
-  
 </script>
+
+
+
 
 
 

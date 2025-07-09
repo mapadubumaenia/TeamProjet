@@ -17,3 +17,8 @@
     <small class="text-muted">등록일: ${drink.columnCreatedAt}</small>
   </div>
 </div>
+<hr/>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <small class="text-muted">작성자: ${drink.userNickname}</small>
+</div>

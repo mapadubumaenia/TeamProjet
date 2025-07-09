@@ -31,7 +31,7 @@ public class DrinkVO extends Criteria{
 	private String columnUrl;             //이미지 다운로드를 위한 URL
 	 private String category;            // 카테고리
 	 private String columnIngredient;            // 재료 
-	
+	 private String userNickname;                //별명
 	
 	
 
