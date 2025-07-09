@@ -3,17 +3,20 @@
 <mapper namespace="egovframework.example.drink.service.impl.DrinkMapper">
 
 
- <select id="selectDrinkList"
-            parameterType="Criteria"
-            resultType="DrinkVO"
-            
-    >
-    SELECT * FROM FOOD_COLUMNS
-    WHERE COLUMN_TITLE LIKE'%' ||#{searchKeyword}|| '%'
+  <select id="selectDrinkList"
+          parameterType="Criteria"
+          resultType="DrinkVO">
+    SELECT *
+      FROM FOOD_COLUMNS
+     WHERE COLUMN_TITLE LIKE '%' || #{searchKeyword} || '%'
+       <if test="category != null and category != ''">
+           <!-- 카테고리 필터 -->
+         AND CATEGORY = #{category}
+       </if>
+    ORDER BY COLUMN_CREATED_AT DESC
     OFFSET #{firstIndex} ROWS
     FETCH NEXT #{pageUnit} ROWS ONLY
-    
-    </select>
+  </select>
 
 
 
@@ -23,16 +26,22 @@
              >
 	SELECT COUNT (*) FROM FOOD_COLUMNS
 	WHERE COLUMN_TITLE LIKE '%' ||#{searchKeyword}|| '%'
+	<if test="category != null and category != ''">
+         AND CATEGORY = #{category}
+       </if>
      </select>
 
 
-<insert id="insert"
-            parameterType="DrinkVO">
-   INSERT INTO FOOD_COLUMNS(UUID,USER_ID,COLUMN_TITLE,COLUMN_CREATED_AT,COLUMN_URL,COLUMN_CONTENT)
-	VALUES(#{uuid},#{userId},#{columnTitle},TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'),#{columnUrl},
-    #{columnContent})
-   
-   </insert>
+
+<insert id="insert" parameterType="DrinkVO">
+  INSERT INTO FOOD_COLUMNS
+    (UUID, USER_ID, COLUMN_TITLE, COLUMN_CREATED_AT,
+     COLUMN_URL, COLUMN_CONTENT, COLUMN_DATA,COLUMN_INGREDIENT, CATEGORY)
+  VALUES
+    (#{uuid}, #{userId}, #{columnTitle}, SYSDATE,
+     #{columnUrl}, #{columnContent}, #{columnData},#{columnIngredient}, #{category})
+</insert>
+
 
 
 <!--상세조회  -->
