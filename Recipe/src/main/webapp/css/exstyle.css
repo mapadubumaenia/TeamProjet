@@ -1,7 +1,5 @@
-
 /* 머리말 */
 .custom-header {
-	top: 0;
 	z-index: 10000;
 	padding: 1.5rem 1rem;
 	text-align: center;
@@ -26,8 +24,8 @@
 	position: absolute;
 	top: 2rem;
 	right: 3rem;
+	display: flex;
 	gap: 10px;
-    display: flex;
 }
 
 .link {
@@ -38,37 +36,6 @@
 .link:hover {
 	color: #000000;
 	color: var(--mocha);
-}
-
-.search-bar {
-	margin-left: 1rem;
-}
-
-.search-bar input[type="text"] {
-	padding: 10px 10px;
-	border: 1px solid #ccc;
-	outline: none;
-	width: 55rem;
-	transition: width 0.3s ease;
-}
-
-.search-bar input[type="text"]:focus {
-	width: 65rem;
-	border-color: var(--mocha);
-}
-
-.search-bar button {
-	padding: 6px 14px;
-	border: 1px solid var(--mocha);
-	background-color: var(--mocha);
-	color: white;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-
-.search-bar button:hover {
-	background-color: var(--dark);
 }
 
 .menu-toggle {
@@ -82,9 +49,10 @@
 
 .main-nav .menu {
 	display: flex;
+	flex-wrap: nowrap;
 	justify-content: center;
 	flex-wrap: wrap;
-	gap: 8rem;
+	gap: 5rem;
 	font-size: 28px;
 }
 
@@ -225,15 +193,5 @@
 	.dropdown-item {
 		box-shadow: none;
 	}
-	.search-bar input[type="text"] {
-		padding: 6px 10px;
-		border: 1px solid #ccc;
-		outline: none;
-		width: 16rem;
-		transition: width 0.3s ease;
-	}
-	.search-bar input[type="text"]:focus {
-		width: 20rem;
-		border-color: var(--mocha);
-	}
+	
 }

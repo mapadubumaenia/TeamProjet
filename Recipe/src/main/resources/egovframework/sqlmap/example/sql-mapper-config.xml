@@ -18,15 +18,9 @@
 		<typeAlias alias="searchVO" type="egovframework.example.sample.service.SampleDefaultVO"/>
 		<typeAlias alias="sampleVO" type="egovframework.example.sample.service.SampleVO"/>
 		<typeAlias alias="DrinkVO" type="egovframework.example.drink.service.DrinkVO"/>
-
-		<typeAlias alias="MemberVO" type="egovframework.example.auth.service.MemberVO"/>
-		<typeAlias alias="MethodVO" type="egovframework.example.method.service.MethodVO"/>
-
-		<typeAlias alias="CommunityVO" type="egovframework.example.community.service.CommunityVO" />
+		<typeAlias alias="MediaVO" type="egovframework.example.media.service.MediaVO"/>
 		
-        
-		<typeAlias alias="Criteria"  type="egovframework.example.common.Criteria" />
-		<typeAlias alias="CountryVO"  type="egovframework.example.country.service.CountryVO" />
-		<typeAlias alias="LikeVO"  type="egovframework.example.like.service.LikeVO" />
+		
+		<typeAlias type="egovframework.example.common.Criteria" alias="Criteria"/>
     </typeAliases>
 </configuration>

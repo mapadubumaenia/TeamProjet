@@ -1,10 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="egovframework.example.media.service.impl.MediaMapper">
-<select id="MediaList" parameterType="Criteria" resultType="egovframework.example.media.service.MediaVO">
-		SELECT * FROM MEDIA_RECIPES
-		OFFSET #{firstIndex} ROWS
-		FETCH NEXT #{pageUnit} ROWS ONLY
+<select id="allMedia" parameterType="Criteria" resultType="MediaVO">
+SELECT * FROM MEDIA_RECIPES 
+WHERE UUID LIKE '%' || #{searchKeyword} ||'%' 
+ORDER BY RECIPE_CREATED_AT DESC
+OFFSET #{firstIndex} ROWS FETCH NEXT #{pageUnit} ROWS ONLY
 </select>
+  
+<select id="allMediaTotCnt" parameterType="Criteria" resultType="int">
+SELECT COUNT(*) FROM MEDIA_RECIPES 
+WHERE UUID LIKE '%' || #{searchKeyword} ||'%'
+</select>
+
+<select id="MediaList" parameterType="Criteria" resultType="MediaVO">
+SELECT * FROM MEDIA_RECIPES WHERE MEDIA_CATEGORY = #{mediaCategory} AND 
+UUID LIKE '%' || #{searchKeyword} ||'%' 
+OFFSET #{firstIndex} ROWS FETCH NEXT #{pageUnit} ROWS ONLY
+</select>
+
+<!--  id="메소드명",parameterType="매개변수자료형",resultType="return자료형"   -->
+<select id="MediaListTotCnt" parameterType="Criteria" 
+resultType="int"> 
+SELECT COUNT(*) FROM MEDIA_RECIPES 
+WHERE MEDIA_CATEGORY = #{mediaCategory} AND UUID LIKE '%' || 
+#{searchKeyword} ||'%' </select>
+
+<insert id="insert" parameterType="MediaVO">
+	INSERT INTO MEDIA_RECIPES(UUID, TITLE, INGREDIENT, CONTENT, RECIPE_IMAGE,
+				RECIPE_IMAGE_URL, MEDIA_CATEGORY,USER_ID, RECIPE_CREATED_AT)
+	VALUES (#{uuid}, #{title}, #{ingredient}, #{content}, 
+			#{recipeImage},#{recipeImageUrl}, #{mediaCategory},#{userId},SYSDATE)
+</insert>
+
+<select id="selectMedia" parameterType="string" resultType="MediaVO"> 
+SELECT * FROM MEDIA_RECIPES WHERE UUID=#{uuid} </select>
+
+<update id="update" parameterType="MediaVO"> 
+UPDATE MEDIA_RECIPES SET TITLE=#{title},INGREDIENT=#{ingredient}, CONTENT=#{content},
+RECIPE_IMAGE=#{recipeImage},RECIPE_IMAGE_URL=#{recipeImageUrl}, MEDIA_CATEGORY=#{mediaCategory}, RECIPE_CREATED_AT=SYSDATE WHERE UUID=#{uuid} </update>
+
+<delete id="delete" parameterType="MediaVO"> 
+DELETE MEDIA_RECIPES WHERE UUID=#{uuid} </delete>
 
 </mapper>

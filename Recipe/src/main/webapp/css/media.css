@@ -1,0 +1,223 @@
+/* open css */
+.row-cols-md-3 {
+	margin: 30px auto;
+	padding: 0 30px;
+	max-width: 1200px;
+}
+
+.card {
+	border: none;
+	overflow: hidden;
+	border-radius: 15px;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+	transform: translateY(-5PX);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card-img {
+	display: block;
+	margin: 8px auto;
+	width: 30px;
+}
+
+.images {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.card-img-top {
+	height: 220px;
+	object-fit: cover;
+}
+
+.card-title {
+	font-size: 1.1rem;
+	font-weight: 600;
+	text-align: center;
+	margin-top: 15px;
+}
+
+.card-body {
+	padding: 15px 10px;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	max-width: 1200px;
+	margin-bottom: 40px;
+	justify-content: center;
+}
+
+.wide {
+	height: 250px;
+	object-fit: cover;
+	margin-left: 8px;
+}
+
+.card-body {
+	height: 90px;
+}
+
+/* 페이지네이션 커스터마이징 */
+.pagination {
+	gap: 5px;
+}
+
+.pagination li a {
+	color: var(--dark);
+	border-radius: 10px !important;
+	padding: 8px 12px;
+	font-size: 0.9rem;
+	transition: background-color 0.2s;
+}
+
+.pagination li.active a {
+	background-color: var(--dark) !important;
+	color: white !important;
+	border: none;
+}
+
+.like {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	color: #e60039;
+	padding: 4px;
+	font-size: 1rem;
+	font-weight: bold;
+	z-index: 1;
+}
+
+.container {
+	max-width: 700px;
+	margin: 40px auto;
+	padding: 20px 30px;
+	border-radius: 12px;
+}
+
+.container h2 {
+	text-align: center;
+	font-weight: 700;
+	margin-bottom: 20px;
+	color: #222;
+}
+
+.container p {
+	font-size: 0.95rem;
+	margin: 4px 0;
+	padding-bottom: 10px;
+	text-align: center;
+	color: #666;
+}
+
+.container img {
+	display: block;
+	margin: 25px auto 30px auto;
+	max-width: 100%;
+	border-radius: 10px;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.container pre {
+	background-color: #fafafa;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 18px 20px;
+	margin: 5px;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: #444;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	margin-bottom: 30px;
+}
+
+.container .btn {
+	display: block;
+	width: 180px;
+	margin: 0 auto;
+	padding: 10px 0;
+	font-weight: 600;
+	border-radius: 30px;
+	transition: all 0.3s ease;
+}
+
+.container .btn:hover {
+	background-color: #333;
+	color: #fff;
+	border-color: #333;
+}
+
+.input-group {
+	margin: 10px;
+}
+
+/* 업로드 폼 전체 영역 */
+.upload {
+	max-width: 1200px;
+	margin: 50px auto;
+	padding: 30px;
+
+}
+
+/* 각 form 요소 간 여백 */
+.upload {
+	margin-bottom: 20px;
+}
+
+.upload .form-label {
+	font-weight: bold;
+	display: block;
+}
+
+.upload .form-control, .upload .form-select .upload textarea .form-control{
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	margin: 0 auto;
+}
+
+.upload textarea .form-control {
+	height: 250px;
+	resize: vertical;
+}
+
+/* 업로드 버튼 중앙 정렬 */
+.upload button {
+	padding: 10px 20px;
+	display: block;
+	font-size: 1.1rem;
+	margin: 20px auto 0 auto;
+}
+.upload input[type="file"] {
+  width: 100%;     
+  box-sizing: border-box;
+  display: block;
+}
+
+/* 업로드 바로가기 버튼 */
+.uploadbtn {
+	position: relative;
+	text-align: right;
+	margin: 20px;
+	top: 10px;
+  	right: 10px;
+  	z-index: 10;
+}
+
+.uploadbtn button {
+  width: 60px;
+  height: 60px;
+  background-color: var(--dark);
+  border-radius: 10%;
+  color: white;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}

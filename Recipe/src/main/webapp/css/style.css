@@ -81,31 +81,16 @@ a {text-decoration: none; color: var(--black);}
 .pl5 {padding-left:1.5rem !important;}
 
 /* 글자 중앙정렬 */
-.tcenter{text-align:center !important;}
+.tcenter {text-align: center !important;}
 /* 박스 중앙정렬 */
-.flex-center{display:block;}
-.flex-vcenter{display:block;}
+.flex-center {display:flex !important; justify-content: center !important;}
 /* float 해제 */
-.clear {clear:both;}
+.clear {clear: both;}
 
-.flex-center {clear:both;}
-
-.page {width:99vw; margin: 0 auto;}
-/* 박스 3개 배치: 핸드폰(1개) */
-.col2,.col3 {width: 99% !important; padding:1% !important; float:left !important;}
-/* TODO: 태블릿 */
+/* 반응형 */
 @media screen and (min-width: 768px){
-   /* 박스 중앙정렬 */
-   .flex-center{display:flex; justify-content: center;}
-   .flex-vcenter{display:flex; align-items: center;}
     .page {width: 90vw;}
-    /* 박스 2개 배치 */
-    .col2 {width:49% !important;}
-    /* 박스 3개 배치 */
-    .col3 {width:32% !important;}
 }
-/* TODO: pc */
 @media screen and (min-width: 1024px){
-    .page {width: 60vw; }
+    .page {width: 60vw;}
 }
-

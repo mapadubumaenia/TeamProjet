@@ -18,12 +18,12 @@
 <!-- 	개발자 css -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/exstyle.css">
-<link rel="stylesheet" href="/css/all.css">
+<link rel="stylesheet" href="/css/media.css">
 </head>
 <body>
 	<!-- 머리말 -->
 	<jsp:include page="/common/header.jsp" />
-
+	
 	<form id="listForm" method="get">
 		<input type="hidden" name="pageIndex" id="pageIndex" value="1" />
 	</form>
@@ -33,30 +33,27 @@
    <a href="<c:out value='/media/addition.do'/>">
    <button type="button"> 업로드 </button></a></div>
    
-	<div class="magazine my-4">
-		<div class="magazine-list">
-			<c:forEach var="data" items="${all}">
-				<div class="col-md-6 col-lg-4">
-					<a href="<c:out value='/media/open.do?uuid=${data.uuid}'/>"
-						class="text-decoration-none text-dark">
-						<div class="magazine-card">
-							<img
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+		<c:forEach var="data" items="${ask}">
+			<div class="col">
+				<a href="<c:out value='/media/open3.do?uuid=${data.uuid}'/>"
+					class="text-decoration-none text-dark">
+					<div class="card h-100">
+					<span class="like">
+					❤️ <c:out value="${data.likeCount}" />
+					</span>
+						<img
 								src="${data.recipeImageUrl != null ? data.recipeImageUrl : '/images/default.jpg'}"
 								class="magazine-img" alt="이미지">
-							<div class="magazine-content">
-								<h3 class="magazine-title">
-									<c:out value="${data.title}" />
-								</h3>
-								<div class="likeCount">
-									❤️
-									<c:out value="${data.likeCount}" />
-								</div>
-							</div>
+						<div class="card-body">
+							<h5 class="card-title">
+								<c:out value="${data.title}" />
+							</h5>
 						</div>
-					</a>
-				</div>
-			</c:forEach>
-		</div>
+					</div>
+				</a>
+			</div>
+		</c:forEach>
 	</div>
 
 	<!-- 여기: 페이지번호 -->
@@ -84,13 +81,13 @@
 		function fn_egov_link_page(page) {
 			/* 현재페이지번호 저장 */
 			$("#pageIndex").val(page);
-			$("#listForm").attr("action", '<c:out value="/media/media.do" />')
+			$("#listForm").attr("action", '<c:out value="/media/game.do" />')
 					.submit();
 		}
 		/* 전체조회 */
 		function fn_egov_selectList() {
 			$("#pageIndex").val(1); // 최초 화면에서는 페이지번호를 1페이지로 지정
-			$("#listForm").attr("action", '<c:out value="/media/media.do" />')
+			$("#listForm").attr("action", '<c:out value="/media/game.do" />')
 					.submit();
 		}
 	</script>
@@ -98,8 +95,8 @@
 	<script type="text/javascript">
 		/* 페이징 처리 */
 		$('#pagination').twbsPagination({
-			totalPages: ${paginationInfo.totalPageCount != null ? paginationInfo.totalPageCount : 1},
-			startPage: ${paginationInfo.currentPageNo != null ? paginationInfo.currentPageNo : 1},
+			totalPages : "${paginationInfo.totalPageCount}",
+			startPage : parseInt("${paginationInfo.currentPageNo}"),
 			visiblePages : 5,
 			first : null,
 			last : null,

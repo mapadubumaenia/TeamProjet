@@ -17,41 +17,42 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Criteria {
-	/** 검색조건 종류 (ex: 제목, 작성자) */
+	/** 검색조건 */
 	private String searchCondition = "";
 
-	/** 검색 키워드 */
+	/** 검색Keyword */
 	private String searchKeyword = "";
 
-	/** 검색 사용 여부 (현재 사용 안 함) */
+	/** 검색사용여부 */
 	private String searchUseYn = "";
-	
-	private String category;    // ← 추가(카테고리용)
 
-	
 	/** 현재페이지 */
 	private int pageIndex = 1;
 
-	/** 페이지갯수: 화면에 보일 행 개수 */
-	private int pageUnit = 12;
+	/** 페이지개수: 화면에 보일 행 개수 */
+	private int pageUnit = 6;
 	
-	/** 페이지갯수: 화면에 보일 행 개수 */
+	/** 페이지개수: 화면에 보일 행 개수 */
 	private int pageUnit10 = 10;
 
-	/** OFFSET 계산용 시작 인덱스 */
+	/** firstIndex 등차숫자 자동 계산*/
 	private int firstIndex = 1;
 
-	/** 등록 시간 (필요시) */
 	private String insertTime;
 
-	/** 수정 시간 (필요시) */
 	private String updateTime;
 
-	/** 정렬 옵션: recent, likes, reviewed */
-	private String sortOption = "recent";
+	private int mediaCategory;
 	
-	// filter3 처리용
-	/** 나라별 필터링 */
-	private Integer filterCountryCategoryId;  
-
+	public int getMediaCategory() {
+		return mediaCategory;
+	}
+	
+	public void setMediaCategory(int mediaCategory) {
+		this.mediaCategory=mediaCategory;
+	}
+	
+	
+	
+	
 }
