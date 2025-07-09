@@ -12,6 +12,16 @@
 
 
 
+<!-- path="메뉴url" : 해당메뉴는 인터셉터가 로그인 유무를 체크합니다. -->
+    <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/drink/**" />
+         <mvc:mapping path="/method/**" />
+         <bean class="egovframework.example.cmmn.interceptor.AuthenticInterceptor" />
+      </mvc:interceptor>
+   </mvc:interceptors>
+
+
 
 
     <context:component-scan base-package="egovframework">

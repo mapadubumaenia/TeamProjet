@@ -25,6 +25,7 @@
           enctype="multipart/form-data"
           action="${pageContext.request.contextPath}/method/add.do?methodType=${param.methodType}">
       
+      <input type="hidden" name="csrf" value="${sessionScope.CSRF_TOKEN}">
       <div class="mb-3">
         <label for="methodTitle" class="form-label">제목</label>
         <input type="text" class="form-control" id="methodTitle" name="methodTitle" required/>
