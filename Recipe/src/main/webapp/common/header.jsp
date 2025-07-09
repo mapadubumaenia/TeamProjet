@@ -3,14 +3,30 @@
 
 <div class="custom-header">
   <div class="brand">
-    <a class="navbar-brand" href="#">RecipeCode</a>
+    <a class="navbar-brand" href="/home.do">RecipeCode</a>
   </div>
   
 <!-- 나중에 세션에따라 안 보이게 바꾸는 코딩 필요 -->  
   <div class="buttons">
-  	<a class="link" href="<c:url value='/dept/dept.do'/>">로그인</a>
-  	<a class="link" href="<c:url value='/dept/dept.do'/>">회원가입</a>
+        <!-- memberVO 가 세션에 없으면 메뉴을 보이고, 있으면 안보임 -->
+        <c:if test="${sessionScope.memberVO == null}">
+  	         <a class="link" href="<c:url value='/login.do'/>">로그인</a>
+  	         <a class="link" href="<c:url value='/register.do'/>">회원가입</a>
+        </c:if>
+        
+          <!-- {/* 로그인 끝 */} -->
+          
+          
+          <!-- {/* 로그아웃 시작 */} -->
+        <c:if test="${sessionScope.memberVO != null}">
+          	 <p class="nickname">${sessionScope.memberVO.nickname}님</p>
+  	         <a class="link" href="<c:url value='/logout.do'/>">로그아웃</a>
+  	         <a class="link" href="<c:url value='/home.do'/>">마이페이지</a>
+        </c:if>
+
   </div>
+           <!-- {/* 로그아웃 끝 */} -->
+
   
   <div class="menu-toggle">
   <img alt="메뉴" src="/images/02.png" width="20">
@@ -23,7 +39,7 @@
              recipes
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">나라별</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/country/country.do'/>">나라별</a></li>
             <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">재료별</a></li>
             <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">상황별</a></li>
           </ul>
@@ -40,27 +56,33 @@
           </ul>
       </li>
 
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button">
-            crumb
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">드링크</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">손질법</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">보관법</a></li>
-          </ul>
-        </li>
-      
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button">
-            cooklog
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">자유게시판</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">질문게시판</a></li>
-          </ul>
-        </li>
-    </ul>
+    	<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" role="button"> crumb </a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item"
+						href="<c:url value='/drink/drink.do'/>"> 드링크 </a></li>
+					<li><a class="dropdown-item"
+						href="<c:url value='/method/method.do'>
+               <c:param name='methodType' value='storage'/>
+             </c:url>">
+							손질법 </a></li>
+					<li><a class="dropdown-item"
+						href="<c:url value='/method/method.do'>
+               <c:param name='methodType' value='trim'/>
+             </c:url>">
+							보관법 </a></li>
+				</ul></li>
+
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" role="button"> cooklog
+			</a>
+				<ul class="dropdown-menu">
+		  <li><a class="dropdown-item" 
+href="<c:url value='/community/community.do'/>">자유게시판</a></li>
+					<li><a class="dropdown-item"
+						href="<c:url value='/dept/dept.do'/>">질문게시판</a></li>
+				</ul></li>
+		</ul>
   </nav>
   <div class="search-bar pt3">
   <form action="/search" method="get">
