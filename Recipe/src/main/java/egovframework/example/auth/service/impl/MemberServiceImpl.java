@@ -14,11 +14,10 @@ public class MemberServiceImpl extends EgovAbstractServiceImpl implements Member
 	MemberMapper memberMapper;
 
 	@Override
-
-
-	public MemberVO authenticateMember(MemberVO loginVO) throws Exception {
+    public MemberVO authenticateMember(MemberVO loginVO) throws Exception {
 		// TODO Auto-generated method stub
 		MemberVO memberVO = memberMapper.authenticateMember(loginVO);
+
 		
 		if(memberVO==null) throw processException("errors.login");
 		if(memberVO!=null) {
@@ -62,6 +61,5 @@ public class MemberServiceImpl extends EgovAbstractServiceImpl implements Member
         memberMapper.updatePassword(memberVO);
 
 	}
-
 	
 }

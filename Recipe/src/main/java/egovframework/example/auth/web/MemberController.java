@@ -26,12 +26,13 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+
 	//	로그인 화면
 	@GetMapping("/login.do")
 	public String loginView() {
 		return "auth/login";
 	}
-	
+
 	// 로그인 처리
 	@PostMapping("/loginProcess.do")
 	public String login(HttpSession session,
@@ -111,5 +112,4 @@ public class MemberController {
 	    return "redirect:/login.do";
 	}
 	
-
 }

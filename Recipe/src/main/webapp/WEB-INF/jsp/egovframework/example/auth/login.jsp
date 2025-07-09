@@ -24,12 +24,13 @@
        <a class="login_home" href="<c:url value='home.do'/>">RecipeCode</a>
     </div>
 
+
       <div class="error_box">
       <c:if test="${not empty msg}">
 		<br><p class="regi">${msg}</p>
      </c:if>
     </div>
-Stashed changes
+
     <div class= "inputbox">
     <div class= "input_center">
       <form id="addForm" name="addForm"action="/loginProcess.do" method="post">

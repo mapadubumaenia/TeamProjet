@@ -7,4 +7,5 @@ public interface MemberService {
 	MemberVO findPassword(MemberVO memberVO) throws Exception;
 	void updatePassword(MemberVO memberVO) throws Exception;
 
+
 }
