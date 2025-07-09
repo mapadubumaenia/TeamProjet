@@ -22,6 +22,7 @@
 		<typeAlias alias="MethodVO" type="egovframework.example.method.service.MethodVO"/>
 		<typeAlias alias="CommunityVO" type="egovframework.example.community.service.CommunityVO" />
 		
+        
 		<typeAlias alias="Criteria"  type="egovframework.example.common.Criteria" />
     </typeAliases>
 </configuration>
