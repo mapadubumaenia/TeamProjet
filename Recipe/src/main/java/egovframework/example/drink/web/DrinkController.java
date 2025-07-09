@@ -1,5 +1,7 @@
 package egovframework.example.drink.web;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -32,6 +34,7 @@ public class DrinkController {
 	
 	@GetMapping("/drink/drink.do")
 	public String selectDrinkList( @ModelAttribute Criteria criteria,
+			@RequestParam(name="category", required=false, defaultValue="") String category,
 	          Model model) {
 		
 		
@@ -42,6 +45,12 @@ public class DrinkController {
 		paginationInfo.setRecordCountPerPage(criteria.getPageUnit());
 		//등차를 자동 계산 결과: paginationInfo.getFirstRecordIndex 여기에있음
 		criteria.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		
+		  // 카테고리 세팅
+		 if (!category.isEmpty()) {
+		        criteria.setCategory(category);
+		    }
+		    model.addAttribute("selectedCategory", category);
 		
 		//전체조회 서비스 메소드 실행
 		List<?> drinks= drinkService.selectDrinkList(criteria);
@@ -55,13 +64,16 @@ public class DrinkController {
 				log.info("테스트2 :"+totCnt);
 				model.addAttribute("paginationInfo",paginationInfo);
 		
+				
+				
+				
 		return "drink/drink_all";
 }
 	
 	
 	    //추가페이지 열기
 	@GetMapping("/drink/addition.do")
-	   public String createFileDbView(Model model) {
+	   public String createDrinkView(Model model) {
 		model.addAttribute("drinkVO",new DrinkVO());
 		return "drink/add_drink";
 	}
@@ -74,8 +86,10 @@ public class DrinkController {
 	   @PostMapping("/drink/add.do")
 	  public String insert(@RequestParam(defaultValue = "") String columnTitle,
 			  @RequestParam(defaultValue = "") String columnContent,
+			  @RequestParam(defaultValue="") String category, 
+			  @RequestParam(defaultValue="") String columnIngredient, 
 			  @RequestParam(required = false) MultipartFile image) throws Exception {
-		   DrinkVO drinkVO=new DrinkVO(columnTitle,columnContent,image.getBytes());
+		   DrinkVO drinkVO=new DrinkVO(columnTitle,columnContent,category,columnIngredient,image.getBytes());
 		
 		   drinkService.insert(drinkVO);
 		return  "redirect:/drink/drink.do";
@@ -122,7 +136,42 @@ public class DrinkController {
 	
 	
 	
-	
+
+    // + AJAX 모달용 상세 프래그먼트 반환 메서드 추가
+    @GetMapping("/drink/detailFragment.do")
+    public String detailFragment(@RequestParam String uuid, Model model) {
+        DrinkVO vo = drinkService.selectDrink(uuid);
+        model.addAttribute("drink", vo);
+        return "drink/detailFragment";  
+        // -> /WEB-INF/views/drink/detailFragment.jsp 를 렌더링
+    }
+
+   
+    // 미리보기 모달 컨트롤러
+    @PostMapping("/drink/preview.do")
+    public String preview(
+            @RequestParam(defaultValue = "") String columnTitle,
+            @RequestParam(defaultValue = "") String columnContent,
+            @RequestParam(defaultValue = "") String category,
+            @RequestParam(defaultValue = "") String columnIngredient,
+            @RequestParam(required = false) MultipartFile image,
+            Model model) throws IOException {
+        DrinkVO previewVO = new DrinkVO();
+        previewVO.setColumnTitle(columnTitle);
+        previewVO.setColumnContent(columnContent);
+        previewVO.setCategory(category);
+        previewVO.setColumnIngredient(columnIngredient);
+        if (image != null && !image.isEmpty()) {
+            byte[] bytes = image.getBytes();
+            previewVO.setColumnData(bytes);
+            String base64 = Base64.getEncoder().encodeToString(bytes);
+            String mime = image.getContentType();
+            // data URL 형태로
+            previewVO.setColumnUrl("data:" + mime + ";base64," + base64);
+        }
+        model.addAttribute("preview", previewVO);
+        return "drink/previewFragment";
+    }
 	
 	
 	

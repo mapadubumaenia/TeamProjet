@@ -12,7 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import egovframework.example.common.Criteria;
 import egovframework.example.drink.service.DrinkService;
+
 import egovframework.example.drink.service.DrinkVO;
+
 import lombok.extern.log4j.Log4j2;
 
 

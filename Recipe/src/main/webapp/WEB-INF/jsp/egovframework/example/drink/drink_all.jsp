@@ -9,6 +9,8 @@
    <!--    개발자 css -->
    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/exstyle.css">
+    <link rel="stylesheet" href="/css/Drinkstyle.css">
+  
 
 
 </head>
@@ -25,40 +27,62 @@
        <!--컨트롤러로 보낼 페이지 번호  -->
        <input type="hidden" id="pageIndex" name="pageIndex">
 
-      <!-- <div class="input-group mb3 mt3">
-         <input type="text" class="form-control" id="searchKeyword" 
-               name="searchKeyword"
-            placeholder="검색어입력">
-         <button class="btn btn-primary" 
-                 type="button" onclick="fn_egov_selectList()"
-         >
-           검색
-         </button> 
-      </div> -->
+
+        <!-- ★여기에 바로 카테고리 그룹을 넣습니다-->
+  <div class="category-btn-group" role="group" aria-label="카테고리 선택">
+    <input type="radio" class="btn-check" name="category" id="btnAll" value=""
+           autocomplete="off" ${selectedCategory==''?'checked':''}>
+    <label class="btn btn-outline-primary" for="btnAll">전체보기</label>
+
+    <input type="radio" class="btn-check" name="category" id="btnCocktail" value="cocktail"
+           autocomplete="off" ${selectedCategory=='cocktail'?'checked':''}>
+    <label class="btn btn-outline-primary" for="btnCocktail">칵테일</label>
+
+    <input type="radio" class="btn-check" name="category" id="btnSmoothie" value="smoothie"
+           autocomplete="off" ${selectedCategory=='smoothie'?'checked':''}>
+    <label class="btn btn-outline-primary" for="btnSmoothie">스무디&쥬스</label>
+
+    <input type="radio" class="btn-check" name="category" id="btnCoffee" value="coffee"
+           autocomplete="off" ${selectedCategory=='coffee'?'checked':''}>
+    <label class="btn btn-outline-primary" for="btnCoffee">커피&티</label>
+  </div>
+
+      <div class="drink-upload">
+      <button type="button"
+        class="btn btn-mocha"
+        onclick="location.href='<c:url value='/drink/addition.do'/>'">
+  레시피 올리기
+</button></div>
+      
+      <br>
+      <br>
       
       
-         <!--카드 이미지  -->
-         <c:forEach var="data"  items="${drinks}">
-         <div class="col3">
-            <div class="card">
-               <img src="<c:out value='${data.columnUrl}' />" class="card-img-top"
-                  alt="이미지">
-               <div class="card-body">
-                  <h5 class="card-title">${data.columnTitle}</h5>
-                  <p class="card-text">${data.columnContent}</p>
-                  <a href="#" class="btn btn-danger" onclick="fn_delete('${data.uuid}')">삭제</a>
-               </div>
+
+      
+        <!-- 여기부터 drinkListContainer 시작 -->
+  <div id="drinkListContainer">
+    <div class="row">
+      <c:forEach var="data" items="${drinks}">
+        <div class="col4">
+          <div class="card" data-uuid="${data.uuid}">
+            <img src="${data.columnUrl}" class="card-img-top" alt="${data.columnTitle}">
+            <div class="card-body">
+              <h5 class="card-title">${data.columnTitle}</h5>
+
             </div>
-         </div>
+          </div>
+        </div>
+      </c:forEach>
+    </div>
+  </div>
+  <!-- drinkListContainer 끝 -->
          
-         </c:forEach>
-         
-         
-         <!--페이지 번호  -->
-        <div class="flex-center">
+ <div class="flex-center">
       <ul class="pagination" id="pagination"></ul>
-      </div>
-         
+    </div>
+
+
 
    </form>
 <!-- jquery -->
@@ -85,7 +109,7 @@ function fn_egov_selectList() {
 		$("#listForm").attr("action", '<c:out value="/drink/drink.do" />')
 				.submit();
 	}
-    /* 삭제 */
+    /* 삭제 버튼은 아직 구현안했음(필요없으면 안할예정) */
    function fn_delete(uuid) {
     	/*전체조회: mrthod="get"이다, 하지만 삭제는 post로 보내랴함.변경해서 전달  */
     	$("#uuid").val(uuid);
@@ -96,6 +120,24 @@ function fn_egov_selectList() {
     }
     
 </script>
+
+<!-- 카테고리 버튼 함수 -->
+<script>
+$(function(){
+  $('.category-btn-group .btn-check').on('change', function(){
+    const category = $(this).val();
+    // query parameter 형태로 GET 요청
+    const url = '<c:url value="/drink/drink.do"/>' + '?category=' + encodeURIComponent(category);
+
+    // 전체 페이지가 아닌 #drinkListContainer 부분만 GET으로 로드
+    $('#drinkListContainer').load(
+      url + ' #drinkListContainer'
+    );
+  });
+});
+</script>
+
+
 
 <script type="text/javascript">
 <!-- 페이징 처리 -->
@@ -112,6 +154,69 @@ $('#pagination').twbsPagination({
 });
 
 </script>
+
+<!-- 카드 클릭시 모달 뛰우는 ajax 스크립트  -->
+<script>
+  $(function(){
+    // 카드 클릭 시 AJAX 호출 & 모달 띄우기
+    $(document).on('click', '.col4 .card', function(){
+      const uuid = $(this).data('uuid');
+      const $body = $('#drinkDetailBody');
+
+      // 로딩 스피너
+      $body.html(`
+        <div class="text-center py-5">
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      `);
+
+      // 모달 오픈
+      const modal = new bootstrap.Modal(document.getElementById('drinkDetailModal'));
+      modal.show();
+
+      // AJAX 요청
+      $.ajax({
+        url: '<c:url value="/drink/detailFragment.do"/>',
+        data: { uuid: uuid },
+        success: function(html){
+          $body.html(html);
+        },
+        error: function(){
+          $body.html('<div class="alert alert-danger">데이터를 불러오는 중 오류가 발생했습니다.</div>');
+        }
+      });
+    });
+  });
+</script>
+
+
+
+<!-- 상세 모달 (drink_all.jsp 맨 아래) -->
+<div class="modal fade" id="drinkDetailModal" tabindex="-1" aria-hidden="true" 
+ >     
+   <div class="modal-dialog modal-lg modal-dialog-centered">  <!-- 중앙에 모달 띄우기 -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">음료 상세 정보</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="drinkDetailBody">
+        <div class="text-center py-5">
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 </body>
 </html>

@@ -56,27 +56,33 @@
           </ul>
       </li>
 
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button">
-            crumb
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<c:url value='/drink/drink.do'/>">드링크</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">손질법</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">보관법</a></li>
-          </ul>
-        </li>
-      
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button">
-            cooklog
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">자유게시판</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">질문게시판</a></li>
-          </ul>
-        </li>
-    </ul>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" role="button"> crumb </a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item"
+						href="<c:url value='/drink/drink.do'/>"> 드링크 </a></li>
+					<li><a class="dropdown-item"
+						href="<c:url value='/method/method.do'>
+               <c:param name='methodType' value='storage'/>
+             </c:url>">
+							손질법 </a></li>
+					<li><a class="dropdown-item"
+						href="<c:url value='/method/method.do'>
+               <c:param name='methodType' value='trim'/>
+             </c:url>">
+							보관법 </a></li>
+				</ul></li>
+
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" role="button"> cooklog
+			</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item"
+						href="<c:url value='/dept/dept.do'/>">자유게시판</a></li>
+					<li><a class="dropdown-item"
+						href="<c:url value='/dept/dept.do'/>">질문게시판</a></li>
+				</ul></li>
+		</ul>
   </nav>
   <div class="search-bar pt3">
   <form action="/search" method="get">
