@@ -1,6 +1,7 @@
 # 내가 추가한 것들: 이것은 안 올라감
 Recipe/.settings/
 Recipe/target/
+Recipe/src/test/
 Recipe/.classpath
 Recipe/.project
 .metadata/
