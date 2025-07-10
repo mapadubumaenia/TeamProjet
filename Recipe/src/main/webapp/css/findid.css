@@ -20,7 +20,6 @@
 .findid_regi{
 	font-size : 15px;
 	font-weight: bold;
-    color:var(--mocha);
 }
 .brandtext{
 	margin-top: 2rem;
@@ -33,6 +32,9 @@
 }
 .find_suc{
 	    font-size : 15px;
+}
+.move_regi:hover{
+		color:var(--dark);
 }
 .form-control{
     margin-bottom:0.3rem;
@@ -51,7 +53,7 @@
 	display:flex;
 }
 .id_result{
-	width : 120px;
+	width : 150px;
 	height : 80px;
 	border : 1px solid  var(--mocha);
 	display:flex;
@@ -126,12 +128,13 @@ label {
 .findidbox{
     width : 450px;
     height : 550px;
-    border : 2px solid  var(--dark);
+
 }
 
 .findidpage{
     width: 99vw;
-	height: 800px;
+	height: 700px;
+	align-items: center;
 }
 
 .find_pro{
@@ -142,13 +145,16 @@ label {
 }
 .brandtext{
     margin-top : 1.25rem;
-	font-size: 50px;
+	font-size: 40px;
     padding-top: 2rem;
+}
+.form-group{
+	margin-bottom:0.75rem;
+	
 }
 .form-control{
 	width : 350px;
 	height : 50px;
-    margin-bottom:0.75rem;
     font-size : 15px;
 }
 .inputbox{
@@ -204,5 +210,14 @@ label {
 label {
     font-size: 14px;
     margin-top: 2px;
+}
+}
+
+@media screen and (min-width: 1024px){
+.findidbox{
+    border : 2px solid  var(--dark);
+}
+.findidpage{
+	   height : 90vh;
 }
 }

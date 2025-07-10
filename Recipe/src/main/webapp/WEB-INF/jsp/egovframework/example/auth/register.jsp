@@ -36,8 +36,8 @@
       <form id="addForm" name="addForm"action="/registeraddition.do" method="post">
 		<div class="form-group">
 		    <input type="text" class="form-control"
-            		           id="userid"
-            		           name="userid"							
+            		           id="userId"
+            		           name="userId"							
 						       placeholder="아이디"  />
 		</div>
 		<div class="form-group">
@@ -54,8 +54,8 @@
 		</div>
 		<div class="form-group">
 			<input type="text" class="form-control"
-            		            id="username"
-            		            name="username"											
+            		            id="userName"
+            		            name="userName"											
 							    placeholder="사용자명"   />
 		</div>
 		<div class="form-group">
@@ -66,8 +66,8 @@
 		</div>
 		<div class="form-group">
 			<input type="text" class="form-control"
-            		            id="phonenum"
-            		            name="phonenum"											
+            		            id="phoneNum"
+            		            name="phoneNum"											
 							    placeholder="휴대폰 번호('-'빼고입력하시오)"   />
 		</div>
 		<div class="form-group">

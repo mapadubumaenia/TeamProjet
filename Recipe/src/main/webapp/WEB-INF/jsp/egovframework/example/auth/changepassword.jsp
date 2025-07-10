@@ -23,9 +23,12 @@
     <div class="brandtext mt5">
        <a class="changepassword_home" href="<c:url value='home.do'/>">RecipeCode</a>
     </div>
-      <div class="error_box">
      <div class="tcenter">
-	   <h5>비밀번호 찾기</h5>
+     <h5>비밀번호 찾기</h5>
+     <div class="error_box">
+          <c:if test="${not empty errors}">
+     <p class="change_error">${errors}</p>
+	</c:if>
 	</div>
     </div>
     <div class= "inputbox">
@@ -36,24 +39,24 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
             <!-- 아이디 hidden 전달 -->
-            <input type="hidden" name="userid" value="${userid}" />
+            <input type="hidden" name="userId" value="${userId}" />
 		
-		<div class="form-group mt5 mb2">
-		<p class="input_name mt3">새로운 비밀번호 입력</p>
+		<div class="form-group">
+		<p class="input_name">새로운 비밀번호 입력</p>
 			<input type="password" class="form-control"
             		               id="password"
             		               name="password"										
 								   placeholder="새 비밀번호"  />
 		</div>
-		<div class="form-group mt3 mb2">
-		<p class="input_name mt3">비밀번호 확인</p>
+		<div class="form-group">
+		<p class="input_name">비밀번호 확인</p>
 			<input type="password" class="form-control"
             		               id="repassword"
             		               name="repassword"										
 								   placeholder="비밀번호 확인"  />
 		</div>
 		<div>
-				<button class ="btn mt3">Submit</button>
+				<button class ="btn">Submit</button>
 		</div>
       </form>
        </div>

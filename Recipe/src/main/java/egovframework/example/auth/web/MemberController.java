@@ -83,7 +83,7 @@ public class MemberController {
 	    if (userId != null) {
 	        model.addAttribute("result",userId);
 	    } else {
-	        model.addAttribute("error", "일치하는 정보가 없습니다.");
+	        model.addAttribute("errors", "일치하는 정보가 없습니다.");
 	    }
 		return "auth/findid";
 	}
@@ -100,7 +100,7 @@ public class MemberController {
 	        model.addAttribute("userid", found.getUserId());
 	        return "auth/changepassword"; // 비밀번호 재설정 폼
 	    } else {
-	        model.addAttribute("error", "일치하는 회원이 없습니다.");
+	        model.addAttribute("errors", "일치하는 회원이 없습니다.");
 	        return "auth/findpassword";
 	    }
 	}

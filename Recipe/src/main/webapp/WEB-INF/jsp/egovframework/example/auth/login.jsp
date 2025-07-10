@@ -38,8 +38,8 @@
 		<div class="form-group">
 		    <p class="input_name">아이디</p>
 		    <input type="text" class="form-control"
-            		           id="userid"
-            		           name="userid"							
+            		           id="userId"
+            		           name="userId"							
 						       placeholder="사용자 아이디"  />
 
 		</div>

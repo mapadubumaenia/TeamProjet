@@ -40,10 +40,9 @@
           </ul>
      </c:if>
      <div class="error_box">
-     ${errors}
      <c:if test="${not empty errors}">
-		<p class="findid_regi">${errors}</p>
-	    <p class="findid_regi"><a href="<c:url value='register.do'/>">회원가입</a>으로 이동하시겠습니까?</p>
+		<p class="findid_regi">${errors}<br>
+	    <a class ="move_regi" href="<c:url value='register.do'/>">회원가입</a>으로 이동하시겠습니까?</p>
 	</c:if>
     </div>
 	</div>
@@ -55,15 +54,15 @@
 		<div class="form-group ">
 		    <p class="input_name">이름</p>
 		    <input type="text" class="form-control"
-            		           id="username"
-            		           name="username"							
+            		           id="userName"
+            		           name="userName"							
 						       placeholder="사용자 이름"  />
 		</div>
 		<div class="form-group">
 		    <p class="input_name">전화번호</p>
 			<input type="text" class="form-control"
-            		               id="phonenum"
-            		               name="phonenum"										
+            		               id="phoneNum"
+            		               name="phoneNum"										
 								   placeholder="휴대폰 번호('-'빼고 입력하시오)"  />
 		</div>
 		<div>
