@@ -1,8 +1,12 @@
 package egovframework.example.drink.web;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.LinkedList;
 
+import egovframework.example.auth.service.MemberService;
+import egovframework.example.auth.service.MemberVO;
 import egovframework.example.common.Criteria;
 import egovframework.example.drink.service.DrinkService;
 import egovframework.example.drink.service.DrinkVO;
@@ -30,6 +37,10 @@ public class DrinkController {
 
 	@Autowired
 	private DrinkService drinkService;
+	
+    // MemberService 주입
+    @Autowired
+    private MemberService memberService;
 	
 	
 	@GetMapping("/drink/drink.do")
@@ -83,16 +94,32 @@ public class DrinkController {
 	//  파일 처리를 한다면 예외처리를 해야한다(try catch or throw)
     //  첨부파일 다루기: (필수) 예외처리 필수
 	//  image.getBytes() :byte 배열로 변경
-	   @PostMapping("/drink/add.do")
-	  public String insert(@RequestParam(defaultValue = "") String columnTitle,
-			  @RequestParam(defaultValue = "") String columnContent,
-			  @RequestParam(defaultValue="") String category, 
-			  @RequestParam(defaultValue="") String columnIngredient, 
-			  @RequestParam(required = false) MultipartFile image) throws Exception {
-		   DrinkVO drinkVO=new DrinkVO(columnTitle,columnContent,category,columnIngredient,image.getBytes());
-		
-		   drinkService.insert(drinkVO);
-		return  "redirect:/drink/drink.do";
+	@PostMapping("/drink/add.do")
+	public String insert(
+	        @RequestParam(defaultValue = "") String columnTitle,
+	        @RequestParam(defaultValue = "") String columnContent,
+	        @RequestParam(defaultValue = "") String category,
+	        @RequestParam(defaultValue = "") String columnIngredient,
+	        @RequestParam(required = false) MultipartFile image,
+	        HttpSession session
+	) throws Exception {
+	    // 1) MultipartFile이 없으면 null 처리
+	    byte[] data = (image != null && !image.isEmpty()) ? image.getBytes() : null;
+
+	    // 2) VO 생성
+	    DrinkVO drinkVO = new DrinkVO(columnTitle, columnContent, category, columnIngredient, data);
+
+	    // 3) 세션에서 로그인된 회원 정보 꺼내기
+	    MemberVO current = (MemberVO) session.getAttribute("memberVO");
+	    if (current == null) {
+	        throw new IllegalStateException("로그인 정보가 없습니다.");
+	    }
+	    drinkVO.setUserId(current.getUserid());
+
+	    // 4) 서비스 호출 (UUID·URL 세팅 포함)
+	    drinkService.insert(drinkVO);
+
+	    return "redirect:/drink/drink.do";
 	}
 	
 	
@@ -132,19 +159,7 @@ public class DrinkController {
 		return "redirect:/drink/drink.do";
 	}
 	
-	
-	
-	
-	
 
-    // + AJAX 모달용 상세 프래그먼트 반환 메서드 추가
-    @GetMapping("/drink/detailFragment.do")
-    public String detailFragment(@RequestParam String uuid, Model model) {
-        DrinkVO vo = drinkService.selectDrink(uuid);
-        model.addAttribute("drink", vo);
-        return "drink/detailFragment";  
-        // -> /WEB-INF/views/drink/detailFragment.jsp 를 렌더링
-    }
 
    
     // 미리보기 모달 컨트롤러
@@ -169,12 +184,62 @@ public class DrinkController {
             // data URL 형태로
             previewVO.setColumnUrl("data:" + mime + ";base64," + base64);
         }
+        
         model.addAttribute("preview", previewVO);
         return "drink/previewFragment";
     }
 	
-	
-	
+	//상세조회 페이지
+    @GetMapping("/drink/detail.do")
+    public String detailPage(@RequestParam String uuid, Model model, HttpSession session) {
+        // 1) 글 데이터
+        DrinkVO vo = drinkService.selectDrink(uuid);
+        model.addAttribute("drink", vo);
+        
+        // 재료칸 줄바꿈 자동화
+        String raw = vo.getColumnIngredient();                              // "우유\n바나나\n꿀"
+        List<String> ingredients = Arrays.stream(raw.split("\\r?\\n"))     // 운영체제 개행 모두 대응
+                                        .filter(s -> !s.isBlank())        // 빈 줄 제거
+                                        .collect(Collectors.toList());
+        model.addAttribute("ingredients", ingredients);
+        // ───────────────────
+
+        // 2) 댓글 목록이 필요하면 service 호출해서 model.addAttribute("comments", comments);
+
+        // 3) (선택) 현재 로그인한 닉네임
+        MemberVO current = (MemberVO) session.getAttribute("memberVO");
+        if (current != null) {
+            model.addAttribute("currentNickname", current.getNickname());
+        }
+
+     // ─── ④ 최근 본 레시피 세션 갱신 & 모델 담기 ─────────
+        // (1) 세션에서 List<String> recentRecipes 가져오기
+        @SuppressWarnings("unchecked")
+        List<String> recent = (List<String>) session.getAttribute("recentRecipes");
+        if (recent == null) {
+            recent = new LinkedList<>();
+        }
+        // (2) 중복 제거 후 맨 앞에 추가
+        recent.remove(uuid);
+        recent.add(0, uuid);
+        // (3) 최대 5개 유지
+        if (recent.size() > 5) {
+            recent = recent.subList(0, 5);
+        }
+        session.setAttribute("recentRecipes", recent);
+
+        // (4) UUID → DrinkVO 로 매핑
+        List<DrinkVO> recentDrinks = recent.stream()
+            .map(id -> drinkService.selectDrink(id))
+            .collect(Collectors.toList());
+        model.addAttribute("recentDrinks", recentDrinks);
+        // ────────────────────────────────────────────────
+        
+        
+        
+        
+        return "drink/detail";   // /WEB-INF/views/drink/detail.jsp
+    }
 	
 	
 	
