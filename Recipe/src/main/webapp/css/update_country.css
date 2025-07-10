@@ -1,1 +1,79 @@
 @charset "UTF-8";
+/* ✅ 전체 카드 스타일 */
+.card {
+	border: none;
+	border-radius: 12px;
+	background-color: #ffffff;
+}
+
+/* ✅ 제목 */
+.card h2 {
+	font-weight: 700;
+	font-size: 1.75rem;
+	color: #333;
+}
+
+/* ✅ 작성자 및 메타 정보 */
+.card .text-muted {
+	font-size: 0.9rem;
+	color: #6c757d;
+}
+
+/* ✅ 소제목 */
+.card h5 {
+	font-weight: 600;
+	font-size: 1.1rem;
+	margin-top: 1.5rem;
+}
+
+/* ✅ 이미지 */
+.card img {
+	border-radius: 10px;
+	object-fit: cover;
+	max-height: 300px;
+}
+
+/* ✅ 요리 설명 영역 */
+pre {
+	background-color: #f8f9fa;
+	border: 1px solid #dee2e6;
+	padding: 1rem;
+	font-size: 0.95rem;
+	white-space: pre-wrap;
+	word-break: break-word;
+	border-radius: 8px;
+}
+
+/* ✅ 버튼 */
+.btn-warning, .btn-danger {
+	padding: 0.5rem 1.2rem;
+	font-weight: 500;
+	border-radius: 8px;
+}
+
+/* ❤️ 좋아요 버튼 */
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  font-size: 14px;
+  width: auto;
+  min-width: 100px; /* 필요에 따라 조절 가능 */
+  max-width: 150px; /* 너무 길어지는 것 방지 */
+  border-radius: 6px;
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+/* ✅ 반응형 대응 (모바일) */
+@media ( max-width : 768px) {
+	.card .row {
+		flex-direction: column;
+	}
+	.card img {
+		width: 100%;
+		max-height: 250px;
+		margin-bottom: 1rem;
+	}
+}
+

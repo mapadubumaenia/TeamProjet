@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,8 +39,8 @@
 
     <!-- ✅ 재료 정보 -->
     <div class="mb-3">
-        <label for="ingredientInfo" class="form-label">재료 정보</label>
-        <textarea class="form-control" id="ingredientInfo" name="ingredientInfo" rows="3" placeholder="재료를 입력해주세요. 예) 감자 2개, 소금 약간 등"></textarea>
+        <label for="ingredient" class="form-label">재료 정보</label>
+        <textarea class="form-control" id="ingredient" name="ingredient" rows="3" placeholder="재료를 입력해주세요. 예) 감자 2개, 소금 약간 등"></textarea>
     </div>
     
         <!-- ✅ 내용 -->
