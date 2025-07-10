@@ -1,14 +1,11 @@
 .loginbox{
-    width : 450px;
-    height : 550px;
-    border : 2px solid  var(--dark);
+    width :99vw;
 }
 .loginpage{
     width: 99vw;
-	height: 800px;
+    height : 80vh;
 	display:flex;
     justify-content: center;
-    align-items: center;
 }
 .login_home:hover{
 	color:var(--mocha);
@@ -17,33 +14,42 @@
 	color:var(--dark);
 }
 .brandtext{
-
-	font-size: 40px;
+	margin-top: 2rem;
+	font-size: 50px;
 	display:flex;
     justify-content: center;
     align-items: center;
-    padding-top: 2rem;
+    padding-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
+
 .form-control{
-	width : 350px;
-	height : 50px;
+    margin-bottom:0.3rem;
+	width : 200px;
+	height : 30px;
+	font-size : 15px;
+}
+.tcenter{
+	margin-bottom:1rem; 
 }
 .inputbox{
-	width : 450px;
+	width : 99vw;
 	display:flex;
 	justify-content: center;
 	align-items: center;
 }
 .input_center{
-	width : 350px;
+	width : 200px;
 	display:flex;
 }
 .btn{
+	margin-top:0.5rem;
 	background-color: var(--mocha);
 	color: white;
-	width : 350px;
-	height : 50px;
-	margin-top: 0.75rem;
+	width : 200px;
+	height : 30px;
+    font-size : 15px;
+	padding-top: 0.1rem !important;
 }
 
 .btn:hover {
@@ -52,19 +58,24 @@
 }
 .input_name{
 	margin : 0;
-	font-size : 16px;
+	font-size :15px!important;
 }
 .logmn:hover{
 	color :var(--dark) !important;
 }
 .login_menu{
-	width : 350px;
+	width : 200px;
 	padding : 0;
 	display:flex;
     justify-content: center;
-	align-items: end;	
+	align-items: center;	
+	margin-top :0.5rem;
+    font-size : 15px;
+    margin-bottom : 5rem;
 }
-
+.logmn{
+	font-size : 14px;
+}
 .regi{
 	font-size : 14px !important;
 }
@@ -84,9 +95,83 @@ label {
     display: block !important; 
 }
 
+
+
 @media screen and (min-width: 768px){
+  .loginbox{
+    width : 450px;
+    height : 550px;
+}
+
+.loginpage{
+    width: 99vw;
+	height: 80vh;
+	align-items: center;
+}
+
+.brandtext{
+    margin-top : 1rem;
+	font-size: 40px;
+    padding-top: 2rem;
+    margin-bottom : 1rem;
+}
+
+.input_name{
+	margin : 0;
+	font-size :15px!important;
+}
+.form-control{
+	margin-bottom:0.75rem;
+	width : 350px;
+	height : 50px;
+	font-size:15px;
+}
+
+.inputbox{
+	width : 450px;
+}
+.input_center{
+	width : 350px;
+
+}
+
+.btn{
+	width : 350px;
+	height : 50px;
+	margin-top: 0.75rem;
+	font-size : 15px;
+}
+
+
+.login_menu{
+	width : 350px;
+	margin-top :1rem;
+    font-size : 20px;
+}
+.logmn{
+	font-size : 20px;
+}
+.regi{
+	font-size : 14px !important;
+}
+
+.login_error{
+    font-size: 14px;
+}
+
+label {
+    font-size: 14px;
+    margin-top: 2px;
+
+}
   
 }
 @media screen and (min-width: 1024px){
+.loginbox{
+    border : 2px solid  var(--dark);
+}
+.loginpage{
 
+    height : 90vh;
+}
 }

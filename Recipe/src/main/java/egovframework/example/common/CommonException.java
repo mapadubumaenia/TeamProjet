@@ -38,7 +38,7 @@ public class CommonException {
              model.addAttribute("errors","중복된 정보입니다");
          }
     	 else if(errors.contains("UQ_NICKNAME")) {
-             model.addAttribute("error", "중복된 별명입니다");
+             model.addAttribute("errors", "중복된 별명입니다");
          }
     	
     	 else {
@@ -48,13 +48,14 @@ public class CommonException {
         log.info("요청 URI: " + uri);
 
         if (uri.contains("/login") || uri.contains("/loginProcess")) {
-            return "loginerrors";      // 로그인 에러는 로그인 페이지로
+            return "auth/login";      // 로그인 에러는 로그인 페이지로
         } else if (uri.contains("/register")) {
-            return "regierrors";   // 회원가입 에러는 회원가입 페이지로
+            return "auth/register";   // 회원가입 에러는 회원가입 페이지로
         }
-        else if (uri.contains("/findid")) {
-            return "auth/findid";   // 회원가입 에러는 회원가입 페이지로
+        else if (uri.contains("/findid" )) {
+            return "auth/findid";   // 아이디찾기 에러는 아이디찾기 페이지로
         }
+        
 
         return "errors"; // 기본 에러 페이지
     	

@@ -20,52 +20,57 @@
 <!-- 로그인화면 -->
 <div class="registerpage">
   <div class="registerbox">
-    <div class="brandtext mt4">
+    <div class="brandtext">
        <a class="register_home" href="<c:url value='home.do'/>">RecipeCode</a>
     </div>
-    <div class="tcenter mb5">
-	   <h4 >회원 가입</h4>
+    <div class="tcenter">
+	   <h4 class="pro_text">회원 가입</h4>
 	</div>
+    <div class="error_box">
+    <c:if test="${not empty errors}">
+    <p class="regi_error">${errors}</p>
+    </c:if>
+    </div>
     <div class= "inputbox">
     <div class= "input_center">
       <form id="addForm" name="addForm"action="/registeraddition.do" method="post">
-		<div class="form-group mb2">
+		<div class="form-group">
 		    <input type="text" class="form-control"
             		           id="userid"
             		           name="userid"							
 						       placeholder="아이디"  />
 		</div>
-		<div class="form-group mt1 mb2">
+		<div class="form-group">
 			<input type="password" class="form-control"
             		               id="password"
             		               name="password"										
 								   placeholder="비밀번호"  />
 		</div>
-		<div class="form-group mt1 mb2">
+		<div class="form-group">
 			<input type="password" class="form-control"
             		               id="repassword"
             		               name="repassword"										
 								   placeholder="비밀번호 확인"  />
 		</div>
-		<div class="form-group mt1 mb2">
+		<div class="form-group">
 			<input type="text" class="form-control"
             		            id="username"
             		            name="username"											
 							    placeholder="사용자명"   />
 		</div>
-		<div class="form-group mt1 mb2">
+		<div class="form-group">
 			<input type="text" class="form-control"
             		            id="nickname"
             		            name="nickname"											
 							    placeholder="사용자 별명"   />
 		</div>
-		<div class="form-group mt1 mb2">
+		<div class="form-group">
 			<input type="text" class="form-control"
             		            id="phonenum"
             		            name="phonenum"											
 							    placeholder="휴대폰 번호('-'빼고입력하시오)"   />
 		</div>
-		<div class="form-group mt1 mb2">
+		<div class="form-group">
 			<input type="e-mail" class="form-control"
             		            id="email"
             		            name="email"											

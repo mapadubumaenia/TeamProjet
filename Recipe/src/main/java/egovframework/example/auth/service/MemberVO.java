@@ -15,10 +15,10 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 public class MemberVO extends Criteria {
-	private String userid;
+	private String userId;
 	private String password;
-	private String username;
+	private String userName;
 	private String email;
-	private String phonenum;
+	private String phoneNum;
 	private String nickname;
 }

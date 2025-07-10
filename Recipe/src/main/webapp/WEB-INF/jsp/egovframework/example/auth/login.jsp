@@ -20,30 +20,30 @@
 <!-- 로그인화면 -->
 <div class="loginpage">
   <div class="loginbox">
-    <div class="brandtext mt5">
+      <div class="brandtext">
        <a class="login_home" href="<c:url value='home.do'/>">RecipeCode</a>
     </div>
-
-
       <div class="error_box">
       <c:if test="${not empty msg}">
 		<br><p class="regi">${msg}</p>
-     </c:if>
+      </c:if>
+      <c:if test="${not empty errors}">
+       <p class="login_error">${errors}</p>
+      </c:if>
     </div>
-
+  
     <div class= "inputbox">
     <div class= "input_center">
       <form id="addForm" name="addForm"action="/loginProcess.do" method="post">
-		<div class="form-group mb2">
-
-		    <p class="input_name mt4">아이디</p>
+		<div class="form-group">
+		    <p class="input_name">아이디</p>
 		    <input type="text" class="form-control"
             		           id="userid"
             		           name="userid"							
 						       placeholder="사용자 아이디"  />
 
 		</div>
-		<div class="form-group mt1 mb2">
+		<div class="form-group">
 		    <p class="input_name">비밀번호</p>
 			<input type="password" class="form-control"
             		               id="password"
@@ -52,17 +52,15 @@
 
 		</div>
 		<div>
-				<button class ="btn mt1">LOGIN</button>
+				<button class ="btn">LOGIN</button>
 		</div>
 		<div>
-         <ul class="login_menu mt3">
-
-            <li><a class="find_id mr3 logmn" href="<c:url value='findid.do'/>">아이디찾기</a></li>
+         <ul class="login_menu">
+            <li><a class="find_id logmn" href="<c:url value='findid.do'/>">아이디찾기</a></li>
             <li>|</li>
-            <li><a class="find_password mr3 ml3 logmn" href="<c:url value='findpassword.do'/>">비밀번호찾기</a></li>
-
+            <li><a class="find_password logmn" href="<c:url value='findpassword.do'/>">비밀번호찾기</a></li>
             <li>|</li>
-            <li><a class="register ml3 logmn" href="<c:url value='register.do'/>">회원가입</a></li>
+            <li><a class="register logmn" href="<c:url value='register.do'/>">회원가입</a></li>
           </ul>
          </div>
       </form>
