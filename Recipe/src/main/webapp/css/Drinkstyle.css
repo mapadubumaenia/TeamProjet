@@ -108,72 +108,7 @@ a {text-decoration: none; color: var(--black);}
 }
 
 
-/* —————————————————————————————— */
-/* 아날로그 레시피 카드 모달 스타일 */
-/* —————————————————————————————— */
 
-#drinkDetailModal .modal-dialog {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-#drinkDetailModal .modal-content {
-  background: #f9f1e9;              /* 살짝 누런 종이 느낌 */
-  border: 1px solid #c9b8a0;        /* 차분한 테두리 */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-  border-radius: 0;                 /* 둥근 모서리 제거 */
-  font-family: 'GowunBatang-Regular', serif;
-  color: #3f3021;
-  overflow: visible;
-}
-
-/* 헤더 */
-#drinkDetailModal .modal-header {
-  border-bottom: 1px dashed #c9b8a0;
-  background: none;
-  padding: 0.8rem 1rem;
-}
-#drinkDetailModal .modal-title {
-  margin: 0;
-  font-size: 1.3rem;
-  font-weight: normal;
-  letter-spacing: 0.03em;
-}
-
-/* 바디 */
-#drinkDetailModal .modal-body {
-  padding: 1rem 1.2rem;
-  background: none;
-  line-height: 1.5;
-}
-#drinkDetailModal .modal-body img {
-  display: block;
-  width: 100%;
-  margin: 0 auto 0.8rem;
-  border: 1px solid #e4d8c3;       /* 사진도 살짝 프레임 */
-}
-
-/* 푸터 */
-#drinkDetailModal .modal-footer {
-  border-top: 1px dashed #c9b8a0;
-  background: none;
-  justify-content: flex-end;
-  padding: 0.6rem 1rem;
-}
-#drinkDetailModal .btn-secondary {
-  background: none;
-  border: 1px solid #3f3021;
-  color: #3f3021;
-  padding: 0.4rem 1rem;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-radius: 0;
-}
-#drinkDetailModal .btn-secondary:hover {
-  background: rgba(0,0,0,0.03);
-}
-/*-------------------  */
 
 /* ────────────────────────────────── */
 /* 종이책 레이아웃 페이지네이션 */
@@ -470,6 +405,210 @@ a {text-decoration: none; color: var(--black);}
   border-radius: 0.5rem !important;
 }
 
+/* ───── 오버라이드: 레시피 상세페이지 배지 색상 ───── */
+.badge.bg-info {
+  /* 카테고리 배경 → 모카, 글자 → 연한 종이색 */
+  background-color: var(--mocha) !important;
+  color:            #faf4e1   !important;
+  border-color:     var(--mocha) !important;
+}
+
+.badge.bg-success {
+  /* 재료 배경 → 다크, 글자 → 연한 종이색 */
+  background-color: var(--dark)  !important;
+  color:            #faf4e1    !important;
+  border-color:     var(--dark)  !important;
+}
+
+/* ─── 레시피 상세페이지 타이포그래피 강화 ─── */
+/* 제목 */
+.container h2.card-title {
+  font-size: 2.4rem !important;      /* 기존 2rem → 2.4rem */
+  font-weight: 800   !important;     /* 기존 700 → 800 */
+}
+
+/* 본문 */
+.container .card-text {
+  font-size: 1.25rem !important;     /* 기존 1.125rem → 1.25rem (20px) */
+  font-weight: 600    !important;    /* 기존 500 → 600 */
+}
+
+/* 메타(작성자·등록일) */
+.container .text-muted {
+  font-size: 1.125rem !important;    /* 기존 1rem → 1.125rem */
+  font-weight: 600    !important;    /* 기존 500 → 600 */
+}
+
+/* 배지 (카테고리·재료) */
+.badge {
+  font-size: 1.125rem !important;    /* 18px */
+  font-weight: 700    !important;    /* 좀 더 굵게 */
+}
+
+/* 댓글 작성자 */
+.list-group-item h6 {
+  font-size: 1.375rem !important;    /* 22px */
+  font-weight: 700    !important;    
+}
+
+/* 댓글 내용 */
+.list-group-item p {
+  font-size: 1.125rem !important;    /* 18px */
+  font-weight: 600    !important;
+}
+
+/* 댓글 입력창 텍스트 */
+.form-control {
+  font-size: 1.125rem !important;    /* 18px */
+  font-weight: 600    !important;
+}
+
+/*본문 줄바꿈  */
+.card-text,
+.list-group-item p {
+  white-space: pre-line;
+}
+
+
+/* 상세페이지 — 카테고리 값(예: 칵테일)을 모카색으로, 살짝 두껍게 */
+.card-body p.mb-2 {
+  color: var(--mocha) !important;  /* 모카 브라운 */
+  font-weight: 600;                /* 약간 더 굵게 */
+}
+
+/* 뱃지 안의 글자도 살짝 키워주면 운율이 맞습니다 */
+.card-body .badge {
+  font-size: 1rem;      /* 약 16px */
+  padding: 0.4em 0.75em; /* 기본 패딩 유지하되, 텍스트 대비 어울리게 */
+}
+
+/* 댓글 등록 버튼 모카톤 적용 */
+.container.my-5 .card.shadow-sm .btn-primary {
+  background-color: var(--mocha) !important;
+  border-color: var(--mocha) !important;
+  color: #fff !important;
+  font-weight: 600;              /* 버튼 글씨도 살짝 두껍게 */
+}
+.container.my-5 .card.shadow-sm .btn-primary:hover {
+  background-color: var(--dark) !important;
+  border-color: var(--dark) !important;
+}
+
+
+
+
+/* ─── 카드 테두리 강조 (선택사항) ─── */
+.container.my-5 .card.mb-5.shadow-sm {
+  border: 1px solid var(--mocha) !important;
+}
+
+/* 상세페이지 상단 카드 전체 배경색 */
+.container.my-5 .card.mb-5.shadow-sm {
+  background-color: #f4e8e1 !important;  /* 연한 모카톤 */
+}
+
+.columnIngredient {
+  background-color: #f4e8e1 !important;  /* 연한 모카톤 */
+  border: 1px solid var(--mocha) !important;
+}
+
+
+.ingredient-list li {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  line-height: 1.4;
+}
+
+.ingredient-badge {
+  background-color: var(--mocha);
+  color: #faf4e1;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.4em 0.8em;
+  border-radius: 0.5rem;
+}
+
+/* ──────────────────────────────────────────────────── */
+/* 최근 본 레시피 섹션 재디자인 */
+/* ──────────────────────────────────────────────────── */
+.recent-recipes-wrapper {
+  /* .container 안에서 좌우 여백 유지 */
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;       /* 위/아래 2rem, 좌/우 1rem */
+}
+
+.recent-recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  /* 가운데 정렬 */
+  gap: 1rem;                /* 카드 사이격을 넉넉히 */
+  max-width: 1000px;        /* 한 줄 최대 넓이 (원하는 값으로 조정) */
+  margin: 0 auto;           /* 수평 중앙정렬 */
+}
+
+.recent-recipes .card {
+  width: 180px;             /* 카드 너비 고정 */
+  margin: 0;                /* gap 에 이미 충분한 여백이 있으므로 제거 */
+  border: 1px solid var(--mocha);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.recent-recipes .card:hover {
+  transform: translateY(-6px);
+}
+
+.recent-recipes .card-img-top {
+  width: 100%;
+  height: 120px;            /* 원하는 높이로 조정 */
+  object-fit: cover;
+}
+
+.recent-recipes .card-body {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.recent-recipes .card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ──────────────────────────────────────────────────── */
+/* 최근 본 레시피 섹션 레이아웃 수정 */
+/* ──────────────────────────────────────────────────── */
+.recent-recipes-wrapper {
+  display: flex;
+  flex-direction: column;    /* 제목과 카드들을 세로로 쌓기 */
+  align-items: center;       /* 가로 중앙 정렬 */
+  padding: 2rem 1rem;        /* 위/아래 2rem, 좌/우 1rem 여백 */
+  gap: 1rem;                 /* 제목과 카드들 사이 약간의 간격 */
+}
+
+.recent-text {
+  width: 100%;               /* 부모 너비만큼 */
+  text-align: center;        /* 가운데 정렬 */
+  font-size: 1.5rem;         /* 24px */
+  font-weight: 600;          /* 약간 굵게 */
+  color: var(--mocha);       /* 모카 색 */
+  margin: 0;                 /* 위/아래 여백은 wrapper 의 gap으로 처리 */
+}
+
+.recent-recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;   /* 카드들 가로 중앙 정렬 */
+  gap: 1rem;                 /* 카드 간격 */
+  max-width: 1000px;         /* 한 줄 최대 넓이 */
+}
 
 
 
