@@ -55,6 +55,9 @@ public class CommonException {
         else if (uri.contains("/findid" )) {
             return "auth/findid";   // 아이디찾기 에러는 아이디찾기 페이지로
         }
+        else if (uri.contains("/findpassword" )) {
+            return "auth/findpassword";   // 아이디찾기 에러는 아이디찾기 페이지로
+        }
         
 
         return "errors"; // 기본 에러 페이지
