@@ -53,5 +53,15 @@ public class Criteria {
 	// filter3 처리용
 	/** 나라별 필터링 */
 	private Integer filterCountryCategoryId;  
+	
+	private int mediaCategory;
+	
+	public int getMediaCategory() {
+		return mediaCategory;
+	}
+	
+	public void setMediaCategory(int mediaCategory) {
+		this.mediaCategory=mediaCategory;
+	}
 
 }
