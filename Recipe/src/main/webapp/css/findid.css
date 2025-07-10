@@ -1,0 +1,208 @@
+.findidbox{
+    width :99vw;
+}
+
+.findidpage{
+    width: 99vw;
+    height : 80vh;
+	display:flex;
+    justify-content: center;
+}
+.findid_home:hover{
+	color:var(--mocha);
+}
+.findid_home{
+	color:var(--dark);
+}
+.find_pro{
+	font-size: 20px !important;
+}
+.findid_regi{
+	font-size : 15px;
+	font-weight: bold;
+    color:var(--mocha);
+}
+.brandtext{
+	margin-top: 2rem;
+	font-size: 50px;
+	display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.find_suc{
+	    font-size : 15px;
+}
+.form-control{
+    margin-bottom:0.3rem;
+	width : 200px;
+	height : 30px;
+	font-size : 15px;
+}
+.inputbox{
+	width : 99vw;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+.input_center{
+	width : 200px;
+	display:flex;
+}
+.id_result{
+	width : 120px;
+	height : 80px;
+	border : 1px solid  var(--mocha);
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+.btn{
+	margin-top:0.5rem;
+	background-color: var(--mocha);
+	color: white;
+	width : 200px;
+	height : 30px;
+    font-size : 15px;
+	padding-top: 0.1rem !important;
+}
+
+.btn:hover {
+	background-color: var(--dark);
+	color: white;
+}
+.input_name{
+	margin : 0;
+	font-size : 15px !important;
+}
+.boxcenter{
+    display:flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+.find_suc{
+	margin : 1.25rem, 0, 1.25rem, 0;
+}
+.logmn{
+		font-size : 15px;
+}
+.logmn:hover{
+	color :var(--dark) !important;
+}
+.findid_menu{
+	margin-top: 1.25rem;
+	width : 200px;
+	padding : 0;
+	display:flex;
+    justify-content: center;
+	align-items: end;	
+	font-size : 15px;
+	margin-left :1.5rem;
+}
+.result_findid{
+	font-size : 20px;
+	margin : 0 !important;
+}
+.find_regi{
+	font-size : 15px !important;
+}
+.error_box{
+	display:flex;
+	justify-content: center;
+}
+
+label {
+    color: red !important;
+    font-size: 15px;
+    margin-top: 2px;
+    display: block !important; 
+}
+
+
+
+
+@media screen and (min-width: 768px){
+.findidbox{
+    width : 450px;
+    height : 550px;
+    border : 2px solid  var(--dark);
+}
+
+.findidpage{
+    width: 99vw;
+	height: 800px;
+}
+
+.find_pro{
+	font-size : 20px !important;
+}
+.find_suc{
+	    font-size : 15px;
+}
+.brandtext{
+    margin-top : 1.25rem;
+	font-size: 50px;
+    padding-top: 2rem;
+}
+.form-control{
+	width : 350px;
+	height : 50px;
+    margin-bottom:0.75rem;
+    font-size : 15px;
+}
+.inputbox{
+	width : 450px;
+}
+.input_center{
+	width : 350px;
+	margin-bottom: 0.5rem;
+}
+.id_result{
+	width : 250px;
+	height : 100px;
+	border : 1px solid  var(--mocha);
+
+}
+.btn{
+	width : 350px;
+	height : 50px;
+	margin-top: 0.75rem;
+	font-size: 20px;
+}
+.find_suc{
+	    font-size : 15px;
+}
+
+.input_name{
+	margin : 0;
+	font-size : 16px !important;
+}
+.boxcenter{
+    margin-bottom: 1.25rem;
+}
+.find_suc{
+	margin : 1.25rem, 0, 1.25rem, 0;
+}
+.logmn{
+		font-size : 20px;
+}
+.findid_menu{
+	margin-top: 1.25rem;
+	width : 350px;
+	padding : 0;
+	font-size:18px;	
+}
+.result_findid{
+	font-size : 18px;
+	margin : 0 !important;
+}
+.findid_regi{
+	font-size : 14px !important;
+}
+
+label {
+    font-size: 14px;
+    margin-top: 2px;
+}
+}
