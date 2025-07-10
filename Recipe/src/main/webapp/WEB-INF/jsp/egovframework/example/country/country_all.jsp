@@ -47,14 +47,14 @@
         <div class="card-nickname">${recipe.nickname}</div>
 
         <!-- ✅ 별점 + 댓글 수 출력 -->
-        <div class="card-rating text-warning mb-1">
-          <c:forEach var="i" begin="1" end="5">
-            <i class="${i <= recipe.likeCount ? 'bi bi-star-fill' : 'bi bi-star'}"></i>
-          </c:forEach>
-          <span class="text-muted ms-1">
-            💬 ${empty recipe.commentCount ? 0 : recipe.commentCount}
-          </span>
-        </div>
+<div class="card-rating text-muted mb-1">
+  <span class="me-2">
+    ❤️ ${empty recipe.likeCount ? 0 : recipe.likeCount}
+  </span>
+  <span>
+    💬 ${empty recipe.commentCount ? 0 : recipe.commentCount}
+  </span>
+</div>
       </div>
     </a>
   </c:forEach>
@@ -65,7 +65,7 @@
         <div class="row mt-4 mb-5">
           <div class="col d-flex justify-content-center">
             <nav aria-label="Page navigation">
-              <ul class="pagination">
+              <ul class="pagination" id="pagination">
                 <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>

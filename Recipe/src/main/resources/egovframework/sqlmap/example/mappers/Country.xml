@@ -4,7 +4,7 @@
 
 <mapper namespace="egovframework.example.country.service.impl.CountryMapper">
 
-<!-- ✅ 전체 목록 조회 쿼리 (닉네임 포함, 날짜는 변환 없이 그대로) -->
+<!-- ✅ 전체 목록 조회 쿼리 (닉네임, 댓글 수 포함) -->
 <select id="selectCountryList"
         parameterType="Criteria"
         resultType="CountryVO">
@@ -20,19 +20,18 @@
         SR.LIKE_COUNT,
         SR.RECIPE_CONTENT,
         SR.STANDARD_RECIPE_IMAGE,
-        SR.CONTENT_TYPE,
+        SR.INGREDIENT,
+        SR.RECIPEINTRO,
         U.NICKNAME,
-        
-	(
-	SELECT COUNT(*)
-	FROM COMMENTS C
-	WHERE C.UUID = SR.UUID
-	AND C.TARGET_TYPE = 'recipes'
-	) AS COMMENT_COUNT
-
-	FROM STANDARD_RECIPES SR
-	JOIN USERS U ON SR.USER_ID = U.USER_ID
-	WHERE 1 = 1
+        (
+            SELECT COUNT(*)
+            FROM COMMENTS C
+            WHERE C.UUID = SR.UUID
+              AND C.TARGET_TYPE = 'recipes'
+        ) AS COMMENT_COUNT
+    FROM STANDARD_RECIPES SR
+    JOIN USERS U ON SR.USER_ID = U.USER_ID
+    WHERE 1 = 1
       <if test="filterCountryCategoryId != null">
         AND SR.COUNTRY_CATEGORY_ID = #{filterCountryCategoryId}
       </if>
@@ -62,12 +61,28 @@
       </if>
 </select>
 
-<!-- ✅ 단건 상세 조회 -->
+<!-- 단건 상세조회 -->
 <select id="selectCountry"
         parameterType="String"
         resultType="CountryVO">
-    SELECT * FROM STANDARD_RECIPES
-    WHERE UUID = #{uuid}
+    SELECT 
+        SR.UUID,
+        SR.USER_ID,
+        SR.RECIPE_TITLE,
+        SR.COUNTRY_CATEGORY_ID,
+        SR.INGREDIENT_CATEGORY_ID,
+        SR.SITUATION_CATEGORY_ID,
+        SR.STANDARD_RECIPE_IMAGE_URL,
+        SR.RECIPE_CREATED_AT,
+        SR.LIKE_COUNT,
+        SR.RECIPE_CONTENT,
+        SR.STANDARD_RECIPE_IMAGE,
+        SR.INGREDIENT AS ingredient,      
+        SR.RECIPEINTRO AS recipeIntro,      
+        U.NICKNAME
+    FROM STANDARD_RECIPES SR
+    JOIN USERS U ON SR.USER_ID = U.USER_ID
+    WHERE SR.UUID = #{uuid}
 </select>
 
 <!-- ✅ 데이터 삽입 -->
@@ -83,7 +98,9 @@
         STANDARD_RECIPE_IMAGE,
         RECIPE_CREATED_AT,
         LIKE_COUNT,
-        RECIPE_CONTENT
+        RECIPE_CONTENT,
+        INGREDIENT,
+        RECIPEINTRO
     ) VALUES (
         SQ_STANDARD_RECIPES.NEXTVAL,
         #{userId},
@@ -94,7 +111,9 @@
         #{standardRecipeImage},
         SYSDATE,
         #{likeCount},
-        #{recipeContent}
+        #{recipeContent},
+        #{ingredient},
+        #{recipeIntro}
     )
 </insert>
 
@@ -110,7 +129,9 @@
         SITUATION_CATEGORY_ID = #{situationCategoryId},
         STANDARD_RECIPE_IMAGE = #{standardRecipeImage},
         RECIPE_CREATED_AT = SYSDATE,
-        LIKE_COUNT = #{likeCount}
+        LIKE_COUNT = #{likeCount},
+        INGREDIENT = #{ingredient},
+        RECIPEINTRO = #{recipeIntro}
     WHERE UUID = #{uuid}
 </update>
 
