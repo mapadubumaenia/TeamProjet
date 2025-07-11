@@ -28,7 +28,7 @@ class MemberServiceImplTest {
 	@Test
 	void testAuthenticate() throws Exception {
 //		1) 테스트 조건(given):
-		MemberVO loginVO=new MemberVO("idad","123456","LEE","","","");
+		MemberVO loginVO=new MemberVO("idad","123456","LEE","","","",null, null);
 //		2) 실제 메소드실행(when)
 		MemberVO memberVO=memberService.authenticateMember(loginVO);
 //		3) 검증(확인)(then): 로그 , DB 확인, assert~ (DB확인)	

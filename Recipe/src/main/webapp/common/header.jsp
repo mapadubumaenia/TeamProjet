@@ -19,6 +19,10 @@
           
           <!-- {/* 로그아웃 시작 */} -->
         <c:if test="${sessionScope.memberVO != null}">
+             <img src="<c:url value='/member/profile-image.do'/>" 
+             alt="프로필 이미지" 
+             width="32" height="32"
+             style="border-radius: 50%; object-fit: cover; margin-right: 8px;" />
           	 <p class="nickname">${sessionScope.memberVO.nickname}님</p>
   	         <a class="link" href="<c:url value='/logout.do'/>">로그아웃</a>
   	         <a class="link" href="<c:url value='/home.do'/>">마이페이지</a>

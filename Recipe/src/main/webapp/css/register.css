@@ -28,12 +28,19 @@
 .pro_text{
 	font-size :20px;
 }
+.profile{
+	display : flex;
+    align-items: center;
+    flex-direction: column;
+}
 .form-control{
 	width : 200px;
 	height : 30px;
 	font-size : 15px;
     margin-top : 0.5rem;
+    
 }
+
 .inputbox{
 	width : 99vw;
 	display:flex;
