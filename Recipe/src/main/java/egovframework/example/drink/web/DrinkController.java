@@ -114,7 +114,7 @@ public class DrinkController {
 	    if (current == null) {
 	        throw new IllegalStateException("로그인 정보가 없습니다.");
 	    }
-	    drinkVO.setUserId(current.getUserid());
+	    drinkVO.setUserId(current.getUserId());
 
 	    // 4) 서비스 호출 (UUID·URL 세팅 포함)
 	    drinkService.insert(drinkVO);
