@@ -33,7 +33,22 @@
     </div>
     <div class= "inputbox">
     <div class= "input_center">
-      <form id="addForm" name="addForm"action="/registeraddition.do" method="post">
+
+      <form id="addForm" name="addForm"action="/registeraddition.do" method="post"  enctype="multipart/form-data">
+		 	<div class="profile">
+         <div class="form-group">
+         <img id="previewImage" src="/images/default_profile.jpg" 
+          alt="미리보기" width="70" height="70" 
+          style="object-fit: cover; border: 1px solid #ccc; border-radius: 50%;" />
+          </div>
+		  <div class="form-group file_select">
+          <input type="file"
+                 class="form-control"
+                 id="image"
+                 name="image"
+                 >
+          </div>
+          </div>
 		<div class="form-group">
 		    <input type="text" class="form-control"
             		           id="userId"
@@ -91,6 +106,25 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/jquery.validate.min.js"></script>
 <script src="/js/auth/register-validation-config.js"></script>
 
+<!-- 미리보기기능 -->
+<script>
+  document.getElementById("image").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById("previewImage");
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        preview.src = e.target.result; // base64로 바꿔서 미리보기에 표시
+      };
+
+      reader.readAsDataURL(file); // 파일 → base64 변환 시작
+    } else {
+      preview.src = "/images/default_profile.jpg"; // 선택 안 했을 경우 기본 이미지
+    }
+  });
+</script>
 
 <!-- 꼬리말 -->
 <jsp:include page="/common/footer.jsp" />

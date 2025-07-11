@@ -1,5 +1,7 @@
 package egovframework.example.auth.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import egovframework.example.common.Criteria;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -21,4 +23,6 @@ public class MemberVO extends Criteria {
 	private String email;
 	private String phoneNum;
 	private String nickname;
+	private byte[] profileImage;
+	private MultipartFile image;
 }
