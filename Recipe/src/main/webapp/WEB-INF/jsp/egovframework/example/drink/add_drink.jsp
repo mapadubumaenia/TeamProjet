@@ -36,16 +36,19 @@
                   />
         </div>
         
-        <div class="mb3">
-            <label for="columnIngredient" class="form-label">재료</label>
-            <input  
-                  class="form-control"
-                  placeholder="재료" 
-                   id="columnIngredient"
-                  name="columnIngredient"
-                  />
-        </div>
-        
+      <div class="mb-3">
+  <label for="columnIngredient" class="form-label">
+    재료 <small class="text-muted">(한 줄에 하나씩 입력)</small>
+  </label>
+  <textarea
+    id="columnIngredient"
+    name="columnIngredient"
+    class="form-control"
+    rows="5"
+    placeholder="예)&#10;우유&#10;바나나&#10;꿀"
+    required
+  ></textarea>
+</div>
         
         
               <!-- ▶ 카테고리 선택 추가 -->

@@ -37,4 +37,7 @@ public class CountryVO extends Criteria{
 	private String nickname; // 닉네임
 	private int commentCount;  // 댓글 수
 	private int viewCount; //게시글 조회수
+	private String ingredient; //재료 소개
+	private String recipeIntro; //레시피 소개
+	
 }
