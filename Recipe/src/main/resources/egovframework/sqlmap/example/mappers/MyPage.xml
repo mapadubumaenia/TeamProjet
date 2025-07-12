@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper>
-   <select id="selectMyInfo" parameterType="egovframework.example.mypage.service.MyInfoVO" resultType="egovframework.example.mypage.service.MyInfoVO">
+<mapper namespace="egovframework.example.mypage.service.MyPageMapper">
+
+   <select id="selectMyInfo" parameterType="MyInfoVO" resultType="MyInfoVO">
         SELECT * FROM USERS WHERE USER_ID = #{userId}
     </select>
     
