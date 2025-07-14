@@ -23,15 +23,15 @@
 <body>
 	<!-- 머리말 -->
 	<jsp:include page="/common/header.jsp" />
-	
+
 	<form id="listForm" method="get">
 		<input type="hidden" name="pageIndex" id="pageIndex" value="1" />
 	</form>
 
 	<!-- 본문 -->
-	<div class="uploadbtn">
-   <a href="<c:out value='/media/addition.do'/>">
-   <button type="button"> 업로드 </button></a></div>
+	<div class="fbuttons">
+   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a>
+   </div>
    
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="data" items="${ask}">
@@ -44,7 +44,7 @@
 		  			</span>
 						<img
 								src="${data.recipeImageUrl != null ? data.recipeImageUrl : '/images/default.jpg'}"
-								class="magazine-img" alt="이미지">
+								class="card-img" alt="이미지">
 						<div class="card-body">
 							<h5 class="card-title">
 								<c:out value="${data.title}" />
@@ -109,6 +109,8 @@
 			}
 		});
 	</script>
+	
+	
 
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />

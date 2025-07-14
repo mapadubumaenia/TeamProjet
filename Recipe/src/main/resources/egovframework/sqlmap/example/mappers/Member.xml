@@ -31,7 +31,19 @@
 	<select id="findPassword"
 			parameterType="MemberVO"
 			resultType="MemberVO">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		SELECT USER_ID,USERNAME, PHONE_NUM FROM USERS
+=======
+		SELECT USER_ID,userName, phone_num FROM USERS
+>>>>>>> Stashed changes
+=======
+		SELECT USER_ID,userName, phone_num FROM USERS
+>>>>>>> Stashed changes
+=======
+		SELECT USER_ID,userName, phone_num FROM USERS
+>>>>>>> Stashed changes
 		WHERE USER_ID=#{userId} AND USERNAME=#{userName} AND PHONE_NUM = #{phoneNum}		
 	</select>
 	

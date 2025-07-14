@@ -13,11 +13,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import egovframework.example.common.Criteria;
 import egovframework.example.media.service.MediaService;
 import egovframework.example.media.service.MediaVO;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * @author user
  *
  */
+@Log4j2
 @Service
 public class MediaServiceImpl implements MediaService {
 	@Autowired
@@ -75,10 +77,20 @@ public class MediaServiceImpl implements MediaService {
 	@Override
 	public int update(MediaVO mediaVO) {
 		// TODO Auto-generated method stub
+		log.info("테스트: "+mediaVO);
+//		TODO: 다운로드 URL 필요
+		String fileDownloadURL = generateDownloadUrl(mediaVO.getUuid());
+		mediaVO.setRecipeImageUrl(fileDownloadURL);
+		log.info("테스트2: "+mediaVO);
 		return mediaMapper.update(mediaVO);
 	}
-	
-	
+
+	@Override
+	public int delete(MediaVO mediaVO) {
+		// TODO Auto-generated method stub
+		return mediaMapper.delete(mediaVO);
+	}
+
 	
 
 }

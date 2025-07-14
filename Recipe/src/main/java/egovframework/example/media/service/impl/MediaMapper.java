@@ -23,5 +23,6 @@ public interface MediaMapper {
 	public MediaVO selectMedia(String uuid);       // 상세조회
 	public int insert(MediaVO mediaVO);            // insert
 	public int update(MediaVO mediaVO);           // 수정
-	public void delete(MediaVO mediaVO);
+	public int delete(MediaVO mediaVO);           //삭제
+
 }

@@ -1,0 +1,177 @@
+:root {
+  --radius: 12px;
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  background-color: #fdf7f3;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  color: var(--dark);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+p {
+	font-size: 1.2rem;
+	line-height: 1.6;
+}
+
+p strong {
+  color: var(--mocha);
+}
+
+.media-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.image-wrapper {
+	display: flex;
+  	justify-content: center;     /* 가운데 정렬 */
+  	align-self: center;
+  	margin: 1rem 0;              
+}
+
+.image-wrapper img {
+  width: 1000px;                /* 고정 너비 */
+  max-width: 90%;              /* 화면이 작으면 줄어들도록 */
+  height: auto;                /* 비율 유지 */
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.img-fluid {
+   width: 500px;
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+pre {
+   background-color: #fefefa;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-radius: var(--radius);
+  border-left: 5px solid var(--mocha);
+  font-size: 1.1rem;
+  max-width: 100%;
+  width: 100%;
+  white-space: pre-wrap;
+}
+
+#likeBtn {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+#likeBtn.btn-danger {
+  background-color: var(--mocha);
+  border-color: var(--dark);
+}
+
+#likeBtn.btn-outline-danger {
+  color: var(--dark);
+  border-color: var(--mocha);
+}
+
+#likeBtn.btn-outline-danger:hover {
+  background-color: var(--mocha);
+  color: #fff;
+}
+
+.obuttons {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.obuttons .btn {
+  border-radius: var(--radius);
+  border-color: var(--mocha);
+  color: var(--dark);
+  transition: all 0.2s ease-in-out;
+}
+
+.obuttons .btn:hover {
+  background-color: var(--mocha);
+  color: white;
+  border-color: var(--dark);
+}
+
+/* add, update 창 */
+.upload,
+.update {
+  max-width: 700px;
+  margin: 2rem auto;
+  background-color: #fdf7f3;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.upload .form-label,
+.update .form-label  {
+  font-weight: 600;
+  color: var(--dark);
+  margin-top: 1rem;
+}
+
+.upload .form-control, 
+.upload .form-select,
+.update .form-control, 
+.update .form-select {
+  border: 1px solid var(--mocha);
+  border-radius: var(--radius);
+  transition: border-color 0.3s;
+}
+
+.upload .form-control:focus,
+.upload .form-select:focus, 
+.update .form-control:focus,
+.update .form-select:focus  {
+  border-color: var(--dark);
+  box-shadow: 0 0 0 0.2rem rgba(164, 119, 100, 0.25);
+}
+
+/* 버튼 정렬 및 스타일 */
+.ubuttons {
+  text-align: right;
+  margin-top: 2rem;
+}
+
+.ubuttons .btn {
+  border-radius: var(--radius);
+  border-color: var(--mocha);
+  color: var(--dark);
+  margin-left: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.ubuttons .btn:hover {
+  background-color: var(--mocha);
+  color: white;
+  border-color: var(--dark);
+}
+
+/* 기존 이미지 미리보기 */
+.update img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+

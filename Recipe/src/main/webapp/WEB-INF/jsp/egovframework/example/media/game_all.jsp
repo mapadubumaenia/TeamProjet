@@ -29,14 +29,14 @@
 	</form>
 
 	<!-- 본문 -->
-	<div class="uploadbtn">
-   <a href="<c:out value='/media/addition.do'/>">
-   <button type="button"> 업로드 </button></a></div>
+	<div class="fbuttons">
+   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a>
+   </div>
    
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="data" items="${ask}">
 			<div class="col">
-				<a href="<c:out value='/media/open3.do?uuid=${data.uuid}'/>"
+				<a href="<c:out value='/media/open.do?uuid=${data.uuid}'/>"
 					class="text-decoration-none text-dark">
 					<div class="card h-100">
 					<span class="like">
@@ -44,7 +44,7 @@
 					</span>
 						<img
 								src="${data.recipeImageUrl != null ? data.recipeImageUrl : '/images/default.jpg'}"
-								class="magazine-img" alt="이미지">
+								class="card-img" alt="이미지">
 						<div class="card-body">
 							<h5 class="card-title">
 								<c:out value="${data.title}" />
