@@ -14,9 +14,11 @@
     <insert id="register"
 			parameterType="MemberVO"
 	>
-		INSERT INTO USERS(USER_ID,PASSWORD,USERNAME,PHONE_NUM,EMAIL,ROLE,USER_CREATED_AT,NICKNAME)
+
+		INSERT INTO USERS(USER_ID,PASSWORD,USERNAME,PHONE_NUM,EMAIL,ROLE,USER_CREATED_AT,NICKNAME,PROFILE_IMAGE)
 		VALUES(#{userId},#{password},#{userName},#{phoneNum},#{email},'user'
-		                    ,TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{nickname})		
+		                    ,TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{nickname},#{profileImage})		
+
 	</insert>	
 	
 		<select id="findId"

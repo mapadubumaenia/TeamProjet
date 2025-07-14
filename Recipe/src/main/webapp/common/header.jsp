@@ -19,6 +19,10 @@
           
           <!-- {/* 로그아웃 시작 */} -->
         <c:if test="${sessionScope.memberVO != null}">
+             <img src="<c:url value='/member/profile-image.do'/>" 
+             alt="프로필 이미지" 
+             width="32" height="32"
+             style="border-radius: 50%; object-fit: cover; margin-right: 8px;" />
           	 <p class="nickname">${sessionScope.memberVO.nickname}님</p>
   	         <a class="link" href="<c:url value='/logout.do'/>">로그아웃</a>
   	         <a class="link" href="<c:url value='/home.do'/>">마이페이지</a>
@@ -39,20 +43,20 @@
              recipes
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">나라별</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/country/country.do'/>">나라별</a></li>
             <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">재료별</a></li>
             <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">상황별</a></li>
           </ul>
         </li>
       
       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button">
-            fantasy
+          <a class="nav-link dropdown-toggle" href="<c:url value='/media/media.do'/>" role="button">
+            media
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">영화</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">드라마</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">게임</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/media/movie.do'/>">영화</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/media/drama.do'/>">드라마</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/media/game.do'/>">게임</a></li>
           </ul>
       </li>
 

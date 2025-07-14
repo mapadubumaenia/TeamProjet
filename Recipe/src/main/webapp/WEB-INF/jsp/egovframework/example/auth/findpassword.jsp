@@ -23,57 +23,42 @@
     <div class="brandtext mt5">
        <a class="findpassword_home" href="<c:url value='home.do'/>">RecipeCode</a>
     </div>
+    <div class="tcenter">
+      <h5>비밀번호 찾기</h5>
       <div class="error_box">
-     <div class="tcenter">
-	   <h5>비밀번호 찾기</h5>
-  <c:if test="${not empty result}">
-	<p class= "mt5 mb5">고객님의 정보와 일치하는 아이디입니다.</p>
-	<div class= "boxcenter mb5">
-	<div class="id_result">
-		<p class="result_findid">${result}</p>
-	</div>
-	</div>
-	<div>
-         <ul class="findid_menu mt5">
-            <li><a class="find_password mr3 logmn" href="<c:url value='/findpassword.do'/>">비밀번호 찾기</a></li>
-            <li>|</li>
-            <li><a class="register ml3 mr3 logmn" href="<c:url value='login.do'/>">로그인</a></li>
-          </ul>
-         </div>
-     </c:if>
-     <c:if test="${not empty error}">
-		<p class="">${error}</p>
-	    <a class="findid_regi" href="<c:url value='register.do'/>">회원가입</a>으로 이동하시겠습니까?
+     <c:if test="${not empty errors}">
+     <p class="findpassword_regi">${errors}<br>
+	 <a class ="move_regi" href="<c:url value='register.do'/>">회원가입</a>으로 이동하시겠습니까?</p>
 	</c:if>
-	</div>
+    </div>
     </div>
     	  <c:if test="${empty result}">
     <div class= "inputbox">
     <div class= "input_center">
       <form id="addForm" name="addForm"action="/findpasswordProcess.do" method="post">
-		<div class="form-group mb2">
-		    <p class="input_name mt3">아이디</p>
+		<div class="form-group">
+		    <p class="input_name">아이디</p>
 		    <input type="text" class="form-control"
-            		           id="userid"
-            		           name="userid"							
+            		           id="userId"
+            		           name="userId"							
 						       placeholder="사용자 아이디"  />
 		</div>
-		<div class="form-group mt1 mb2">
-		    <p class="input_name mt3">이름</p>
+		<div class="form-group">
+		    <p class="input_name">이름</p>
 		    <input type="text" class="form-control"
-            		           id="username"
-            		           name="username"							
+            		           id="userName"
+            		           name="userName"							
 						       placeholder="사용자 이름"  />
 		</div>
-		<div class="form-group mt1 mb2">
+		<div class="form-group">
 		    <p class="input_name">전화번호</p>
 			<input type="text" class="form-control"
-            		               id="phonenum"
-            		               name="phonenum"										
+            		               id="phoneNum"
+            		               name="phoneNum"										
 								   placeholder="휴대폰 번호('-'빼고 입력하시오)"  />
 		</div>
 		<div>
-				<button class ="btn mt1">Search</button>
+				<button class ="btn">Search</button>
 		</div>
       </form>
        </div>

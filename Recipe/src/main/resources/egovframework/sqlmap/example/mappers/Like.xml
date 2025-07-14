@@ -4,22 +4,14 @@
 
 <mapper namespace="egovframework.example.like.service.impl.LikeMapper">
 
-<!--좋아요 추가  -->
-  <insert id="insertLike" parameterType="LikeVO">
-  INSERT INTO LIKES (
-    LIKE_ID,
-    USER_ID,
-    TARGET_TYPE,
-    UUID
-    
-  ) VALUES (
-    SEQ_LIKES.NEXTVAL,
-    #{userId},
-    #{targetType},
-    #{uuid}
-      
-  )
-</insert>
+
+    <!-- ✅ 좋아요 추가 -->
+    <insert id="insertLike" 
+    		parameterType="LikeVO">
+        INSERT INTO LIKES (LIKE_ID, USER_ID, TARGET_TYPE, UUID)
+        VALUES (SEQ_LIKES.NEXTVAL, #{userId}, #{targetType}, #{uuid})
+    </insert>
+
 
     <!-- ✅ 특정 유저가 해당 게시물에 좋아요 눌렀는지 확인 -->
     <select id="countLikeByUser" 
@@ -49,8 +41,10 @@
         FROM LIKES
         WHERE UUID = #{uuid}
     </select>
+
     
 
     
+
 
 </mapper>
