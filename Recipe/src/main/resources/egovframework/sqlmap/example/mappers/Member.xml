@@ -13,6 +13,7 @@
 
     <insert id="register"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 			parameterType="MemberVO"
 	>
 		INSERT INTO USERS(USER_ID,PASSWORD,USERNAME,PHONE_NUM,EMAIL,ROLE,USER_CREATED_AT,NICKNAME,PROFILE_IMAGE)
@@ -43,12 +44,17 @@
 	
 </mapper>
 =======
+=======
+>>>>>>> Stashed changes
             parameterType="MemberVO"
     >
         INSERT INTO USERS(USER_ID,PASSWORD,USERNAME,PHONE_NUM,EMAIL,ROLE,USER_CREATED_AT,NICKNAME,PROFILE_IMAGE)
         VALUES(#{userId},#{password},#{userName},#{phoneNum},#{email},'user'
                             ,TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{nickname},#{profileImage})
     </insert>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
         <select id="findId"

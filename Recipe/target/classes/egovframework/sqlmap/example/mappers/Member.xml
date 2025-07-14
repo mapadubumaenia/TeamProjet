@@ -27,6 +27,7 @@
     </select>
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	</insert>	
 	
 		<select id="findId"
@@ -52,12 +53,17 @@
 	
 </mapper>
 =======
+=======
+>>>>>>> Stashed changes
     <select id="findPassword"
             parameterType="MemberVO"
             resultType="MemberVO">
         SELECT USER_ID,USERNAME, PHONE_NUM FROM USERS
         WHERE USER_ID=#{userId} AND USERNAME=#{userName} AND PHONE_NUM = #{phoneNum}
     </select>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
     <update id="updatePassword"
