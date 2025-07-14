@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="egovframework.example.like.service.impl.LikeMapper">
+
+<!--좋아요 추가  -->
+  <insert id="insertLike" parameterType="LikeVO">
+  INSERT INTO LIKES (
+    LIKE_ID,
+    USER_ID,
+    TARGET_TYPE,
+    UUID
+    
+  ) VALUES (
+    SEQ_LIKES.NEXTVAL,
+    #{userId},
+    #{targetType},
+    #{uuid}
+      
+  )
+</insert>
+
+    <!-- ✅ 특정 유저가 해당 게시물에 좋아요 눌렀는지 확인 -->
+    <select id="countLikeByUser" 
+    		parameterType="LikeVO" 
+    		resultType="int">
+        SELECT COUNT(*)
+        FROM LIKES
+        WHERE USER_ID = #{userId}
+          AND TARGET_TYPE = #{targetType}
+          AND UUID = #{uuid}
+    </select>
+
+    <!-- ✅ 좋아요 삭제 -->
+    <delete id="deleteLike" 
+    		parameterType="LikeVO">
+        DELETE FROM LIKES
+        WHERE USER_ID = #{userId}
+          AND TARGET_TYPE = #{targetType}
+          AND UUID = #{uuid}
+    </delete>
+
+    <!-- ✅ 게시물 전체 좋아요 수 -->
+    <select id="countLikesByUuid" 
+    		parameterType="String" 
+    		resultType="int">
+        SELECT COUNT(*)
+        FROM LIKES
+        WHERE UUID = #{uuid}
+    </select>
+    
+
+    
+
+</mapper>

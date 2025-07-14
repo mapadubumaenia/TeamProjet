@@ -70,3 +70,57 @@ a {text-decoration: none; color: var(--black);}
 @media screen and (min-width:768px){.flex-center{display:flex;justify-content:center;}.flex-vcenter{display:flex;align-items:center;}.page{width:90vw;}.col2{width:49%!important;}.col4{width:32%!important;}}@media screen and (min-width:1024px){.page{width:60vw;}.col4{width:24%!important;}}
 
 
+/* 좋아요 배지 (Drinkstyle.css에서 복사) */
+.like-badge {
+  background-color: var(--mocha);
+  color: #faf4e1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.2s;
+}
+.like-badge:hover {
+  background-color: var(--dark);
+}
+
+
+
+
+
+
+/* ─── 모바일(<=767px)에서 카테고리 2×2 그리드 ─── */
+@media screen and (max-width: 767px) {
+  .category-btn-group {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem 1rem !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    margin: 1rem auto !important;
+  }
+  .category-btn-group label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.5rem;
+    padding: 0 !important;
+    font-size: 0.9rem;
+  }
+  .category-btn-group label.btn-outline-primary {
+    font-size: 0.85rem !important;
+  }
+  /* 글쓰기 버튼 중앙 배치 */
+  .drink-upload {
+    position: static !important;
+    margin: 1rem auto !important;
+    text-align: center;
+  }
+}
+

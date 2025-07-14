@@ -11,6 +11,8 @@
    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/exstyle.css">
     <link rel="stylesheet" href="/css/Drinkstyle.css">
+    <link rel="stylesheet" href="/css/Add_drink.css">
+    
 
 
 </head>
@@ -95,6 +97,12 @@
   
   <div class="save">
   <button type="button" class="btn btn-secondary" id="previewBtn">미리보기</button>
+       <!-- 변경: reset → 이전 페이지로 이동 -->
+    <button type="button"
+            class="btn btn-secondary btn-cancel"
+            onclick="history.back()">
+      취소
+    </button>
   <button class="btn btn-mocha"
                 type="button"
                 onclick="fn_save()"

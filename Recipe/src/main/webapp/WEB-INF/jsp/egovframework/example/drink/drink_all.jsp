@@ -61,21 +61,24 @@
 
       
         <!-- 여기부터 drinkListContainer 시작 -->
-   <div id="drinkListContainer" class="row">
-    <c:forEach var="data" items="${drinks}">
-      <div class="col4">
-        <div class="card">
-          <a href="<c:url value='/drink/detail.do?uuid=${data.uuid}'/>">
-            <img src="${data.columnUrl}" class="card-img-top" alt="${data.columnTitle}"/>
-            <div class="card-body">
-              <h5 class="card-title">${data.columnTitle}</h5>
-            </div>
-          </a>
-        </div>
-      </div>
-    </c:forEach>
-  </div>
-  <!-- drinkListContainer 끝 -->
+		<div id="drinkListContainer" class="row">
+			<c:forEach var="data" items="${drinks}">
+				<div class="col4">
+					<div class="card">
+						<a href="<c:url value='/drink/detail.do?uuid=${data.uuid}'/>">
+							<img src="${data.columnUrl}" class="card-img-top"
+							alt="${data.columnTitle}" />
+							<div
+								class="card-body d-flex justify-content-between align-items-center">
+								<h5 class="card-title mb-0">${data.columnTitle}</h5>
+								       <span class="like-badge">&#10084; ${data.likeCount}</span>
+							</div>
+						</a>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+		<!-- drinkListContainer 끝 -->
          
  <div class="flex-center">
       <ul class="pagination" id="pagination"></ul>
