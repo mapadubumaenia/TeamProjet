@@ -15,6 +15,9 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 <!-- 	개발자 css -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/exstyle.css">
@@ -29,9 +32,55 @@
 	</form>
 
 	<!-- 본문 -->
-	<div class="uploadbtn">
-   <a href="<c:out value='/media/addition.do'/>">
-   <button type="button"> 업로드 </button></a></div>
+	<div class="fbuttons">
+   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a>
+   </div>
+   
+   <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" style="
+          background-image: url('<c:url value="/images/media/christmas.jpg"/>');
+        background-size: cover; background-position: center;">
+        <div class="overlay"></div>
+        <div class="title" data-swiper-parallax="-300">영화</div>
+        <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+        <div class="text" data-swiper-parallax="-100">
+          <p>
+           영화 속 감성을 담은 레시피를 준비했어요.
+          </p>
+        </div>
+      </div>
+      <div class="swiper-slide" style="
+          background-image: url('<c:url value="/images/media/springroll.jpg"/>');
+        background-size: cover; background-position: center;">
+        <div class="overlay"></div>
+        <div class="title" data-swiper-parallax="-300">드라마</div>
+        <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+        <div class="text" data-swiper-parallax="-100">
+          <p>
+            드라마를 주제로 한 요리 모음입니다. 맛있는 드라마 요리를 만나보세요.
+          </p>
+        </div>
+      </div>
+      <div class="swiper-slide" style="
+          background-image: url('<c:url value="/images/media/pretzels.jpg"/>');
+        background-size: cover; background-position: center;">
+        <div class="overlay"></div>
+        <div class="title" data-swiper-parallax="-300">게임</div>
+        <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+        <div class="text" data-swiper-parallax="-100">
+          <p>
+           게임 속 음식들을 현실에서 즐겨보세요.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+   
    
 	<div class="magazine my-4">
 		<div class="magazine-list">
@@ -59,7 +108,7 @@
 		</div>
 	</div>
 
-	<!-- 여기: 페이지번호 -->
+	<!-- 페이지네이션 -->
 	<div class="d-flex justify-content-center mt-3">
 		<nav aria-label="Page navigation example">
 			<ul class="pagination" id="pagination">
@@ -112,6 +161,25 @@
 			}
 		});
 	</script>
+	
+	<!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      speed: 600,
+      parallax: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
 
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />
