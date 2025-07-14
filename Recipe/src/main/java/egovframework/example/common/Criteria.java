@@ -64,4 +64,9 @@ public class Criteria {
 		this.mediaCategory=mediaCategory;
 	}
 
+	public void setRecordCountPerPage(int recordCountPerPage) {
+		// TODO Auto-generated method stub
+		 this.pageUnit = recordCountPerPage;
+	}
+
 }

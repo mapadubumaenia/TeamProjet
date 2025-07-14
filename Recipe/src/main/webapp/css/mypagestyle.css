@@ -11,7 +11,17 @@
 	border-top: 1px solid var(--mocha);
 }
 
-
-
+.mymenu{
+   display: flex;
+   justify-content:start;
+   align-items: start;
+}
+.myPageContent{
+	display : flex;
+	   justify-content:start;
+   align-items: start;
+	width : 800px;
+	heigth : 800px;
+}
 @media screen and (min-width: 768px){}
 @media screen and (min-width: 1024px){}

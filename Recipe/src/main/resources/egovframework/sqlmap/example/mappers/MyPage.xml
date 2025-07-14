@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="egovframework.example.mypage.service.MyPageMapper">
-
-   <select id="selectMyInfo" parameterType="MyInfoVO" resultType="MyInfoVO">
-        SELECT * FROM USERS WHERE USER_ID = #{userId}
-    </select>
+<mapper namespace="egovframework.example.mypage.service.impl.MyPageMapper">
     
+     <select id="selectMyRecipes" parameterType="String" resultType="egovframework.example.mypage.service.MyPostVO">
+    SELECT 
+      UUID, USER_ID AS userId,
+      RECIPE_TITLE AS title,
+      COUNT,
+      LIKE_COUNT AS likeCount, 
+      STANDARD_RECIPE_IMAGE AS mainImage,
+      STANDARD_RECIPE_IMAGE_URL AS imageUrl,
+      CONTENT_TYPE AS contentType,
+      RECIPE_CREATED_AT AS createdAt
+      FROM STANDARD_RECIPES
+      WHERE USER_ID = #{userId}
+
+    UNION ALL
+
+    SELECT 
+      UUID,USER_ID AS userId,
+      TITLE  AS title,
+      COUNT,
+      LIKE_COUNT AS likeCount,
+      RECIPE_IMAGE AS mainImage,
+      RECIPE_IMAGE_URL AS imageUrl,
+      CONTENT_TYPE AS contentType,
+      RECIPE_CREATED_AT AS createdAt
+      
+    FROM MEDIA_RECIPES
+    WHERE USER_ID = #{userId}
+  </select>
+
+ <select id="selectOneByUuid" parameterType="string" resultType="egovframework.example.mypage.service.MyPostVO">
+    SELECT UUID, RECIPE_IMAGE AS image
+    FROM MEDIA_RECIPE
+    WHERE UUID = #{uuid}
+    UNION ALL
+    SELECT UUID, STANDARD_RECIPE_IMAGE AS image
+    FROM STANDARD_RECIPE
+    WHERE UUID = #{uuid}
+  </select>
+
+<select id="selectMyRecipesCount" parameterType="string" resultType="int">
+  SELECT
+    (
+      SELECT COUNT(*) FROM STANDARD_RECIPE WHERE USER_ID = #{userId}
+    ) +
+    (
+      SELECT COUNT(*) FROM MEDIA_RECIPE WHERE USER_ID = #{userId}
+    ) AS totalCount
+</select>
+
+  <select id="selectMyInfo" parameterType="MyInfoVO" resultType="MyInfoVO">
+        SELECT * FROM USERS WHERE USER_ID = #{userId}
+  </select>
+
+
 </mapper>

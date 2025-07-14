@@ -1,10 +1,27 @@
 package egovframework.example.mypage.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import egovframework.example.auth.service.MemberVO;
+import egovframework.example.common.Criteria;
 import egovframework.example.mypage.service.MyPageService;
+import egovframework.example.mypage.service.MyPostVO;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -14,8 +31,41 @@ public class MyPageController {
   MyPageService myPageService;
 	
 	@GetMapping("/mypage.do")
-	public String myPageView() {
+	public String myPageView(HttpSession session,Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("memberVO");
+		if(member == null) {
+			return "redirect:/login.do";
+		}
+		model.addAttribute("memberInfo", member);
 		return "mypage/mypage_home";
 		
 	}
+	
+	
+	@RequestMapping(value = "/mypage/myrecipes.do", produces = "text/html; charset=UTF-8")
+	public String getMyRecipes(HttpSession session, Model model) {
+	    MemberVO member = (MemberVO) session.getAttribute("memberVO");
+
+	    List<MyPostVO> recipeList = myPageService.selectMyRecipes(member.getUserId());
+	    model.addAttribute("recipeList", recipeList);
+	
+	    return "mypage/include/myrecipes"; // 부분 렌더링용 JSP
+	}
+	
+	@GetMapping("/mypage/image.do")
+	public void downloadImage(@RequestParam String uuid, HttpServletResponse response) throws IOException {
+	    MyPostVO post = myPageService.selectOneByUuid(uuid);
+
+	    byte[] imageBytes = post.getMainImage(); // 또는 getRecipeImage() 등
+
+	    if (imageBytes != null) {
+	        response.setContentType("image/jpeg"); // 필요시 png 등 변경
+	        response.getOutputStream().write(imageBytes);
+	        response.getOutputStream().flush();
+	    } else {
+	        // 기본 이미지 출력하거나 404 응답
+	        response.sendRedirect("/images/default.jpg");
+	    }
+	}
+	
 }
