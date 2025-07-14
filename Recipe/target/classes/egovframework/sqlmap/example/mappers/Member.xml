@@ -14,17 +14,11 @@
     <insert id="register"
 			parameterType="MemberVO"
 	>
-<<<<<<< Updated upstream
 
 		INSERT INTO USERS(USER_ID,PASSWORD,USERNAME,PHONE_NUM,EMAIL,ROLE,USER_CREATED_AT,NICKNAME,PROFILE_IMAGE)
 		VALUES(#{userId},#{password},#{userName},#{phoneNum},#{email},'user'
 		                    ,TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{nickname},#{profileImage})		
 
-=======
-		INSERT INTO USERS(USER_ID,PASSWORD,USERNAME,PHONE_NUM,EMAIL,ROLE,USER_CREATED_AT,NICKNAME)
-		VALUES(#{userId},#{password},#{userName},#{phoneNum},#{email},'user'
-		                    ,TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{nickname})		
->>>>>>> Stashed changes
 	</insert>	
 	
 		<select id="findId"
@@ -39,7 +33,11 @@
 			resultType="MemberVO">
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		SELECT USER_ID,USERNAME, PHONE_NUM FROM USERS
+=======
+		SELECT USER_ID,userName, phone_num FROM USERS
+>>>>>>> Stashed changes
 =======
 		SELECT USER_ID,userName, phone_num FROM USERS
 >>>>>>> Stashed changes
