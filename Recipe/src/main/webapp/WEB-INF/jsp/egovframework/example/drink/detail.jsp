@@ -71,16 +71,24 @@
 
   <!-- ★ 버튼 그룹 삽입 -->
     <div class="d-flex justify-content-center gap-3 mb-4">
+      <input type="hidden" id="csrf" name="csrf" value="${sessionScope.CSRF_TOKEN}"/>
       <button type="button" class="btn btn-mocha" onclick="copyUrl()">
         URL 복사
       </button>
       <button type="button" class="btn btn-mocha" onclick="copyContent()">
         레시피 복사
       </button>
-      <button type="button" id="likeBtn" class="btn btn-mocha" onclick="toggleLike()">
-        <span id="likeIcon">&#9825;</span> 좋아요
-        <span id="likeCount" class="badge bg-white text-dark ms-1">0</span>
-      </button>
+      <button
+    type="button"
+    id="likeBtn"
+    class="btn btn-mocha ${isLiked ? 'text-danger' : ''}"
+  >
+    <span id="likeIcon">${isLiked ? '&#9829;' : '&#9825;'}</span>
+    좋아요
+    <span id="likeCount" class="badge bg-white text-dark ms-1">
+      ${likeCount}
+    </span>
+  </button>
     </div>
 
 
@@ -107,6 +115,7 @@
       <div class="card-body">
         <form action="<c:url value='/drink/addComment.do'/>" method="post">
           <input type="hidden" name="uuid" value="${drink.uuid}"/>
+          <input type="hidden" name="csrf" value="${sessionScope.CSRF_TOKEN}">
           <div class="mb-3">
             <textarea
               name="commentContent"
@@ -180,6 +189,33 @@
       }
     }
   </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#likeBtn').on('click', function(){
+    $.ajax({
+      url: '<c:url value="/drink/like.do"/>',
+      method: 'POST',
+      data: { 
+        uuid: '${drink.uuid}', 
+        csrf: $('#csrf').val()      // ← CSRF 토큰 추가
+      },
+      dataType: 'json'
+    })
+    .done(function(resp){
+      $('#likeIcon').html(resp.liked ? '&#9829;' : '&#9825;');
+      $('#likeCount').text(resp.count);
+      $('#likeBtn').toggleClass('text-danger', resp.liked);
+    })
+    .fail(function(xhr){
+      if (xhr.status === 401) {
+        alert('로그인 후 이용해 주세요.');
+      } else {
+        alert('오류가 발생했습니다.');
+      }
+    });
+  });
+</script>
+  
           
 </body>
 </html>
