@@ -28,7 +28,10 @@ public class CommonException {
     		) {
         String errors = e.getMessage();   //에러 내용
         log.info("에러: " + errors);        //에러를 모델에 담기
-    	if (errors.contains("UQ_USERS_PHONE")) {
+    	
+        if (errors == null) {
+            model.addAttribute("errors", "알 수 없는 오류가 발생했습니다.");}
+        else if (errors.contains("UQ_USERS_PHONE")) {
             model.addAttribute("errors", "중복된 전화번호입니다");
         }
     	else if (errors.contains("UQ_EMAIL")) {

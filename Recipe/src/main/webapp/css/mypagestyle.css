@@ -1,0 +1,25 @@
+.accordion{
+	width :200px;
+}
+.my_btn{
+	width :150px;
+	height : 40px;
+	background-color: white;
+	border: none;
+}
+.btn_content, .btn_comment{
+	border-top: 1px solid var(--mocha);
+}
+
+.mymenu{
+   display: flex;
+   justify-content:start;
+   align-items: start;
+}
+.myPageContent{
+	margin-left : 1rem;
+	width : 1000px;
+	heigth : 800px;
+}
+@media screen and (min-width: 768px){}
+@media screen and (min-width: 1024px){}
