@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import egovframework.example.common.Criteria;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class MyPostVO {
+public class MyPostVO extends Criteria {
 	private String uuid;
 	private String userId;
 	private String title;

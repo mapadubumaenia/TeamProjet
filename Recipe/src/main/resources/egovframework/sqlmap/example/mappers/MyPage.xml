@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="egovframework.example.mypage.service.impl.MyPageMapper">
     
-     <select id="selectMyRecipes" parameterType="String" resultType="egovframework.example.mypage.service.MyPostVO">
+     <select id="selectMyRecipes" parameterType="string" resultType="egovframework.example.mypage.service.MyPostVO">
     SELECT 
       UUID, USER_ID AS userId,
       RECIPE_TITLE AS title,
@@ -29,25 +29,27 @@
       
     FROM MEDIA_RECIPES
     WHERE USER_ID = #{userId}
-  </select>
+    ORDER BY createdAt DESC
+
+</select>
 
  <select id="selectOneByUuid" parameterType="string" resultType="egovframework.example.mypage.service.MyPostVO">
-    SELECT UUID, RECIPE_IMAGE AS image
-    FROM MEDIA_RECIPE
+    SELECT UUID, RECIPE_IMAGE AS mainImage
+    FROM MEDIA_RECIPES
     WHERE UUID = #{uuid}
     UNION ALL
-    SELECT UUID, STANDARD_RECIPE_IMAGE AS image
-    FROM STANDARD_RECIPE
+    SELECT UUID, STANDARD_RECIPE_IMAGE AS mainImage
+    FROM STANDARD_RECIPES
     WHERE UUID = #{uuid}
   </select>
 
 <select id="selectMyRecipesCount" parameterType="string" resultType="int">
   SELECT
     (
-      SELECT COUNT(*) FROM STANDARD_RECIPE WHERE USER_ID = #{userId}
+      SELECT COUNT(*) FROM STANDARD_RECIPES WHERE USER_ID = #{userId}
     ) +
     (
-      SELECT COUNT(*) FROM MEDIA_RECIPE WHERE USER_ID = #{userId}
+      SELECT COUNT(*) FROM MEDIA_RECIPES WHERE USER_ID = #{userId}
     ) AS totalCount
 </select>
 

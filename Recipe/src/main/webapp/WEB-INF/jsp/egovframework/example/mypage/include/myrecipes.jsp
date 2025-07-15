@@ -25,24 +25,3 @@
     </a>
   </c:forEach>
 </div>
-        <!-- 페이지네이션 -->
-        <div class="row mt-4 mb-5">
-          <div class="col d-flex justify-content-center">
-            <nav aria-label="Page navigation">
-              <ul class="pagination" id="pagination">
-                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-	<!-- 여기: 페이지번호 -->
-	<div class="d-flex justify-content-center mt-3">
-		<nav aria-label="Page navigation example">
-			<ul class="pagination" id="pagination">
-			</ul>
-		</nav>
-	</div>

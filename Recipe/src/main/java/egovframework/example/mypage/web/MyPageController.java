@@ -8,13 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,9 +43,13 @@ public class MyPageController {
 	public String getMyRecipes(HttpSession session, Model model) {
 	    MemberVO member = (MemberVO) session.getAttribute("memberVO");
 
+        
 	    List<MyPostVO> recipeList = myPageService.selectMyRecipes(member.getUserId());
+
+
 	    model.addAttribute("recipeList", recipeList);
-	
+	    
+	    
 	    return "mypage/include/myrecipes"; // 부분 렌더링용 JSP
 	}
 	
@@ -56,16 +57,21 @@ public class MyPageController {
 	public void downloadImage(@RequestParam String uuid, HttpServletResponse response) throws IOException {
 	    MyPostVO post = myPageService.selectOneByUuid(uuid);
 
-	    byte[] imageBytes = post.getMainImage(); // 또는 getRecipeImage() 등
-
-	    if (imageBytes != null) {
-	        response.setContentType("image/jpeg"); // 필요시 png 등 변경
-	        response.getOutputStream().write(imageBytes);
-	        response.getOutputStream().flush();
-	    } else {
-	        // 기본 이미지 출력하거나 404 응답
+	    if (post == null || post.getMainImage() == null) {
+	        // post가 없거나 이미지가 없으면 기본 이미지로 리디렉션
 	        response.sendRedirect("/images/default.jpg");
+	        return;
 	    }
+
+	    byte[] imageBytes = post.getMainImage();
+
+	    response.setContentType("image/png");
+	    response.setHeader("Content-Disposition", "inline; filename=\"" + uuid + "\"");
+	    response.setContentLength(imageBytes.length);
+
+	    response.getOutputStream().write(imageBytes);
+	    response.getOutputStream().flush();
+	    response.getOutputStream().close();
+
 	}
-	
 }

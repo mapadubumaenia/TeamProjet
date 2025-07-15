@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/exstyle.css">
     <link rel="stylesheet" href="/css/mypagestyle.css">
-    <link rel="stylesheet" href="/css/country_all.css">
+    <link rel="stylesheet" href="/css/mypost.css">
 </head>
 <body>
 <!-- 머리말 -->
@@ -67,7 +67,7 @@
     </div>
   </div>
 </div>
- <div id="myPageContent"></div>
+ <div id="myPageContent" class="myPageContent"></div>
 </div>
 
 
@@ -103,43 +103,7 @@ function loadMyRecipes() {
 		crossorigin="anonymous"></script>
 	<!-- 토글 애니메이션 js -->
 	<script src="/js/nav.js"></script>
-	<!-- 페이징 라이브러리 -->
-	<script src="/js/jquery.twbsPagination.js" type="text/javascript"></script>
-
-	<script type="text/javascript">
-		/* 페이지번호 클릭시 전체조회 */
-		function fn_egov_link_page(page) {
-			/* 현재페이지번호 저장 */
-			$("#pageIndex").val(page);
-			$("#listForm").attr("action", '<c:out value="/media/game.do" />')
-					.submit();
-		}
-		/* 전체조회 */
-		function fn_egov_selectList() {
-			$("#pageIndex").val(1); // 최초 화면에서는 페이지번호를 1페이지로 지정
-			$("#listForm").attr("action", '<c:out value="/media/game.do" />')
-					.submit();
-		}
-	</script>
-
-	<script type="text/javascript">
-		/* 페이징 처리 */
-		$('#pagination').twbsPagination({
-			totalPages : "${paginationInfo.totalPageCount}",
-			startPage : parseInt("${paginationInfo.currentPageNo}"),
-			visiblePages : 5,
-			first : null,
-			last : null,
-			prev : '<',
-			next: '>',
-			initiateStartPageClick : false,
-			onPageClick : function(event, page) {
-				/* 재조회 함수 실행 */
-				fn_egov_link_page(page);
-			}
-		});
-	</script>
-
+	
 <!-- 꼬리말 -->
 <jsp:include page="/common/footer.jsp" />
 </body>

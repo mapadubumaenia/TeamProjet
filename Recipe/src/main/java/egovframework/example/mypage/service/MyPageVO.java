@@ -2,6 +2,7 @@ package egovframework.example.mypage.service;
 
 import java.util.List;
 
+import egovframework.example.common.Criteria;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class MyPageVO {
+public class MyPageVO extends Criteria{
 	   private MyInfoVO myInfo;
 	   private List<MyPostVO> myPosts;
 	   private List<MyCommentVO> myComments;

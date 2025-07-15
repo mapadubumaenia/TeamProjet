@@ -17,10 +17,8 @@
    align-items: start;
 }
 .myPageContent{
-	display : flex;
-	   justify-content:start;
-   align-items: start;
-	width : 800px;
+	margin-left : 1rem;
+	width : 1000px;
 	heigth : 800px;
 }
 @media screen and (min-width: 768px){}
