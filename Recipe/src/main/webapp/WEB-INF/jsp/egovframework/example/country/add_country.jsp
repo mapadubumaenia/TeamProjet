@@ -30,19 +30,19 @@
             <label for="recipeTitle" class="form-label">레시피 제목</label>
             <input type="text" class="form-control" id="recipeTitle" name="recipeTitle" required>
         </div>
-        
-    <!-- ✅ 레시피 소개 -->
-    <div class="mb-3">
-        <label for="recipeIntro" class="form-label">레시피 소개</label>
-        <textarea class="form-control" id="recipeIntro" name="recipeIntro" rows="3" placeholder="레시피를 간단히 소개해주세요."></textarea>
-    </div>
 
-    <!-- ✅ 재료 정보 -->
-    <div class="mb-3">
-        <label for="ingredient" class="form-label">재료 정보</label>
-        <textarea class="form-control" id="ingredient" name="ingredient" rows="3" placeholder="재료를 입력해주세요. 예) 감자 2개, 소금 약간 등"></textarea>
-    </div>
-    
+        <!-- ✅ 레시피 소개 -->
+        <div class="mb-3">
+            <label for="recipeIntro" class="form-label">레시피 소개</label>
+            <textarea class="form-control" id="recipeIntro" name="recipeIntro" rows="3" placeholder="레시피를 간단히 소개해주세요."></textarea>
+        </div>
+
+        <!-- ✅ 재료 정보 -->
+        <div class="mb-3">
+            <label for="ingredient" class="form-label">재료 정보</label>
+            <textarea class="form-control" id="ingredient" name="ingredient" rows="3" placeholder="재료를 입력해주세요. 예) 감자 2개, 소금 약간 등"></textarea>
+        </div>
+
         <!-- ✅ 내용 -->
         <div class="mb-3">
             <label for="recipeContent" class="form-label">레시피 내용</label>
@@ -52,7 +52,7 @@
         <!-- ✅ 이미지 업로드 -->
         <div class="mb-3">
             <label for="standardRecipeImage" class="form-label">대표 이미지</label>
-            <input type="file" class="form-control" id="standardRecipeImage" name="uploadFile">
+            <input type="file" class="form-control" id="standardRecipeImage" name="standardRecipeImage">
         </div>
 
         <!-- ✅ 나라 카테고리 -->
@@ -102,10 +102,15 @@
 
 <script type="text/javascript">
 function fn_save() {
-    $("#addForm").attr("action", "<c:out value='/country/add.do' />").submit();
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterValue = urlParams.get('filter3');
+    let actionUrl = '/country/add.do';
+    if (filterValue) {
+        actionUrl += '?filter3=' + filterValue;
+    }
+    $("#addForm").attr("action", actionUrl).submit();
 }
 function fn_cancel() {
-    // 뒤로 가거나 목록 페이지로 이동 가능
     history.back();
 }
 </script>
