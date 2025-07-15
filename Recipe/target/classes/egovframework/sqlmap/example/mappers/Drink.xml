@@ -15,6 +15,7 @@
     <result property="columnIngredient" column="COLUMN_INGREDIENT"/>
     <result property="category"         column="CATEGORY"/>
     <result property="userNickname"     column="USER_NICKNAME"/>
+    <result property="authorProfileImage" column="PROFILE_IMAGE"/>
   </resultMap>
 
 
@@ -73,7 +74,8 @@
       f.COLUMN_DATA,
       f.COLUMN_INGREDIENT,
       f.CATEGORY,
-      u.NICKNAME AS USER_NICKNAME
+      u.NICKNAME AS USER_NICKNAME,
+        u.PROFILE_IMAGE AS PROFILE_IMAGE
     FROM FOOD_COLUMNS f
     LEFT JOIN USERS u
       ON f.USER_ID = u.USER_ID

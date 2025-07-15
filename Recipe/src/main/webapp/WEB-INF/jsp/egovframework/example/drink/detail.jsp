@@ -31,32 +31,33 @@
     <!-- 1) 레시피 카드 -->
     <div class="card mb-5 shadow-sm">
       <div class="row g-0">
-        <div class="col-md-5">
-          <img
-            src="<c:url value='/drink/download.do'>
+				<div class="col-md-5">
+					<img
+						src="<c:url value='/drink/download.do'>
                    <c:param name='uuid' value='${drink.uuid}'/>
                  </c:url>"
-            class="img-fluid rounded-start h-100 w-100 object-fit-cover"
-            alt="음료 이미지"
-          />
-        </div>
-        <div class="col-md-7">
-          <div class="card-body">
-            <h2 class="card-title mb-3">${drink.columnTitle}</h2>
-            <p class="text-muted mb-1">
-              작성자: <strong>${drink.userNickname}</strong>
-              &nbsp;|&nbsp;
-              등록일: <strong>${drink.columnCreatedAt}</strong>
-            </p>
-            <p class="mb-2">
-              <span class="badge bg-info text-dark">카테고리</span>
-              ${drink.category}
-            </p>
-            <hr/>
-            <p class="card-text">${drink.columnContent}</p>
-          </div>
-        </div>
-      </div>
+						class="img-fluid rounded-start h-100 w-100 object-fit-cover"
+						alt="음료 이미지" />
+				</div>
+				<div class="col-md-7">
+					<div class="card-body">
+						<h2 class="card-title mb-3">${drink.columnTitle}</h2>
+						<p class="text-muted mb-1 d-flex align-items-center">
+							<c:if test="${not empty authorImgB64}">
+								<img src="data:image/png;base64,${authorImgB64}" alt="작성자 프로필"
+									class="rounded-circle me-2" width="40" height="40" />
+							</c:if>
+							작성자: <strong>${drink.userNickname}</strong> &nbsp;|&nbsp; 등록일: <strong>${drink.columnCreatedAt}</strong>
+						</p>
+						<p class="mb-2">
+							<span class="badge bg-info text-dark">카테고리</span>
+							${drink.category}
+						</p>
+						<hr />
+						<p class="card-text">${drink.columnContent}</p>
+					</div>
+				</div>
+			</div>
     </div>
     
 <div class="mb-5 px-4 py-3 columnIngredient">
