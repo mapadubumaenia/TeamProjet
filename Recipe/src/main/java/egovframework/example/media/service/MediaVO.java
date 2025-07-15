@@ -38,7 +38,7 @@ public class MediaVO extends Criteria {
 	private String ingredient;
 	private MultipartFile image; // 내부 사용(이미지파일)
 
-// 필드 6개
+// 필드 5개
 	public MediaVO(String title, String content, String ingredient, int mediaCategory, byte[] recipeImage) {
 			super();
 			this.title = title;
@@ -48,7 +48,6 @@ public class MediaVO extends Criteria {
 			this.recipeImage = recipeImage;
 		}
 
-// 필드 
 	public MediaVO(String uuid, String title, String content, byte[] recipeImage) {
 			super();
 			this.uuid = uuid;
@@ -57,15 +56,28 @@ public class MediaVO extends Criteria {
 			this.recipeImage = recipeImage;
 		}
 
-	public MediaVO(String userId, String title, int mediaCategory, String content, byte[] recipeImage,
-			String ingredient) {
+	public MediaVO(String userId, String title, int mediaCategory,String ingredient, String content, byte[] recipeImage) {
 		super();
 		this.userId = userId;
 		this.title = title;
 		this.mediaCategory = mediaCategory;
+		this.ingredient = ingredient;
 		this.content = content;
 		this.recipeImage = recipeImage;
+		
+	}
+
+	public MediaVO(String uuid, String userId, String title, int mediaCategory,String ingredient, String content, byte[] recipeImage
+			) {
+		super();
+		this.uuid = uuid;
+		this.userId = userId;
+		this.title = title;
+		this.mediaCategory = mediaCategory;
 		this.ingredient = ingredient;
+		this.content = content;
+		this.recipeImage = recipeImage;
+		
 	}
 	
 	

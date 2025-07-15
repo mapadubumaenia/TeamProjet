@@ -25,45 +25,52 @@
 	<!-- 머리말 -->
 	<jsp:include page="/common/header.jsp" />
 
-
-	<!-- 업로드 시 추가(첨부파일이라는 요청): enctype="multipart/form-data" -->
-	<!-- 스프링 업로드 파일 제한(기본): 1M -> 10M -->
-	<div class="upload">
-	<form action="/media/add.do" id="addForm" name="addForm" method="post"
+	<div class="update">
+	<form action="/media/edit.do" id="addForm" name="addForm" method="post"
 		enctype="multipart/form-data">
+
+<input type="hidden" name="uuid" value="<c:out value='${mediaVO.uuid}' />">
 
 		<div class="mb3">
 			<label for="mediaCategory" class="form-label">카테고리</label> 
 			
 			<select
 				class="form-select" id="mediaCategory" name="mediaCategory">
-				<option value="1">영화</option>
-				<option value="2">드라마</option>
-				<option value="3">게임</option>
+				<option value="1"<c:if test="${mediaVO.mediaCategory == 1}">selected</c:if>>영화</option>
+				<option value="2"<c:if test="${mediaVO.mediaCategory == 2}">selected</c:if>>드라마</option>
+				<option value="3"<c:if test="${mediaVO.mediaCategory == 3}">selected</c:if>>게임</option>
 
 			</select> 
 			<label for="title" class="form-label">요리이름</label> 
-			<input class="form-control" id="title" name="title" placeholder="title" />
+			<input class="form-control" id="title" name="title" placeholder="title" value="${mediaVO.title}"/>
 		</div>
 		<div class="mb3">
 			<label for="ingredient" class="form-label">준비물</label> 
 			<textarea class="form-control" id="ingredient" name="ingredient"
-				placeholder="ingredient" /></textarea>
+				placeholder="ingredient">${mediaVO.ingredient}</textarea>
 		</div>
 		<div class="mb3">
 			<label for="content" class="form-label">만드는 방법</label> 
 			<textarea class="form-control" id="content" name="content"
-				placeholder="content" /></textarea>
+				placeholder="content">${mediaVO.content}</textarea>
 		</div>
-		<div class="mb-3">
-		<label for="recipeImage" class="form-label">대표 이미지 추가</label>
-			<input type="file" class="form-control" id="recipeImage"
-				name="recipeImage">
+		
+		<c:if test="${mediaVO.recipeImageUrl != null}">
+                <div class="mb-3">
+                    <p>기존 이미지:</p>
+                    <img src="${mediaVO.recipeImageUrl}" class="img-fluid mb-2" alt="기존 이미지">
+                </div>
+            </c:if>
 
-		</div>
-<div class="ubuttons">
-		<button class="btn btn-outline-dark" type="button" onclick="fn_save()">올리기</button>
-		</div>
+            <div class="mb-3">
+                <label for="recipeImage" class="form-label">이미지 수정</label>
+                <input type="file" class="form-control" id="recipeImage" name="recipeImage" />
+            </div>
+
+		<div class="ubuttons">
+   <button class="btn btn-outline-dark" type="button" onclick="fn_update()">수정</button>
+   <button class="btn btn-outline-dark" type="button" onclick="fn_delete()">삭제</button>
+   </div>
 	</form>
 </div>
 
@@ -78,12 +85,20 @@
 	<script src="/js/nav.js"></script>
 	
 
-	<script type="text/javascript">
-		function fn_save() {
-			$("#addForm").attr("action", '<c:out value="/media/add.do" />')
-					.submit();
-		}
-	</script>
+<script type="text/javascript">
+	function fn_update() {
+
+		$("#addForm").attr("action",'<c:out value="/media/edit.do" />')
+		.submit();		
+	}
+	function fn_delete() {
+		if (confirm("삭제하시겠습니까?")) {
+			$("#addForm").attr("action",'<c:out value="/media/delete.do" />')
+			.submit();	
+		}	
+	}
+	
+</script>
 
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />

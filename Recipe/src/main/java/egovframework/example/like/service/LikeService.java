@@ -21,4 +21,5 @@ public interface LikeService {
     
     // 게시물의 총 좋아요 수
     int countLikesByUuid(String uuid);
+
 }

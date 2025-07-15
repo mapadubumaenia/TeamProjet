@@ -25,6 +25,7 @@ public interface LikeMapper {
 	    
 	    // 게시물의 총 좋아요 수
 	    public int countLikesByUuid(String uuid);
+
 	}
 
 

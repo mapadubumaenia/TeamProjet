@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/exstyle.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Drinkstyle.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Methodstyle.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/add_method.css">
 </head>
 <body>
   <jsp:include page="/common/header.jsp"/>
@@ -104,6 +105,10 @@
       </div>
     </div>
   </div>
+  
+  <br>
+
+<jsp:include page="/common/footer.jsp"/>
 
   <!-- jQuery, Bootstrap JS 순서 중요 -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -137,4 +142,6 @@
     });
   </script>
 </body>
+
+
 </html>

@@ -3,7 +3,10 @@ package egovframework.example.drink.web;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
@@ -22,13 +25,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.LinkedList;
 
 import egovframework.example.auth.service.MemberService;
 import egovframework.example.auth.service.MemberVO;
 import egovframework.example.common.Criteria;
 import egovframework.example.drink.service.DrinkService;
 import egovframework.example.drink.service.DrinkVO;
+import egovframework.example.like.service.LikeService;
+import egovframework.example.like.service.LikeVO;
 import lombok.extern.log4j.Log4j2;
 
 @Controller
@@ -41,6 +45,10 @@ public class DrinkController {
     // MemberService 주입
     @Autowired
     private MemberService memberService;
+    
+    // ↓ 이 부분 추가 ↓
+    @Autowired
+    private LikeService likeService;
 	
 	
 	@GetMapping("/drink/drink.do")
@@ -64,11 +72,25 @@ public class DrinkController {
 		    model.addAttribute("selectedCategory", category);
 		
 		//전체조회 서비스 메소드 실행
-		List<?> drinks= drinkService.selectDrinkList(criteria);
-		log.info("테스트: "+drinks);
-		model.addAttribute("drinks", drinks);
+//		List<?> drinks= drinkService.selectDrinkList(criteria);
+//		
+//		model.addAttribute("drinks", drinks);
 		
 	
+		 // (1) 드링크 리스트 가져오기
+	    @SuppressWarnings("unchecked")
+	    List<DrinkVO> drinks = (List<DrinkVO>) drinkService.selectDrinkList(criteria);
+	    
+	    // (2) 각 UUID마다 좋아요 수 조회해서 setLikeCount 호출
+	    for (DrinkVO d : drinks) {
+	        int cnt = likeService.countLikesByUuid(d.getUuid());
+	        d.setLikeCount(cnt);
+	    }
+	    model.addAttribute("drinks", drinks);
+		
+		
+		
+		
 		//페이지 번호 그리기: 페이지 플러그인(전체테이블 행 개수)
 				int totCnt=drinkService.selectDrinkListTotCnt(criteria);
 				paginationInfo.setTotalRecordCount(totCnt);
@@ -235,13 +257,73 @@ public class DrinkController {
         model.addAttribute("recentDrinks", recentDrinks);
         // ────────────────────────────────────────────────
         
+     // 5) 좋아요 상태 & 카운트
+        boolean isLiked = false;
+        if (current != null) {
+            LikeVO likeVO = new LikeVO();
+            likeVO.setUserId(current.getUserId());
+            likeVO.setTargetType("column");
+            likeVO.setUuid(uuid);
+            isLiked = likeService.countLikeByUser(likeVO) > 0;
+        }
+        int likeCount = likeService.countLikesByUuid(uuid);
+
+        model.addAttribute("isLiked", isLiked);
+        model.addAttribute("likeCount", likeCount);
+        
+        // ─── 추가: 작성자 프로필 Base64 인코딩 ───
+        if (vo.getAuthorProfileImage() != null && vo.getAuthorProfileImage().length>0) {
+            String b64 = Base64.getEncoder()
+                               .encodeToString(vo.getAuthorProfileImage());
+            model.addAttribute("authorImgB64", b64);
+        }
+        // ─────────────────────────────────────────
+        
         
         
         
         return "drink/detail";   // /WEB-INF/views/drink/detail.jsp
     }
 	
-	
-	
-	
+ // ★ 좋아요 토글 AJAX 엔드포인트
+    @PostMapping("/drink/like.do")
+    @ResponseBody
+    public ResponseEntity<Map<String,Object>> toggleLike(
+            @RequestParam String uuid,
+            HttpSession session) {
+
+        MemberVO current = (MemberVO) session.getAttribute("memberVO");
+        if (current == null) {
+            // 로그인 안 된 상태 → 401 Unauthorized
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        LikeVO likeVO = new LikeVO();
+        likeVO.setUserId(current.getUserId());
+        likeVO.setTargetType("column");
+        likeVO.setUuid(uuid);
+
+        boolean nowLiked;
+        if (likeService.countLikeByUser(likeVO) > 0) {
+            likeService.deleteLike(likeVO);
+            nowLiked = false;
+        } else {
+            likeService.insertLike(likeVO);
+            nowLiked = true;
+        }
+
+        int total = likeService.countLikesByUuid(uuid);
+        Map<String,Object> resp = new HashMap<>();
+        resp.put("liked", nowLiked);
+        resp.put("count", total);
+
+        return ResponseEntity.ok(resp);
+    }
 }
+    
+    
+    
+    
+	
+	
+

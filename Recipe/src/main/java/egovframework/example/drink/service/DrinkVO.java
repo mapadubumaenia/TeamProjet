@@ -32,7 +32,8 @@ public class DrinkVO extends Criteria{
 	 private String category;            // 카테고리
 	 private String columnIngredient;            // 재료 
 	 private String userNickname;                //별명
-	
+	  private int likeCount;                   //좋아요 수 카운트
+	  private byte[] authorProfileImage;       //이미지 파일 작성자
 	
 
 	

@@ -24,8 +24,14 @@ public class LikeServiceImpl implements LikeService{
 	public void insertLike(LikeVO likeVO) {
 		// TODO Auto-generated method stub
 		likeMapper.insertLike(likeVO);
+
+		
 	}
-//	좋아요 여부 확인
+	
+
+	
+	//	좋아요 여부 확인
+
 	@Override
 	public int countLikeByUser(LikeVO likeVO) {
 		// TODO Auto-generated method stub
@@ -36,6 +42,7 @@ public class LikeServiceImpl implements LikeService{
 	public void deleteLike(LikeVO likeVO) {
 		// TODO Auto-generated method stub
 		likeMapper.deleteLike(likeVO);
+
 	}
 	
 //  개시물의 총 좋아요 수
@@ -44,4 +51,5 @@ public class LikeServiceImpl implements LikeService{
 		// TODO Auto-generated method stub
 		return likeMapper.countLikesByUuid(uuid);
 	}
+
 }

@@ -16,6 +16,7 @@ WHERE UUID LIKE '%' || #{searchKeyword} ||'%'
 <select id="MediaList" parameterType="Criteria" resultType="MediaVO">
 SELECT * FROM MEDIA_RECIPES WHERE MEDIA_CATEGORY = #{mediaCategory} AND 
 UUID LIKE '%' || #{searchKeyword} ||'%' 
+ORDER BY RECIPE_CREATED_AT DESC
 OFFSET #{firstIndex} ROWS FETCH NEXT #{pageUnit} ROWS ONLY
 </select>
 
@@ -42,5 +43,6 @@ RECIPE_IMAGE=#{recipeImage},RECIPE_IMAGE_URL=#{recipeImageUrl}, MEDIA_CATEGORY=#
 
 <delete id="delete" parameterType="MediaVO"> 
 DELETE MEDIA_RECIPES WHERE UUID=#{uuid} </delete>
+
 
 </mapper>

@@ -31,32 +31,33 @@
     <!-- 1) 레시피 카드 -->
     <div class="card mb-5 shadow-sm">
       <div class="row g-0">
-        <div class="col-md-5">
-          <img
-            src="<c:url value='/drink/download.do'>
+				<div class="col-md-5">
+					<img
+						src="<c:url value='/drink/download.do'>
                    <c:param name='uuid' value='${drink.uuid}'/>
                  </c:url>"
-            class="img-fluid rounded-start h-100 w-100 object-fit-cover"
-            alt="음료 이미지"
-          />
-        </div>
-        <div class="col-md-7">
-          <div class="card-body">
-            <h2 class="card-title mb-3">${drink.columnTitle}</h2>
-            <p class="text-muted mb-1">
-              작성자: <strong>${drink.userNickname}</strong>
-              &nbsp;|&nbsp;
-              등록일: <strong>${drink.columnCreatedAt}</strong>
-            </p>
-            <p class="mb-2">
-              <span class="badge bg-info text-dark">카테고리</span>
-              ${drink.category}
-            </p>
-            <hr/>
-            <p class="card-text">${drink.columnContent}</p>
-          </div>
-        </div>
-      </div>
+						class="img-fluid rounded-start h-100 w-100 object-fit-cover"
+						alt="음료 이미지" />
+				</div>
+				<div class="col-md-7">
+					<div class="card-body">
+						<h2 class="card-title mb-3">${drink.columnTitle}</h2>
+						<p class="text-muted mb-1 d-flex align-items-center">
+							<c:if test="${not empty authorImgB64}">
+								<img src="data:image/png;base64,${authorImgB64}" alt="작성자 프로필"
+									class="rounded-circle me-2" width="40" height="40" />
+							</c:if>
+							작성자: <strong>${drink.userNickname}</strong> &nbsp;|&nbsp; 등록일: <strong>${drink.columnCreatedAt}</strong>
+						</p>
+						<p class="mb-2">
+							<span class="badge bg-info text-dark">카테고리</span>
+							${drink.category}
+						</p>
+						<hr />
+						<p class="card-text">${drink.columnContent}</p>
+					</div>
+				</div>
+			</div>
     </div>
     
 <div class="mb-5 px-4 py-3 columnIngredient">
@@ -71,16 +72,24 @@
 
   <!-- ★ 버튼 그룹 삽입 -->
     <div class="d-flex justify-content-center gap-3 mb-4">
+      <input type="hidden" id="csrf" name="csrf" value="${sessionScope.CSRF_TOKEN}"/>
       <button type="button" class="btn btn-mocha" onclick="copyUrl()">
         URL 복사
       </button>
       <button type="button" class="btn btn-mocha" onclick="copyContent()">
         레시피 복사
       </button>
-      <button type="button" id="likeBtn" class="btn btn-mocha" onclick="toggleLike()">
-        <span id="likeIcon">&#9825;</span> 좋아요
-        <span id="likeCount" class="badge bg-white text-dark ms-1">0</span>
-      </button>
+      <button
+    type="button"
+    id="likeBtn"
+    class="btn btn-mocha ${isLiked ? 'text-danger' : ''}"
+  >
+    <span id="likeIcon">${isLiked ? '&#9829;' : '&#9825;'}</span>
+    좋아요
+    <span id="likeCount" class="badge bg-white text-dark ms-1">
+      ${likeCount}
+    </span>
+  </button>
     </div>
 
 
@@ -107,6 +116,7 @@
       <div class="card-body">
         <form action="<c:url value='/drink/addComment.do'/>" method="post">
           <input type="hidden" name="uuid" value="${drink.uuid}"/>
+          <input type="hidden" name="csrf" value="${sessionScope.CSRF_TOKEN}">
           <div class="mb-3">
             <textarea
               name="commentContent"
@@ -180,6 +190,33 @@
       }
     }
   </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#likeBtn').on('click', function(){
+    $.ajax({
+      url: '<c:url value="/drink/like.do"/>',
+      method: 'POST',
+      data: { 
+        uuid: '${drink.uuid}', 
+        csrf: $('#csrf').val()      // ← CSRF 토큰 추가
+      },
+      dataType: 'json'
+    })
+    .done(function(resp){
+      $('#likeIcon').html(resp.liked ? '&#9829;' : '&#9825;');
+      $('#likeCount').text(resp.count);
+      $('#likeBtn').toggleClass('text-danger', resp.liked);
+    })
+    .fail(function(xhr){
+      if (xhr.status === 401) {
+        alert('로그인 후 이용해 주세요.');
+      } else {
+        alert('오류가 발생했습니다.');
+      }
+    });
+  });
+</script>
+  
           
 </body>
 </html>
