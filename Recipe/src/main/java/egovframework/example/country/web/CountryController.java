@@ -123,8 +123,4 @@ public class CountryController {
 		return "redirect:/country/country.do";
 	}
 
-	@GetMapping("/login.do")
-	public String loginView() {
-	    return "auth/login";
-	}
 }
