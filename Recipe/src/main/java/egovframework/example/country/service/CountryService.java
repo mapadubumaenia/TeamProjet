@@ -19,5 +19,8 @@ public interface CountryService {
 	CountryVO selectCountry (String uuid); //상세조회
 	int delete(CountryVO countryVO); // delete 메소드
 	int update(CountryVO countryVO); // update 메소드
+	List<CountryVO> getCountryCategories();      // 나라 카테고리
+	List<CountryVO> getIngredientCategories();   // 재료 카테고리
+	List<CountryVO> getSituationCategories();    // 상황 카테고리
 }
 

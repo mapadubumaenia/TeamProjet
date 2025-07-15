@@ -26,9 +26,9 @@ public class CountryVO extends Criteria{
 	private String uuid; // 기본키
 	private String userId; // 사용자 아이디
 	private String recipeTitle; // 글 제목
-	private int countryCategoryId; // 나라별
-	private int ingredientCategoryId; // 재료별
-	private int situationCategoryId; // 상황별
+	private Integer countryCategoryId; // 나라별
+	private Integer ingredientCategoryId; // 재료별
+	private Integer situationCategoryId; // 상황별
 	private String standardRecipeImageUrl; // 이미지
 	private String recipeCreatedAt; // 작성일자
 	private int likeCount; // 좋아요
@@ -39,5 +39,7 @@ public class CountryVO extends Criteria{
 	private int viewCount; //게시글 조회수
 	private String ingredient; //재료 소개
 	private String recipeIntro; //레시피 소개
+	private int id;
+	private String name;
 	
 }

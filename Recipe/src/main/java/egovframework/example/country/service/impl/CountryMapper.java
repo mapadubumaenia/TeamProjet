@@ -22,4 +22,7 @@ public interface CountryMapper {
 	public CountryVO selectCountry (String uuid); //상세조회
 	public int delete(CountryVO countryVO); // delete 메소드
 	public int update(CountryVO countryVO); // update 메소드
+	public List<CountryVO> selectCountryCategories(); //국가별
+	public List<CountryVO> selectIngredientCategories(); //재료별
+	public List<CountryVO> selectSituationCategories(); // 상황별
 }
