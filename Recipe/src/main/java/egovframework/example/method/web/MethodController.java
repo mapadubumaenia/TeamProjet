@@ -240,6 +240,16 @@ public class MethodController {
         model.addAttribute("likeCount", likeCount);
         
         
+        // ─── 작성자 이미지파일 ───
+        if (vo.getAuthorProfileImage() != null && vo.getAuthorProfileImage().length > 0) {
+            String b64 = Base64.getEncoder()
+                               .encodeToString(vo.getAuthorProfileImage());
+            model.addAttribute("authorImgB64", b64);
+        }
+        // ─────────────────
+        
+        
+        
         return "method/detail";  // /WEB-INF/views/method/detail.jsp
     }
 

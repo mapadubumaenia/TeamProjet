@@ -14,6 +14,7 @@
     <result property="methodData"      column="METHOD_DATA"/>
     <result property="category"        column="CATEGORY"/>
     <result property="methodCreatedAt" column="METHOD_CREATED_AT"/>
+    <result property="authorProfileImage" column="PROFILE_IMAGE"/>
   </resultMap>
 
 
@@ -78,6 +79,7 @@
       f.UUID,
       f.USER_ID,
       u.NICKNAME         AS NICKNAME,
+       u.PROFILE_IMAGE  AS PROFILE_IMAGE,
       f.METHOD_TYPE,
       f.METHOD_TITLE,
       f.METHOD_CONTENT,
