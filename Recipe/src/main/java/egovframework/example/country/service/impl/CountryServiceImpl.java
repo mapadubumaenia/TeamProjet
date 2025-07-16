@@ -52,7 +52,22 @@ public class CountryServiceImpl implements CountryService{
 		// TODO Auto-generated method stub
 		return countryMapper.update(countryVO);
 	}
-	
-	
-	
+//	나라선택
+	@Override
+	public List<CountryVO> getCountryCategories() {
+		// TODO Auto-generated method stub
+		return countryMapper.selectCountryCategories();
+	}
+//	재료선택
+	@Override
+	public List<CountryVO> getIngredientCategories() {
+		// TODO Auto-generated method stub
+		return countryMapper.selectIngredientCategories();
+	}
+//	상황선택
+	@Override
+	public List<CountryVO> getSituationCategories() {
+		// TODO Auto-generated method stub
+		return countryMapper.selectSituationCategories();
+	}
 }

@@ -271,6 +271,15 @@ public class DrinkController {
         model.addAttribute("isLiked", isLiked);
         model.addAttribute("likeCount", likeCount);
         
+        // ─── 추가: 작성자 프로필 Base64 인코딩 ───
+        if (vo.getAuthorProfileImage() != null && vo.getAuthorProfileImage().length>0) {
+            String b64 = Base64.getEncoder()
+                               .encodeToString(vo.getAuthorProfileImage());
+            model.addAttribute("authorImgB64", b64);
+        }
+        // ─────────────────────────────────────────
+        
+        
         
         
         return "drink/detail";   // /WEB-INF/views/drink/detail.jsp

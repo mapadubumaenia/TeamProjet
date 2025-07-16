@@ -35,21 +35,23 @@
           </div>
         </c:if>
         <div class="col-md-7">
-          <div class="card-body">
-            <h2 class="card-title mb-3">${method.methodTitle}</h2>
-            <p class="text-muted mb-1">
-             작성자: <strong>${method.userNickname}</strong>
-              &nbsp;|&nbsp;
-              등록일: <strong>${method.methodCreatedAt}</strong>
-            </p>
-            <p class="mb-2">
-              <span class="badge bg-info text-dark">카테고리</span>
-              ${method.category}
-            </p>
-            <hr/>
-            <p class="card-text">${method.methodContent}</p>
-          </div>
-        </div>
+					<div class="card-body">
+						<h2 class="card-title mb-3">${method.methodTitle}</h2>
+						<p class="text-muted mb-1 d-flex align-items-center">
+							<c:if test="${not empty authorImgB64}">
+								<img src="data:image/png;base64,${authorImgB64}" alt="작성자 프로필"
+									class="rounded-circle me-2" width="40" height="40" />
+							</c:if>
+							작성자: <strong>${method.userNickname}</strong> &nbsp;|&nbsp; 등록일: <strong>${method.methodCreatedAt}</strong>
+						</p>
+						<p class="mb-2">
+							<span class="badge bg-info text-dark">카테고리</span>
+							${method.category}
+						</p>
+						<hr />
+						<p class="card-text">${method.methodContent}</p>
+					</div>
+				</div>
       </div>
     </div>
 

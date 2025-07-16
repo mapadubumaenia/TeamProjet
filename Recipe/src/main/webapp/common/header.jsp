@@ -25,7 +25,7 @@
              style="border-radius: 50%; object-fit: cover; margin-right: 8px;" />
           	 <p class="nickname">${sessionScope.memberVO.nickname}님</p>
   	         <a class="link" href="<c:url value='/logout.do'/>">로그아웃</a>
-  	         <a class="link" href="<c:url value='/home.do'/>">마이페이지</a>
+  	         <a class="link" href="<c:url value='/mypage.do'/>">마이페이지</a>
         </c:if>
 
   </div>

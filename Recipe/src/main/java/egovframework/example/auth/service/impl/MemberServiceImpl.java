@@ -61,5 +61,6 @@ public class MemberServiceImpl extends EgovAbstractServiceImpl implements Member
         memberMapper.updatePassword(memberVO);
 
 	}
+
 	
 }

@@ -30,6 +30,7 @@ public class MethodVO extends Criteria{
 	private String methodCreatedAt;        //날짜
 	 private String userNickname;                //별명
 	 private int likeCount;                   //좋아요 수 카운트
+	  private byte[] authorProfileImage;       //작성자 이미지
 	
 //	카테고리 위한 메소드
 	 public String getCategory() { return category; }
