@@ -652,15 +652,51 @@ a {text-decoration: none; color: var(--black);}
 }
 
 
+/* —————— 슬라이더 공통 —————— */
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  /* 카드 3개만 보이도록 고정폭 (카드 너비+패딩 합산 × 3) */
+  width: calc((100% / 3) * 3);
+  margin: 0 auto;
+}
+.slider-track {
+  display: flex;
+  animation: slide-left 20s linear infinite;
+  /* 기본 상태 : 애니메이션 실행 */
+  animation-play-state: running;
+}
+.slider-container:hover .slider-track {
+  /* 호버하면 멈춤 */
+  animation-play-state: paused;
+}
+@keyframes slide-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+/* 트랙 안 아이템이 두 번 반복되도록 복사 */
+.slider-item { flex: 0 0 calc(100% / 3); box-sizing: border-box; }
 
 
 
 
+.slider-container.reverse .slider-track {
+  animation-direction: reverse;
+}
 
 
+/* 메인 배너 높이 조절 */
+.swiper.mySwiper {
+  height: 600px;    /* 원하시는 높이로 변경 */
+}
 
+.swiper-slide {
+  height: 600px !important;
+}
 
-
+.overlay {
+  height: 200px;    /* 슬라이드 하단 그라데이션 높이 */
+}
 
 
 

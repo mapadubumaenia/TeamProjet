@@ -37,19 +37,23 @@
         <div class="col-md-7">
 					<div class="card-body">
 						<h2 class="card-title mb-3">${method.methodTitle}</h2>
-						<p class="text-muted mb-1 d-flex align-items-center">
-							<c:if test="${not empty authorImgB64}">
-								<img src="data:image/png;base64,${authorImgB64}" alt="작성자 프로필"
-									class="rounded-circle me-2" width="40" height="40" />
-							</c:if>
-							작성자: <strong>${method.userNickname}</strong> &nbsp;|&nbsp; 등록일: <strong>${method.methodCreatedAt}</strong>
-						</p>
-						<p class="mb-2">
-							<span class="badge bg-info text-dark">카테고리</span>
-							${method.category}
-						</p>
+						<div
+							class="card-subheader d-flex justify-content-between align-items-center mb-3">
+							<span class="badge bg-info text-dark">${method.category}</span>
+							<div class="d-flex align-items-center">
+								<c:if test="${not empty authorImgB64}">
+									<img src="data:image/png;base64,${authorImgB64}" alt="작성자 프로필"
+										class="rounded-circle me-2" width="40" height="40" />
+								</c:if>
+								<small class="text-muted mb-0"> 작성자: <strong>${method.userNickname}</strong>
+								</small>
+							</div>
+						</div>
 						<hr />
 						<p class="card-text">${method.methodContent}</p>
+						<p class="createdAt">
+							<strong>${method.methodCreatedAt}</strong>
+						</p>
 					</div>
 				</div>
       </div>
