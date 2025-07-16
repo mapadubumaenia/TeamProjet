@@ -24,12 +24,9 @@
     
         
        <form method="post" action="/community/addition.do" enctype="multipart/form-data">
-    <input type="hidden" name="communityCategoriesId" value="1" />
+    <input type="hidden" name="communityCategoryId" value="1" />
 
-    <div class="mb-3">
-        <label for="userId" class="form-label">작성자</label>
-        <input type="text" class="form-control" id="userId" name="userId" required />
-    </div>
+    
 
     <div class="mb-3">
         <label for="communityTitle" class="form-label">제목</label>

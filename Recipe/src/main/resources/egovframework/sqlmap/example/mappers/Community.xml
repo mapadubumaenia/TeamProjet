@@ -8,26 +8,38 @@
 	<select id="selectCommunityList"
         parameterType="egovframework.example.common.Criteria"
         resultType="egovframework.example.community.service.CommunityVO">
-		SELECT UUID AS uuid,
-		       USER_ID AS userId,
-		       COMMUNITY_CATEGORY_ID AS communityCategoriesId,
-		       COMMUNITY_TITLE AS communityTitle,
-		       COMMUNITY_CREATED_AT AS communityCreatedAt,
-		       COMMUNITY_LIKE_COUNT AS communityLikeCount,
-		       COMMUNITY_CONTENT AS communityContent,
-		       COUNT AS communityCount,
-		       COMMUNITY_IMAGE AS communityImage,
-		       COMMUNITY_URL AS communityUrl
-		FROM COMMUNITY
-		
-		 <where>
-        <if test="searchKeyword != null and searchKeyword != ''">
-            COMMUNITY_TITLE LIKE '%' || #{searchKeyword} || '%'
-        </if>
-    </where>
-    ORDER BY COMMUNITY_CREATED_AT DESC
-    OFFSET #{firstIndex} ROWS
-    FETCH NEXT #{pageUnit} ROWS ONLY
+  
+  SELECT
+    COMMUNITY.UUID AS uuid,
+    COMMUNITY.USER_ID AS userId,
+    USERS.NICKNAME AS userNickname,
+    COMMUNITY.COMMUNITY_TITLE AS communityTitle,
+    COMMUNITY.COMMUNITY_CONTENT AS communityContent,
+    COMMUNITY.COMMUNITY_LIKE_COUNT AS communityLikeCount,
+    COMMUNITY.COUNT AS communityCount,
+    COMMUNITY.COMMUNITY_IMAGE AS communityImage,
+    COMMUNITY.COMMUNITY_CREATED_AT AS communityCreatedAt,
+    COMMUNITY.CONTENT_TYPE AS contentType,
+    COMMUNITY.COMMUNITY_CATEGORY_ID AS communityCategoryId,
+    
+    (SELECT COUNT(*) 
+     FROM COMMENTS 
+     WHERE COMMENTS.UUID = COMMUNITY.UUID 
+       AND COMMENTS.TARGET_TYPE = 'community') AS commentCount
+  
+  FROM COMMUNITY
+  JOIN USERS ON COMMUNITY.USER_ID = USERS.USER_ID
+  
+  <where>
+    <if test="searchKeyword != null and searchKeyword != ''">
+      COMMUNITY.COMMUNITY_TITLE LIKE '%' || #{searchKeyword} || '%'
+    </if>
+  </where>
+  
+  ORDER BY COMMUNITY.COMMUNITY_CREATED_AT DESC
+  OFFSET #{firstIndex} ROWS
+  FETCH NEXT #{pageUnit} ROWS ONLY
+
 </select>
 
    <select id="selectCommunityListTotCnt"
@@ -42,14 +54,15 @@
    </select>
 
    <insert id="insert" parameterType="CommunityVO">
-       INSERT INTO COMMUNITY(UUID, USER_ID, COMMUNITY_CATEGORY_ID,
-               COMMUNITY_TITLE, COMMUNITY_CREATED_AT,
-               COMMUNITY_LIKE_COUNT, COMMUNITY_CONTENT,
-               COUNT, COMMUNITY_IMAGE, COMMUNITY_URL)
-       VALUES (#{uuid}, #{userId}, #{communityCategoriesId},
-               #{communityTitle}, SYSDATE,
-               #{communityLikeCount}, #{communityContent},
-               #{communityCount}, #{communityImage}, #{communityUrl})
+       INSERT INTO COMMUNITY (
+  UUID, USER_ID, COMMUNITY_TITLE, COMMUNITY_CONTENT, COMMUNITY_LIKE_COUNT,
+  COUNT, COMMUNITY_IMAGE, COMMUNITY_CREATED_AT, CONTENT_TYPE,
+   
+  COMMUNITY_CATEGORY_ID) VALUES 
+  
+   (#{uuid}, #{userId}, #{communityTitle}, #{communityContent},
+   #{communityLikeCount},#{communityCount}, #{communityImage}, 
+   TO_DATE(#{communityCreatedAt}, 'YY-MM-DD HH24:MI'), #{contentType}, #{communityCategoryId})
    </insert>
 
 <update id="update" parameterType="egovframework.example.community.service.CommunityVO">
@@ -83,7 +96,7 @@
         resultType="egovframework.example.community.service.CommunityVO">
     SELECT UUID AS uuid,
            USER_ID AS userId,
-           COMMUNITY_CATEGORY_ID AS communityCategoriesId,
+           COMMUNITY_CATEGORY_ID AS communityCategoryId,
            COMMUNITY_TITLE AS communityTitle,
            COMMUNITY_CREATED_AT AS communityCreatedAt,
            COMMUNITY_LIKE_COUNT AS communityLikeCount,
@@ -95,7 +108,11 @@
     WHERE UUID = #{uuid}
 </select>
 
-
+<select id="getLikeCount" parameterType="String" resultType="int">
+  SELECT community_like_count
+  FROM community
+  WHERE uuid = #{uuid}
+</select>
  
 
 
