@@ -24,6 +24,8 @@
 	<!-- 머리말 -->
 	<jsp:include page="/common/header.jsp" />
 	
+	<input type="hidden" id="uuid" value="${media.uuid}" />
+	
 	<form id="listForm" method="get">
 		<input type="hidden" name="pageIndex" id="pageIndex" value="1" />
 	</form>
@@ -109,7 +111,7 @@
 			}
 		});
 	</script>
-
+	
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />
 </body>

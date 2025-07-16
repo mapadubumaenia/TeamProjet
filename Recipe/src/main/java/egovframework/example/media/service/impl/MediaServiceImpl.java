@@ -91,6 +91,5 @@ public class MediaServiceImpl implements MediaService {
 		return mediaMapper.delete(mediaVO);
 	}
 
-	
 
 }

@@ -21,5 +21,4 @@ public interface MediaService {
 	int insert(MediaVO mediaVO);                 // insert
 	int update(MediaVO mediaVO);           //수정
 	int delete(MediaVO mediaVO);           //삭제
-
 }
