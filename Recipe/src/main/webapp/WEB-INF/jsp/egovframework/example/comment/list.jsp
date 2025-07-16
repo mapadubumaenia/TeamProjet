@@ -40,7 +40,7 @@
 
     <!-- 버튼 영역 -->
     <div class="comment-buttons mt-2">
-      <c:if test="${sessionScope.memberVO.userid eq comment.userId}">
+      <c:if test="${sessionScope.memberVO.userId eq comment.userId}">
         <button class="btn btn-sm btn-secondary edit-btn" data-id="${comment.commentId}" data-content="${comment.content}">수정</button>
         <button class="btn btn-sm btn-success save-btn" data-id="${comment.commentId}" style="display: none;">등록</button>
         <button class="btn btn-sm btn-light cancel-btn" data-id="${comment.commentId}" style="display: none;">취소</button>
@@ -104,7 +104,7 @@
     const commentBox = $(this).closest(".comment-box");
     const textarea = commentBox.find("textarea.edit-content");
     const newContent = textarea.val();
-    const userId = "${sessionScope.memberVO.userid}";
+    const userId = "${sessionScope.memberVO.userId}";
     if (!newContent || newContent.trim() === "") {
       alert("내용을 입력해주세요.");
       return;
@@ -156,7 +156,7 @@
         contentType: "application/json",
         data: JSON.stringify({
           uuid: "${param.uuid}",
-          userId: "${sessionScope.memberVO.userid}",
+          userId: "${sessionScope.memberVO.userId}",
           targetType: "community",
           content: content,
           parentId: parentId
@@ -186,7 +186,7 @@
       contentType: "application/json",
       data: JSON.stringify({
         uuid: "${param.uuid}",
-        userId: "${sessionScope.memberVO.userid}",
+        userId: "${sessionScope.memberVO.userId}",
         targetType: "community",
         content: content,
         parentId: null
