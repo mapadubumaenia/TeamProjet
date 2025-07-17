@@ -51,7 +51,7 @@
 	width : 200px;
 	display:flex;
 }
-.btn{
+.regibtn{
 	margin-top:0.5rem;
 	background-color: var(--mocha);
 	color: white;
@@ -60,8 +60,11 @@
     font-size : 15px;
 	padding-top: 0.1rem !important;
 }
-
-.btn:hover {
+.btn{
+	    margin-top : 0.5rem;
+		height : 30px;
+}
+.regibtn:hover {
 	background-color: var(--dark);
 	color: white;
 }
@@ -121,14 +124,17 @@ label {
 .input_center{
 	width : 350px;
 }
-.btn{
+.regibtn{
 	width : 350px;
 	height : 40px;
 	margin-top: 0.75rem;
 	font-size : 16px;
     padding-top: 0.7rem !important;
 }
-
+.btn{
+	    margin-top : 0.75rem;
+		height : 40px;
+}
 .input_name{
 	font-size : 16px;
 }
@@ -153,5 +159,9 @@ label {
     width: 99vw;
 	height: 1000px;
 	align-items: center;
+}
+.btn{
+	    margin-top : 0.8rem;
+		height : 40px;
 }
 }

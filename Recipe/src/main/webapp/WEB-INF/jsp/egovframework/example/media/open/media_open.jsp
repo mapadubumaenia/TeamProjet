@@ -73,17 +73,35 @@
 			</c:choose>
    </div> 
 
+
 <!-- 댓글 영역 -->
 <div id="comment-area" class="mb-3 mt-4">
     <h5>댓글</h5>
     <!-- Ajax로 댓글 목록 + 등록/답글 UI를 /comment/list.do 에서 로딩 -->
     <div id="commentListArea"></div>
-  </div>
-
-
+  
 </div>
  
 <!-- 최근 본 -->
+<div class="recent-container">
+    <h3 style="text-align: center;">최근 본 미디어 레시피</h3>
+    <ul class="recent-list">
+        <c:forEach var="item" items="${recentMediaList}">
+            <li>
+                <a href="${pageContext.request.contextPath}/media/open.do?uuid=${item.uuid}" class="recent-link">
+                    <div class="img-wrapper">
+                        <img src="${item.recipeImageUrl}" alt="${item.title} 이미지" />
+                        <div class="overlay">보러가기</div>
+                    </div>
+                    <div class="img-title">${item.title}</div>
+                </a>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
+
+   </div>
+
 <div class="recent-container">
     <h3 style="text-align: center;">최근 본 미디어 레시피</h3>
     <ul class="recent-list">

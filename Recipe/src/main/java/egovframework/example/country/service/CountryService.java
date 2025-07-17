@@ -22,5 +22,9 @@ public interface CountryService {
 	List<CountryVO> getCountryCategories();      // 나라 카테고리
 	List<CountryVO> getIngredientCategories();   // 재료 카테고리
 	List<CountryVO> getSituationCategories();    // 상황 카테고리
+    boolean toggleLike(String uuid, String userId);
+    int getLikeCount(String uuid);
+    int updateLikeCount(String uuid, int likeCount);  // 좋아요 DB
+
 }
 

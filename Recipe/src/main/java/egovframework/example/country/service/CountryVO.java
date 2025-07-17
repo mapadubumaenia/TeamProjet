@@ -23,6 +23,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public class CountryVO extends Criteria{
 
+	
 	private String uuid; // 기본키
 	private String userId; // 사용자 아이디
 	private String recipeTitle; // 글 제목
@@ -41,5 +42,40 @@ public class CountryVO extends Criteria{
 	private String recipeIntro; //레시피 소개
 	private int id;
 	private String name;
+	
+	
+	public CountryVO(String userId, String recipeTitle, Integer countryCategoryId, Integer ingredientCategoryId,
+			Integer situationCategoryId, String recipeContent, byte[] standardRecipeImage, String nickname,
+			String ingredient, String recipeIntro) {
+		super();
+		this.userId = userId;
+		this.recipeTitle = recipeTitle;
+		this.countryCategoryId = countryCategoryId;
+		this.ingredientCategoryId = ingredientCategoryId;
+		this.situationCategoryId = situationCategoryId;
+		this.recipeContent = recipeContent;
+		this.standardRecipeImage = standardRecipeImage;
+		this.nickname = nickname;
+		this.ingredient = ingredient;
+		this.recipeIntro = recipeIntro;
+	}
+
+
+	public CountryVO(String uuid, String userId, String recipeTitle, Integer countryCategoryId,
+			Integer ingredientCategoryId, Integer situationCategoryId, String recipeContent, byte[] standardRecipeImage,
+			String nickname, String ingredient, String recipeIntro) {
+		super();
+		this.uuid = uuid;
+		this.userId = userId;
+		this.recipeTitle = recipeTitle;
+		this.countryCategoryId = countryCategoryId;
+		this.ingredientCategoryId = ingredientCategoryId;
+		this.situationCategoryId = situationCategoryId;
+		this.recipeContent = recipeContent;
+		this.standardRecipeImage = standardRecipeImage;
+		this.nickname = nickname;
+		this.ingredient = ingredient;
+		this.recipeIntro = recipeIntro;
+	}
 	
 }

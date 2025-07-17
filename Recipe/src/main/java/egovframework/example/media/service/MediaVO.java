@@ -40,6 +40,7 @@ public class MediaVO extends Criteria {
 	private Date recipeupdated;
 	private String nickname;
 
+
 // 필드 5개
 	public MediaVO(String title, String content, String ingredient, int mediaCategory, byte[] recipeImage) {
 			super();

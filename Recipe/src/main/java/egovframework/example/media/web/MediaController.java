@@ -139,7 +139,6 @@ public class MediaController {
 		model.addAttribute("mediaVO", mediaVO);
 		model.addAttribute("data", mediaVO);
 
-        
 		MemberVO current = (MemberVO) session.getAttribute("memberVO");	
 		boolean isLiked = false;
 		
@@ -159,7 +158,7 @@ public class MediaController {
 
         model.addAttribute("isLiked", isLiked);
         model.addAttribute("likeCount", likeCount);
-  
+
      // 최근 본 미디어 목록 처리 
         @SuppressWarnings("unchecked")
         List<String> recentMedia = (List<String>) session.getAttribute("recentMedia");
@@ -179,6 +178,9 @@ public class MediaController {
         List<MediaVO> recentMediaList = recentMedia.stream()
             .map(id -> mediaService.selectMedia(id)) //uuid로 조회
             .filter(Objects::nonNull)                //null 제거
+            .collect(Collectors.toList());
+        model.addAttribute("recentMediaList", recentMediaList);
+            .map(id -> mediaService.selectMedia(id))
             .collect(Collectors.toList());
         model.addAttribute("recentMediaList", recentMediaList);
 

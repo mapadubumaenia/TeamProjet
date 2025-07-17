@@ -59,6 +59,7 @@
 	margin: 10 auto;
 	margin-bottom: 40px;
 	justify-content: center;
+	gap: 10px;
 }
 
 .magazine-card {
