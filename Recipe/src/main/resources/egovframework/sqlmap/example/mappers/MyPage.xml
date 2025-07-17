@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="egovframework.example.mypage.service.impl.MyPageMapper">
-    
+    <!-- 내가 작성한 레시피 -->
      <select id="selectMyRecipes" parameterType="string" resultType="egovframework.example.mypage.service.MyPostVO">
     SELECT 
       UUID, USER_ID AS userId,
@@ -53,9 +53,73 @@
     ) AS totalCount
 </select>
 
+<!-- 내 정보 조회 -->
+
   <select id="selectMyInfo" parameterType="MyInfoVO" resultType="MyInfoVO">
         SELECT * FROM USERS WHERE USER_ID = #{userId}
   </select>
+  
+  <select id="getPasswordByUserId" parameterType="string" resultType="string">
+    SELECT PASSWORD
+    FROM USERS
+    WHERE USER_ID = #{userId}
+</select>
+
+<select id="getMemberById" parameterType="string" resultType="MemberVO">
+  SELECT USER_ID,PASSWORD,USERNAME,PHONE_NUM,EMAIL,NICKNAME,PROFILE_IMAGE
+  FROM USERS
+  WHERE USER_ID = #{userId}
+</select>
+
+<update id="updateMember" parameterType="MemberVO">
+  UPDATE USERS
+  <set>
+    PHONE_NUM = #{phoneNum},
+    EMAIL = #{email},
+    NICKNAME = #{nickname},
+    PROFILE_IMAGE = #{profileImage},
+    <if test="password != null and password !=''">
+    PASSWORD = #{password},
+    </if>
+    </set>
+  WHERE USER_ID = #{userId}
+</update>
+
+<select id="getProfileImage" resultType="byte[]" parameterType="string">
+  SELECT PROFILE_IMAGE FROM USERS WHERE USER_ID = #{userId}
+</select>
+
+<delete id="deleteMember" parameterType="string">
+    DELETE FROM USERS WHERE USER_ID = #{userId}
+</delete>
+
+<!-- 계정삭제시 게시물 계정정보 탈퇴처리 -->
+
+<update id="nullStand" parameterType="string">
+    UPDATE STANDARD_RECIPES SET USER_ID = '탈퇴한회원' WHERE USER_ID = #{userId}
+</update>
+<update id="nullMedia" parameterType="string">
+    UPDATE MEDIA_RECIPES SET USER_ID = '탈퇴한회원' WHERE USER_ID = #{userId}
+</update>
+<update id="nullCommunity" parameterType="string">
+    UPDATE COMMUNITY SET USER_ID = '탈퇴한회원' WHERE USER_ID = #{userId}
+</update>
+<update id="nullColumn" parameterType="string">
+    UPDATE FOOD_COLUMNS SET USER_ID = '탈퇴한회원' WHERE USER_ID = #{userId}
+</update>
+<update id="nullQna" parameterType="string">
+    UPDATE QNA SET USER_ID = '탈퇴한회원' WHERE USER_ID = #{userId}
+</update>
+<update id="nullMethod" parameterType="string">
+    UPDATE FOOD_METHODS SET USER_ID = '탈퇴한회원' WHERE USER_ID = #{userId}
+</update>
+<update id="nullLike" parameterType="string">
+    UPDATE LIKES SET USER_ID = '탈퇴한회원' WHERE USER_ID = #{userId}
+</update>
+<update id="nullComment" parameterType="string">
+    UPDATE COMMENTS SET USER_ID = '탈퇴한회원' WHERE USER_ID = #{userId}
+</update>
+
 
 
 </mapper>

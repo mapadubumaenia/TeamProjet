@@ -12,6 +12,7 @@ public interface MemberMapper {
 	public void register(MemberVO memberVO);
 	public String findId(MemberVO memberVO);
 	public MemberVO findPassword(MemberVO memberVO);
-    public void updatePassword(MemberVO memberVO) throws Exception;
-	
+    public void updatePassword(MemberVO memberVO);
+	public int isUserIdExists(MemberVO memberVO);
+	public int isNicknameExists(MemberVO memberVO) throws Exception;
 }

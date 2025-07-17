@@ -4,10 +4,6 @@
 $("#addForm").validate({
   rules: {
     // 유효성 검사 규칙
-    userId: {          // id별명
-      required: true, // 필수 입력
-      minlength: 4,    // 최소입력길이
-    },
     password: {       // 비밀번호 필드
       required: true, // 필수 입력
       minlength: 6,   // 최소 입력 길이
@@ -17,11 +13,7 @@ $("#addForm").validate({
       minlength: 6,      // 최소 입력 길이,
       equalTo: password, // 비밀번호 필드와 동일한 값을 가지도록
     },
-    userName: {       // id별명
-      required: true, // 필수 입력
-      minlength: 2,   // 최소 입력 길이
-    },
-    nickname: {       // id별명
+    userName: {       // 유저이름
       required: true, // 필수 입력
       minlength: 2,   // 최소 입력 길이
     },
@@ -37,11 +29,6 @@ $("#addForm").validate({
   },
   messages: {
     // 오류값 발생시 출력할 메시지 수동 지정
-      userId: {   // id별명
-      required: "＊필수 입력 항목입니다.",
-      minlength: "＊최소 {0}글자 이상 입력하세요.",
-      
-    },
       password: {
       required: "＊필수 입력 항목입니다.",
       minlength: "＊최소 {0}글자 이상 입력하세요.",
@@ -52,10 +39,6 @@ $("#addForm").validate({
       equalTo: "＊동일한 비밀번호를 입력해 주세요.",
     },
       userName: {   // 사용자이름
-      required: "＊필수 입력 항목입니다.",
-      minlength: "＊최소 {0}글자 이상 입력하세요.",
-    },
-      nickname: {   // 사용자 별영
       required: "＊필수 입력 항목입니다.",
       minlength: "＊최소 {0}글자 이상 입력하세요.",
     },

@@ -122,9 +122,4 @@ public class CountryController {
 		countryService.delete(countryVO);
 		return "redirect:/country/country.do";
 	}
-
-	@GetMapping("/login.do")
-	public String loginView() {
-	    return "auth/login";
-	}
 }
