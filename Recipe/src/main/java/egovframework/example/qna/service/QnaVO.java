@@ -1,5 +1,14 @@
-package egovframework.example.community.service;
+/**
+ * 
+ */
+package egovframework.example.qna.service;
 
+import java.util.Date;
+
+/**
+ * @author user
+ *
+ */
 import egovframework.example.common.Criteria;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,19 +21,25 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CommunityVO extends Criteria {
+public class QnaVO extends Criteria{
 	private String uuid;
 	private String userId;
 	private int communityCategoryId;
-	private String communityTitle;
-	private String communityContent;
-	private String communityCreatedAt;
-	private int communityCount;
-	private byte[] communityImage;
-	private String communityUrl;
+	private String qnaTitle;
+	private String qnaCreatedAt;
+	private int qnaLikeCount;
+	private String qnaContent;
+	private int count;
+	private byte[] qnaImage;          
+	private String qnaUrl;
 	private String contentType;
+	private String answerUserId;
+	private String answerContent;
+	private String answerCreatedAt;
+	private byte[] answerImage;  
 	private String userNickname;
-	private int commentCount;
+	private String answerNickname;
+	
 	
 	public String getUserNickname() {
 	    return userNickname;
@@ -34,12 +49,5 @@ public class CommunityVO extends Criteria {
 	    this.userNickname = userNickname;
 	}
 	
-	public int getCommentCount() {
-	    return commentCount;
-	}
 
-	public void setCommentCount(int commentCount) {
-	    this.commentCount = commentCount;
-	}
-	
 }

@@ -15,7 +15,6 @@
     USERS.NICKNAME AS userNickname,
     COMMUNITY.COMMUNITY_TITLE AS communityTitle,
     COMMUNITY.COMMUNITY_CONTENT AS communityContent,
-    COMMUNITY.COMMUNITY_LIKE_COUNT AS communityLikeCount,
     COMMUNITY.COUNT AS communityCount,
     COMMUNITY.COMMUNITY_IMAGE AS communityImage,
     COMMUNITY.COMMUNITY_CREATED_AT AS communityCreatedAt,
@@ -55,13 +54,13 @@
 
    <insert id="insert" parameterType="CommunityVO">
        INSERT INTO COMMUNITY (
-  UUID, USER_ID, COMMUNITY_TITLE, COMMUNITY_CONTENT, COMMUNITY_LIKE_COUNT,
+  UUID, USER_ID, COMMUNITY_TITLE, COMMUNITY_CONTENT, 
   COUNT, COMMUNITY_IMAGE, COMMUNITY_CREATED_AT, CONTENT_TYPE,
    
   COMMUNITY_CATEGORY_ID) VALUES 
   
    (#{uuid}, #{userId}, #{communityTitle}, #{communityContent},
-   #{communityLikeCount},#{communityCount}, #{communityImage}, 
+  #{communityCount}, #{communityImage}, 
    TO_DATE(#{communityCreatedAt}, 'YY-MM-DD HH24:MI'), #{contentType}, #{communityCategoryId})
    </insert>
 
@@ -79,11 +78,7 @@
     WHERE UUID = #{uuid}
 </update>
 
-<update id="increaseLikeCount" parameterType="String">
-    UPDATE COMMUNITY
-    SET COMMUNITY_LIKE_COUNT = COMMUNITY_LIKE_COUNT + 1
-    WHERE UUID = #{uuid}
-</update>
+
 
 
    <delete id="delete" parameterType="CommunityVO">
@@ -99,7 +94,7 @@
            COMMUNITY_CATEGORY_ID AS communityCategoryId,
            COMMUNITY_TITLE AS communityTitle,
            COMMUNITY_CREATED_AT AS communityCreatedAt,
-           COMMUNITY_LIKE_COUNT AS communityLikeCount,
+           
            COMMUNITY_CONTENT AS communityContent,
            COUNT AS communityCount,
            COMMUNITY_IMAGE AS communityImage,
@@ -108,11 +103,7 @@
     WHERE UUID = #{uuid}
 </select>
 
-<select id="getLikeCount" parameterType="String" resultType="int">
-  SELECT community_like_count
-  FROM community
-  WHERE uuid = #{uuid}
-</select>
+
  
 
 
