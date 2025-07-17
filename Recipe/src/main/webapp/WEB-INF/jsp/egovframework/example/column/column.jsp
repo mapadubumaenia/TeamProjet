@@ -34,36 +34,55 @@
  
   <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper mb-5">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"
-           style="background-image: url('<c:url value="/images/column/drink.jpg"/>');
-                  background-size: cover; background-position: center;">
-        <div class="overlay"></div>
-        <div class="title" data-swiper-parallax="-300">드링크</div>
-        <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
-        <div class="text" data-swiper-parallax="-100">
-          <p>다양한 드링크 레시피를 만나보세요.</p>
-        </div>
+     <a class="swiper-slide"
+   href="<c:url value='/drink/drink.do'/>"
+   style="background-image: url('<c:url value="/images/column/drink2.jpg"/>');
+          background-size: cover; background-position: center;">
+  <div class="overlay">
+    <div class="overlay-content">
+      <div class="title"    data-swiper-parallax="-300">드링크</div>
+      <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+      <div class="text"     data-swiper-parallax="-100">
+        <p>다양한 드링크 레시피를 만나보세요.</p>
       </div>
-      <div class="swiper-slide"
-           style="background-image: url('<c:url value="/images/column/sonjil.jpg"/>');
-                  background-size: cover; background-position: center;">
-        <div class="overlay"></div>
-        <div class="title" data-swiper-parallax="-300">손질법</div>
-        <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
-        <div class="text" data-swiper-parallax="-100">
-          <p>재료손질의 꿀팁을 알려드려요.</p>
-        </div>
+    </div>
+  </div>
+</a>
+   <!-- 2) 손질법 -->
+<a class="swiper-slide"
+   href="<c:url value='/method/method.do'>
+            <c:param name='methodType' value='storage'/>
+         </c:url>"
+   style="background-image: url('<c:url value="/images/column/sonjil2.jpg"/>');
+          background-size: cover; background-position: center;">
+  <div class="overlay">
+    <div class="overlay-content">
+      <div class="title"    data-swiper-parallax="-300">손질법</div>
+      <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+      <div class="text"     data-swiper-parallax="-100">
+        <p>재료 손질의 꿀팁을 알려드려요.</p>
       </div>
-      <div class="swiper-slide"
-           style="background-image: url('<c:url value="/images/column/bogan.jpg"/>');
-                  background-size: cover; background-position: center;">
-        <div class="overlay"></div>
-        <div class="title" data-swiper-parallax="-300">보관법</div>
-        <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
-        <div class="text" data-swiper-parallax="-100">
-          <p>신선한 식재료들을 안전하게 보관해요.</p>
-        </div>
+    </div>
+  </div>
+</a>
+
+<!-- 3) 보관법 -->
+<a class="swiper-slide"
+   href="<c:url value='/method/method.do'>
+            <c:param name='methodType' value='trim'/>
+         </c:url>"
+   style="background-image: url('<c:url value="/images/column/bogan5.jpg"/>');
+          background-size: cover; background-position: center;">
+  <div class="overlay">
+    <div class="overlay-content">
+      <div class="title"    data-swiper-parallax="-300">보관법</div>
+      <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+      <div class="text"     data-swiper-parallax="-100">
+        <p>신선한 식재료들을 안전하게 보관해요.</p>
       </div>
+    </div>
+  </div>
+</a>
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
