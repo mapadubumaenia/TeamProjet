@@ -91,95 +91,116 @@
 
   <div class="page mt3">
     <!-- 드링크 추천 -->
-    <h3 class="section-header">추천 드링크</h3>
-    <div class="slider-container">
-      <div class="slider-track">
-        <!-- 실제 카드 목록 -->
-        <c:forEach var="d" items="${topDrinks}">
-          <div class="slider-item col4 mb3">
-            <a href="<c:url value='/drink/detail.do'><c:param name='uuid' value='${d.uuid}'/></c:url>">
-              <div class="card">
-                <img src="${d.columnUrl}" class="card-img-top" alt="${d.columnTitle}"/>
-                <div class="card-body d-flex">
-                  <h5 class="card-title">${d.columnTitle}</h5>
-                  <span class="like-badge">&#10084; ${d.likeCount}</span>
-                </div>
-              </div>
-            </a>
+    <!-- ===== 추천 드링크 ===== -->
+<h3 class="section-header">추천 드링크</h3>
+<div class="slider-container">
+  <div class="slider-track">
+    <c:forEach var="d" items="${topDrinks}">
+      <div class="slider-item col4 mb3">
+        <a href="<c:url value='/drink/detail.do'><c:param name='uuid' value='${d.uuid}'/></c:url>">
+          <div class="card position-relative">
+            <span class="like">❤️ ${d.likeCount}</span>
+            <img src="${d.columnUrl}" class="card-img-top" alt="${d.columnTitle}"/>
+            <div class="card-body d-flex justify-content-center">
+              <h5 class="card-title mb-0">${d.columnTitle}</h5>
+            </div>
           </div>
-        </c:forEach>
-        <!-- 반복 복제: seamless 루프를 위해 같은 리스트 한 번 더 -->
-        <c:forEach var="d" items="${topDrinks}">
-          <div class="slider-item col4 mb3">
-            <!-- ... 동일 카드 마크업 ... -->
-            <a href="<c:url value='/drink/detail.do'><c:param name='uuid' value='${d.uuid}'/></c:url>">
-              <div class="card">
-                <img src="${d.columnUrl}" class="card-img-top" alt="${d.columnTitle}"/>
-                <div class="card-body d-flex">
-                  <h5 class="card-title">${d.columnTitle}</h5>
-                  <span class="like-badge">&#10084; ${d.likeCount}</span>
-                </div>
-              </div>
-            </a>
-          </div>
-        </c:forEach>
+        </a>
       </div>
-    </div>
-
-    <!-- 보관법 추천 (같은 구조) -->
-    <h3 class="section-header">손질법</h3>
-   <div class="slider-container reverse"><!-- ← 여기 -->
-      <div class="slider-track">
-        <c:forEach var="m" items="${topStore}">
-          <div class="slider-item col4 mb3">
-            <a href="<c:url value='/method/detail.do'>
-                         <c:param name='uuid' value='${m.uuid}'/>
-                         <c:param name='methodType' value='storage'/>
-                       </c:url>">
-              <div class="card">
-                <img src="${m.methodUrl}" class="card-img-top" alt="${m.methodTitle}"/>
-                <div class="card-body d-flex">
-                  <h5 class="card-title">${m.methodTitle}</h5>
-                  <span class="like-badge">&#10084; ${m.likeCount}</span>
-                </div>
-              </div>
-            </a>
+    </c:forEach>
+    <c:forEach var="d" items="${topDrinks}">
+      <div class="slider-item col4 mb3">
+        <a href="<c:url value='/drink/detail.do'><c:param name='uuid' value='${d.uuid}'/></c:url>">
+          <div class="card position-relative">
+            <span class="like">❤️ ${d.likeCount}</span>
+            <img src="${d.columnUrl}" class="card-img-top" alt="${d.columnTitle}"/>
+            <div class="card-body d-flex justify-content-center">
+              <h5 class="card-title mb-0">${d.columnTitle}</h5>
+            </div>
           </div>
-        </c:forEach>
-        <c:forEach var="m" items="${topStore}">
-          <!-- 복제 -->
-          <div class="slider-item col4 mb3"> … </div>
-        </c:forEach>
+        </a>
       </div>
-    </div>
-
-    <!-- 손질법 추천 -->
-    <h3 class="section-header">보관법</h3>
-    <div class="slider-container">
-      <div class="slider-track">
-        <c:forEach var="m" items="${topPrep}">
-          <div class="slider-item col4 mb3">
-            <a href="<c:url value='/method/detail.do'>
-                         <c:param name='uuid' value='${m.uuid}'/>
-                         <c:param name='methodType' value='trim'/>
-                       </c:url>">
-              <div class="card">
-                <img src="${m.methodUrl}" class="card-img-top" alt="${m.methodTitle}"/>
-                <div class="card-body d-flex">
-                  <h5 class="card-title">${m.methodTitle}</h5>
-                  <span class="like-badge">&#10084; ${m.likeCount}</span>
-                </div>
-              </div>
-            </a>
-          </div>
-        </c:forEach>
-        <c:forEach var="m" items="${topPrep}">
-          <!-- 복제 -->
-          <div class="slider-item col4 mb3"> … </div>
-        </c:forEach>
-      </div>
-    </div>
+    </c:forEach>
   </div>
+</div>
+
+    <!-- ===== 손질법 ===== -->
+<h3 class="section-header">손질법</h3>
+<div class="slider-container reverse">
+  <div class="slider-track">
+    <c:forEach var="m" items="${topStore}">
+      <div class="slider-item col4 mb3">
+        <a href="<c:url value='/method/detail.do'>
+                     <c:param name='uuid' value='${m.uuid}'/>
+                     <c:param name='methodType' value='storage'/>
+                   </c:url>">
+          <div class="card position-relative">
+            <span class="like">❤️ ${m.likeCount}</span>
+            <img src="${m.methodUrl}" class="card-img-top" alt="${m.methodTitle}"/>
+            <div class="card-body d-flex justify-content-center">
+              <h5 class="card-title mb-0">${m.methodTitle}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+    </c:forEach>
+    <c:forEach var="m" items="${topStore}">
+      <div class="slider-item col4 mb3">
+        <a href="<c:url value='/method/detail.do'>
+                     <c:param name='uuid' value='${m.uuid}'/>
+                     <c:param name='methodType' value='storage'/>
+                   </c:url>">
+          <div class="card position-relative">
+            <span class="like">❤️ ${m.likeCount}</span>
+            <img src="${m.methodUrl}" class="card-img-top" alt="${m.methodTitle}"/>
+            <div class="card-body d-flex justify-content-center">
+              <h5 class="card-title mb-0">${m.methodTitle}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+    </c:forEach>
+  </div>
+</div>
+
+   <!-- ===== 보관법 ===== -->
+<h3 class="section-header">보관법</h3>
+<div class="slider-container">
+  <div class="slider-track">
+    <c:forEach var="m" items="${topPrep}">
+      <div class="slider-item col4 mb3">
+        <a href="<c:url value='/method/detail.do'>
+                     <c:param name='uuid' value='${m.uuid}'/>
+                     <c:param name='methodType' value='trim'/>
+                   </c:url>">
+          <div class="card position-relative">
+            <span class="like">❤️ ${m.likeCount}</span>
+            <img src="${m.methodUrl}" class="card-img-top" alt="${m.methodTitle}"/>
+            <div class="card-body d-flex justify-content-center">
+              <h5 class="card-title mb-0">${m.methodTitle}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+    </c:forEach>
+    <c:forEach var="m" items="${topPrep}">
+      <div class="slider-item col4 mb3">
+        <a href="<c:url value='/method/detail.do'>
+                     <c:param name='uuid' value='${m.uuid}'/>
+                     <c:param name='methodType' value='trim'/>
+                   </c:url>">
+          <div class="card position-relative">
+            <span class="like">❤️ ${m.likeCount}</span>
+            <img src="${m.methodUrl}" class="card-img-top" alt="${m.methodTitle}"/>
+            <div class="card-body d-flex justify-content-center">
+              <h5 class="card-title mb-0">${m.methodTitle}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+    </c:forEach>
+  </div>
+</div>
 
   <jsp:include page="/common/footer.jsp"/>
    <!-- JQuery, Bootstrap JS -->

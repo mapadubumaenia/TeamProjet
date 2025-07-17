@@ -92,41 +92,11 @@
 
 
 
-		<!-- 댓글 카드 -->
-		<div class="card shadow-sm">
-			<div
-				class="card-header bg-white d-flex justify-content-between align-items-center">
-				<h5 class="mb-0">
-					댓글 <span class="badge bg-secondary">${fn:length(comments)}</span>
-				</h5>
-			</div>
-			<ul class="list-group list-group-flush">
-				<c:forEach var="c" items="${comments}">
-					<li class="list-group-item">
-						<div class="d-flex justify-content-between">
-							<h6 class="mb-1">${c.userNickname}</h6>
-							<small class="text-muted">${c.createdAt}</small>
-						</div>
-						<p class="mb-0">${c.commentContent}</p>
-					</li>
-				</c:forEach>
-				<c:if test="${empty comments}">
-					<li class="list-group-item text-center text-muted">등록된 댓글이
-						없습니다.</li>
-				</c:if>
-			</ul>
-			<div class="card-body">
-				<form action="<c:url value='/drink/addComment.do'/>" method="post">
-					<input type="hidden" name="uuid" value="${drink.uuid}" /> <input
-						type="hidden" name="csrf" value="${sessionScope.CSRF_TOKEN}">
-					<div class="mb-3">
-						<textarea name="commentContent" id="commentContent"
-							class="form-control" rows="3" placeholder="댓글을 입력하세요…" required></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary">댓글 등록</button>
-				</form>
-			</div>
-		</div>
+		<!-- 댓글 영역 -->
+  <div id="comment-area" class="mb-3 mt-4">
+    <h5>댓글</h5>
+    <div id="commentListArea"></div>
+  </div>
 	</div>
 
 	<c:if test="${not empty recentDrinks}">
@@ -213,6 +183,17 @@
   });
 </script>
   
+          <script>
+  $(function () {
+    const uuid = '${drink.uuid}';
+    const targetType = 'column';
+
+    $("#commentListArea").load(
+      '<c:url value="/comment/list.do"/>',
+      { uuid, targetType, pageIndex: 1 }
+    );
+  });
+</script>
           
 </body>
 </html>
