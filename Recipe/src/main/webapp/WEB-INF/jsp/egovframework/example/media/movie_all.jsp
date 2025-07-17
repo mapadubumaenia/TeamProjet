@@ -32,9 +32,19 @@
 
 	<!-- 본문 -->
 	<div class="fbuttons">
-   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a>
+	<c:if test="${not empty sessionScope.memberVO}">
+   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a></c:if>
    </div>
-   
+
+<!-- 정보 -->
+	<div class="info-card">
+  <h3 class="info-title">영화 속 레시피</h3>
+  <p class="info-desc">
+    영화 같은 순간을 만드는 특별한 레시피 컬렉션. 화면 속 요리가 현실이 되는, 맛의 시네마.
+  </p>
+</div>
+
+<!-- 카드 -->
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="data" items="${ask}">
 			<div class="col">
@@ -52,7 +62,6 @@
 								<c:out value="${data.title}" />
 							</h5>
 						</div>
-
 					</div>
 				</a>
 			</div>

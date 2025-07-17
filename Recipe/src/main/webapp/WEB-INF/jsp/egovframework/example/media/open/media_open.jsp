@@ -31,7 +31,9 @@
 	<div class="container">
     <h2>${mediaVO.title}</h2>
     <p><strong>작성자:</strong> ${mediaVO.userId}</p>
-    <p><strong>등록일:</strong> ${mediaVO.recipeCreatedAt}</p>
+    <p><strong>등록일:</strong> ${mediaVO.recipeCreatedAt} 
+    <c:if test="${not empty mediaVO.recipeupdated}">&nbsp;&nbsp;
+    <strong>수정일:</strong> ${mediaVO.recipeupdated}</c:if></p>
         
     <div class="media-header">
     <div>
@@ -83,6 +85,13 @@
 
   <!-- 댓글 목록 -->
   <div class="comment-list mt-3">
+  
+  <c:if test="${empty commentList}">
+  <div class="no-comments text-muted text-center p-3">
+  당신의 감상이 궁금해요. 이 콘텐츠에 어울리는 이야기를 들려주세요. (｡・▿・｡)
+  </div>
+  </c:if>
+  
     <c:forEach var="comment" items="${commentList}">
       <div class="comment-item">
         <div class="comment-meta">
@@ -95,7 +104,24 @@
   </div>
 </div>
    </div>
-		
+
+<div class="recent-container">
+    <h3 style="text-align: center;">최근 본 미디어 레시피</h3>
+    <ul class="recent-list">
+        <c:forEach var="item" items="${recentMediaList}">
+            <li>
+                <a href="${pageContext.request.contextPath}/media/open.do?uuid=${item.uuid}" class="recent-link">
+                    <div class="img-wrapper">
+                        <img src="${item.recipeImageUrl}" alt="${item.title} 이미지" />
+                        <div class="overlay">보러가기</div>
+                    </div>
+                    <div class="img-title">${item.title}</div>
+                </a>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
+
 	<!-- jquery -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<!-- 부트스트랩 js -->
@@ -125,7 +151,7 @@ function toggleLike() {
   } else {
     icon.innerHTML = '&#9825;';      // 빈 하트
     btn.classList.remove('text-danger');
-    count.innerText = --n;
+    count.innerText = --n;           //좋아요 수 감소
   }
 }
 </script>
@@ -142,7 +168,7 @@ $('#likeBtn').on('click', function() {
       dataType: 'json'
     })
     .done(function(resp) {
-      // 서버가 알려주는 좋아요 상태로 아이콘, 색깔, 카운트 동기화
+      // 서버가 알려주는 좋아요 상태로 아이콘, 색깔, 카운트 업데이트
       $('#likeIcon').html(resp.liked ? '&#9829;' : '&#9825;');
       $('#likeCount').text(resp.count);
       $('#likeBtn').toggleClass('text-danger', resp.liked);
@@ -170,14 +196,13 @@ $('#likeBtn').on('click', function() {
         copyAlert.style.display = 'block';
         setTimeout(() => {
           copyAlert.style.display = 'none';
-        }, 2000);
+        }, 2000); //2초간 알림
       })
       .catch(err => {
         console.error('URL 복사 실패:', err);
       });
   });
 </script>
-
 
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />

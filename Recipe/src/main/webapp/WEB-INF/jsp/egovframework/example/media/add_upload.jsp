@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="/css/exstyle.css">
 <link rel="stylesheet" href="/css/openmedia.css">
 </head>
-<body>
+<body> 
 	<!-- 머리말 -->
 	<jsp:include page="/common/header.jsp" />
 

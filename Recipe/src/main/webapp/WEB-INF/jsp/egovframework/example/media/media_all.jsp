@@ -36,6 +36,7 @@
 	</form>
 
 	<!-- 본문 -->
+	<!-- 배너 -->
    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide" style="
@@ -80,8 +81,9 @@
     <div class="swiper-pagination"></div>
   </div>
 
+<!-- 이미지 -->
 	<div class="magazine my-4">
-		<div class="magazine-list">
+		<div class="magazine-list row g-0">
 			<c:forEach var="data" items="${all}" varStatus="status">
 			<c:set var="direction" value="${status.index % 2 == 0 ? 'fade-right' : 'fade-left'}" />
 				<div class="col-md-6 col-lg-4" data-aos="${direction}" data-aos-delay="${status.index * 100}">

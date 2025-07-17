@@ -4,9 +4,12 @@
 package egovframework.example.media.web;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -18,13 +21,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -115,6 +118,15 @@ public class MediaController {
 	    
 		model.addAttribute("ask", ask);
 		model.addAttribute("paginationInfo", paginationInfo);
+	
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+	    HttpSession session = request.getSession(false);
+	    if (session != null) {
+	        @SuppressWarnings("unchecked")
+	        List<MediaVO> recentMedia = (List<MediaVO>) session.getAttribute("recentMedia");
+	        model.addAttribute("recentMedia", recentMedia);
+	    }
+	
 	}
 
 //상세조회페이지 열기
@@ -124,7 +136,7 @@ public class MediaController {
 		model.addAttribute("mediaVO", mediaVO);
 		model.addAttribute("data", mediaVO);
 
-		MemberVO current = (MemberVO) session.getAttribute("memberVO");
+		MemberVO current = (MemberVO) session.getAttribute("memberVO");	
 		boolean isLiked = false;
 		
         if (current != null) {
@@ -143,6 +155,29 @@ public class MediaController {
 
         model.addAttribute("isLiked", isLiked);
         model.addAttribute("likeCount", likeCount);
+  
+     // ─── 최근 본 미디어 목록 처리 ───────────────
+        @SuppressWarnings("unchecked")
+        List<String> recentMedia = (List<String>) session.getAttribute("recentMedia");
+        if (recentMedia == null) {
+            recentMedia = new LinkedList<>();
+        }
+        // 중복 제거 후 가장 앞에 추가
+        recentMedia.remove(uuid);
+        recentMedia.add(0, uuid);
+        // 최대 5개 유지
+        if (recentMedia.size() > 5) {
+            recentMedia = recentMedia.subList(0, 5);
+        }
+        session.setAttribute("recentMedia", recentMedia);
+
+        // UUID 리스트 → MediaVO 리스트 매핑
+        List<MediaVO> recentMediaList = recentMedia.stream()
+            .map(id -> mediaService.selectMedia(id))
+            .collect(Collectors.toList());
+        model.addAttribute("recentMediaList", recentMediaList);
+        // ───────────────────────────────────────
+        
         
 		return "media/open/media_open";
 	}
@@ -268,13 +303,8 @@ MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		if (memberVO==null) {
 			return "redirect:/login.do";
 		}
-		
 		String userId = memberVO.getUserId();
-		log.info("테스트2 : " + userId);
-		log.info("테스트2 : " + title);
-
 		MediaVO mediaVO2 = new MediaVO(uuid, userId, title, mediaCategory, ingredient, content, recipeImage.getBytes());
-		log.info("테스트22 : " + mediaVO2);
 		mediaService.update(mediaVO2);
 		return "redirect:/media/media.do";
 	}

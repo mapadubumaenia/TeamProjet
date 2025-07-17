@@ -18,7 +18,6 @@
 	position: relative;
 }
 
-/* 오버레이: 슬라이드 하단 그라데이션 */
 .overlay {
 	position: absolute;
 	left: 0;
@@ -46,6 +45,14 @@
 	line-height: 1.3;
 }
 
+/* 매거진 */
+.magazine-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+}
+
 .magazine-card {
 	position: relative;
 	overflow: hidden;
@@ -55,13 +62,6 @@
 
 .magazine-card:hover {
 	transform: scale(1.02);
-}
-
-.magazine-list {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 10px;
 }
 
 .magazine-img {
@@ -125,3 +125,5 @@
 	color: white !important;
 	border: none;
 }
+
+
