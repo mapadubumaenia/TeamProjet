@@ -96,25 +96,26 @@
         INGREDIENT_CATEGORY_ID,
         SITUATION_CATEGORY_ID,
         STANDARD_RECIPE_IMAGE,
+        STANDARD_RECIPE_IMAGE_URL,
         RECIPE_CREATED_AT,
-        LIKE_COUNT,
         RECIPE_CONTENT,
         INGREDIENT,
         RECIPEINTRO
     ) VALUES (
-        SQ_STANDARD_RECIPES.NEXTVAL,
+        #{uuid},
         #{userId},
         #{recipeTitle},
         #{countryCategoryId},
         #{ingredientCategoryId},
         #{situationCategoryId},
         #{standardRecipeImage},
+        #{standardRecipeImageUrl},
         SYSDATE,
-        #{likeCount},
         #{recipeContent},
         #{ingredient},
         #{recipeIntro}
     )
+    
 </insert>
 
 <!-- ✅ 데이터 수정 -->
@@ -165,6 +166,13 @@
     WHERE RECIPE_MIDM_ID = 3
     ORDER BY RECIPE_LOWM_ID
 </select>
+
+<!-- 좋아요 수 업데이트 -->
+<update id="updateLikeCount" parameterType="map">
+  UPDATE STANDARD_RECIPES
+  SET LIKE_COUNT = #{likeCount}
+  WHERE UUID = #{uuid}
+</update>
 
 
 </mapper>

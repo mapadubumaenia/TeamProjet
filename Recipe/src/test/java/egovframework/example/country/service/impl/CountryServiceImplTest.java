@@ -85,7 +85,7 @@ class CountryServiceImplTest {
 	void testDelete() {
 //		1)테스트 조건
 		CountryVO countryVO = new CountryVO();
-		countryVO.setUuid("44444444");
+		countryVO.setUuid("11111111");
 //		2)실제 메소드실행
 		countryService.delete(countryVO);
 //		3)검증(확인) : 로그, DB확인, assert~ (DB확인)
