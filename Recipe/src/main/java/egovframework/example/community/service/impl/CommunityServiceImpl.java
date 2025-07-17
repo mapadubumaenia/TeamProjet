@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import egovframework.example.comment.service.impl.CommentMapper;
 import egovframework.example.common.Criteria;
 import egovframework.example.community.service.CommunityService;
 import egovframework.example.community.service.CommunityVO;
@@ -17,7 +19,11 @@ import egovframework.example.community.service.CommunityVO;
  *
  */
 @Service
+@Transactional
 public class CommunityServiceImpl implements CommunityService {
+	
+	@Autowired
+	private CommentMapper commentMapper;
 
 	@Autowired
 	private CommunityMapper communityMapper;
@@ -49,7 +55,9 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int delete(String uuid) {
-		return communityMapper.delete(uuid);
+		
+		 commentMapper.deleteCommentsByUuid(uuid);  // 댓글 먼저 삭제
+		 return communityMapper.delete(uuid);       // 게시글 삭제
 	}
 
 	@Override
@@ -58,10 +66,9 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityMapper.increaseViewCount(uuid);
 	}
 
-	@Override
 	public int increaseLikeCount(String uuid) {
-		// TODO Auto-generated method stub
-		return communityMapper.increaseLikeCount(uuid);
+	    communityMapper.increaseLikeCount(uuid);              // 좋아요 +1
+	    return communityMapper.getLikeCount(uuid);            // 현재 좋아요 수 반환
 	}
 	
 	

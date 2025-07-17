@@ -111,3 +111,29 @@ pre {
 	gap: 5px;
 }
 
+/* 정보카드 */
+.info-card {
+  max-width: 600px;
+  margin: 40px auto 20px;
+  padding: 20px 24px;
+  background-color: #fdf8f4;
+  border-left: 6px solid #be9f92;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  font-family: 'Noto Serif KR', serif;
+  color: #4f3a2d;
+}
+
+.info-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--dark);
+}
+
+.info-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+

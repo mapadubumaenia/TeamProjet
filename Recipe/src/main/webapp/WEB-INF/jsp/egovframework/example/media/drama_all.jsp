@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>RecipeCode</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- 파비콘 추가 -->
 <link rel="icon" href="/images/01.png" type="image/png">
 <!-- 	부트스트랩 css  -->
@@ -24,15 +27,24 @@
 	<!-- 머리말 -->
 	<jsp:include page="/common/header.jsp" />
 	
+	<input type="hidden" id="uuid" value="${media.uuid}" />
+	
 	<form id="listForm" method="get">
 		<input type="hidden" name="pageIndex" id="pageIndex" value="1" />
 	</form>
 
 	<!-- 본문 -->
 	<div class="fbuttons">
-   
-   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a>
+	<c:if test="${not empty sessionScope.memberVO}">
+   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a></c:if>
    </div>
+   
+   	<div class="info-card">
+  <h3 class="info-title">드라마 속 레시피</h3>
+  <p class="info-desc">
+    드라마 속 한 장면처럼, 감성을 담은 맛의 이야기. 당신의 일상에 드라마틱한 한 끼를 선사합니다.
+  </p>
+</div>
    
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="data" items="${ask}">
@@ -109,6 +121,8 @@
 			}
 		});
 	</script>
+
+	
 
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />

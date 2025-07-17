@@ -4,13 +4,17 @@
 package egovframework.example.media.web;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,11 +26,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.example.auth.service.MemberVO;
 import egovframework.example.common.Criteria;
+import egovframework.example.like.service.LikeService;
+import egovframework.example.like.service.LikeVO;
 import egovframework.example.media.service.MediaService;
 import egovframework.example.media.service.MediaVO;
 import lombok.extern.log4j.Log4j2;
@@ -41,6 +49,9 @@ public class MediaController {
 
 	@Autowired
 	private MediaService mediaService;
+	
+	@Autowired
+	private LikeService likeService;
 
 //  전체조회
 	@GetMapping("/media/media.do")
@@ -50,9 +61,16 @@ public class MediaController {
 		paginationInfo.setRecordCountPerPage(criteria.getPageUnit());
 		criteria.setFirstIndex(paginationInfo.getFirstRecordIndex());
 
-		List<?> all = mediaService.allMedia(criteria);
-		int totCnt = mediaService.allMediaTotCnt(criteria);
-		paginationInfo.setTotalRecordCount(totCnt);
+		@SuppressWarnings("unchecked")
+	    List<MediaVO> all = (List<MediaVO>) mediaService.allMedia(criteria);
+	    int totCnt = mediaService.allMediaTotCnt(criteria);
+	    paginationInfo.setTotalRecordCount(totCnt);
+
+	    // 좋아요 수 조회 후 setLikeCount 호출
+	    for (MediaVO d : all) {
+	        int cnt = likeService.countLikesByUuid(d.getUuid());
+	        d.setLikeCount(cnt);
+	    }
 
 		model.addAttribute("all", all);
 		model.addAttribute("paginationInfo", paginationInfo);
@@ -86,25 +104,123 @@ public class MediaController {
 		paginationInfo.setCurrentPageNo(criteria.getPageIndex());
 		paginationInfo.setRecordCountPerPage(criteria.getPageUnit());
 		criteria.setFirstIndex(paginationInfo.getFirstRecordIndex());
-//	전체조회 서비스 메소드 실행
-		List<?> ask = mediaService.MediaList(criteria);
-		int totCnt = mediaService.MediaListTotCnt(criteria);
-		paginationInfo.setTotalRecordCount(totCnt);
 
+		@SuppressWarnings("unchecked")
+	    List<MediaVO> ask = (List<MediaVO>) mediaService.MediaList(criteria);
+	    int totCnt = mediaService.MediaListTotCnt(criteria);
+	    paginationInfo.setTotalRecordCount(totCnt);
+
+	    // 좋아요 수 조회 후 setLikeCount 호출
+	    for (MediaVO d : ask) {
+	        int cnt = likeService.countLikesByUuid(d.getUuid());
+	        d.setLikeCount(cnt);
+	    }
+	    
 		model.addAttribute("ask", ask);
 		model.addAttribute("paginationInfo", paginationInfo);
+	
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+	    HttpSession session = request.getSession(false);
+	    if (session != null) {
+	        @SuppressWarnings("unchecked")
+	        List<MediaVO> recentMedia = (List<MediaVO>) session.getAttribute("recentMedia");
+	        model.addAttribute("recentMedia", recentMedia);
+	    }
+	
 	}
 
 //상세조회페이지 열기
 	@GetMapping("/media/open.do")
-	public String open(@RequestParam String uuid, Model model) {
+	public String open(@RequestParam String uuid, Model model, HttpSession session) {
 		MediaVO mediaVO = mediaService.selectMedia(uuid);
 		model.addAttribute("mediaVO", mediaVO);
 		model.addAttribute("data", mediaVO);
 
-		return "media/open/movie_open";
+		MemberVO current = (MemberVO) session.getAttribute("memberVO");	
+		boolean isLiked = false;
+		
+        if (current != null) {
+            model.addAttribute("currentNickname", current.getNickname());
+		
+		/* 좋아요 카운트 */
+            LikeVO likeVO = new LikeVO();
+            likeVO.setUserId(current.getUserId());
+            likeVO.setTargetType("media");
+            likeVO.setUuid(uuid);
+            
+            isLiked = likeService.countLikeByUser(likeVO) > 0;
+        }
+        /* 좋아요 카운트 조회 */
+        int likeCount = likeService.countLikesByUuid(uuid);
+
+        model.addAttribute("isLiked", isLiked);
+        model.addAttribute("likeCount", likeCount);
+  
+     // ─── 최근 본 미디어 목록 처리 ───────────────
+        @SuppressWarnings("unchecked")
+        List<String> recentMedia = (List<String>) session.getAttribute("recentMedia");
+        if (recentMedia == null) {
+            recentMedia = new LinkedList<>();
+        }
+        // 중복 제거 후 가장 앞에 추가
+        recentMedia.remove(uuid);
+        recentMedia.add(0, uuid);
+        // 최대 5개 유지
+        if (recentMedia.size() > 5) {
+            recentMedia = recentMedia.subList(0, 5);
+        }
+        session.setAttribute("recentMedia", recentMedia);
+
+        // UUID 리스트 → MediaVO 리스트 매핑
+        List<MediaVO> recentMediaList = recentMedia.stream()
+            .map(id -> mediaService.selectMedia(id))
+            .collect(Collectors.toList());
+        model.addAttribute("recentMediaList", recentMediaList);
+        // ───────────────────────────────────────
+        
+        
+		return "media/open/media_open";
 	}
- 
+// 좋아요 토글 AJAX 
+	@PostMapping("/media/like.do")
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> toggleLike(
+	        @RequestParam String uuid,
+	        HttpSession session) {
+		// 로그인 확인
+	    MemberVO current = (MemberVO) session.getAttribute("memberVO");
+	    if (current == null) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	    }
+	    
+	    LikeVO likeVO = new LikeVO();
+	    likeVO.setUserId(current.getUserId());
+	    likeVO.setTargetType("media");
+	    likeVO.setUuid(uuid);
+	    // 좋아요 상태 토글
+	    boolean nowLiked;
+	    if (likeService.countLikeByUser(likeVO) > 0) {
+	        likeService.deleteLike(likeVO);
+	        nowLiked = false;
+	    } else {
+	        try {
+	            likeService.insertLike(likeVO);
+	            nowLiked = true;
+	        } catch (DuplicateKeyException e) {
+	            // 중복 insert 시도된 경우, 이미 좋아요 된 상태로 간주
+	            nowLiked = true;
+	        }
+	    }
+	    //총 좋아요 수
+	    int total = likeService.countLikesByUuid(uuid);
+	    
+	    Map<String,Object> resp = new HashMap<>();
+	    resp.put("liked", nowLiked);
+	    resp.put("count", total);
+
+	    return ResponseEntity.ok(resp);
+	}
+
 //추가페이지 열기
 	@GetMapping("/media/addition.do")
 	public String addition() {
@@ -138,7 +254,7 @@ public class MediaController {
 		MediaVO mediaVO = new MediaVO(userId, title, mediaCategory, ingredient, content, recipeImage.getBytes());
 //		서비스의 insert 메소드 실행
 		mediaService.insert(mediaVO);
-		return "redirect:/media/media.do";
+		return "redirect:/media/media.do";	
 	}
 
 //	다운로드 메소드: 사용자가 다운로드URL을 웹브라우저에서 실행하면 이 메소드가 첨부파일을 전달해줌
@@ -187,13 +303,8 @@ MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		if (memberVO==null) {
 			return "redirect:/login.do";
 		}
-		
 		String userId = memberVO.getUserId();
-		log.info("테스트2 : " + userId);
-		log.info("테스트2 : " + title);
-
 		MediaVO mediaVO2 = new MediaVO(uuid, userId, title, mediaCategory, ingredient, content, recipeImage.getBytes());
-		log.info("테스트22 : " + mediaVO2);
 		mediaService.update(mediaVO2);
 		return "redirect:/media/media.do";
 	}
@@ -214,6 +325,7 @@ MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 	        return "redirect:/media/detail.do?uuid=" + uuid; // 상세페이지로 다시 이동
 	    }
 	}
+	
 
 	
 }

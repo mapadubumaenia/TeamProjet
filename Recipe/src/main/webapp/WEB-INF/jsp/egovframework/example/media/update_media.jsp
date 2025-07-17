@@ -46,12 +46,12 @@
 		</div>
 		<div class="mb3">
 			<label for="ingredient" class="form-label">준비물</label> 
-			<textarea class="form-control" id="ingredient" name="ingredient"
+			<textarea class="form-control" id="ingredient" name="ingredient" rows="3"
 				placeholder="ingredient">${mediaVO.ingredient}</textarea>
 		</div>
 		<div class="mb3">
 			<label for="content" class="form-label">만드는 방법</label> 
-			<textarea class="form-control" id="content" name="content"
+			<textarea class="form-control" id="content" name="content" rows="7"
 				placeholder="content">${mediaVO.content}</textarea>
 		</div>
 		

@@ -3,6 +3,7 @@
 <mapper namespace="egovframework.example.auth.service.impl.MemberMapper">
     <!-- id="메소드명",parameterType="매개변수자료형",resultType="return자료형"  -->
 
+
     <select id="authenticate"
             parameterType="MemberVO"
             resultType="MemberVO">
@@ -54,3 +55,4 @@
 	</update>
 
 </mapper>
+

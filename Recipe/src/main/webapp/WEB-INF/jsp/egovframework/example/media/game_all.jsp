@@ -24,14 +24,24 @@
 	<!-- 머리말 -->
 	<jsp:include page="/common/header.jsp" />
 	
+	<input type="hidden" id="uuid" value="${media.uuid}" />
+	
 	<form id="listForm" method="get">
 		<input type="hidden" name="pageIndex" id="pageIndex" value="1" />
 	</form>
 
 	<!-- 본문 -->
 	<div class="fbuttons">
-   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a>
+	<c:if test="${not empty sessionScope.memberVO}">
+   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a></c:if>
    </div>
+   
+   	<div class="info-card">
+  <h3 class="info-title">게임 속 레시피</h3>
+  <p class="info-desc">
+    게임 속 환상을 맛으로 구현하는 특별한 공간. 현실의 식탁 위로 초대합니다.
+  </p>
+</div>
    
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="data" items="${ask}">
@@ -109,7 +119,7 @@
 			}
 		});
 	</script>
-
+	
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />
 </body>

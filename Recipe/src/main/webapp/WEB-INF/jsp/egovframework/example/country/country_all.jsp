@@ -26,7 +26,7 @@
   <div>
     <label for="sortOption" class="form-label me-2">분류</label>
     <select class="form-select form-select-sm w-auto d-inline" id="sortOption" name="sortOption" onchange="fn_sort()">
-      <option value="latest" ${param.sortOption == 'latest' ? 'selected' : ''}>최신순</option>
+      <option value="latest" ${param.sortOption == 'recent' ? 'selected' : ''}>최신순</option>
       <option value="likes" ${param.sortOption == 'likes' ? 'selected' : ''}>인기순</option>
       <option value="title" ${param.sortOption == 'title' ? 'selected' : ''}>가나다순</option>
     </select>
@@ -40,7 +40,8 @@
 <div class="card-grid">
   <c:forEach var="recipe" items="${countries}">
     <a href="/country/edition.do?uuid=${recipe.uuid}" class="card text-decoration-none text-dark">
-      <img src="${recipe.standardRecipeImageUrl}" class="card-img-top" alt="이미지">
+      <img src="${empty recipe.standardRecipeImageUrl ? '/images/no-image.png' : recipe.standardRecipeImageUrl}"
+     class="card-img-top" alt="이미지">
       
       <div class="card-body">
         <h5 class="card-title">${recipe.recipeTitle}</h5>
@@ -48,9 +49,16 @@
 
         <!-- ✅ 별점 + 댓글 수 출력 -->
 <div class="card-rating text-muted mb-1">
-  <span class="me-2">
-    ❤️ ${empty recipe.likeCount ? 0 : recipe.likeCount}
-  </span>
+<span class="me-2">
+  ❤️ <c:choose>
+         <c:when test="${empty recipe.likeCount}">
+           0
+         </c:when>
+         <c:otherwise>
+           ${recipe.likeCount}
+         </c:otherwise>
+      </c:choose>
+</span>
   <span>
     💬 ${empty recipe.commentCount ? 0 : recipe.commentCount}
   </span>

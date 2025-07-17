@@ -14,12 +14,9 @@
 <jsp:include page="/common/header.jsp" />
 
 <div class="container mt-5">
-
   <form id="listForm" method="get" action="<c:url value='/community/community.do'/>">
-    <!-- 페이징 및 검색 상태 유지용 -->
     <input type="hidden" id="pageIndex" name="pageIndex" value="${empty criteria.pageIndex ? 1 : criteria.pageIndex}" />
 
-    <!-- 게시판 테이블 -->
     <table class="table table-striped">
       <thead>
         <tr>
@@ -29,13 +26,14 @@
           <th>조회수</th>
           <th>좋아요</th>
           <th>작성일</th>
+          <th>댓글수</th> <!-- ✅ 댓글 수 헤더 -->
         </tr>
       </thead>
       <tbody>
         <c:forEach var="item" items="${CommuNts}" varStatus="status">
           <tr>
             <td>${paginationInfo.totalRecordCount - (criteria.pageIndex - 1) * criteria.pageUnit - status.index}</td>
-            <td>${item.userId}</td>
+            <td>${item.userNickname}</td>
             <td>
               <a href="<c:url value='/community/detail.do'/>?uuid=${item.uuid}">
                 ${item.communityTitle}
@@ -44,16 +42,17 @@
             <td>${item.communityCount}</td>
             <td>${item.communityLikeCount}</td>
             <td>${item.communityCreatedAt}</td>
+            <td>${item.commentCount}</td> <!-- ✅ 댓글 수 출력 -->
           </tr>
         </c:forEach>
       </tbody>
     </table>
 
-<!-- 페이지네이션 + 글쓰기 버튼 -->
-<div class="d-flex justify-content-between align-items-center mt-3">
-  <ul class="pagination mb-0" id="pagination"></ul>
-  <a href="<c:url value='/community/addition.do'/>" class="btn btn-custom-brown">글쓰기</a>
-</div>
+    <!-- 페이지네이션 + 글쓰기 버튼 -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <ul class="pagination mb-0" id="pagination"></ul>
+      <a href="<c:url value='/community/addition.do'/>" class="btn btn-custom-brown">글쓰기</a>
+    </div>
 
     <!-- 검색창 -->
     <div class="search-bar mt-4 text-center">
@@ -66,7 +65,6 @@
 
 <jsp:include page="/common/footer.jsp" />
 
-<!-- JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/jquery.twbsPagination.js"></script>

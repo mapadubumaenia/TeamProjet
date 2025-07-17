@@ -24,5 +24,4 @@ public interface MediaMapper {
 	public int insert(MediaVO mediaVO);            // insert
 	public int update(MediaVO mediaVO);           // 수정
 	public int delete(MediaVO mediaVO);           //삭제
-
 }

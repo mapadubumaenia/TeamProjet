@@ -107,6 +107,11 @@ a {text-decoration: none; color: var(--black);}
   z-index: 1;               /* 겹칠 때 앞으로 오도록 */
 }
 
+.createdAt{
+	color: gray;
+	font-size: 0.8rem;
+	float: right;
+}
 
 
 
