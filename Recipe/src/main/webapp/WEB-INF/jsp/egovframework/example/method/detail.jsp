@@ -79,6 +79,14 @@
       ${likeCount}
     </span>
   </button>
+   <c:if test="${sessionScope.memberVO.userId == method.userId}">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          onclick="location.href='${pageContext.request.contextPath}/method/edition.do?uuid=${method.uuid}&methodType=${methodType}'">
+          수정하기
+        </button>
+      </c:if>
     </div>
 
    		<!-- 댓글 영역 -->

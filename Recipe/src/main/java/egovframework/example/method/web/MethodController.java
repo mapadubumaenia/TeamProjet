@@ -290,7 +290,48 @@ public class MethodController {
     }
     
     
-    
+    // ── ① 수정 페이지 열기 ──
+    @GetMapping("/method/edition.do")
+    public String edition(
+            @RequestParam String uuid,
+            @RequestParam(name="methodType", defaultValue="storage") String methodType,
+            Model model,
+            HttpSession session) {
+        
+        MethodVO vo = methodService.selectMethod(uuid);
+        MemberVO member = (MemberVO) session.getAttribute("memberVO");
+        if (member == null || !member.getUserId().equals(vo.getUserId())) {
+            return "redirect:/method/method.do?methodType=" + methodType;
+        }
+        
+        model.addAttribute("methodVO", vo);
+        model.addAttribute("methodType", methodType);
+        return "method/update_method";  // 새로 만들 JSP
+    }
+
+    // ── ② 수정 처리 ──
+    @PostMapping("/method/edit.do")
+    public String edit(
+            @RequestParam String uuid,
+            @RequestParam String methodType,
+            @RequestParam String methodTitle,
+            @RequestParam String methodContent,
+            @RequestParam String category,
+            @RequestParam(required = false) MultipartFile image,
+            HttpSession session
+    ) throws IOException {
+        MemberVO member = (MemberVO) session.getAttribute("memberVO");
+        if (member == null) {
+            return "redirect:/login.do";
+        }
+        byte[] data = (image != null && !image.isEmpty()) ? image.getBytes() : null;
+        MethodVO vo = new MethodVO(methodTitle, methodContent, category, data);
+        vo.setUuid(uuid);
+        vo.setUserId(member.getUserId());
+        vo.setMethodType(methodType);
+        methodService.update(vo);
+        return "redirect:/method/detail.do?uuid=" + uuid + "&methodType=" + methodType;
+    }
     
     
     

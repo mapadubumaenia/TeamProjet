@@ -91,7 +91,17 @@
 </delete>
 
 
-
+<update id="update" parameterType="egovframework.example.drink.service.DrinkVO">
+  UPDATE FOOD_COLUMNS
+     SET COLUMN_TITLE      = #{columnTitle},
+         COLUMN_CONTENT    = #{columnContent},
+         COLUMN_INGREDIENT = #{columnIngredient},
+         CATEGORY          = #{category},
+         COLUMN_DATA       = #{columnData},
+         COLUMN_URL        = #{columnUrl},
+         COLUMN_CREATED_AT = SYSDATE
+   WHERE UUID = #{uuid}
+</update>
 
 
 </mapper> 

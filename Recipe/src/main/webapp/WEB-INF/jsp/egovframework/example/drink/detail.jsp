@@ -88,6 +88,16 @@
 					id="likeCount" class="badge bg-white text-dark ms-1">
 					${likeCount} </span>
 			</button>
+			<!-- 수정하기 버튼 (로그인된 작성자만 보이도록) -->
+  <c:if test="${sessionScope.memberVO.userId == drink.userId}">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      onclick="location.href='${pageContext.request.contextPath}/drink/edition.do?uuid=${drink.uuid}'">
+      수정하기
+    </button>
+  </c:if>
+			
 		</div>
 
 

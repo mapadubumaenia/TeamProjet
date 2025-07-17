@@ -88,7 +88,13 @@ public class MethodServiceImpl implements MethodService {
 
 	
 	
-	
+	 @Override
+	    public int update(MethodVO methodVO) {
+	        // URL 재생성 (UUID 는 이미 VO에 세팅되어 있어야 합니다)
+	        String downloadURL = generateDownloadUrl(methodVO.getUuid());
+	        methodVO.setMethodUrl(downloadURL);
+	        return methodMapper.update(methodVO);
+	    }
 	
 	
 	

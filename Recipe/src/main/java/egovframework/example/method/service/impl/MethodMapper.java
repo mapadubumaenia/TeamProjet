@@ -15,7 +15,7 @@ public interface MethodMapper {
 	 public int insert(MethodVO methodVO);     // insert
 	 public MethodVO selectMethod(String uuid);     //상세조회
 	 public int delete(String uuid);      //삭제
-	
+	 public int update(MethodVO methodVO);   // ← 추가
 	
 	
 	
