@@ -90,8 +90,142 @@ a {text-decoration: none; color: var(--black);}
 }
 
 
+/* ─── 댓글 입력창 & 버튼 모카톤 적용 ─── */
+/* 최상위 댓글 입력 textarea */
+#main-comment-content {
+  width: 100%;
+  border: 1px solid var(--mocha);
+  background-color: #faf4e1;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  resize: vertical;
+  margin-bottom: 0.5rem;
+  color: #3f3021;
+}
+
+/* 최상위 댓글 등록 버튼 */
+#main-comment-submit {
+  background: var(--mocha) !important;
+  border: none !important;
+  color: #faf4e1 !important;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+#main-comment-submit:hover {
+  background: var(--dark) !important;
+}
+
+/* 답글 입력 textarea */
+.reply-input textarea {
+  width: 100%;
+  border: 1px solid var(--mocha);
+  background-color: #faf4e1;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  resize: vertical;
+  color: #3f3021;
+}
+
+/* 답글 등록 버튼 */
+.reply-input button {
+  background: var(--mocha) !important;
+  border: none !important;
+  color: #faf4e1 !important;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+/* ─── 댓글 디자인 모카톤 적용 ─── */
+.comment-box {
+  border: 1px solid var(--mocha);
+  background-color: #faf4e1;       /* 연한 종이빛 배경 */
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.comment-box strong {
+  color: var(--dark);             /* 작성자 닉네임은 다크 컬러 */
+}
+
+.comment-content {
+  margin: 0.5rem 0;
+  line-height: 1.5;
+  color: #3f3021;                 /* 본문 텍스트는 진한 브라운 */
+}
+
+.comment-buttons .btn {
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+}
+
+/* — 버튼별 컬러 커스터마이징 — */
+/* 수정 버튼 (모카톤) */
+.comment-buttons .edit-btn {
+  background: var(--mocha);
+  color: #faf4e1;
+  border: none;
+}
+.comment-buttons .edit-btn:hover {
+  background: var(--dark);
+}
+
+/* 삭제 버튼 (경고 레드 톤) */
+.comment-buttons .delete-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+}
+.comment-buttons .delete-btn:hover {
+  background: #c0392b;
+}
+
+/* 답글 버튼 (다크라인) */
+.comment-buttons .reply-btn {
+  background: transparent;
+  color: var(--dark);
+  border: 1px solid var(--dark);
+}
+.comment-buttons .reply-btn:hover {
+  background: var(--dark);
+  color: #faf4e1;
+}
+
+.reply-box {
+  margin-left: 2rem;              /* 답글은 들여쓰기 */
+}
+
+.reply-input textarea {
+  border: 1px solid var(--mocha);
+}
+
+.reply-input button {
+  background: var(--mocha);
+  border: none;
+  color: #faf4e1;
+  margin-top: 0.5rem;
+}
 
 
+/* 카드 컨테이너를 기준으로, 좋아요를 절대 위치시킵니다 */
+.card.position-relative {
+  position: relative;
+}
+
+/* Drinkboard에 적용했던 하트 디자인 그대로 */
+.card .like {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #e60039;                    /* 진한 빨강 하트 */
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 10;
+}
 
 
 /* ─── 모바일(<=767px)에서 카테고리 2×2 그리드 ─── */
