@@ -41,7 +41,7 @@
   <div class="overlay">
     <div class="overlay-content">
       <div class="title"    data-swiper-parallax="-300">드링크</div>
-      <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+      <div class="subtitle" data-swiper-parallax="-200">DRINK</div>
       <div class="text"     data-swiper-parallax="-100">
         <p>다양한 드링크 레시피를 만나보세요.</p>
       </div>
@@ -58,7 +58,7 @@
   <div class="overlay">
     <div class="overlay-content">
       <div class="title"    data-swiper-parallax="-300">손질법</div>
-      <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+      <div class="subtitle" data-swiper-parallax="-200">Preparation</div>
       <div class="text"     data-swiper-parallax="-100">
         <p>재료 손질의 꿀팁을 알려드려요.</p>
       </div>
@@ -76,7 +76,7 @@
   <div class="overlay">
     <div class="overlay-content">
       <div class="title"    data-swiper-parallax="-300">보관법</div>
-      <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+      <div class="subtitle" data-swiper-parallax="-200">Storage</div>
       <div class="text"     data-swiper-parallax="-100">
         <p>신선한 식재료들을 안전하게 보관해요.</p>
       </div>
