@@ -108,7 +108,17 @@
 
 
 
-
+<update id="update" parameterType="egovframework.example.method.service.MethodVO">
+  UPDATE FOOD_METHODS
+     SET METHOD_TITLE     = #{methodTitle},
+         METHOD_CONTENT   = #{methodContent},
+         CATEGORY         = #{category},
+         METHOD_DATA      = #{methodData},
+         METHOD_URL       = #{methodUrl},
+         METHOD_CREATED_AT= SYSDATE
+   WHERE UUID = #{uuid}
+     AND METHOD_TYPE = #{methodType}
+</update>
 
 
 

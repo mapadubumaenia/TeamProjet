@@ -17,7 +17,7 @@ public interface DrinkMapper {
 		 public int insert(DrinkVO drinkVO);     // insert
 		 public DrinkVO selectDrink(String uuid);     //상세조회
 		 public int delete(String uuid);      //삭제
-	
+		  public int update(DrinkVO drinkVO);   // ← 추가
 		 
 		 
 		 

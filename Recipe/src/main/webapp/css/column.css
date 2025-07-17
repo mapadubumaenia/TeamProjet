@@ -760,6 +760,46 @@ a {text-decoration: none; color: var(--black);}
   z-index: 10;
 }
 
+/* ───── Column 게시판 제목 강화 ───── */
+
+/* 섹션 헤더 */
+.section-header {
+  font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+
+/* 슬라이더 및 카드 타이틀 */
+.slider-container .card-title,
+#methodListContainer .card-title,
+#drinkListContainer .card-title {
+  font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--mocha);
+  line-height: 1.2;
+}
+
+/* 배너의 메인 타이틀 */
+.mySwiper .title {
+  font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+/* 배너의 서브타이틀 */
+.mySwiper .subtitle {
+  font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+
+
 
 
 /* TODO: 태블릿 */
@@ -817,4 +857,8 @@ a {text-decoration: none; color: var(--black);}
     text-align: center;
   }
 }
+
+
+
+
 
