@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="egovframework.example.column.service.impl.ColumnMapper">
+  <!-- 1) 광고판 배너 -->
+  <select id="selectBannerAds" resultType="egovframework.example.column.service.BannerAdVO">
+    SELECT
+      AD_ID       AS adId,
+      IMAGE_URL   AS imageUrl,
+      TARGET_URL  AS targetUrl,
+      DISPLAY_ORDER AS displayOrder
+    FROM BANNER_ADS
+    ORDER BY DISPLAY_ORDER
+  </select>
+
+  <!-- 2) 드링크 전체 조회 -->
+  <select id="selectAllDrinks" resultType="egovframework.example.drink.service.DrinkVO">
+    SELECT UUID, COLUMN_TITLE, COLUMN_URL
+      FROM FOOD_COLUMNS
+     ORDER BY COLUMN_CREATED_AT DESC
+  </select>
+
+  <!-- 3) Method 기본 조회 -->
+  <select id="selectAllMethodsByType" parameterType="string"
+          resultType="egovframework.example.method.service.MethodVO">
+    SELECT UUID,
+           METHOD_TITLE    AS methodTitle,
+           METHOD_URL      AS methodUrl,
+           CATEGORY
+      FROM FOOD_METHODS
+     WHERE METHOD_TYPE = #{methodType}
+     ORDER BY METHOD_CREATED_AT DESC
+  </select>
+</mapper>

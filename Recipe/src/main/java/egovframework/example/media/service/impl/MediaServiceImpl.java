@@ -91,5 +91,11 @@ public class MediaServiceImpl implements MediaService {
 		return mediaMapper.delete(mediaVO);
 	}
 
+	@Override
+	public MediaVO nickname(String uuid) {
+		// TODO Auto-generated method stub
+		return mediaMapper.nickname(uuid);
+	}
+
 
 }
