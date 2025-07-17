@@ -30,8 +30,10 @@
 	<!-- 본문 -->
 	<div class="container">
     <h2>${mediaVO.title}</h2>
-    <p><strong>작성자:</strong> ${mediaVO.userId}</p>
-    <p><strong>등록일:</strong> ${mediaVO.recipeCreatedAt}</p>
+    <p><strong>작성자:</strong> ${mediaVO.nickname}</p>
+    <p><strong>등록일:</strong> ${mediaVO.recipeCreatedAt} 
+    <c:if test="${not empty mediaVO.recipeupdated}">&nbsp;&nbsp;
+    <strong>수정일:</strong> ${mediaVO.recipeupdated}</c:if></p>
         
     <div class="media-header">
     <div>
@@ -41,16 +43,20 @@
 </button>
 <button id="shareBtn" class="btn btn-outline-danger">🔗공유</button>
 </div>
-
 <div id="copyAlert">링크가 복사되었습니다!</div>
     <div class="image-wrapper">
     <img src="${mediaVO.recipeImageUrl}" alt="${mediaVO.title} 이미지" class="img-fluid mb-4" /></div>
     <p><strong>준비물:</strong> ${mediaVO.ingredient}</p>
     <pre>${mediaVO.content}</pre> 
       </div>
+      
+<!-- 수정 버튼 -->      
   <div class="obuttons">
+  <c:if test="${sessionScope.memberVO.userId == mediaVO.userId}">
    <a href="<c:out value='/media/edition.do?uuid=${data.uuid}'/>" class="btn btn-outline-dark ">수정</a>
-
+   </c:if>
+   
+<!-- 페이지이동 버튼 -->   
    <c:choose>
 				<c:when test="${mediaVO.mediaCategory == 1}">
 					<a href="/media/movie.do" class="btn btn-outline-dark">영화 페이지로</a>
@@ -66,36 +72,35 @@
 				</c:otherwise>
 			</c:choose>
    </div> 
-   
-   <!-- 댓글 영역 -->
-<div class="comment-inline">
-  <h5>댓글</h5>
 
-  <!-- 댓글 입력창 -->
-  <form class="comment-form" method="post" action="/comment/add.do">
-    <div class="mb-2">
-      <textarea class="form-control" name="content" rows="3" placeholder="댓글을 입력하세요" required></textarea>
-    </div>
-    <div class="text-end">
-      <button type="submit" class="btn btn-outline-dark btn-sm">등록</button>
-    </div>
-  </form>
-
-  <!-- 댓글 목록 -->
-  <div class="comment-list mt-3">
-    <c:forEach var="comment" items="${commentList}">
-      <div class="comment-item">
-        <div class="comment-meta">
-          <span class="comment-writer">${comment.userId}</span>
-          <span class="comment-date">${comment.createdAt}</span>
-        </div>
-        <div class="comment-content">${comment.content}</div>
-      </div>
-    </c:forEach>
+<!-- 댓글 영역 -->
+<div id="comment-area" class="mb-3 mt-4">
+    <h5>댓글</h5>
+    <!-- Ajax로 댓글 목록 + 등록/답글 UI를 /comment/list.do 에서 로딩 -->
+    <div id="commentListArea"></div>
   </div>
+
+
 </div>
-   </div>
-		
+ 
+<!-- 최근 본 -->
+<div class="recent-container">
+    <h3 style="text-align: center;">최근 본 미디어 레시피</h3>
+    <ul class="recent-list">
+        <c:forEach var="item" items="${recentMediaList}">
+            <li>
+                <a href="${pageContext.request.contextPath}/media/open.do?uuid=${item.uuid}" class="recent-link">
+                    <div class="img-wrapper">
+                        <img src="${item.recipeImageUrl}" alt="${item.title} 이미지" />
+                        <div class="overlay">보러가기</div>
+                    </div>
+                    <div class="img-title">${item.title}</div>
+                </a>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
+
 	<!-- jquery -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<!-- 부트스트랩 js -->
@@ -178,6 +183,24 @@ $('#likeBtn').on('click', function() {
   });
 </script>
 
+<!-- 댓글 -->
+<!-- 댓글 영역 -->
+ <script>
+  $(function () {
+    const uuid = '${mediaVO.uuid}';
+    const targetType = 'media';
+
+    // 1페이지 댓글 불러오기
+    $("#commentListArea").load(
+      '<c:url value="/comment/list.do"/>',
+      {
+        uuid: uuid,
+        targetType: targetType,
+        pageIndex: 1
+      }
+    );
+  });
+</script>
 
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />

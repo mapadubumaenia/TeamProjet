@@ -37,6 +37,8 @@ public class MediaVO extends Criteria {
 	private byte[] recipeImage; // BLOB 타입은 byte[] 또는 다른 적절 타입
 	private String ingredient;
 	private MultipartFile image; // 내부 사용(이미지파일)
+	private Date recipeupdated;
+	private String nickname;
 
 // 필드 5개
 	public MediaVO(String title, String content, String ingredient, int mediaCategory, byte[] recipeImage) {
