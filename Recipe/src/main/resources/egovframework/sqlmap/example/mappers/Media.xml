@@ -39,7 +39,7 @@ SELECT * FROM MEDIA_RECIPES WHERE UUID=#{uuid} </select>
 
 <update id="update" parameterType="MediaVO"> 
 UPDATE MEDIA_RECIPES SET TITLE=#{title},INGREDIENT=#{ingredient}, CONTENT=#{content},
-RECIPE_IMAGE=#{recipeImage},RECIPE_IMAGE_URL=#{recipeImageUrl}, MEDIA_CATEGORY=#{mediaCategory}, RECIPE_CREATED_AT=SYSDATE WHERE UUID=#{uuid} </update>
+RECIPE_IMAGE=#{recipeImage},RECIPE_IMAGE_URL=#{recipeImageUrl}, MEDIA_CATEGORY=#{mediaCategory}, RECIPE_UPDATED=SYSDATE WHERE UUID=#{uuid} </update>
 
 <delete id="delete" parameterType="MediaVO"> 
 DELETE MEDIA_RECIPES WHERE UUID=#{uuid} </delete>
