@@ -25,7 +25,7 @@
              style="border-radius: 50%; object-fit: cover; margin-right: 8px;" />
           	 <p class="nickname">${sessionScope.memberVO.nickname}님</p>
   	         <a class="link" href="<c:url value='/logout.do'/>">로그아웃</a>
-  	         <a class="link" href="<c:url value='/home.do'/>">마이페이지</a>
+  	         <a class="link" href="<c:url value='/mypage.do'/>">마이페이지</a>
         </c:if>
 
   </div>
@@ -61,7 +61,7 @@
       </li>
 
     	<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" href="#" role="button"> crumb </a>
+				class="nav-link dropdown-toggle"   href="<c:url value='/column.do'/>" role="button"> crumb </a>
 				<ul class="dropdown-menu">
 					<li><a class="dropdown-item"
 						href="<c:url value='/drink/drink.do'/>"> 드링크 </a></li>

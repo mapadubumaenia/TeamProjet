@@ -15,7 +15,7 @@ import lombok.ToString;
 public class CommunityVO extends Criteria {
 	private String uuid;
 	private String userId;
-	private int communityCategoriesId;
+	private int communityCategoryId;
 	private String communityTitle;
 	private String communityContent;
 	private String communityCreatedAt;
@@ -23,5 +23,24 @@ public class CommunityVO extends Criteria {
 	private int communityCount;
 	private byte[] communityImage;
 	private String communityUrl;
+	private String contentType;
+	private String userNickname;
+	private int commentCount;
+	
+	public String getUserNickname() {
+	    return userNickname;
+	}
+
+	public void setUserNickname(String userNickname) {
+	    this.userNickname = userNickname;
+	}
+	
+	public int getCommentCount() {
+	    return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+	    this.commentCount = commentCount;
+	}
 	
 }

@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>RecipeCode</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- 파비콘 추가 -->
 <link rel="icon" href="/images/01.png" type="image/png">
 <!-- 	부트스트랩 css  -->
@@ -23,6 +26,8 @@
 <body>
 	<!-- 머리말 -->
 	<jsp:include page="/common/header.jsp" />
+	
+	<input type="hidden" id="uuid" value="${media.uuid}" />
 	
 	<form id="listForm" method="get">
 		<input type="hidden" name="pageIndex" id="pageIndex" value="1" />
@@ -109,6 +114,8 @@
 			}
 		});
 	</script>
+
+	
 
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />

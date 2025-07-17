@@ -17,6 +17,8 @@
 	crossorigin="anonymous">
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 <!-- 	개발자 css -->
 <link rel="stylesheet" href="/css/style.css">
@@ -27,15 +29,13 @@
 	<!-- 머리말 -->
 	<jsp:include page="/common/header.jsp" />
 
+<input type="hidden" id="uuid" value="${mediaVO.uuid}" />
+
 	<form id="listForm" method="get">
 		<input type="hidden" name="pageIndex" id="pageIndex" value="1" />
 	</form>
 
 	<!-- 본문 -->
-	<div class="fbuttons">
-   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a>
-   </div>
-   
    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide" style="
@@ -80,12 +80,11 @@
     <div class="swiper-pagination"></div>
   </div>
 
-   
-   
 	<div class="magazine my-4">
 		<div class="magazine-list">
-			<c:forEach var="data" items="${all}">
-				<div class="col-md-6 col-lg-4">
+			<c:forEach var="data" items="${all}" varStatus="status">
+			<c:set var="direction" value="${status.index % 2 == 0 ? 'fade-right' : 'fade-left'}" />
+				<div class="col-md-6 col-lg-4" data-aos="${direction}" data-aos-delay="${status.index * 100}">
 					<a href="<c:out value='/media/open.do?uuid=${data.uuid}'/>"
 						class="text-decoration-none text-dark">
 						<div class="magazine-card">
@@ -180,6 +179,19 @@
       },
     });
   </script>
+
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+  AOS.init({
+    duration: 500,
+    easing: 'ease-out',
+    once: true
+  });
+</script>
+  
+
 
 	<!-- 꼬리말 -->
 	<jsp:include page="/common/footer.jsp" />

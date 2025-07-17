@@ -14,5 +14,5 @@ public interface CommunityService {
 	int delete (String uuid);
 	int increaseViewCount(String uuid);
 	int increaseLikeCount(String uuid);
-
+    
 }
