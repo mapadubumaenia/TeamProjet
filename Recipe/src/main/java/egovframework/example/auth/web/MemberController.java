@@ -2,6 +2,8 @@ package egovframework.example.auth.web;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +20,9 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,6 +67,29 @@ public class MemberController {
 		return "auth/register";
 	}
 	
+    @RequestMapping(value = "/checkUserId.do", method = RequestMethod.GET)
+    @ResponseBody // JSON으로 응답 보내기 위해 꼭 필요!
+    public Map<String, Boolean> checkUserId(@RequestParam("userid") String userid) throws Exception {
+        MemberVO vo = new MemberVO();
+    	vo.setUserId(userid);
+    	
+    	boolean exists = memberService.isUserIdExists(vo); // 서비스에서 DB 확인
+        Map<String, Boolean> result = new HashMap<>();
+        result.put("exists", exists); // 클라이언트에 { "exists": true/false } 형식으로 응답
+        return result;
+    }
+    
+    @RequestMapping(value = "/checkNickname.do", method = RequestMethod.GET)
+    @ResponseBody // JSON으로 응답 보내기 위해 꼭 필요!
+    public Map<String, Boolean> checkNickname(@RequestParam("nickname") String nickname) throws Exception {
+        MemberVO vo = new MemberVO();
+    	vo.setNickname(nickname);
+    	
+    	boolean exists = memberService.isNicknameExists(vo); // 서비스에서 DB 확인
+        Map<String, Boolean> result = new HashMap<>();
+        result.put("exists", exists); // 클라이언트에 { "exists": true/false } 형식으로 응답
+        return result;
+    }
 	//회원가입처리
 	@PostMapping("/registeraddition.do")
 	public String register(Model model, 
@@ -109,12 +137,13 @@ public class MemberController {
 	public String findPasswordView() {
 		return "auth/findpassword";
 	}
+	
 //비밀번호 찾기 아이디 확인
 	@PostMapping("/findpasswordProcess.do")
 	public String findPassword(@ModelAttribute MemberVO memberVO, Model model) throws Exception {
 	    MemberVO found = memberService.findPassword(memberVO);
 	    if (found != null) {
-	        model.addAttribute("userid", found.getUserId());
+	        model.addAttribute("userId", found.getUserId());
 	        return "auth/changepassword"; // 비밀번호 재설정 폼
 	    } else {
 	        model.addAttribute("errors", "일치하는 회원이 없습니다.");
@@ -138,7 +167,7 @@ public class MemberController {
 	    byte[] imageBytes = member.getProfileImage();
 	    if (imageBytes == null || imageBytes.length == 0) {
 	        // 기본 이미지로 대체
-	        try (InputStream is = new ClassPathResource("static/images/default-profile.png").getInputStream()) {
+	        try (InputStream is = new ClassPathResource("static/images/default_profile.jpg").getInputStream()) {
 	            imageBytes = StreamUtils.copyToByteArray(is);
 	        } catch (IOException e) {
 	            return ResponseEntity.notFound().build();
