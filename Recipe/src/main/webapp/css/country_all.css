@@ -17,28 +17,28 @@
 }
 
 .card-grid .card {
-  width: 100%;         /* 중요 */
-  max-width: 280px;     /* 고정 크기 */
-}
-
-.card-grid .card {
+  width: 100%;         /* 카드 전체 너비 */
+  max-width: 280px;     /* 카드 최대 너비 고정 */
   height: 100%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  border: none;
-  border-radius: 0.5rem;
+  background: #fffdfa; /* ✅ 배경을 따뜻한 흰색으로 변경 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.06); /* ✅ 그림자 강조 */
+  border: 1px solid #f0e4dc; /* ✅ 연한 베이지 테두리 추가 */
+  border-radius: 12px; /* ✅ 모서리 둥글게 */
   overflow: hidden;
-  transition: transform 0.2s;
-  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* ✅ 부드러운 효과 */
 }
 
 .card-grid .card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* ✅ hover 시 더 강조된 그림자 */
 }
 
 .card-grid .card-img-top {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  border-top-left-radius: 12px;  /* ✅ 이미지도 둥글게 */
+  border-top-right-radius: 12px;
 }
 
 .card-grid .card-body {
@@ -46,9 +46,30 @@
 }
 
 .card-grid .card-title {
-  font-weight: bold;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #3b2a1e; /* ✅ 진한 모카 계열로 강조 */
+  margin-bottom: 0.3rem;
+}
+
+.card-grid .card-nickname {
+  font-size: 0.85rem;
+  color: #a39891; /* ✅ 연한 모카/회색 톤 */
   margin-bottom: 0.5rem;
+}
+
+.card-rating {
+  font-size: 0.9rem;
+  color: #6d4929; /* ✅ --dark 컬러 사용 */
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.card-rating span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .card-grid .card-footer {
@@ -63,21 +84,104 @@
 }
 
 /* ✅ 페이지네이션: 부트스트랩 커스터마이징 */
+.pagination {
+  margin-top: 1rem;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
 .pagination .page-link {
-  color: #A47764;
+  color: var(--mocha); /* ✅ 대표 색상 사용 */
   border: 1px solid #e2d4cd;
   background-color: #fff;
   transition: all 0.2s ease;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
 }
 
 .pagination .page-link:hover {
   background-color: #f9f4f2;
   border-color: #d3bfb5;
-  color: #5e3c26;
+  color: #5e3c26; /* ✅ 강조 색 */
 }
 
 .pagination .page-item.active .page-link {
-  background-color: #A47764;
-  border-color: #A47764;
+  background-color: var(--mocha); /* ✅ 강조 색 */
+  border-color: var(--mocha);
   color: white;
+  font-weight: bold;
+}
+
+/* ✅ 글쓰기 버튼 스타일 변경 */
+button.btn.btn-primary.btn-sm {
+  background-color: var(--mocha);
+  border-color: var(--mocha);
+  font-weight: 500;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+}
+
+button.btn.btn-primary.btn-sm:hover {
+  background-color: var(--dark);
+  border-color: var(--dark);
+}
+
+/* ✅ 분류 드롭다운 정리 */
+select.form-select {
+  padding: 0.4rem 1.4rem 0.4rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border-color: #ddd;
+  min-width: 120px;
+  color: #333;
+}
+
+/* ✅ 에디터 추천 전체 레이아웃 박스 */
+.editor-pick {
+  padding: 2rem 1rem;                  /* 위아래 여백 넉넉히 */
+  border-bottom: 1px solid #eee;       /* 아래 구분선 */
+  gap: 2rem;                           /* 좌우 아이템 간격 */
+  flex-wrap: wrap;                     /* 반응형 줄바꿈 허용 */
+}
+
+/* ✅ 텍스트 콘텐츠 영역 (좌측) */
+.editor-meta {
+  flex: 1 1 400px;                     /* 최소 400px, 반응형 확대 허용 */
+}
+
+/* ✅ 소제목 (EDITORS’ PICK) */
+.editor-meta .subtitle {
+  font-size: 0.85rem;                  /* 작고 선명한 글자 */
+  font-weight: 700;                    /* 두껍게 */
+  color: var(--dark);                 /* 지정된 진한 색상 */
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;                /* 약간 간격 줌 */
+}
+
+/* ✅ 메인 제목 (추천 레시피 제목) */
+.editor-meta .title {
+  font-size: 1.8rem;                   /* 눈에 잘 띄게 크게 */
+  font-weight: 600;
+  color: #222;                         /* 진한 검정 느낌 */
+  margin-bottom: 0.5rem;
+}
+
+/* ✅ 추천 설명 문구 */
+.editor-meta .description {
+  font-size: 1rem;
+  color: #555;                         /* 회색 계열 */
+}
+
+/* ✅ 이미지 영역 (우측) */
+.editor-image {
+  flex: 1 1 320px;                     /* 최소 320px, 반응형 확대 허용 */
+}
+
+/* ✅ 이미지 자체 스타일 */
+.editor-image img {
+  width: 100%;                         /* 부모 영역 꽉 채움 */
+  border-radius: 12px;                 /* 둥근 테두리 */
+  object-fit: cover;                   /* 비율 유지하며 채우기 */
+  max-height: 240px;                  /* 세로 높이 제한 */
 }

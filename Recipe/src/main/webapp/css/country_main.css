@@ -1,95 +1,126 @@
-/* ✅ 한 줄에 카드 3개 + 좌우 여백 있는 정렬 */
+/* ✅ 카드 전체에 대한 기본 설정 */
 .theme-card {
-  overflow: hidden;
-  border-radius: 12px;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  position: relative;
+  overflow: hidden; /* 이미지나 내용이 넘칠 경우 숨김 처리 */
+  border-radius: 12px; /* 테두리 둥글게 */
+  transition: transform 0.3s ease; /* 호버 시 부드러운 확대 효과 */
+  cursor: pointer; /* 마우스 오버 시 손가락 모양 */
+  position: relative; /* 내부 요소 위치 조정을 위해 기준 설정 */
 }
 
+/* ✅ 카드에 마우스를 올렸을 때 확대 효과 */
 .theme-card:hover {
-  transform: scale(1.03);
+  transform: scale(1.01); /* 약간 확대 */
 }
 
+/* ✅ 카드 이미지에 대한 스타일 */
 .theme-card .card-img {
-  width: 100%;
-  height: 360px; /* ✅ 세로 길이 약간 늘림 */
-  object-fit: cover;
+  width: 100%; /* 부모 요소 너비에 맞춤 */
+  height: 360px; /* 고정된 세로 길이 */
+  object-fit: cover; /* 비율 유지하며 잘라서 채우기 */
 }
 
+/* ✅ 카드 이미지 위에 얹는 텍스트 영역 설정 */
 .theme-card .card-img-overlay {
-  background: rgba(0, 0, 0, 0.3);
-  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2); /* 반투명한 어두운 배경 */
+  padding: 1rem; /* 안쪽 여백 */
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  transition: background 0.3s ease;
+  justify-content: flex-end; /* 아래 정렬 */
+  transition: background 0.3s ease; /* 배경색 변경 시 부드럽게 */
 }
 
+/* ✅ 호버 시 이미지 오버레이의 배경색 더 어둡게 변경 */
 .theme-card:hover .card-img-overlay {
   background: rgba(0, 0, 0, 0.55);
 }
 
+/* ✅ 카드 중앙에 표시되는 추가 텍스트 (호버 시 나타남) */
 .theme-card .hover-text {
-  font-size: 1.3rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  position: absolute;
+  font-size: 1.3rem; /* 글자 크기 */
+  opacity: 0; /* 기본은 숨김 */
+  transition: opacity 0.3s ease; /* 서서히 나타남 효과 */
+  position: absolute; /* 카드 중앙에 고정 위치 */
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  white-space: nowrap;
-  color: white;
-  z-index: 10;
+  transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
+  pointer-events: none; /* 클릭 이벤트 무시 */
+  white-space: nowrap; /* 줄바꿈 없이 한 줄 표시 */
+  color: white; /* 글자 색 */
+  z-index: 10; /* 배지보다 낮고, 이미지 위로 표시 */
 }
 
+/* ✅ 마우스 호버 시 텍스트 나타나게 설정 */
 .theme-card:hover .hover-text {
   display: block;
   opacity: 1;
 }
 
+/* ✅ 카드 좌상단에 위치한 카테고리 배지 스타일 */
 .theme-card .badge {
   font-size: 0.75rem;
   font-weight: bold;
   letter-spacing: 1px;
   padding: 0.3rem 0.75rem;
-  background-color: #a0522d; /* ✅ 모카무스 계열 색상 */
+  background-color: #a0522d; /* 모카무스 계열 컬러 */
   color: #fff;
-  border-radius: 999px; /* ✅ 타원형 */
+  border-radius: 999px; /* pill 형태 (타원형) */
   position: absolute;
   top: 1rem;
   left: 1rem;
-  z-index: 11;
+  z-index: 11; /* hover-text보다 위에 위치 */
 }
 
+/* ✅ 전체 페이지의 중앙 정렬과 좌우 여백 설정 */
 .custom-container {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding-left: 4rem;
+  max-width: 1320px; /* 최대 너비 */
+  margin: 0 auto; /* 가운데 정렬 */
+  padding-left: 4rem; /* 좌우 여백 */
   padding-right: 4rem;
 }
 
-/* ✅ Bootstrap 기반 카드 정렬 유지 */
-.row.g-4 {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
+/* ✅ 제목 위에 들어가는 얇은 포인트 바 */
+.section-divider {
+  width: 100px; /* 바 길이 */
+  height: 6px; /* 바 두께 */
+  background-color: var(--mocha); /* 브랜드 색상 (변수로 지정됨) */
+  border-radius: 2px; /* 살짝 둥근 모서리 */
+  margin-bottom: 0.75rem; /* 제목과의 거리 */
 }
 
+/* ✅ 카드가 들어가는 행의 정렬 설정 */
+.row.g-4 {
+  display: flex;
+  flex-wrap: wrap; /* 다음 줄로 넘어감 */
+  margin-left: -0.5rem;  /* 좌우 패딩 보정 */
+  margin-right: -0.5rem;
+}
+/* hover 효과 제거 전용 */
+.theme-card.no-hover:hover {
+  transform: none;
+}
+
+.theme-card.no-hover:hover .card-img-overlay {
+  background: rgba(0, 0, 0, 0.3); /* hover 시 어두워지지 않음 */
+}
+
+.theme-card.no-hover:hover .hover-text {
+  display: none;
+}
+
+/* ✅ 각 카드(col)의 좌우 패딩 및 아래 여백 */
 .row.g-4 > [class^="col-"],
 .row.g-4 > [class*=" col-"] {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2rem; /* 카드 아래 간격 */
 }
 
+/* ✅ 모바일 화면 대응 - 카드 이미지 및 텍스트 크기 조정 */
 @media (max-width: 576px) {
   .theme-card .card-img {
-    height: 220px;
+    height: 220px; /* 세로 길이 축소 */
   }
   .theme-card .hover-text {
-    font-size: 0.8rem;
+    font-size: 0.8rem; /* 글자 크기 축소 */
   }
 }

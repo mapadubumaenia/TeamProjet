@@ -1,46 +1,157 @@
 @charset "UTF-8";
+
 /* ✅ 전체 카드 스타일 */
 .card {
-	border: none;
-	border-radius: 12px;
-	background-color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  background-color: #ffffff;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* ✅ 제목 */
 .card h2 {
-	font-weight: 700;
-	font-size: 1.75rem;
-	color: #333;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
 /* ✅ 작성자 및 메타 정보 */
 .card .text-muted {
-	font-size: 0.9rem;
-	color: #6c757d;
+  font-size: 0.9rem;
+  color: #6c757d;
 }
 
 /* ✅ 소제목 */
 .card h5 {
-	font-weight: 600;
-	font-size: 1.1rem;
-	margin-top: 1.5rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 /* ✅ 이미지 */
 .card img {
-	border-radius: 10px;
-	object-fit: cover;
-	max-height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+  max-height: 320px;
 }
 
 /* ✅ 요리 설명 영역 */
 pre {
-	background-color: #f8f9fa;
-	border: 1px solid #dee2e6;
-	padding: 1rem;
-	font-size: 0.95rem;
-	white-space: pre-wrap;
-	word-break: break-word;
-	border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 1.2rem;
+  font-size: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border-radius: 10px;
+  line-height: 1.6;
 }
 
+/* ✅ 버튼 정렬 */
+.card .btn {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ✅ 최근 본 레시피 영역 - 외부 래퍼 */
+.recent-recipes-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1rem;
+  gap: 1.5rem;
+}
+
+.recent-text {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--mocha);
+  margin-bottom: 0.5rem;
+}
+
+.recent-recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  max-width: 1000px;
+}
+
+.recent-recipes .recent-card {
+  width: 160px;
+  border: 1px solid var(--mocha);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  background-color: white;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recent-recipes .recent-card:hover {
+  transform: translateY(-6px);
+}
+
+.recent-recipes .recent-card .card-img-top {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+}
+
+.recent-recipes .recent-card .card-body {
+  padding: 0.6rem;
+  text-align: center;
+}
+
+.recent-recipes .recent-card .card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-recipes .recent-card .text-muted {
+  font-size: 0.75rem;
+  color: #6c757d;
+}
+
+/* ✅ 반응형 */
+@media (max-width: 576px) {
+  .recent-recipes .recent-card {
+    width: 120px;
+  }
+
+  .recent-recipes .recent-card .card-img-top {
+    height: 80px;
+  }
+
+  .recent-recipes .recent-card .card-title {
+    font-size: 0.8rem;
+  }
+
+  .recent-recipes .recent-card .text-muted {
+    font-size: 0.7rem;
+  }
+
+  .card h2 {
+    font-size: 1.5rem;
+  }
+
+  .card h5 {
+    font-size: 1rem;
+  }
+
+  pre {
+    font-size: 0.9rem;
+  }
+}
