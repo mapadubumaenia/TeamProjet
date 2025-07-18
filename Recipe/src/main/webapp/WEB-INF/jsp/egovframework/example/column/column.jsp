@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -203,9 +204,12 @@
 </div>
 
   <jsp:include page="/common/footer.jsp"/>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <!-- JQuery, Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script>
@@ -218,6 +222,8 @@
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     });
   </script>
+  
+  
   
 </body>
 </html>

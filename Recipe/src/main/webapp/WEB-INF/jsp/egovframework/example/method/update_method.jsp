@@ -66,6 +66,9 @@
     </form>
   </div>
 
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
   <jsp:include page="/common/footer.jsp"/>
 </body>
 </html>

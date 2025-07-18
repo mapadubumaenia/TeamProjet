@@ -80,16 +80,46 @@
 
 
 
-/* Responsive tweaks */
-@media (max-width: 576px) {
+/*====================
+  Responsive for tablet/mobile
+====================*/
+@media (max-width: 768px) {
+  /* 폼 전체 너비를 90%로 줄여 중앙 정렬 */
   .container.my-5 > form {
-    padding: 1rem;
+    max-width: 90% !important;
+    margin: 1rem auto;
+    padding: 1.5rem !important;
   }
+
+  /* 이미지 프리뷰가 너무 클 때 */
+  .container.my-5 img.img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 레이블, 폼 컨트롤 폰트 사이즈 축소 */
+  .container.my-5 .form-label {
+    font-size: 1rem !important;
+  }
+  .container.my-5 .form-control,
+  .container.my-5 .form-select {
+    font-size: 0.9rem !important;
+  }
+
+  /* 버튼 그룹 세로 스택으로 변경 & 간격 조정 */
   .container.my-5 .d-flex {
-    flex-direction: column;
+    flex-direction: column !important;
+    gap: 0.75rem;
   }
   .container.my-5 .d-flex .btn {
-    width: 100%;
-    margin-bottom: 0.5rem;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  /* 아주 작은 화면에서는 padding 더 줄이기 */
+  .container.my-5 > form {
+    padding: 1rem !important;
   }
 }
