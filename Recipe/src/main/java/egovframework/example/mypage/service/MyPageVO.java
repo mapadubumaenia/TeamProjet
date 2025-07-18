@@ -18,10 +18,5 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 public class MyPageVO extends Criteria{
-	   private MyInfoVO myInfo;
 	   private List<MyPostVO> myPosts;
-	   private List<MyCommentVO> myComments;
-	   private List<MyScrapVO> myScraps;
-	   private List<LikedPostVO> likedPosts;
-	   private List<LikedCommentVO> likedComments;
 }

@@ -22,7 +22,7 @@
 		<typeAlias alias="MemberVO" type="egovframework.example.auth.service.MemberVO"/>
 		<typeAlias alias="MethodVO" type="egovframework.example.method.service.MethodVO"/>
         <typeAlias alias="MyPageVO" type="egovframework.example.mypage.service.MyPageVO" />
-        <typeAlias alias="MyInfoVO" type="egovframework.example.mypage.service.MyInfoVO" />
+        <typeAlias alias="MyPostVO" type="egovframework.example.mypage.service.MyPostVO" />
 		<typeAlias alias="CommunityVO" type="egovframework.example.community.service.CommunityVO" />
 		
         

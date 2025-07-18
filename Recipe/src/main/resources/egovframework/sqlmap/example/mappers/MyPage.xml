@@ -2,18 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="egovframework.example.mypage.service.impl.MyPageMapper">
     <!-- 내가 작성한 레시피 -->
-     <select id="selectMyRecipes" parameterType="string" resultType="egovframework.example.mypage.service.MyPostVO">
+     <select id="selectMyRecipes" parameterType="Criteria" resultType="MyPostVO">
+    SELECT * FROM (
+    SELECT inner_query.*, ROWNUM AS rn FROM (
+    SELECT* FROM(
     SELECT 
       UUID, USER_ID AS userId,
       RECIPE_TITLE AS title,
       COUNT,
-      LIKE_COUNT AS likeCount, 
       STANDARD_RECIPE_IMAGE AS mainImage,
       STANDARD_RECIPE_IMAGE_URL AS imageUrl,
       CONTENT_TYPE AS contentType,
       RECIPE_CREATED_AT AS createdAt
-      FROM STANDARD_RECIPES
-      WHERE USER_ID = #{userId}
+    FROM STANDARD_RECIPES
+    WHERE USER_ID = #{userId}
 
     UNION ALL
 
@@ -21,25 +23,45 @@
       UUID,USER_ID AS userId,
       TITLE  AS title,
       COUNT,
-      LIKE_COUNT AS likeCount,
       RECIPE_IMAGE AS mainImage,
       RECIPE_IMAGE_URL AS imageUrl,
       CONTENT_TYPE AS contentType,
       RECIPE_CREATED_AT AS createdAt
-      
     FROM MEDIA_RECIPES
     WHERE USER_ID = #{userId}
+      
+      UNION ALL
+
+    SELECT 
+      UUID,USER_ID AS userId,
+      COLUMN_TITLE  AS title,
+      COUNT,
+      COLUMN_DATA AS mainImage,
+      COLUMN_URL AS imageUrl,
+      CONTENT_TYPE AS contentType,
+      COLUMN_CREATED_AT AS createdAt
+    FROM  FOOD_COLUMNS
+    WHERE USER_ID = #{userId}
+     ) all_posts
     ORDER BY createdAt DESC
+       ) inner_query
+    WHERE ROWNUM &lt;= #{endRow}
+  )
+  WHERE rn &gt; #{startRow}
 
 </select>
 
- <select id="selectOneByUuid" parameterType="string" resultType="egovframework.example.mypage.service.MyPostVO">
+ <select id="selectOneByUuid" parameterType="string" resultType="MyPostVO">
     SELECT UUID, RECIPE_IMAGE AS mainImage
     FROM MEDIA_RECIPES
     WHERE UUID = #{uuid}
     UNION ALL
     SELECT UUID, STANDARD_RECIPE_IMAGE AS mainImage
     FROM STANDARD_RECIPES
+    WHERE UUID = #{uuid}
+    UNION ALL
+    SELECT UUID, COLUMN_DATA AS mainImage
+    FROM FOOD_COLUMNS
     WHERE UUID = #{uuid}
   </select>
 
@@ -50,15 +72,96 @@
     ) +
     (
       SELECT COUNT(*) FROM MEDIA_RECIPES WHERE USER_ID = #{userId}
-    ) AS totalCount
+    ) +
+    (
+      SELECT COUNT(*) FROM FOOD_COLUMNS WHERE USER_ID = #{userId}
+    ) 
+     AS totalCount
+     FROM DUAL
 </select>
 
-<!-- 내 정보 조회 -->
+<!-- 좋아요한 레시피 -->
+ <select id="selectLikedRecipes" parameterType="Criteria" resultType="MyPostVO">
+    SELECT * FROM (
+    SELECT inner_query.*, ROWNUM AS rn FROM (
+    SELECT* FROM(
+    SELECT 
+      r.UUID AS uuid,
+      r.USER_ID AS userId,
+      r.RECIPE_TITLE AS title,
+      r.COUNT AS count,
+      r.STANDARD_RECIPE_IMAGE AS mainImage,
+      r.STANDARD_RECIPE_IMAGE_URL AS imageUrl,
+      r.CONTENT_TYPE AS contentType,
+      r.RECIPE_CREATED_AT AS createdAt
+    FROM LIKES l
+    JOIN STANDARD_RECIPES r ON l.UUID = r.UUID
+    WHERE l.USER_ID = #{userId}
+      AND l.TARGET_TYPE = 'standard'
+    
+    UNION ALL
 
-  <select id="selectMyInfo" parameterType="MyInfoVO" resultType="MyInfoVO">
-        SELECT * FROM USERS WHERE USER_ID = #{userId}
-  </select>
-  
+    SELECT 
+      r.UUID AS uuid,
+      r.USER_ID AS userId,
+      r.TITLE AS title,
+      r.COUNT AS count,
+      r.RECIPE_IMAGE AS mainImage,
+      r.RECIPE_IMAGE_URL AS imageUrl,
+      r.CONTENT_TYPE AS contentType,
+      r.RECIPE_CREATED_AT AS createdAt
+    FROM LIKES l
+    JOIN MEDIA_RECIPES r ON l.UUID = r.UUID
+    WHERE l.USER_ID = #{userId}
+      AND l.TARGET_TYPE = 'media'
+      
+      UNION ALL
+
+    SELECT 
+      r.UUID AS uuid,
+      r.USER_ID AS userId,
+      r.COLUMN_TITLE AS title,
+      r.COUNT AS count,
+      r.COLUMN_DATA AS mainImage,
+      r.COLUMN_URL AS imageUrl,
+      r.CONTENT_TYPE AS contentType,
+      r.COLUMN_CREATED_AT AS createdAt
+    FROM LIKES l
+    JOIN FOOD_COLUMNS r ON l.UUID = r.UUID
+    WHERE l.USER_ID = #{userId}
+      AND l.TARGET_TYPE = 'column'
+    ) all_posts
+    ORDER BY createdAt DESC
+   ) inner_query
+    WHERE ROWNUM &lt;= #{endRow}
+  )
+  WHERE rn &gt; #{startRow}
+</select>
+
+<select id="selectLikedRecipesCount" parameterType="Criteria" resultType="int">
+  SELECT COUNT(*) FROM (
+    SELECT 1 FROM LIKES l
+    JOIN STANDARD_RECIPES r ON l.UUID = r.UUID
+    WHERE l.USER_ID = #{userId}
+      AND l.TARGET_TYPE = 'standard'
+    
+    UNION ALL
+
+    SELECT 1 FROM LIKES l
+    JOIN MEDIA_RECIPES r ON l.UUID = r.UUID
+    WHERE l.USER_ID = #{userId}
+      AND l.TARGET_TYPE = 'media'
+
+    UNION ALL
+
+    SELECT 1 FROM LIKES l
+    JOIN FOOD_COLUMNS r ON l.UUID = r.UUID
+    WHERE l.USER_ID = #{userId}
+      AND l.TARGET_TYPE = 'column'
+  )
+</select>
+
+<!-- 내 정보 조회 -->  
   <select id="getPasswordByUserId" parameterType="string" resultType="string">
     SELECT PASSWORD
     FROM USERS
