@@ -33,7 +33,11 @@
 
   
   <div class="menu-toggle">
-  <img alt="메뉴" src="/images/02.png" width="20">
+  <img alt="메뉴" src="/images/my-hamburger.png" width="20">
+  </div>
+  
+  <div class="login-mobile">
+  <img alt="로그인" src="/images/login.png" width="20">
   </div>
  
   <nav class="main-nav pr4">
@@ -43,9 +47,9 @@
              recipes
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<c:url value='/country/country.do'/>">나라별</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">재료별</a></li>
-            <li><a class="dropdown-item" href="<c:url value='/dept/dept.do'/>">상황별</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/country/country.do'/>#country">나라별</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/country/country.do'/>#ingredient">재료별</a></li>
+            <li><a class="dropdown-item" href="<c:url value='/country/country.do'/>#situation">상황별</a></li>
           </ul>
         </li>
       
@@ -84,7 +88,7 @@
 		  <li><a class="dropdown-item" 
 href="<c:url value='/community/community.do'/>">자유게시판</a></li>
 					<li><a class="dropdown-item"
-						href="<c:url value='/dept/dept.do'/>">질문게시판</a></li>
+						href="<c:url value='/qna/qna.do'/>">질문게시판</a></li>
 				</ul></li>
 		</ul>
   </nav>

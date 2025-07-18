@@ -20,6 +20,5 @@ public interface CommunityMapper {
   public int update(CommunityVO communityVO);
   public int delete (String uuid);
   public int increaseViewCount(String uuid);
-  public int increaseLikeCount(String uuid);
-  public int getLikeCount(String uuid);
+
 }

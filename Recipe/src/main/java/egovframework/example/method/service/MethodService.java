@@ -18,7 +18,7 @@ public interface MethodService {
 	 
 	 int delete(String uuid);      //삭제
 	
-	
+	 int update(MethodVO methodVO);   // ← 추가
 	
 	
 	

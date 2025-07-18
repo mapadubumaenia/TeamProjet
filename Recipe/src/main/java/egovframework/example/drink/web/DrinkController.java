@@ -284,6 +284,45 @@ public class DrinkController {
         
         return "drink/detail";   // /WEB-INF/views/drink/detail.jsp
     }
+    
+    
+    // ① 수정 페이지 열기 (상세조회와 동일하게 DrinkVO 모델에 담아서)
+    @GetMapping("/drink/edition.do")
+    public String edition(@RequestParam String uuid, Model model, HttpSession session) {
+        DrinkVO vo = drinkService.selectDrink(uuid);
+        MemberVO member = (MemberVO) session.getAttribute("memberVO");
+        if (member == null || !member.getUserId().equals(vo.getUserId())) {
+            return "redirect:/drink/drink.do";
+        }
+        model.addAttribute("drinkVO", vo);
+        return "drink/update_drink";
+    }
+
+    // ② 수정 처리
+    @PostMapping("/drink/edit.do")
+    public String edit(
+        @RequestParam String uuid,
+        @RequestParam String columnTitle,
+        @RequestParam String columnContent,
+        @RequestParam String category,
+        @RequestParam String columnIngredient,
+        @RequestParam(required = false) MultipartFile image,
+        HttpSession session
+    ) throws Exception {
+        MemberVO member = (MemberVO) session.getAttribute("memberVO");
+        if (member == null) {
+            return "redirect:/login.do";
+        }
+        byte[] data = (image != null && !image.isEmpty()) ? image.getBytes() : null;
+        DrinkVO vo = new DrinkVO(columnTitle, columnContent, category, columnIngredient, data);
+        vo.setUuid(uuid);
+        vo.setUserId(member.getUserId());
+        drinkService.update(vo);
+        return "redirect:/drink/detail.do?uuid=" + uuid;
+    }
+    
+    
+    
 	
  // ★ 좋아요 토글 AJAX 엔드포인트
     @PostMapping("/drink/like.do")

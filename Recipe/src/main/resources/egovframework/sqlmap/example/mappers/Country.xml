@@ -27,7 +27,7 @@
             SELECT COUNT(*)
             FROM COMMENTS C
             WHERE C.UUID = SR.UUID
-              AND C.TARGET_TYPE = 'recipes'
+              AND C.TARGET_TYPE = 'standard' 
         ) AS COMMENT_COUNT
     FROM STANDARD_RECIPES SR
     JOIN USERS U ON SR.USER_ID = U.USER_ID
@@ -43,6 +43,9 @@
         <when test="sortOption == 'title'">
           SR.RECIPE_TITLE ASC
         </when>
+	    <when test="sortOption == 'comments'">
+		COMMENT_COUNT DESC
+	    </when>
         <otherwise>
           SR.RECIPE_CREATED_AT DESC
         </otherwise>

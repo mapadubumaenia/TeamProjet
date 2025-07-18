@@ -22,13 +22,30 @@
 
       <div class="container">
         <!-- 분류 드롭다운 -->
-<div class="d-flex justify-content-between align-items-center mb-3">
+        
+        <!-- ✅ 에디터 추천 (디자인용 더미) -->
+				<div
+					class="editor-pick d-flex justify-content-between align-items-center mb4">
+					<div class="editor-meta">
+						<h6 class="subtitle">EDITORS’ PICK</h6>
+						<h2 class="title">가볍게 먹기 좋은 오늘의 추천 레시피</h2>
+						<p class="description">팬에 살짝 구워 간단하게 만들 수 있는 최고의 저녁 레시피를
+							소개합니다. 따뜻한 한 끼로 하루를 마무리해보세요.</p>
+						<a href="#" class="btn btn-outline-dark btn-sm mt2">이 레시피 바로 가기</a>
+					</div>
+
+					<div class="editor-image">
+						<img src="/images/recipe/korea_main.jpg" alt="추천 이미지" />
+					</div>
+				</div>
+				<div class="d-flex justify-content-between align-items-center mb-3">
   <div>
     <label for="sortOption" class="form-label me-2">분류</label>
     <select class="form-select form-select-sm w-auto d-inline" id="sortOption" name="sortOption" onchange="fn_sort()">
       <option value="latest" ${param.sortOption == 'recent' ? 'selected' : ''}>최신순</option>
-      <option value="likes" ${param.sortOption == 'likes' ? 'selected' : ''}>인기순</option>
+      <option value="likes" ${param.sortOption == 'likes' ? 'selected' : ''}>좋아요순</option>
       <option value="title" ${param.sortOption == 'title' ? 'selected' : ''}>가나다순</option>
+      <option value="comments" ${param.sortOption == 'comments' ? 'selected' : ''}>댓글 많은순</option>
     </select>
   </div>
   <div>
@@ -60,7 +77,15 @@
       </c:choose>
 </span>
   <span>
-    💬 ${empty recipe.commentCount ? 0 : recipe.commentCount}
+    💬 
+    <c:choose>
+      <c:when test="${empty recipe.commentCount}">
+        0
+      </c:when>
+      <c:otherwise>
+        ${recipe.commentCount}
+      </c:otherwise>
+    </c:choose>
   </span>
 </div>
       </div>

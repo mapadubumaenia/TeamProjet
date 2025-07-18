@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+:root {
+  --mocha: #A47764;
+  --dark: #6d4929;
+  --light-paper: #faf4e1;
+  --cream: #fff8f2;
+}
+
+/* Centered form container */
+.container.my-5 > form {
+  background-color: var(--light-paper);
+  border: 2px solid var(--mocha);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Form labels */
+.container.my-5 .form-label {
+  font-weight: 600;
+  color: var(--mocha);
+}
+
+/* Inputs & selects */
+.container.my-5 .form-control,
+.container.my-5 .form-select {
+  border: 1px solid var(--mocha);
+  border-radius: 0.5rem;
+  background: var(--cream);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Focus states */
+.container.my-5 .form-control:focus,
+.container.my-5 .form-select:focus {
+  border-color: var(--dark);
+  box-shadow: 0 0 0 3px rgba(109,73,41,0.2);
+  outline: none;
+}
+
+/* Existing image preview */
+.container.my-5 img.img-fluid {
+  border: 1px solid var(--mocha);
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Buttons wrapper */
+.container.my-5 .d-flex {
+  margin-top: 1.5rem;
+}
+
+/* Mocha “저장” button */
+.container.my-5 .btn-mocha {
+  background-color: var(--mocha);
+  border-color: var(--mocha);
+  color: #faf4e1 !important;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.1s;
+}
+.container.my-5 .btn-mocha:hover {
+  background-color: var(--dark);
+  border-color: var(--dark);
+  transform: translateY(-1px);
+}
+
+/* Cancel button override */
+.container.my-5 .btn-outline-secondary {
+  border-color: var(--dark);
+  color: var(--dark);
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
+}
+.container.my-5 .btn-outline-secondary:hover {
+  background-color: var(--dark);
+  color: #faf4e1;
+}
+
+
+
+
+/*====================
+  Responsive for tablet/mobile
+====================*/
+@media (max-width: 768px) {
+  /* 폼 전체 너비를 90%로 줄여 중앙 정렬 */
+  .container.my-5 > form {
+    max-width: 90% !important;
+    margin: 1rem auto;
+    padding: 1.5rem !important;
+  }
+
+  /* 이미지 프리뷰가 너무 클 때 */
+  .container.my-5 img.img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 레이블, 폼 컨트롤 폰트 사이즈 축소 */
+  .container.my-5 .form-label {
+    font-size: 1rem !important;
+  }
+  .container.my-5 .form-control,
+  .container.my-5 .form-select {
+    font-size: 0.9rem !important;
+  }
+
+  /* 버튼 그룹 세로 스택으로 변경 & 간격 조정 */
+  .container.my-5 .d-flex {
+    flex-direction: column !important;
+    gap: 0.75rem;
+  }
+  .container.my-5 .d-flex .btn {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  /* 아주 작은 화면에서는 padding 더 줄이기 */
+  .container.my-5 > form {
+    padding: 1rem !important;
+  }
+}

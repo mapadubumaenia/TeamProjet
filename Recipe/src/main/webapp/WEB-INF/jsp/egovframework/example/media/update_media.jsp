@@ -71,6 +71,7 @@
    <button class="btn btn-outline-dark" type="button" onclick="fn_update()">수정</button>
    <button class="btn btn-outline-dark" type="button" onclick="fn_delete()">삭제</button>
    </div>
+   
 	</form>
 </div>
 

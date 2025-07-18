@@ -92,15 +92,16 @@
 				<div class="col4 mb3">
 					<a
 						href="${pageContext.request.contextPath}/method/detail.do?uuid=${item.uuid}&methodType=${param.methodType}"
-						class="card h-100 text-decoration-none"> <c:if
+						class="card h-100 text-decoration-none position-relative"> <!-- 좋아요 표시: 이미지 위 왼쪽 -->
+						<span class="like">❤️ ${item.likeCount}</span> <c:if
 							test="${not empty item.methodUrl}">
 							<img src="${item.methodUrl}" class="card-img-top"
 								alt="${item.methodTitle}" />
 						</c:if>
+
 						<div
-							class="card-body d-flex justify-content-between align-items-center">
+							class="card-body d-flex justify-content-center align-items-center">
 							<h5 class="card-title mb-0">${item.methodTitle}</h5>
-							<span class="like-badge">&#10084; ${item.likeCount}</span>
 						</div>
 					</a>
 				</div>
@@ -113,6 +114,9 @@
     </div>
   </form>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
   <!-- scripts -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script

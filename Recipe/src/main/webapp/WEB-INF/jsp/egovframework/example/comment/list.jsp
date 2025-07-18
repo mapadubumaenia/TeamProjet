@@ -7,6 +7,15 @@
   <meta charset="UTF-8">
   <title>댓글 목록</title>
   <style>
+  .btn-mocha {
+  color: #A47148;
+  border: 1px solid #A47148;
+  background-color: transparent;}
+
+  .btn-mocha:hover {
+  background-color: #A47148;
+  color: white;}
+  
     .reply-box { margin-left: 2rem; }
     .reply-input { margin-top: 5px; }
   </style>
@@ -18,13 +27,7 @@
   <p>등록된 댓글이 없습니다.</p>
 </c:if>
 
-<!-- 댓글 등록 영역 (최상위 댓글) -->
-<c:if test="${not empty sessionScope.memberVO}">
-  <div class="mb-3">
-    <textarea id="main-comment-content" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
-    <button id="main-comment-submit" class="btn btn-primary mt-2">댓글 등록</button>
-  </div>
-</c:if>
+
 
 <!-- 댓글 목록 출력 -->
 <c:forEach var="comment" items="${commentList}">
@@ -40,15 +43,18 @@
 
     <!-- 버튼 영역 -->
     <div class="comment-buttons mt-2">
-      <c:if test="${sessionScope.memberVO.userid eq comment.userId}">
-        <button class="btn btn-sm btn-secondary edit-btn" data-id="${comment.commentId}" data-content="${comment.content}">수정</button>
+      <c:if test="${sessionScope.memberVO.userId eq comment.userId}">
+
+        <button type="button" class="btn btn-sm btn-secondary edit-btn" data-id="${comment.commentId}" data-content="${comment.content}">수정</button>
+
         <button class="btn btn-sm btn-success save-btn" data-id="${comment.commentId}" style="display: none;">등록</button>
         <button class="btn btn-sm btn-light cancel-btn" data-id="${comment.commentId}" style="display: none;">취소</button>
         <button class="btn btn-sm btn-danger delete-btn" data-id="${comment.commentId}">삭제</button>
       </c:if>
 <c:if test="${not empty sessionScope.memberVO}">
   <c:set var="nicknameSafe" value="${empty comment.nickname ? '알수없음' : fn:trim(comment.nickname)}" />
-  <button class="btn btn-sm btn-outline-primary reply-btn"
+  <button type="button" 
+  		  class="btn btn-sm btn-outline-primary reply-btn"
           data-id="${comment.commentId}" 
           data-nickname="${nicknameSafe}">
     답글
@@ -60,6 +66,14 @@
     <div class="reply-input mt-2" id="reply-box-${comment.commentId}" style="display: none;"></div>
   </div>
 </c:forEach>
+
+<!-- 댓글 등록 영역  -->
+<c:if test="${not empty sessionScope.memberVO}">
+  <div class="mb-3">
+    <textarea id="main-comment-content" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
+    <button id="main-comment-submit" class="btn btn-mocha mt-2">댓글 등록</button>
+  </div>
+</c:if>
 
 <!-- 댓글 처리 스크립트 -->
 <script>
@@ -76,15 +90,19 @@
 
   // 수정 버튼 클릭
   $(document).on("click", ".edit-btn", function () {
+	/*   alert("fdsa") */
     const commentId = $(this).data("id");
     const content = $(this).data("content");
     const commentBox = $(this).closest(".comment-box");
     const contentDiv = commentBox.find("#content-" + commentId);
+
+    /* 댓글창에 비로그인 시 안보이게 하는 것 */
     const textarea = $("<textarea>", {
       class: "form-control edit-content", rows: 2
     }).val(content);
     contentDiv.html(textarea);
     $(this).hide();
+    
     commentBox.find(".save-btn, .cancel-btn").show();
   });
 
@@ -104,7 +122,7 @@
     const commentBox = $(this).closest(".comment-box");
     const textarea = commentBox.find("textarea.edit-content");
     const newContent = textarea.val();
-    const userId = "${sessionScope.memberVO.userid}";
+    const userId = "${sessionScope.memberVO.userId}";
     if (!newContent || newContent.trim() === "") {
       alert("내용을 입력해주세요.");
       return;
@@ -156,8 +174,8 @@
         contentType: "application/json",
         data: JSON.stringify({
           uuid: "${param.uuid}",
-          userId: "${sessionScope.memberVO.userid}",
-          targetType: "community",
+          userId: "${sessionScope.memberVO.userId}",
+          targetType: "${param.targetType}",
           content: content,
           parentId: parentId
         }),
@@ -186,8 +204,8 @@
       contentType: "application/json",
       data: JSON.stringify({
         uuid: "${param.uuid}",
-        userId: "${sessionScope.memberVO.userid}",
-        targetType: "community",
+        userId: "${sessionScope.memberVO.userId}",
+        targetType: "${param.targetType}",
         content: content,
         parentId: null
       }),

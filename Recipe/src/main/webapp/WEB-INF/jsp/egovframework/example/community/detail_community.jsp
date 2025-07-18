@@ -71,13 +71,7 @@
     <div id="commentListArea"></div>
   </div>
 
-  <!-- 좋아요 버튼 -->
-  <div style="display:inline;">
-    <button id="like-button" type="button" class="btn btn-outline-danger btn-sm">
-      ♥ 좋아요 <span id="like-count">${community.communityLikeCount}</span>
-    </button>
-    <input type="hidden" id="community-uuid" value="${community.uuid}" />
-  </div>
+ 
 
   <a href="<c:url value='/community/community.do'/>" class="btn btn-secondary">목록으로</a>
 </div>
@@ -133,27 +127,6 @@
       document.getElementById('deleteForm').submit();
     }
   }
-
-  document.getElementById("like-button").addEventListener("click", function () {
-    const uuid = document.getElementById("community-uuid").value;
-    const countSpan = document.getElementById("like-count");
-
-    fetch("<c:url value='/community/like.do'/>", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: "uuid=" + encodeURIComponent(uuid)
-    })
-    .then(response => response.text())
-    .then(result => {
-      if (!isNaN(result)) {
-        const updatedCount = parseInt(result);
-        countSpan.textContent = updatedCount;
-      }
-    })
-    .catch(error => console.error("좋아요 요청 실패:", error));
-  });
 
   // ✅ 댓글 Ajax 로딩
   $(function () {

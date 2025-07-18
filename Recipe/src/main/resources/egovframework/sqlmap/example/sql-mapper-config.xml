@@ -24,7 +24,7 @@
         <typeAlias alias="MyPageVO" type="egovframework.example.mypage.service.MyPageVO" />
         <typeAlias alias="MyPostVO" type="egovframework.example.mypage.service.MyPostVO" />
 		<typeAlias alias="CommunityVO" type="egovframework.example.community.service.CommunityVO" />
-		
+		<typeAlias alias="QnaVO" type="egovframework.example.qna.service.QnaVO" />
         
 		<typeAlias alias="Criteria"  type="egovframework.example.common.Criteria" />
 		<typeAlias alias="CountryVO"  type="egovframework.example.country.service.CountryVO" />

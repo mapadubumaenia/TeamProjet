@@ -63,20 +63,23 @@
         <!-- 여기부터 drinkListContainer 시작 -->
 		<div id="drinkListContainer" class="row">
 			<c:forEach var="data" items="${drinks}">
-				<div class="col4">
-					<div class="card">
-						<a href="<c:url value='/drink/detail.do?uuid=${data.uuid}'/>">
-							<img src="${data.columnUrl}" class="card-img-top"
-							alt="${data.columnTitle}" />
-							<div
-								class="card-body d-flex justify-content-between align-items-center">
-								<h5 class="card-title mb-0">${data.columnTitle}</h5>
-								       <span class="like-badge">&#10084; ${data.likeCount}</span>
-							</div>
-						</a>
-					</div>
-				</div>
-			</c:forEach>
+  <div class="col4">
+    <div class="card position-relative">
+      <!-- 좋아요 표시 -->
+      <span class="like">❤️ ${data.likeCount}</span>
+
+      <a href="<c:url value='/drink/detail.do?uuid=${data.uuid}'/>">
+        <!-- 카드 이미지 -->
+        <img src="${data.columnUrl}"
+             class="card-img-top"
+             alt="${data.columnTitle}" />
+        <div class="card-body d-flex align-items-center justify-content-center">
+          <h5 class="card-title mb-0">${data.columnTitle}</h5>
+        </div>
+      </a>
+    </div>
+  </div>
+</c:forEach>
 		</div>
 		<!-- drinkListContainer 끝 -->
          
@@ -94,6 +97,8 @@
 <!-- 페이징 라이브러리 -->
 <script src="/js/jquery.twbsPagination.js" type="text/javascript"></script>
 
+<!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
 <jsp:include page="/common/footer.jsp" />
 
 <script type="text/javascript">

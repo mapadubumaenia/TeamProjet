@@ -76,8 +76,13 @@ public class DrinkServiceImpl implements DrinkService {
 	}
 	
 	
-	
-	
+	//수정
+	 @Override
+	    public int update(DrinkVO drinkVO) {
+	        // UUID, 컬럼URL 세팅은 insert와 동일 로직 재사용 가능
+	        drinkVO.setColumnUrl(generateDownloadUrl(drinkVO.getUuid()));
+	        return drinkMapper.update(drinkVO);
+	    }
 	
 	
 	

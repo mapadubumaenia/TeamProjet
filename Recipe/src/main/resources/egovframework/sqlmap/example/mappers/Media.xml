@@ -35,7 +35,8 @@ WHERE MEDIA_CATEGORY = #{mediaCategory} AND UUID LIKE '%' ||
 </insert>
 
 <select id="selectMedia" parameterType="string" resultType="MediaVO"> 
-SELECT * FROM MEDIA_RECIPES WHERE UUID=#{uuid} </select>
+SELECT m.*, u.NICKNAME FROM MEDIA_RECIPES m 
+  JOIN USERS u ON m.USER_ID = u.USER_ID WHERE m.UUID = #{uuid}</select>
 
 <update id="update" parameterType="MediaVO"> 
 UPDATE MEDIA_RECIPES SET TITLE=#{title},INGREDIENT=#{ingredient}, CONTENT=#{content},
@@ -43,6 +44,5 @@ RECIPE_IMAGE=#{recipeImage},RECIPE_IMAGE_URL=#{recipeImageUrl}, MEDIA_CATEGORY=#
 
 <delete id="delete" parameterType="MediaVO"> 
 DELETE MEDIA_RECIPES WHERE UUID=#{uuid} </delete>
-
 
 </mapper>
