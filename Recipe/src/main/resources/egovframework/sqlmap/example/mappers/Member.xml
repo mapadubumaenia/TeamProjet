@@ -10,7 +10,20 @@
         SELECT * FROM USERS
         WHERE USER_ID=#{userId}
     </select>
-
+    
+    
+    
+    <select id="isUserIdExists" resultType="int" parameterType="MemberVO">
+     SELECT COUNT(*)
+     FROM USERS
+     WHERE USER_ID = #{userId}
+    </select>
+    <select id="isNicknameExists" resultType="int" parameterType="MemberVO">
+     SELECT COUNT(*)
+     FROM USERS
+     WHERE NICKNAME = #{nickname}
+    </select>
+    
 
     <insert id="register"
 			parameterType="MemberVO"

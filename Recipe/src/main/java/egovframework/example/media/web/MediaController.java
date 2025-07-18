@@ -3,10 +3,13 @@
  */
 package egovframework.example.media.web;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -155,8 +158,8 @@ public class MediaController {
 
         model.addAttribute("isLiked", isLiked);
         model.addAttribute("likeCount", likeCount);
-  
-     // ─── 최근 본 미디어 목록 처리 ───────────────
+
+     // 최근 본 미디어 목록 처리 
         @SuppressWarnings("unchecked")
         List<String> recentMedia = (List<String>) session.getAttribute("recentMedia");
         if (recentMedia == null) {
@@ -173,12 +176,14 @@ public class MediaController {
 
         // UUID 리스트 → MediaVO 리스트 매핑
         List<MediaVO> recentMediaList = recentMedia.stream()
+            .map(id -> mediaService.selectMedia(id)) //uuid로 조회
+            .filter(Objects::nonNull)                //null 제거
+            .collect(Collectors.toList());
+        model.addAttribute("recentMediaList", recentMediaList);
             .map(id -> mediaService.selectMedia(id))
             .collect(Collectors.toList());
         model.addAttribute("recentMediaList", recentMediaList);
-        // ───────────────────────────────────────
-        
-        
+
 		return "media/open/media_open";
 	}
 // 좋아요 토글 AJAX 
@@ -325,6 +330,33 @@ MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 	        return "redirect:/media/detail.do?uuid=" + uuid; // 상세페이지로 다시 이동
 	    }
 	}
+//댓글	
+	@PostMapping("/commentInsert.do")
+    public String insertComment(HttpServletRequest request,
+                                @RequestParam String uuid,
+                                @RequestParam String writer,
+                                @RequestParam String content) {
+        HttpSession session = request.getSession();
+        Map<String, List<Map<String, String>>> allComments =
+                (Map<String, List<Map<String, String>>>) session.getAttribute("allComments");
+
+        if (allComments == null) {
+            allComments = new HashMap<>();
+        }
+
+        // 새 댓글 추가
+        List<Map<String, String>> commentList = allComments.getOrDefault(uuid, new ArrayList<>());
+        Map<String, String> newComment = new HashMap<>();
+        newComment.put("writer", writer);
+        newComment.put("content", content);
+        newComment.put("timestamp", LocalDateTime.now().toString());
+
+        commentList.add(newComment);
+        allComments.put(uuid, commentList);
+        session.setAttribute("allComments", allComments);
+
+        return "redirect:/community/detail.do?uuid=" + uuid;
+    }
 	
 
 	

@@ -7,6 +7,15 @@
   <meta charset="UTF-8">
   <title>댓글 목록</title>
   <style>
+  .btn-mocha {
+  color: #A47148;
+  border: 1px solid #A47148;
+  background-color: transparent;}
+
+  .btn-mocha:hover {
+  background-color: #A47148;
+  color: white;}
+  
     .reply-box { margin-left: 2rem; }
     .reply-input { margin-top: 5px; }
   </style>
@@ -18,13 +27,7 @@
   <p>등록된 댓글이 없습니다.</p>
 </c:if>
 
-<!-- 댓글 등록 영역 (최상위 댓글) -->
-<c:if test="${not empty sessionScope.memberVO}">
-  <div class="mb-3">
-    <textarea id="main-comment-content" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
-    <button id="main-comment-submit" class="btn btn-primary mt-2">댓글 등록</button>
-  </div>
-</c:if>
+
 
 <!-- 댓글 목록 출력 -->
 <c:forEach var="comment" items="${commentList}">
@@ -41,7 +44,9 @@
     <!-- 버튼 영역 -->
     <div class="comment-buttons mt-2">
       <c:if test="${sessionScope.memberVO.userId eq comment.userId}">
+
         <button type="button" class="btn btn-sm btn-secondary edit-btn" data-id="${comment.commentId}" data-content="${comment.content}">수정</button>
+
         <button class="btn btn-sm btn-success save-btn" data-id="${comment.commentId}" style="display: none;">등록</button>
         <button class="btn btn-sm btn-light cancel-btn" data-id="${comment.commentId}" style="display: none;">취소</button>
         <button class="btn btn-sm btn-danger delete-btn" data-id="${comment.commentId}">삭제</button>
@@ -61,6 +66,14 @@
     <div class="reply-input mt-2" id="reply-box-${comment.commentId}" style="display: none;"></div>
   </div>
 </c:forEach>
+
+<!-- 댓글 등록 영역  -->
+<c:if test="${not empty sessionScope.memberVO}">
+  <div class="mb-3">
+    <textarea id="main-comment-content" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
+    <button id="main-comment-submit" class="btn btn-mocha mt-2">댓글 등록</button>
+  </div>
+</c:if>
 
 <!-- 댓글 처리 스크립트 -->
 <script>

@@ -24,7 +24,6 @@
           <th>작성자</th>
           <th>제목</th>
           <th>조회수</th>
-          <th>좋아요</th>
           <th>작성일</th>
           <th>댓글수</th> <!-- ✅ 댓글 수 헤더 -->
         </tr>
@@ -40,7 +39,6 @@
               </a>
             </td>
             <td>${item.communityCount}</td>
-            <td>${item.communityLikeCount}</td>
             <td>${item.communityCreatedAt}</td>
             <td>${item.commentCount}</td> <!-- ✅ 댓글 수 출력 -->
           </tr>

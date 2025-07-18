@@ -19,7 +19,6 @@ public class CommunityVO extends Criteria {
 	private String communityTitle;
 	private String communityContent;
 	private String communityCreatedAt;
-	private int communityLikeCount;
 	private int communityCount;
 	private byte[] communityImage;
 	private String communityUrl;

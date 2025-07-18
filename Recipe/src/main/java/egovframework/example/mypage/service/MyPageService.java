@@ -2,7 +2,7 @@ package egovframework.example.mypage.service;
 
 import java.util.List;
 
-import egovframework.example.common.Criteria;
+import egovframework.example.auth.service.MemberVO;
 
 public interface MyPageService {
 	//내가 작성한 레시피
@@ -11,5 +11,15 @@ public interface MyPageService {
 
 	//내 정보조회
 	MyInfoVO selectMyInfo(String userId)throws Exception;
-	
+	boolean checkPassword(String userid, String inputPassword);
+	String getPasswordByUserId(String userId);
+	MemberVO getMemberById(String userid);
+	void updateMember(MemberVO vo);
+	byte[] getProfileImage(String userId);
+	void deleteMember(String userId);
+
+
+
 }
+
+

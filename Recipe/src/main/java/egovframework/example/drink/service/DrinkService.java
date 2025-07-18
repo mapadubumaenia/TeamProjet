@@ -19,5 +19,7 @@ public interface DrinkService {
 	
 	
 	
+	    int update(DrinkVO drinkVO);   // ← 추가
+	
 	
 }

@@ -40,6 +40,22 @@ public class MemberServiceImpl extends EgovAbstractServiceImpl implements Member
 	}
 
 	@Override
+	public boolean isUserIdExists(MemberVO memberVO) throws Exception {
+		// TODO Auto-generated method stub
+		int count = memberMapper.isUserIdExists(memberVO);
+		return count > 0;
+	}
+
+
+	@Override
+	public boolean isNicknameExists(MemberVO memberVO) throws Exception {
+		// TODO Auto-generated method stub
+		int count = memberMapper.isNicknameExists(memberVO);
+		return count > 0;
+	}
+
+
+	@Override
 	public String findId(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
 		return memberMapper.findId(memberVO);
@@ -53,10 +69,13 @@ public class MemberServiceImpl extends EgovAbstractServiceImpl implements Member
 	@Override
 	public void updatePassword(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
+		
+		
+		
 		String rawPassword = memberVO.getPassword(); // 새 비밀번호
         String hashedPassword = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
         memberVO.setPassword(hashedPassword);
-
+        
         // DB 업데이트
         memberMapper.updatePassword(memberVO);
 

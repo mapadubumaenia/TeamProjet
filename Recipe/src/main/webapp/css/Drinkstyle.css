@@ -534,6 +534,124 @@ a {text-decoration: none; color: var(--black);}
   border-radius: 0.5rem;
 }
 
+/* ─── 댓글 입력창 & 버튼 모카톤 적용 ─── */
+/* 최상위 댓글 입력 textarea */
+#main-comment-content {
+  width: 100%;
+  border: 1px solid var(--mocha);
+  background-color: #faf4e1;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  resize: vertical;
+  margin-bottom: 0.5rem;
+  color: #3f3021;
+}
+
+/* 최상위 댓글 등록 버튼 */
+#main-comment-submit {
+  background: var(--mocha) !important;
+  border: none !important;
+  color: #faf4e1 !important;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+#main-comment-submit:hover {
+  background: var(--dark) !important;
+}
+
+/* 답글 입력 textarea */
+.reply-input textarea {
+  width: 100%;
+  border: 1px solid var(--mocha);
+  background-color: #faf4e1;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  resize: vertical;
+  color: #3f3021;
+}
+
+/* 답글 등록 버튼 */
+.reply-input button {
+  background: var(--mocha) !important;
+  border: none !important;
+  color: #faf4e1 !important;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+/* ─── 댓글 디자인 모카톤 적용 ─── */
+.comment-box {
+  border: 1px solid var(--mocha);
+  background-color: #faf4e1;       /* 연한 종이빛 배경 */
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.comment-box strong {
+  color: var(--dark);             /* 작성자 닉네임은 다크 컬러 */
+}
+
+.comment-content {
+  margin: 0.5rem 0;
+  line-height: 1.5;
+  color: #3f3021;                 /* 본문 텍스트는 진한 브라운 */
+}
+
+.comment-buttons .btn {
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+}
+
+/* — 버튼별 컬러 커스터마이징 — */
+/* 수정 버튼 (모카톤) */
+.comment-buttons .edit-btn {
+  background: var(--mocha);
+  color: #faf4e1;
+  border: none;
+}
+.comment-buttons .edit-btn:hover {
+  background: var(--dark);
+}
+
+/* 삭제 버튼 (경고 레드 톤) */
+.comment-buttons .delete-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+}
+.comment-buttons .delete-btn:hover {
+  background: #c0392b;
+}
+
+/* 답글 버튼 (다크라인) */
+.comment-buttons .reply-btn {
+  background: transparent;
+  color: var(--dark);
+  border: 1px solid var(--dark);
+}
+.comment-buttons .reply-btn:hover {
+  background: var(--dark);
+  color: #faf4e1;
+}
+
+.reply-box {
+  margin-left: 2rem;              /* 답글은 들여쓰기 */
+}
+
+.reply-input textarea {
+  border: 1px solid var(--mocha);
+}
+
+.reply-input button {
+  background: var(--mocha);
+  border: none;
+  color: #faf4e1;
+  margin-top: 0.5rem;
+}
+
 /* ──────────────────────────────────────────────────── */
 /* 최근 본 레시피 섹션 재디자인 */
 /* ──────────────────────────────────────────────────── */
@@ -655,13 +773,47 @@ a {text-decoration: none; color: var(--black);}
 
 
 
+/* 카드 컨테이너를 기준으로, 좋아요를 절대 위치시킵니다 */
+.card.position-relative {
+  position: relative;
+}
+
+/* 팀원 예제와 동일한 하트 스타일 */
+.card .like {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #e60039;                    /* 짙은 빨강 */
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 10;
+}
+
+/* 상세조회 페이지의 “수정하기” 버튼 스타일 (drink/detail.jsp) */
+.container.my-5 .d-flex .btn-outline-secondary {
+  background-color: rgba(164,119,100,0.2) !important;  /* 연한 모카 배경 */
+  border-color:    #A47764           !important;      /* 모카 테두리 */
+  color:           #A47764           !important;      /* 모카 글자 */
+}
+
+.container.my-5 .d-flex .btn-outline-secondary:hover {
+  background-color: #A47764           !important;      /* 진한 모카 배경 */
+  border-color:     #A47764           !important;
+  color:            #fff8f2           !important;      /* 크림 글자 */
+}
 
 
-
-
-
-
-
+/* 카드 제목 강조 (override) */
+#drinkListContainer .card .card-title {
+  font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+  font-weight: 700 !important;      /* 굵게 */
+  font-size: 1.2rem;                /* 크기 살짝 키우기 */
+  color: var(--dark);               /* 시인성 좋은 어두운 컬러 */
+  line-height: 1.3;                 /* 가독성 향상 */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);  /* 약간의 그림자 효과로 떠 보이게 */
+}
 
 
 

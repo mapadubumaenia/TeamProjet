@@ -34,7 +34,6 @@
     <div class= "inputbox">
     <div class= "input_center">
       <form id="addForm" name="addForm"action="/changepassProcess.do" method="post">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<!-- CSRF -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 

@@ -84,7 +84,7 @@
 		  <li><a class="dropdown-item" 
 href="<c:url value='/community/community.do'/>">자유게시판</a></li>
 					<li><a class="dropdown-item"
-						href="<c:url value='/dept/dept.do'/>">질문게시판</a></li>
+						href="<c:url value='/qna/qna.do'/>">질문게시판</a></li>
 				</ul></li>
 		</ul>
   </nav>

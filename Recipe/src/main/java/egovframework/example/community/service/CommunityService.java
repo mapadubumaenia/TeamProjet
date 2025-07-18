@@ -13,6 +13,6 @@ public interface CommunityService {
 	int update(CommunityVO communityVO);
 	int delete (String uuid);
 	int increaseViewCount(String uuid);
-	int increaseLikeCount(String uuid);
+
     
 }
