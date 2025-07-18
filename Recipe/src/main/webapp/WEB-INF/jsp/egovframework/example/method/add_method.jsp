@@ -110,6 +110,9 @@
 
 <jsp:include page="/common/footer.jsp"/>
 
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
   <!-- jQuery, Bootstrap JS 순서 중요 -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
           integrity="sha256-..." crossorigin="anonymous"></script>

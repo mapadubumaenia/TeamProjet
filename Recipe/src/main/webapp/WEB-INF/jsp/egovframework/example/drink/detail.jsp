@@ -134,6 +134,7 @@
           integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
           crossorigin="anonymous"></script>
           
+  
            <!-- 버튼 스크립트 -->
   <script>
     function copyUrl() {
@@ -167,6 +168,8 @@
     }
   </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
 <script>
   $('#likeBtn').on('click', function(){
     $.ajax({

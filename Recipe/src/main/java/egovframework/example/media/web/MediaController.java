@@ -180,9 +180,6 @@ public class MediaController {
             .filter(Objects::nonNull)                //null 제거
             .collect(Collectors.toList());
         model.addAttribute("recentMediaList", recentMediaList);
-            .map(id -> mediaService.selectMedia(id))
-            .collect(Collectors.toList());
-        model.addAttribute("recentMediaList", recentMediaList);
 
 		return "media/open/media_open";
 	}

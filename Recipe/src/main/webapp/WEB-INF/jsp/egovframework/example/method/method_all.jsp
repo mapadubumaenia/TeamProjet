@@ -114,6 +114,9 @@
     </div>
   </form>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
   <!-- scripts -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script

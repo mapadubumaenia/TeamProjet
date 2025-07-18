@@ -97,6 +97,8 @@
 <!-- 페이징 라이브러리 -->
 <script src="/js/jquery.twbsPagination.js" type="text/javascript"></script>
 
+<!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
 <jsp:include page="/common/footer.jsp" />
 
 <script type="text/javascript">
