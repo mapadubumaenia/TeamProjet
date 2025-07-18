@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import egovframework.example.auth.service.MemberVO;
-import egovframework.example.mypage.service.MyInfoVO;
+import egovframework.example.common.Criteria;
 import egovframework.example.mypage.service.MyPageService;
 import egovframework.example.mypage.service.MyPostVO;
 
@@ -17,10 +17,12 @@ public class MyPageServiceImpl extends EgovAbstractServiceImpl implements MyPage
     @Autowired
     MyPageMapper myPageMapper;
     
+    
+    //내가 작성한 레시피
     @Override
-	public List<MyPostVO> selectMyRecipes(String userId) {
+	public List<MyPostVO> selectMyRecipes(Criteria criteria) {
 		// TODO Auto-generated method stub
-		return myPageMapper.selectMyRecipes(userId);
+		return myPageMapper.selectMyRecipes(criteria);
 	}
 
 	@Override
@@ -29,13 +31,28 @@ public class MyPageServiceImpl extends EgovAbstractServiceImpl implements MyPage
 		return myPageMapper.selectOneByUuid(uuid);
 	}
 
-//  내 정보 조회
-	@Override
-	public MyInfoVO selectMyInfo(String userId) throws Exception {
+	
+    @Override
+	public int selectMyRecipesCount(Criteria criteria) {
 		// TODO Auto-generated method stub
-		return null;
+		return myPageMapper.selectMyRecipesCount(criteria);
+	}
+    //좋아요한 게시물
+	@Override
+	public List<MyPostVO> selectLikedRecipes(Criteria criteria) {
+		// TODO Auto-generated method stub
+		return myPageMapper.selectLikedRecipes(criteria);
+	}
+    
+   
+    
+	@Override
+	public int selectLikedRecipesCount(Criteria criteria) {
+		// TODO Auto-generated method stub
+		return myPageMapper.selectLikedRecipesCount(criteria);
 	}
 
+	//  내 정보 조회
 	@Override
 	public boolean checkPassword(String userId, String inputPassword) {
 		// TODO Auto-generated method stub

@@ -69,4 +69,26 @@ public class Criteria {
 		 this.pageUnit = recordCountPerPage;
 	}
 
+	private String userId;
+	
+	
+	private int startRow;
+	private int endRow;
+
+	public int getStartRow() {
+	    return (pageIndex-1)*pageUnit;
+	}
+	public int getEndRow() {
+	    return pageIndex * pageUnit;
+	}
+
+
+public void setStartRow(int startRow) {
+    this.startRow = startRow;
+}
+
+
+public void setEndRow(int endRow) {
+    this.endRow = endRow;
+}
 }
