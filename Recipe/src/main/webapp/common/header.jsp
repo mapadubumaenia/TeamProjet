@@ -13,7 +13,6 @@
   	         <a class="link" href="<c:url value='/login.do'/>">로그인</a>
   	         <a class="link" href="<c:url value='/register.do'/>">회원가입</a>
         </c:if>
-        
           <!-- {/* 로그인 끝 */} -->
           
           
@@ -35,10 +34,14 @@
   <div class="menu-toggle">
   <img alt="메뉴" src="/images/my-hamburger.png" width="20">
   </div>
-  
+           
   <div class="login-mobile">
-  <img alt="로그인" src="/images/login.png" width="20">
+      <a class="link" href="<c:url value='/login.do'/>">
+          <img class="login_image" alt="로그인" src="/images/login.png"><br>
+                 <p class="login_text">Login</p>
+      </a>
   </div>
+            
  
   <nav class="main-nav pr4">
     <ul class="menu">

@@ -28,7 +28,6 @@
 
 <div class="mymenu">
 <div class="accordion" id="accordionExample">
-
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -38,7 +37,7 @@
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <button class = "my_btn" onclick="loadMyRecipes()">내가 쓴 레시피</button><br>
-        <button class = "my_btn" onclick="likedRecipes()">좋아요</button>
+        <button class = "my_btn btn_content" onclick="likedRecipes()">좋아요</button>
       </div>
     </div>
   </div>
@@ -55,14 +54,13 @@
     </div>
   </div>
 </div>
+</div>
  <div id="myPageContent" class="myPageContent">
    <c:if test="${not empty message}">
     <div class="alert alert-success">${message}</div>
   </c:if>
  
  </div>
-</div>
-
 
 
 
@@ -211,7 +209,8 @@ document.addEventListener("submit", function (e) {
 
     const fileInput = document.getElementById("image");
     const previewImage = document.getElementById("previewImage");
-
+    
+    if (fileInput && previewImage) {
     fileInput.addEventListener("change", function (event) {
       const file = event.target.files[0];
 
@@ -226,7 +225,8 @@ document.addEventListener("submit", function (e) {
         previewImage.src = "/mypage/profile-image.do";
       }
     });
-  });
+    }
+    });
   
   function bindImagePreview() {
 
