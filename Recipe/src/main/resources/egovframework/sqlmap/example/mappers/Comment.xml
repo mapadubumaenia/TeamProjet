@@ -8,23 +8,24 @@
   <select id="selectCommentList"
           parameterType="egovframework.example.comment.service.CommentVO"
           resultType="egovframework.example.comment.service.CommentVO">
-    SELECT 
-      comments.comment_id,
-      comments.uuid,
-      comments.user_id,
-      users.nickname AS nickname,
-      comments.comment_content AS content,
-      TO_CHAR(comments.created_at, 'YY-MM-DD HH24:MI') AS createdAt,
-      comments.parent_id AS parentId
-    FROM comments
-    INNER JOIN users ON comments.user_id = users.user_id
-    WHERE comments.uuid = #{uuid}
-      AND comments.target_type = #{targetType}
-    ORDER BY 
-      NVL(comments.parent_id, comments.comment_id),  -- 부모 → 자식 순서
-      comments.comment_id
-    OFFSET #{firstIndex} ROWS
-    FETCH NEXT #{pageUnit} ROWS ONLY
+	SELECT
+	comments.comment_id,
+	comments.uuid,
+	comments.user_id,
+	users.nickname AS nickname,
+	comments.comment_content AS content,
+	TO_CHAR(comments.created_at, 'YY-MM-DD HH24:MI') AS createdAt,
+	comments.parent_id AS parentId,
+	comments.target_type AS targetType
+	FROM comments
+	INNER JOIN users ON comments.user_id = users.user_id
+	WHERE comments.uuid = #{uuid}
+	AND comments.target_type = #{targetType}
+	ORDER BY
+	NVL(comments.parent_id, comments.comment_id), -- 부모 → 자식 순서
+	comments.comment_id
+	OFFSET #{firstIndex} ROWS
+	FETCH NEXT #{pageUnit} ROWS ONLY
   </select>
 
   <!-- 전체 댓글 수 조회 (target_type 조건 포함) -->

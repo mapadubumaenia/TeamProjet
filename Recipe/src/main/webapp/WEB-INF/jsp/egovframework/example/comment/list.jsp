@@ -40,15 +40,16 @@
 
     <!-- 버튼 영역 -->
     <div class="comment-buttons mt-2">
-      <c:if test="${sessionScope.memberVO.userid eq comment.userId}">
-        <button class="btn btn-sm btn-secondary edit-btn" data-id="${comment.commentId}" data-content="${comment.content}">수정</button>
+      <c:if test="${sessionScope.memberVO.userId eq comment.userId}">
+        <button type="button" class="btn btn-sm btn-secondary edit-btn" data-id="${comment.commentId}" data-content="${comment.content}">수정</button>
         <button class="btn btn-sm btn-success save-btn" data-id="${comment.commentId}" style="display: none;">등록</button>
         <button class="btn btn-sm btn-light cancel-btn" data-id="${comment.commentId}" style="display: none;">취소</button>
         <button class="btn btn-sm btn-danger delete-btn" data-id="${comment.commentId}">삭제</button>
       </c:if>
 <c:if test="${not empty sessionScope.memberVO}">
   <c:set var="nicknameSafe" value="${empty comment.nickname ? '알수없음' : fn:trim(comment.nickname)}" />
-  <button class="btn btn-sm btn-outline-primary reply-btn"
+  <button type="button" 
+  		  class="btn btn-sm btn-outline-primary reply-btn"
           data-id="${comment.commentId}" 
           data-nickname="${nicknameSafe}">
     답글
@@ -76,15 +77,19 @@
 
   // 수정 버튼 클릭
   $(document).on("click", ".edit-btn", function () {
+	/*   alert("fdsa") */
     const commentId = $(this).data("id");
     const content = $(this).data("content");
     const commentBox = $(this).closest(".comment-box");
     const contentDiv = commentBox.find("#content-" + commentId);
+
+    /* 댓글창에 비로그인 시 안보이게 하는 것 */
     const textarea = $("<textarea>", {
       class: "form-control edit-content", rows: 2
     }).val(content);
     contentDiv.html(textarea);
     $(this).hide();
+    
     commentBox.find(".save-btn, .cancel-btn").show();
   });
 
@@ -104,7 +109,7 @@
     const commentBox = $(this).closest(".comment-box");
     const textarea = commentBox.find("textarea.edit-content");
     const newContent = textarea.val();
-    const userId = "${sessionScope.memberVO.userid}";
+    const userId = "${sessionScope.memberVO.userId}";
     if (!newContent || newContent.trim() === "") {
       alert("내용을 입력해주세요.");
       return;
@@ -156,8 +161,8 @@
         contentType: "application/json",
         data: JSON.stringify({
           uuid: "${param.uuid}",
-          userId: "${sessionScope.memberVO.userid}",
-          targetType: "community",
+          userId: "${sessionScope.memberVO.userId}",
+          targetType: "${param.targetType}",
           content: content,
           parentId: parentId
         }),
@@ -186,8 +191,8 @@
       contentType: "application/json",
       data: JSON.stringify({
         uuid: "${param.uuid}",
-        userId: "${sessionScope.memberVO.userid}",
-        targetType: "community",
+        userId: "${sessionScope.memberVO.userId}",
+        targetType: "${param.targetType}",
         content: content,
         parentId: null
       }),

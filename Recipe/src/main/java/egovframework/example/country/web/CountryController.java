@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -17,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,8 +35,6 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class CountryController {
-
-
     
     @Autowired
     private CountryService countryService;
@@ -47,9 +48,11 @@ public class CountryController {
             @RequestParam(value = "filter3", required = false) Integer filter3,
             Model model) {
 
-        // 선택된 카테고리 필터 적용
-        if (filter3 != null) {
+        // ✅ '전체'인 경우 필터 제외
+        if (filter3 != null && filter3 != 19) {
             criteria.setFilterCountryCategoryId(filter3);
+        } else {
+            criteria.setFilterCountryCategoryId(null); // 전체 보기
         }
 
         // 기본 정렬 옵션 설정
@@ -74,7 +77,7 @@ public class CountryController {
         return criteria.getFilterCountryCategoryId() != null ? "country/country_all" : "country/country_main";
     }
 
-    // ✅ (2) 글쓰기 페이지 이동
+ // ✅ (2) 글쓰기 페이지 이동
     @GetMapping("/country/addition.do")
     public String createCountryView(@RequestParam(required = false) Integer filter3,
                                     @RequestParam(required = false) String uuid,
@@ -89,6 +92,8 @@ public class CountryController {
         model.addAttribute("ingredientCategories", countryService.getIngredientCategories());
         model.addAttribute("situationCategories", countryService.getSituationCategories());
         model.addAttribute("filter3", filter3);
+
+       
 
         // uuid가 있으면 수정 모드 (글 내용 조회)
         if (uuid != null) {
@@ -131,24 +136,53 @@ public class CountryController {
         return "redirect:/country/country.do";
     }
 
-    // ✅ (4) 수정 페이지 이동 (기존 게시글 상세 조회)
-    @GetMapping("/country/edition.do")
-    public String updateCountryView(@RequestParam String uuid, Model model, HttpSession session) {
+ // ✅ (4) 수정 페이지 이동 (기존 게시글 상세 조회)
+    @RequestMapping(value = "/country/edition.do", method = {RequestMethod.GET, RequestMethod.POST})
+    public String updateCountryView(HttpServletRequest request, Model model, HttpSession session) {
+        // 중복 전달 방지를 위한 처리
+        String[] uuidParams = request.getParameterValues("uuid");
+        String uuid = (uuidParams != null && uuidParams.length > 0) ? uuidParams[0] : null;
+
+        if (uuid == null) {
+            throw new IllegalArgumentException("uuid 파라미터가 없습니다.");
+        }
+
         CountryVO countryVO = countryService.selectCountry(uuid);
 
         if (countryVO.getStandardRecipeImage() != null) {
             countryVO.setStandardRecipeImageUrl("/country/download.do?uuid=" + uuid);
         }
-        model.addAttribute("countryVO", countryVO);
+        model.addAttribute("countryVO",countryVO);
+        
+     // ✅ [① 최근 본 레시피 - 세션 저장]
+        List<String> recent = (List<String>) session.getAttribute("recent");
+        if (recent == null) {
+            recent = new java.util.ArrayList<>();
+        }
+        recent.remove(uuid);          // 중복 제거
+        recent.add(0, uuid);          // 맨 앞에 추가
+        if (recent.size() > 5) {
+            recent = recent.subList(0, 5);
+        }
+        session.setAttribute("recent", recent);
 
-        // ✅ 좋아요 상태 조회용 코드 추가 시작
+        // ✅ [② UUID → CountryVO 리스트로 변환]
+        List<CountryVO> recentCountries = recent.stream()
+            .map(id -> countryService.selectCountry(id))
+            .collect(java.util.stream.Collectors.toList());
+
+        // ✅ [③ 모델에 추가]
+        model.addAttribute("recentCountries", recentCountries);
+
+
+        // 좋아요 상태 조회
         MemberVO current = (MemberVO) session.getAttribute("memberVO");
         boolean isLiked = false;
 
         if (current != null) {
             LikeVO likeVO = new LikeVO();
             likeVO.setUserId(current.getUserId());
-            likeVO.setTargetType("standard"); //
+            likeVO.setTargetType("standard");
             likeVO.setUuid(uuid);
             isLiked = likeService.countLikeByUser(likeVO) > 0;
         }
@@ -157,10 +191,10 @@ public class CountryController {
 
         model.addAttribute("isLiked", isLiked);
         model.addAttribute("likeCount", likeCount);
-        // ✅ 좋아요 상태 조회용 코드 추가 끝
 
         return "country/update_country";
     }
+
 
 
     // ✅ (5) 수정 처리
@@ -215,7 +249,7 @@ public class CountryController {
 
         return new ResponseEntity<>(countryVO.getStandardRecipeImage(), headers, HttpStatus.OK);
     }
-
+//    좋아요 기능
     @PostMapping("/country/like.do")
     @ResponseBody
     public ResponseEntity<?> toggleLike(@RequestParam String uuid, HttpSession session) {
@@ -248,3 +282,6 @@ public class CountryController {
 
         return ResponseEntity.ok(result);
     }
+    
+
+}
