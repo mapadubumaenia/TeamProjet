@@ -77,6 +77,7 @@
 
 .login-mobile{
 	display: none;
+
 }
 
 .main-nav {
@@ -204,9 +205,23 @@
 	gap: 4rem;
 	font-size: 28px;
 }
+.login-mobile{
+	display: block;
+	position: absolute;
+	top: 3rem;
+	right: 3rem;
+	gap: 10px;
+    display: flex; 
+}
+	.login_text{
+	margin-left:3px;
+	font-size: 12px;
+	}
+	.login_image{
+	width : 35px;
+	}
 
-   .buttons{
-   
+.buttons{
    display: none;
    }
 	
@@ -225,13 +240,19 @@
 	
 	.login-mobile{
 	display: block;
-		position: absolute;
-		top: 3.5rem;
-		right: 1rem;
-		z-index: 1000;
+	position: absolute;
+	top: 2.5rem;
+	right: 1.5rem;
+	gap: 10px;
+    display: flex;
 	}
-	
-	
+	.login_text{
+	margin-left:3px;
+	font-size: 9px;
+	}
+	.login_image{
+	width : 20px;
+	}
 	.buttons {
 		display: none;
 	}

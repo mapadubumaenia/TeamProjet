@@ -1,25 +1,61 @@
+.mymenu{
+	width : 60vw;
+    display: flex;
+    justify-content: center;
+}
 .accordion{
-	width :200px;
+	width :60vw;
 }
-.my_btn{
-	width :150px;
-	height : 40px;
-	background-color: white;
-	border: none;
+.accordion-button{
+	width : 60vw;
+	display: flex;
+    justify-content: center;
 }
-.btn_content, .btn_comment{
-	border-top: 1px solid var(--mocha);
+.accordion-header{
+	color : white;
+	width : 80vw;
 }
 
+.accordion-collapse{
+color :var(--dark);
+background-color: #fdf2e9;
+display: flex;
+justify-content: center;
+}
+.accordion-button:not(.collapsed) {
+color :white;
+background-color: var(--mocha);
+	}
+.my_btn{
+	width : 40vw;
+	height : 40px;
+	background-color: #fdf2e9;
+	border: none;
+}	
+	
+	
+	
+	
+@media screen and (min-width: 768px){}
+@media screen and (min-width: 1024px){}
+
+.my_btn{
+	height : 40px;
+	background-color: #fdf2e9;
+	border: none;
+}
+.btn_content{
+	border-top: 1px solid var(--mocha);
+}
+.accordion-button{
+}
 .mymenu{
    display: flex;
    justify-content:start;
    align-items: start;
+   padding-bottom: 2rem;
 }
 .myPageContent{
 	margin-left : 1rem;
-	width : 1000px;
-	heigth : 800px;
+	padding-bottom: 5rem;
 }
-@media screen and (min-width: 768px){}
-@media screen and (min-width: 1024px){}
