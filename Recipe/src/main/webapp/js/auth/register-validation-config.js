@@ -7,10 +7,13 @@ $("#addForm").validate({
     password: {       // 비밀번호 필드
       required: true, // 필수 입력
       minlength: 6,   // 최소 입력 길이
+      maxlength: 15, // 최대입력길이
+      pattern: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{6,}$/, 
     },
     repassword: {  // 비밀번호 재확인 필드
       required: true,    // 필수 입력
       minlength: 6,      // 최소 입력 길이,
+        maxlength: 15, // 최대입력길이
       equalTo: password, // 비밀번호 필드와 동일한 값을 가지도록
     },
     userName: {       // 유저이름
@@ -32,6 +35,8 @@ $("#addForm").validate({
       password: {
       required: "＊필수 입력 항목입니다.",
       minlength: "＊최소 {0}글자 이상 입력하세요.",
+      maxlength: "＊최대 {0}글자 이하 입력하세요.",
+      pattern: "＊비밀번호는 영문자와 숫자를 포함하여 입력하세요."
     },
       repassword: {
       required: "＊필수 입력 항목입니다.",
