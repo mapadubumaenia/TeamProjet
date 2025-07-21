@@ -520,7 +520,7 @@ a {text-decoration: none; color: var(--black);}
 
 .ingredient-list li {
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: 600;
   margin-left: 0.5rem;
   line-height: 1.4;
 }
@@ -528,10 +528,16 @@ a {text-decoration: none; color: var(--black);}
 .ingredient-badge {
   background-color: var(--mocha);
   color: #faf4e1;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   padding: 0.4em 0.8em;
   border-radius: 0.5rem;
+}
+
+
+#comment-area{
+	font-size: 1rem;
+	font-weight:600;
 }
 
 /* ─── 댓글 입력창 & 버튼 모카톤 적용 ─── */
@@ -906,6 +912,9 @@ a {text-decoration: none; color: var(--black);}
     width: 90%;          /* 폭을 좀 주면 버튼이 길어 보여요 */
     max-width: 300px;    /* 너무 넓어지지 않도록 제한 */
   }
+  .recent-recipes .card:nth-child(n+4) {
+    display: none !important;
+  }
 }
 
 /* 기존 모바일 (<768px) 룰은 그대로 두셔도 됩니다 */
@@ -927,5 +936,24 @@ a {text-decoration: none; color: var(--black);}
   /* 카드 자체에도 아래 마진을 한 번 더 줘서 분리감 강화 (선택) */
   .col4 .card {
     margin-bottom: 0.5rem;
+  }
+  
+    .recent-recipes {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+ .recent-recipes .card {
+  max-width: 120px;  /* 필요에 따라 조절 */
+  width: calc((100% - 1.5rem) / 3);
+}
+  /* (선택) 스크롤바 숨기기 */
+  .recent-recipes::-webkit-scrollbar {
+    display: none;
+  }
+  .recent-recipes .card:nth-child(n+4) {
+    display: none !important;
   }
 }

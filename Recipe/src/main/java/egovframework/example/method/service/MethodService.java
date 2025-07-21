@@ -16,12 +16,12 @@ public interface MethodService {
 	 
 	 MethodVO selectMethod(String uuid);     //상세조회
 	 
-	 int delete(String uuid);      //삭제
+	
 	
 	 int update(MethodVO methodVO);   // ← 추가
 	
 	
-	
+	 void delete(String uuid, String methodType);
 	
 	
 	

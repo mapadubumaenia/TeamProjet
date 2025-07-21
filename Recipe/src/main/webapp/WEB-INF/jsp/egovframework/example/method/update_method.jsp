@@ -59,8 +59,19 @@
         <input type="file" name="image" class="form-control"/>
       </div>
 
-      <div class="d-flex justify-content-center gap-2">
+        <div class="d-flex justify-content-center gap-2 mt-3">
+        <!-- 저장 -->
         <button type="submit" class="btn btn-mocha">저장</button>
+        <!-- 삭제: HTML5 검증 건너뛰기 위해 formnovalidate 추가 -->
+        <button type="submit"
+                formaction="<c:url value='/method/delete.do'/>"
+                formmethod="post"
+                formnovalidate
+                onclick="return confirm('정말 이 항목을 삭제하시겠습니까?');"
+                class="btn btn-danger">
+          삭제
+        </button>
+        <!-- 취소 -->
         <button type="button" class="btn btn-outline-secondary" onclick="history.back()">취소</button>
       </div>
     </form>

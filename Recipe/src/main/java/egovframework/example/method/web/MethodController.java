@@ -156,16 +156,18 @@ public class MethodController {
         return new ResponseEntity<>(methodVO.getMethodData(), headers, HttpStatus.OK);
     }
 
-    // 5) 삭제
+
+
     @PostMapping("/method/delete.do")
     public String delete(
-            @RequestParam String uuid,
-            @RequestParam(name="methodType", required=false, defaultValue="storage") String methodType
+          @RequestParam String uuid,
+          @RequestParam(name="methodType", defaultValue="storage") String methodType,
+          HttpSession session
     ) {
-        methodService.delete(uuid);
+        methodService.delete(uuid, methodType);
         return "redirect:/method/method.do?methodType=" + methodType;
     }
-
+    
     
 
     // 7) 미리보기 모달

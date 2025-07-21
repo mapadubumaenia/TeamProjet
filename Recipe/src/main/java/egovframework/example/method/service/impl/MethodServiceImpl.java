@@ -79,12 +79,7 @@ public class MethodServiceImpl implements MethodService {
 	}
 
 	
-	//삭제
-	@Override
-	public int delete(String uuid) {
-		// TODO Auto-generated method stub
-		return methodMapper.delete(uuid);
-	}
+	
 
 	
 	
@@ -94,6 +89,15 @@ public class MethodServiceImpl implements MethodService {
 	        String downloadURL = generateDownloadUrl(methodVO.getUuid());
 	        methodVO.setMethodUrl(downloadURL);
 	        return methodMapper.update(methodVO);
+	    }
+
+
+
+
+      //삭제
+	 @Override
+	    public void delete(String uuid, String methodType) {
+	        methodMapper.delete(uuid, methodType);
 	    }
 	
 	
