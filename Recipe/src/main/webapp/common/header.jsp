@@ -76,12 +76,12 @@
 						href="<c:url value='/method/method.do'>
                <c:param name='methodType' value='storage'/>
              </c:url>">
-							손질법 </a></li>
+							보관법 </a></li>
 					<li><a class="dropdown-item"
 						href="<c:url value='/method/method.do'>
                <c:param name='methodType' value='trim'/>
              </c:url>">
-							보관법 </a></li>
+							손질법 </a></li>
 				</ul></li>
 
 			<li class="nav-item dropdown"><a
