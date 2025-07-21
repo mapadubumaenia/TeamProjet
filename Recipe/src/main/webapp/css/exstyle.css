@@ -79,6 +79,10 @@
 	display: none;
 
 }
+.mypage_list{
+    display: none;
+}
+
 
 .main-nav {
 	display: flex;
@@ -205,6 +209,9 @@
 	gap: 4rem;
 	font-size: 28px;
 }
+.mypage_list{
+    display: none;
+}
 .login-mobile{
 	display: block;
 	position: absolute;
@@ -237,7 +244,9 @@
 		left: 1rem;
 		z-index: 1000;
 	}
-	
+	.mypage_list{
+    display: block;
+}
 	.login-mobile{
 	display: block;
 	position: absolute;
@@ -301,4 +310,7 @@
 		width: 20rem;
 		border-color: var(--mocha);
 	}
+	.mypage_list{
+    display: block;
+}
 }

@@ -24,8 +24,8 @@ public interface MyPageMapper {
     public MemberVO getMemberById(String userId);
     public void updateMember(MemberVO vo);
     public byte[] getProfileImage(String userId);
-    public void deleteMember(String userId);
-    
+    public void deleteMember(String userId); 
+    public String selectUserIdByNickname(String nickname);
     
     //삭제전 게시물에서 계정id정보 삭제
     public void nullStand(String userId);

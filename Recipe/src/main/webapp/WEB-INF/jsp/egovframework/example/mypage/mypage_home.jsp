@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/css/exstyle.css">
     <link rel="stylesheet" href="/css/mypagestyle.css">
     <link rel="stylesheet" href="/css/mypost.css">
+    <link rel="stylesheet" href="/css/informedit.css">
 </head>
 <body>
 
@@ -24,7 +25,7 @@
 <jsp:include page="/common/header.jsp" />
 
 <!-- 본문 -->
-<div class="page mt5">
+<div class="page mypage mt5">
 
 <div class="mymenu">
 <div class="accordion" id="accordionExample">
@@ -62,19 +63,18 @@
  
  </div>
 
-
-
 </div>
-
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- 부트스트랩 js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<!-- 페이징 라이브러리 -->
+<script src="/js/jquery.twbsPagination.js" type="text/javascript"></script>
+  <!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- 유효성체크 플러그인 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/jquery.validate.min.js"></script>
 <!-- 토글 애니메이션 js -->
 <script src="/js/nav.js"></script>	
-<!-- 페이징 라이브러리 -->
-	<script src="/js/jquery.twbsPagination.js" type="text/javascript"></script>
-	
+
 <!-- AJAX용 -->
 <!-- 내가 작성한 레시피 -->
 <script>   
@@ -182,6 +182,7 @@ function confirmPassword() {
     	      setTimeout(() => {
                   bindImagePreview();
                 }, 100); 
+              bindFormValidation(); 
     	    });
       }
     },
@@ -259,6 +260,142 @@ document.addEventListener("submit", function (e) {
 </script>
 
 
+<script>
+function bindFormValidation() {
+$.validator.addMethod("pwRule", function(value, element) {
+  return this.optional(element) || /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{6,}$/.test(value);
+	}, "＊비밀번호는 영문자와 숫자를 포함하여 6자 이상이어야 합니다.");
+
+  $("#addForm").validate({
+    rules: {
+      password: {
+        required: false,
+        minlength: 6,
+        maxlength: 15,
+        pattern: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{6,}$/,
+      },
+      repassword: {
+        required: false,
+        minlength: 6,
+        maxlength: 15,
+        equalTo: "#password",
+      },
+      email: {
+        required: true,
+        email: true,
+      },
+      phoneNum: {
+        required: true,
+        digits: true,
+      },
+    },
+    messages: {
+      password: {
+        required: "＊필수 입력 항목입니다.",
+        minlength: "＊최소 {0}글자 이상 입력하세요.",
+        maxlength: "＊최대 {0}글자 이하 입력하세요.",
+        pattern: "＊비밀번호는 영문자와 숫자를 포함하여 입력하세요.",
+      },
+      repassword: {
+        required: "＊필수 입력 항목입니다.",
+        minlength: "＊최소 {0}글자 이상 입력하세요.",
+        equalTo: "＊동일한 비밀번호를 입력해 주세요.",
+      },
+      email: {
+        required: "＊필수 입력 항목입니다.",
+        email: "＊올바른 이메일 형식으로 입력하세요.",
+      },
+      phoneNum: {
+        required: "＊필수 입력 항목입니다.",
+        digits: "＊반드시 숫자만 입력하세요.",
+      },
+    },
+    submitHandler: function(form) {
+      const formData = new FormData(form);
+      $.ajax({
+        url: $(form).attr("action"),
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          alert("회원 정보가 성공적으로 수정되었습니다.");
+          location.reload();
+        },
+        error: function(xhr) {
+          alert("회원정보 수정 중 오류가 발생했습니다.");
+          console.error(xhr.responseText);
+        }
+      });
+    }
+  });
+}
+</script>
+
+<!--별명 중복확인 -->
+<script>
+function checknickname() {
+    const nickname = document.getElementById('nickname').value.trim();
+    const resultElement = document.getElementById('nickname-check-result');
+    
+//  아이디입력X
+    if (!nickname) {
+        resultElement.textContent = '별명을 입력해주세요.';
+        resultElement.style.color = 'red';
+        return;
+    }
+    
+    
+//  글자수 제한
+     if (nickname.length < 2) {
+        resultElement.textContent = '아이디는 2자 이상이어야 합니다.';
+        resultElement.style.color = 'red';
+        return;
+    }
+    
+    //금지어
+     if (containsForbiddenWord(nickname)) {
+    	    resultElement.textContent = '금지어가 포함된 별명은 사용할 수 없습니다.';
+    	    resultElement.style.color = 'red';
+    	    return false;
+    	  }
+//  중복확인
+    fetch('/checkNickname.do?nickname=' + encodeURIComponent(nickname))
+    .then(response => response.json())
+    .then(data => {
+            if (data.exists) {
+                resultElement.textContent = '이미 사용 중인 별명입니다.';
+                resultElement.style.color = 'red';
+            } else {
+                resultElement.textContent = '사용 가능한 별명입니다.';
+                resultElement.style.color = 'green';
+            }
+        })
+        .catch(error => {
+            console.error('오류 발생:', error);
+            resultElement.textContent = '중복 확인 중 오류가 발생했습니다.';
+            resultElement.style.color = 'red';
+        });
+}
+
+function containsForbiddenWord(nickname) {
+	  // 정규표현식 기반 유사 욕설 필터
+	  const forbiddenPatterns = [
+	    /시[\s\W_]*[ㅂb1i!l][\s\W_]*[ㅏa@][\s\W_]*[ㄹr]/i,       
+	    /ㅅ[\s\W_]*[ㅂb1i!l]/i,                                 
+	    /병[\s\W_]*[ㅅs]/i,                                
+	    /ㅂ[\s\W_]*[ㅅs]/i,                                     
+	    /fuck|f[\s\W_]*u[\s\W_]*c[\s\W_]*k/i,             
+	    /shit|s[\s\W_]*h[\s\W_]*i[\s\W_]*t/i,                   
+	    /좆|좇|자지|보지|딸딸이/i,                              
+	    /개새[\s\W_]*끼/i                                      
+	  ];
+
+	  return forbiddenPatterns.some(pattern => pattern.test(nickname));
+	}
+</script>
+
+
 
 <!-- 꼬리말 -->
 <jsp:include page="/common/footer.jsp" />
@@ -276,8 +413,8 @@ document.addEventListener("submit", function (e) {
         <div id="pwError" class="text-danger mt-2" style="display:none;">비밀번호가 일치하지 않습니다.</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary" onclick="confirmPassword()">확인</button>
+        <button type="button" class="btn btn-primary btn_confirm" onclick="confirmPassword()">확인</button>
+        <button type="button" class="btn btn-secondary btn_cancel" data-bs-dismiss="modal">취소</button>
       </div>
     </div>
   </div>

@@ -1,0 +1,141 @@
+.informbox{
+    width :99vw;
+    padding: 2rem 0 5rem 0;
+}
+.form-label{
+	color: black !important;
+}
+.removepage{
+	    width :99vw;
+}
+.informpage{
+	margin : 0 auto;
+    width: 100%;
+	display:flex;
+    justify-content: center;
+}
+.edit_box{
+	width : 300px;
+	margin : 0 auto;
+}
+.form-text{
+    width : 300px;
+	margin : 0 auto;
+}
+.edittext_box{
+	width : 300px !important;
+	margin : 0 auto;
+}
+
+.btn_confirm{
+	color: white !important; 
+	background-color: var(--mocha) !important;
+}
+.btn_confirm:hover {
+	background-color: var(--dark) !important;
+}
+.pro_text{
+	font-size :20px;
+}
+.profile{
+	display : flex;
+    align-items: center;
+    flex-direction: column;
+}
+.form-control{
+	height : 40px;	
+	font-size : 15px;
+    margin-top : 0.5rem; 
+}
+
+.error_box{
+	display:flex;
+	justify-content: center;
+}
+
+label {
+		width : 300px;
+    color: red !important;
+    font-size: 15px;
+    margin-top: 2px;
+    display: block !important; 
+}
+
+.btn_nick{
+	color: white !important; 
+	background-color: var(--mocha) !important;
+	height: 40px;
+	margin-top: 0.5rem;
+}
+
+
+
+@media screen and (min-width: 768px){
+.informbox{
+    width : 450px;
+    padding-bottom:5rem;
+}
+.edit_box{
+	width : 350px;
+	margin : 0 auto;
+}
+.form-text{
+    width : 350px;
+	margin : 0 auto;
+}
+.form-control{
+	margin-top:0.5rem;
+	height : 40px;
+	font-size:16px;
+}
+
+label {
+		width : 350px;
+    font-size: 14px;
+    margin-top: 2px;
+}
+.edittext_box{
+	width : 350px !important;
+	margin : 0 auto;
+}
+}
+
+.btn_nick{
+	height: 40px;
+	margin-top: 0.5rem;
+}
+
+@media screen and (min-width: 1024px){
+.informbox{
+    width : 450px;
+    padding-bottom : 3rem;
+}
+.informpage{
+	margin : 0 auto;
+    width: 100%;
+}
+.edit_box{
+	width : 500px;
+	margin : 0 auto;
+}
+.form-control{
+	height : 40px;	
+	font-size : 16px;
+    margin-top : 0.5rem; 
+}
+.btn_nick{
+	height: 40px;
+	margin-top: 0.5rem;
+}
+.edittext_box{
+	width : 500px !important;
+	margin : 0 auto;
+}
+label {
+	width : 500px;
+}
+.form-text{
+    width : 500px;
+	margin : 0 auto;
+}
+}
