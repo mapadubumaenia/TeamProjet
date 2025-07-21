@@ -15,8 +15,12 @@
 <!-- path="메뉴url" : 해당메뉴는 인터셉터가 로그인 유무를 체크합니다. -->
     <mvc:interceptors>
       <mvc:interceptor>
-         <mvc:mapping path="/drink/**" />
-         <mvc:mapping path="/method/**" />
+          <mvc:mapping path="/drink/addition.do"/>
+    <mvc:mapping path="/drink/add.do"/>
+    <mvc:mapping path="/drink/detail.do"/>
+          <mvc:mapping path="/method/addition.do"/>
+    <mvc:mapping path="/method/add.do"/>
+    <mvc:mapping path="/method/detail.do"/>
          <bean class="egovframework.example.cmmn.interceptor.AuthenticInterceptor" />
       </mvc:interceptor>
    </mvc:interceptors>

@@ -33,7 +33,7 @@
   <select name="category" class="form-select" required>
     <option value="">-- 선택하세요 --</option>
     <c:choose>
-      <c:when test="${methodType == 'storage'}">
+      <c:when test="${methodType == 'trim'}">
         <option value="고기"    ${method.category == '고기'   ? 'selected':''}>고기</option>
         <option value="야채"    ${method.category == '야채'   ? 'selected':''}>야채</option>
         <option value="생선"    ${method.category == '생선'   ? 'selected':''}>생선</option>

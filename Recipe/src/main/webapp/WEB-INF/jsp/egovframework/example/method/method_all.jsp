@@ -30,7 +30,7 @@
 
     <!-- 카테고리 버튼 -->
     <c:choose>
-      <c:when test="${param.methodType=='storage'}">
+      <c:when test="${param.methodType=='trim'}">
         <div class="category-btn-group">
           <input type="radio" class="btn-check" name="category" id="catAll" value=""
                  autocomplete="off" ${param.category==''?'checked':''}/>
@@ -46,7 +46,7 @@
           <label class="btn btn-outline-primary" for="catFish">생선</label>
         </div>
       </c:when>
-      <c:when test="${param.methodType=='trim'}">
+      <c:when test="${param.methodType=='storage'}">
         <div class="category-btn-group">
           <input type="radio" class="btn-check" name="category" id="catAll" value=""
                  autocomplete="off" ${param.category==''?'checked':''}/>
