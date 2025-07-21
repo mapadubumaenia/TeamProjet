@@ -8,35 +8,47 @@
 <select id="selectCountryList"
         parameterType="Criteria"
         resultType="CountryVO">
-    SELECT 
-        SR.UUID,
-        SR.USER_ID,
-        SR.RECIPE_TITLE,
-        SR.COUNTRY_CATEGORY_ID,
-        SR.INGREDIENT_CATEGORY_ID,
-        SR.SITUATION_CATEGORY_ID,
-        SR.STANDARD_RECIPE_IMAGE_URL,
-        SR.RECIPE_CREATED_AT,
-        SR.LIKE_COUNT,
-        SR.RECIPE_CONTENT,
-        SR.STANDARD_RECIPE_IMAGE,
-        SR.INGREDIENT,
-        SR.RECIPEINTRO,
-        U.NICKNAME,
-        (
-            SELECT COUNT(*)
-            FROM COMMENTS C
-            WHERE C.UUID = SR.UUID
-              AND C.TARGET_TYPE = 'standard' 
-        ) AS COMMENT_COUNT
-    FROM STANDARD_RECIPES SR
-    JOIN USERS U ON SR.USER_ID = U.USER_ID
-    WHERE 1 = 1
-      <if test="filterCountryCategoryId != null">
-        AND SR.COUNTRY_CATEGORY_ID = #{filterCountryCategoryId}
-      </if>
+	SELECT
+	SR.UUID,
+	SR.USER_ID,
+	SR.RECIPE_TITLE,
+	SR.COUNTRY_CATEGORY_ID,
+	SR.INGREDIENT_CATEGORY_ID,
+	SR.SITUATION_CATEGORY_ID,
+	SR.STANDARD_RECIPE_IMAGE_URL,
+	SR.RECIPE_CREATED_AT,
+	SR.LIKE_COUNT,
+	SR.RECIPE_CONTENT,
+	SR.STANDARD_RECIPE_IMAGE,
+	SR.INGREDIENT,
+	SR.RECIPEINTRO,
+	U.NICKNAME,
+	(
+	SELECT COUNT(*)
+	FROM COMMENTS C
+	WHERE C.UUID = SR.UUID
+	AND C.TARGET_TYPE = 'standard'
+	) AS COMMENT_COUNT
+	FROM STANDARD_RECIPES SR
+	JOIN USERS U ON SR.USER_ID = U.USER_ID
+	WHERE 1 = 1
+	<if test="filterCountryCategoryId != null">
+		AND SR.COUNTRY_CATEGORY_ID = #{filterCountryCategoryId}
+	</if>
+
+	<if test="filterIngredientCategoryId != null">
+		AND SR.INGREDIENT_CATEGORY_ID = #{filterIngredientCategoryId}
+	</if>
+
+	<if test="filterSituationCategoryId != null">
+		AND SR.SITUATION_CATEGORY_ID = #{filterSituationCategoryId}
+	</if>
+      
     ORDER BY
       <choose>
+      	<when test="sortOption == 'recent'">
+  		  SR.RECIPE_CREATED_AT DESC
+ 		</when>
         <when test="sortOption == 'likes'">
           SR.LIKE_COUNT DESC
         </when>
@@ -57,10 +69,17 @@
 <select id="selectCountryListTotCnt"
         parameterType="Criteria"
         resultType="int">
-    SELECT COUNT(*) FROM STANDARD_RECIPES
+    SELECT COUNT(*) 
+    FROM STANDARD_RECIPES
     WHERE 1 = 1
       <if test="filterCountryCategoryId != null">
         AND COUNTRY_CATEGORY_ID = #{filterCountryCategoryId}
+      </if>
+      <if test="filterIngredientCategoryId != null">
+        AND INGREDIENT_CATEGORY_ID = #{filterIngredientCategoryId}
+      </if>
+      <if test="filterSituationCategoryId != null">
+        AND SITUATION_CATEGORY_ID = #{filterSituationCategoryId}
       </if>
 </select>
 
@@ -82,7 +101,20 @@
         SR.STANDARD_RECIPE_IMAGE,
         SR.INGREDIENT AS ingredient,      
         SR.RECIPEINTRO AS recipeIntro,      
-        U.NICKNAME
+        U.NICKNAME,
+
+        (SELECT RC.RECIPE_LOWM_NAME 
+         FROM RECIPE_CATEGORIES RC 
+         WHERE RC.RECIPE_LOWM_ID = SR.COUNTRY_CATEGORY_ID AND RC.RECIPE_MIDM_ID = 1) AS countryCategoryName,
+
+        (SELECT RC.RECIPE_LOWM_NAME 
+         FROM RECIPE_CATEGORIES RC 
+         WHERE RC.RECIPE_LOWM_ID = SR.INGREDIENT_CATEGORY_ID AND RC.RECIPE_MIDM_ID = 2) AS ingredientCategoryName,
+
+        (SELECT RC.RECIPE_LOWM_NAME 
+         FROM RECIPE_CATEGORIES RC 
+         WHERE RC.RECIPE_LOWM_ID = SR.SITUATION_CATEGORY_ID AND RC.RECIPE_MIDM_ID = 3) AS situationCategoryName
+
     FROM STANDARD_RECIPES SR
     JOIN USERS U ON SR.USER_ID = U.USER_ID
     WHERE SR.UUID = #{uuid}
@@ -176,6 +208,12 @@
   SET LIKE_COUNT = #{likeCount}
   WHERE UUID = #{uuid}
 </update>
+
+<select id="getCategoryNameById" parameterType="int" resultType="string">
+  SELECT RECIPE_LOWM_NAME
+  FROM RECIPE_CATEGORIES
+  WHERE RECIPE_LOWM_ID = #{categoryId}
+</select>
 
 
 </mapper>

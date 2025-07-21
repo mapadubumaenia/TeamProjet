@@ -33,7 +33,7 @@
       </div>
 
       <c:choose>
-        <c:when test="${param.methodType == 'storage'}">
+        <c:when test="${param.methodType == 'trim'}">
           <div class="mb-3">
             <label for="category" class="form-label">카테고리</label>
             <select class="form-select" id="category" name="category" required>
@@ -44,7 +44,7 @@
             </select>
           </div>
         </c:when>
-        <c:when test="${param.methodType == 'trim'}">
+        <c:when test="${param.methodType == 'storage'}">
           <div class="mb-3">
             <label for="category" class="form-label">카테고리</label>
             <select class="form-select" id="category" name="category" required>

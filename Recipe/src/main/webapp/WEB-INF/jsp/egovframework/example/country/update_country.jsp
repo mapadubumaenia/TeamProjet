@@ -19,16 +19,21 @@
 
 <jsp:include page="/common/header.jsp" />
 
+
 <div class="container mt-5 mb-5">
-	<form id="addForm" name="addForm" method="post">
+	<form id="addForm" name="addForm" method="post" action="/country/edit.do">
 		<input type="hidden" name="uuid" value="${countryVO.uuid}" />
 		<input type="hidden" id="csrf" name="csrf" value="${sessionScope.CSRF_TOKEN}" />
 		<input type="hidden" name="targetType" value="standard">
-		
+<input type="hidden" name="filterCountry" value="${param.country}" />
+<input type="hidden" name="filterIngredient" value="${param.ingredient}" />
+<input type="hidden" name="filterSituation" value="${param.situation}" />
+
+
 		<div class="card shadow p-4">
 			<div class="row">
 				<!-- ✅ 이미지 -->
-				<div class="col-md-5">
+				<div class="col-12 col-md-5">
 					<c:if test="${not empty countryVO.standardRecipeImageUrl}">
 						<img src="${countryVO.standardRecipeImageUrl}" alt="레시피 이미지"
 							class="img-fluid rounded w-100">
@@ -36,43 +41,53 @@
 				</div>
 
 				<!-- ✅ 제목, 작성자, 카테고리 -->
-				<div class="col-md-7">
-					<h2 class="mb-2">${countryVO.recipeTitle}</h2>
-					<p class="text-muted mb-1">작성자: ${countryVO.nickname}</p>
-					<p class="text-muted small">나라 ID:
-						${countryVO.countryCategoryId} / 재료 ID:
-						${countryVO.ingredientCategoryId} / 상황 ID:
-						${countryVO.situationCategoryId}</p>
-					<button type="button" id="likeBtn"
-						class="btn btn-mocha ${isLiked ? 'text-danger' : ''}">
-						<span id="likeIcon">${isLiked ? '&#9829;' : '&#9825;'}</span> 좋아요
-						<span id="likeCount" class="badge bg-white text-dark ms-1">
-							${countryVO.likeCount} </span>
-					</button>
-					<button type="button" class="btn btn-mocha" onclick="copyUrl()">
-						URL 복사</button>
-					<!-- ✅ 레시피 소개 -->
-					<h5 class="mt-4">레시피 소개</h5>
-					<p>${countryVO.recipeIntro}</p>
+					<div class="col-12 col-md-7 d-flex flex-column justify-content-between">
+						<!-- 제목 -->
+						<h2 class="fw-bold mb-2">${countryVO.recipeTitle}</h2>
+						<!-- 작성자 -->
+						<p class="text-muted small mb-3">작성자: ${countryVO.nickname}</p>
+						<!-- 해시태그 -->
+						<div class="mb-3">
+							<span class="badge badge-category country">#${countryVO.countryCategoryName}</span>
+							<span class="badge badge-category ingredient">#${countryVO.ingredientCategoryName}</span>
+							<span class="badge badge-category situation">#${countryVO.situationCategoryName}</span>
+						</div>
+						<!-- 좋아요 + URL 버튼 -->
+						<div class="mb-2 d-flex align-items-center flex-wrap gap-2">
+							<button type="button" id="likeBtn"
+								class="btn btn-outline-danger d-flex align-items-center ${isLiked ? 'text-danger' : ''}">
+								<span id="likeIcon" class="me-1">${isLiked ? '&#9829;' : '&#9825;'}</span>
+								좋아요 <span id="likeCount" class="badge bg-white text-dark ms-2">${countryVO.likeCount}</span>
+							</button>
 
+							<button type="button" class="btn btn-outline-secondary"
+								onclick="copyUrl()">URL 복사</button>
+						</div>
+						<!-- 레시피 소개 -->
+						<div>
+							<h5 class="fw-semibold">레시피 소개</h5>
+							<p class="text-body">${countryVO.recipeIntro}</p>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<!-- ✅ 요리 설명 전체 영역 -->
 			<div class="mt-5">
 			<!-- ✅ 재료 정보 -->
-					<h5 class="mt-4">재료 정보</h5>
-					<p>${countryVO.ingredient}</p>
-				<h5 class="mb-3">요리 설명</h5>
-				<pre class="bg-light p-3 border rounded">${countryVO.recipeContent}</pre>
-			</div>
+					<h5 class="section-title">재료 정보</h5>
+					<div class="recipe-info">${countryVO.ingredient}</div>
+					<h5 class="section-title">요리 설명</h5>
+					<div class="recipe-description">
+  					<div>${countryVO.recipeContent}</div>
+					</div>
 
 			<!-- ✅ 수정/삭제 버튼 (작성자만 노출) -->
 			<c:if test="${memberVO.userId == countryVO.userId}">
 				<div class="mt-4 text-end">
-					<a href="/country/addition.do?uuid=${countryVO.uuid}"
-						class="btn btn-warning me-2">수정</a>
-					<button class="btn btn-danger" onclick="fn_delete()">삭제</button>
+					<a href="/country/addition.do?uuid=${countryVO.uuid}&filterCountry=${param.filterCountry}&filterIngredient=${param.filterIngredient}&filterSituation=${param.filterSituation}"
+ 					   class="btn btn-edit">수정</a>
+					<button class="btn btn-delete" onclick="fn_delete()">삭제</button>
 				</div>
 			</c:if>
 
@@ -87,7 +102,7 @@
 					onclick="history.back()">목록으로 돌아가기</button>
 			</div>
 
-<hr>
+<hr class="mt-5 mb-4" />
 			<c:if test="${not empty recentCountries}">
 				<div class="recent-recipes-wrapper">
 					<h4 class="recent-text">최근 본 레시피</h4>
@@ -118,6 +133,7 @@
 <script>
   // ✅ 삭제 기능
 function fn_delete() {
+	if (!confirm("정말 삭제하시겠습니까?")) return; // ❗ 취소 누르면 중단
     $("#addForm").attr("action",'<c:out value="/country/delete.do" />')
     .submit();
 }
@@ -161,6 +177,18 @@ function fn_delete() {
       '<c:url value="/comment/list.do"/>',
       { uuid, targetType, pageIndex: 1 }
     );
+    
+    
+    // ✅ 필터 값 확인 (디버깅용)
+    console.log("filterCountry:", document.querySelector("input[name=filterCountry]")?.value);
+    console.log("filterIngredient:", document.querySelector("input[name=filterIngredient]")?.value);
+    console.log("filterSituation:", document.querySelector("input[name=filterSituation]")?.value);
+    
+    console.log("수정 페이지 파라미터 확인:",
+    	    "${param.filterCountry}",
+    	    "${param.filterIngredient}",
+    	    "${param.filterSituation}");
+    
   });
 </script>
 

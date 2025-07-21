@@ -1,118 +1,179 @@
-@charset "UTF-8";
 
-/* ✅ 전체 카드 스타일 */
+/* ✅ 전체 카드 컨테이너 스타일 */
 .card {
-  border: none;
-  border-radius: 12px;
-  background-color: #ffffff;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: #fff8f2; /* 배경색: 연한 모카톤  */
+  border: none; /* 테두리 없음 */
+  border-radius: 12px; /* 모서리 둥글게 */
+  padding: 2rem; /* 내부 여백 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 그림자 */
 }
 
-/* ✅ 제목 */
+/* ✅ 레시피 제목 스타일 */
 .card h2 {
-  font-weight: 700;
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 0.5rem;
+  font-weight: 700; /* 글씨 굵기: bold */
+  font-size: 2rem; /* 폰트 크기: 약 32px */
+  color: #333; /* 글자 색상 */
+  margin-bottom: 0.5rem; /* 아래 여백 */
 }
 
-/* ✅ 작성자 및 메타 정보 */
+/* ✅ 작성자 텍스트 및 메타 정보 */
 .card .text-muted {
-  font-size: 0.9rem;
-  color: #6c757d;
+  font-size: 0.9rem; /* 폰트 크기: 약 14.4px */
+  color: #6c757d; /* 회색 톤 */
 }
 
-/* ✅ 소제목 */
+/* ✅ 소제목 (소개, 재료 등) */
 .card h5 {
-  font-weight: 600;
-  font-size: 1.2rem;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
+  font-weight: 600; /* 글씨 굵기: semi-bold */
+  font-size: 1.2rem; /* 폰트 크기: 약 19.2px */
+  margin-top: 1rem; /* 위 여백 */
+  margin-bottom: 0.5rem; /* 아래 여백 */
 }
 
-/* ✅ 이미지 */
+/* ✅ 메인 이미지 스타일 */
 .card img {
-  border-radius: 10px;
-  object-fit: cover;
-  max-height: 320px;
+  border-radius: 10px; /* 이미지 모서리 둥글게 */
+  object-fit: cover; /* 이미지 비율 유지하며 채움 */
+  max-height: 320px; /* 최대 높이 */
+  width: 100%; /* 가로 전체 */
 }
 
-/* ✅ 요리 설명 영역 */
-pre {
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  padding: 1.2rem;
-  font-size: 1rem;
-  white-space: pre-wrap;
-  word-break: break-word;
-  border-radius: 10px;
-  line-height: 1.6;
-}
-
-/* ✅ 버튼 정렬 */
+/* ✅ 버튼 기본 여백 */
 .card .btn {
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-right: 0.5rem; /* 오른쪽 여백 */
+  margin-bottom: 0.5rem; /* 아래 여백 */
 }
 
-/* ✅ 최근 본 레시피 영역 - 외부 래퍼 */
+/* ✅ 해시태그 스타일 (카테고리용) */
+.badge-category {
+  display: inline-block;
+  padding: 0.4em 0.9em; /* 내부 여백 */
+  font-size: 0.75rem; /* 폰트 크기: 약 12px */
+  border-radius: 999px; /* pill 형태 */
+  font-weight: 520; /* 글씨 굵기 */
+  color: white;
+}
+.badge-category.country {
+  background-color: #d9534f; /* 붉은색 (국가 태그) */
+}
+.badge-category.ingredient {
+  background-color: #3ea34f; /* 녹색 (재료 태그) */
+}
+.badge-category.situation {
+  background-color: #495057; /* 진회색 (상황 태그) */
+}
+
+/* ✅ 수정버튼 스타일 */
+.btn-edit {
+  background-color: #b08968; /* 모카무스 색상 */
+  color: #fff; /* 흰 글씨 */
+}
+
+/* ✅ 삭제버튼 스타일 */
+.btn-delete {
+  background-color: #d9534f; /* Bootstrap danger 색상 */
+  color: #fff; /* 흰 글씨 */
+}
+
+/* ✅ 섹션 제목 스타일 (재료 정보, 요리 설명) */
+.section-title {
+  font-weight: 600; /* 글씨 굵기 */
+  font-size: 1.1rem; /* 폰트 크기: 약 17.6px */
+  margin-top: 1.5rem; /* 위 여백 */
+  margin-bottom: 0.5rem; /* 아래 여백 */
+  color: #222; /* 어두운 글자색 */
+  border-left: 4px solid #d9b58d; /* 왼쪽 강조선 */
+  padding-left: 0.6rem; /* 강조선과 글자 간격 */
+}
+
+/* ✅ 재료 정보 박스 */
+.recipe-info {
+  font-weight: 500; /* 글씨 굵기 */
+  color: #333; /* 글자색 */
+  font-size: 0.95rem; /* 폰트 크기: 약 15.2px */
+  padding-left: 0.2rem; /* 좌측 여백 */
+  line-height: 1.7; /* 줄 간격 */
+}
+
+/* ✅ 요리 설명 박스 */
+.recipe-description {
+  background-color: #fef4ed; 
+  border: 1px solid #f0e0d6; /* 테두리 색상 */
+  border-radius: 10px; /* 모서리 둥글게 */
+  padding: 1.2rem; /* 내부 여백 */
+  margin-bottom: 1rem; /* 아래 여백 */
+}
+.recipe-description div {
+  white-space: pre-line; /* 줄바꿈 유지 */
+  font-size: 0.95rem; /* 폰트 크기: 약 15.2px */
+  line-height: 1.7; /* 줄 간격 */
+  color: #333; /* 글자색 */
+}
+
+/* ✅ 최근 본 레시피 영역 전체 래퍼 */
 .recent-recipes-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2.5rem 1rem;
-  gap: 1.5rem;
+  display: flex; /* Flex 레이아웃 */
+  flex-direction: column; /* 세로 정렬 */
+  align-items: center; /* 가운데 정렬 */
+  padding: 2.5rem 1rem; /* 위아래/좌우 여백 */
+  gap: 1.5rem; /* 요소 간 간격 */
 }
 
+/* ✅ 최근 본 레시피 제목 텍스트 */
 .recent-text {
   width: 100%;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--mocha);
-  margin-bottom: 0.5rem;
+  text-align: center; /* 가운데 정렬 */
+  font-size: 1.5rem; /* 폰트 크기: 약 24px */
+  font-weight: 600; /* 글씨 굵기 */
+  color: var(--mocha); /* 모카색 (변수 사용) */
+  margin-bottom: 0.5rem; /* 아래 여백 */
 }
 
+/* ✅ 최근 본 레시피 카드 리스트 컨테이너 */
 .recent-recipes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.2rem;
-  max-width: 1000px;
+  display: flex; /* Flex 정렬 */
+  flex-wrap: wrap; /* 줄바꿈 허용 */
+  justify-content: center; /* 가운데 정렬 */
+  gap: 1.2rem; /* 카드 간 간격 */
+  max-width: 1000px; /* 최대 너비 제한 */
 }
 
+/* ✅ 최근 본 레시피 개별 카드 */
 .recent-recipes .recent-card {
-  width: 160px;
-  border: 1px solid var(--mocha);
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  background-color: white;
-  text-decoration: none;
+  width: 160px; /* 카드 너비 */
+  border: 1px solid var(--mocha); /* 테두리 색상 */
+  border-radius: 0.5rem; /* 둥근 테두리 */
+  overflow: hidden; /* 넘침 숨김 */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
+  transition: transform 0.2s ease; /* hover 애니메이션 */
+  background-color: white; /* 배경색 */
+  text-decoration: none; /* 밑줄 제거 */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+/* ✅ 최근 본 카드 hover 효과 */
 .recent-recipes .recent-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-6px); /* 위로 이동 */
 }
 
+/* ✅ 최근 본 카드의 썸네일 이미지 */
 .recent-recipes .recent-card .card-img-top {
   width: 100%;
-  height: 110px;
-  object-fit: cover;
+  height: 110px; /* 고정 높이 */
+  object-fit: cover; /* 이미지 비율 유지 */
 }
 
+/* ✅ 최근 본 카드의 본문 영역 */
 .recent-recipes .recent-card .card-body {
   padding: 0.6rem;
   text-align: center;
 }
 
+/* ✅ 최근 본 카드의 제목 텍스트 */
 .recent-recipes .recent-card .card-title {
-  font-size: 0.9rem;
+  font-size: 0.9rem; /* 폰트 크기: 약 14.4px */
   font-weight: 600;
   margin: 0;
   white-space: nowrap;
@@ -120,12 +181,13 @@ pre {
   text-overflow: ellipsis;
 }
 
+/* ✅ 최근 본 카드의 하단 보조 텍스트 */
 .recent-recipes .recent-card .text-muted {
-  font-size: 0.75rem;
+  font-size: 0.75rem; /* 폰트 크기: 약 12px */
   color: #6c757d;
 }
 
-/* ✅ 반응형 */
+/* ✅ 반응형 대응 (모바일용 스타일) */
 @media (max-width: 576px) {
   .recent-recipes .recent-card {
     width: 120px;
@@ -136,7 +198,7 @@ pre {
   }
 
   .recent-recipes .recent-card .card-title {
-    font-size: 0.8rem;
+    font-size: 0.8rem; /* 폰트 크기 축소 */
   }
 
   .recent-recipes .recent-card .text-muted {
@@ -144,14 +206,14 @@ pre {
   }
 
   .card h2 {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* 제목 축소: 약 24px */
   }
 
   .card h5 {
-    font-size: 1rem;
+    font-size: 1rem; /* 소제목 축소: 약 16px */
   }
 
-  pre {
-    font-size: 0.9rem;
+  .recipe-description div {
+    font-size: 0.9rem; /* 본문 축소: 약 14.4px */
   }
 }

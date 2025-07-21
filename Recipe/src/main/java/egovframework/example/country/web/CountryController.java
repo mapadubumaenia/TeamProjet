@@ -42,47 +42,68 @@ public class CountryController {
     @Autowired
     private LikeService likeService;
 
-    // ✅ (1) 게시판 목록 조회 + 페이징 + 필터
+ // ✅ (1) 게시판 목록 조회 + 페이징 + 필터
     @GetMapping("/country/country.do")
     public String selectCountryList(@ModelAttribute Criteria criteria,
-            @RequestParam(value = "filter3", required = false) Integer filter3,
+            @RequestParam(value = "filterCountry", required = false) Integer filterCountry,
+            @RequestParam(value = "filterIngredient", required = false) Integer filterIngredient,
+            @RequestParam(value = "filterSituation", required = false) Integer filterSituation,
             Model model) {
 
-        // ✅ '전체'인 경우 필터 제외
-        if (filter3 != null && filter3 != 19) {
-            criteria.setFilterCountryCategoryId(filter3);
-        } else {
-            criteria.setFilterCountryCategoryId(null); // 전체 보기
-        }
+        // ✅ 각 필터 값 세팅 (전체 = null 처리)
+    criteria.setFilterCountryCategoryId((filterCountry != null && filterCountry != 19) ? filterCountry : null);
+    criteria.setFilterIngredientCategoryId((filterIngredient != null && filterIngredient != 19) ? filterIngredient : null);
+    criteria.setFilterSituationCategoryId((filterSituation != null && filterSituation != 19) ? filterSituation : null);
 
-        // 기본 정렬 옵션 설정
-        criteria.setSortOption(criteria.getSortOption() == null ? "latest" : criteria.getSortOption());
+        // 정렬 옵션 기본값 설정
+        criteria.setSortOption(criteria.getSortOption() == null ? "recent" : criteria.getSortOption());
 
-        // 페이징 처리 정보 설정
+        // 페이징 처리
         PaginationInfo paginationInfo = new PaginationInfo();
         paginationInfo.setCurrentPageNo(criteria.getPageIndex());
         paginationInfo.setRecordCountPerPage(criteria.getPageUnit());
         criteria.setFirstIndex(paginationInfo.getFirstRecordIndex());
 
-        // 게시글 목록 조회
+        // 게시글 목록 및 전체 개수
         List<?> countries = countryService.selectCountryList(criteria);
-        model.addAttribute("countries", countries);
-
-        // 전체 게시글 수 조회 후 페이지네이션 정보 반영
         int totcnt = countryService.selectCountryListTotCnt(criteria);
+        
+     // ✅ 선택된 필터 이름 조회 및 모델에 추가
+        if (criteria.getFilterCountryCategoryId() != null) {
+            String countryCategoryName = countryService.getCategoryNameById(criteria.getFilterCountryCategoryId());
+            model.addAttribute("countryCategoryName", countryCategoryName);
+        }
+        if (criteria.getFilterIngredientCategoryId() != null) {
+            String ingredientCategoryName = countryService.getCategoryNameById(criteria.getFilterIngredientCategoryId());
+            model.addAttribute("ingredientCategoryName", ingredientCategoryName);
+        }
+        if (criteria.getFilterSituationCategoryId() != null) {
+            String situationCategoryName = countryService.getCategoryNameById(criteria.getFilterSituationCategoryId());
+            model.addAttribute("situationCategoryName", situationCategoryName);
+        }
+
+        // 모델에 데이터 전달
+        model.addAttribute("countries", countries);
         paginationInfo.setTotalRecordCount(totcnt);
         model.addAttribute("paginationInfo", paginationInfo);
 
-        // 카테고리 필터 여부에 따라 다른 JSP 리턴
-        return criteria.getFilterCountryCategoryId() != null ? "country/country_all" : "country/country_main";
+        // ✅ JSP 분기: 나라/재료/상황 중 하나라도 선택되었으면 country_all.jsp
+        boolean hasFilter = criteria.getFilterCountryCategoryId() != null
+                         || criteria.getFilterIngredientCategoryId() != null
+                         || criteria.getFilterSituationCategoryId() != null;
+
+        return hasFilter ? "country/country_all" : "country/country_main";
     }
 
  // ✅ (2) 글쓰기 페이지 이동
     @GetMapping("/country/addition.do")
-    public String createCountryView(@RequestParam(required = false) Integer filter3,
+    public String createCountryView(@RequestParam(required = false) Integer filterCountry,
+                                    @RequestParam(required = false) Integer filterIngredient,
+                                    @RequestParam(required = false) Integer filterSituation,
                                     @RequestParam(required = false) String uuid,
                                     Model model, HttpSession session) {
-        // 로그인 안 되어 있으면 로그인 페이지로 이동
+
+        // 로그인 체크
         MemberVO member = (MemberVO) session.getAttribute("memberVO");
         if (member == null) return "redirect:/login.do";
 
@@ -91,11 +112,13 @@ public class CountryController {
         model.addAttribute("countryCategories", countryService.getCountryCategories());
         model.addAttribute("ingredientCategories", countryService.getIngredientCategories());
         model.addAttribute("situationCategories", countryService.getSituationCategories());
-        model.addAttribute("filter3", filter3);
 
-       
+        // 필터값 전달 (등록 후 되돌아갈 때 필요)
+        model.addAttribute("filterCountry", filterCountry);
+        model.addAttribute("filterIngredient", filterIngredient);
+        model.addAttribute("filterSituation", filterSituation);
 
-        // uuid가 있으면 수정 모드 (글 내용 조회)
+        // 수정 모드
         if (uuid != null) {
             CountryVO countryVO = countryService.selectCountry(uuid);
             if (countryVO.getStandardRecipeImage() != null) {
@@ -104,10 +127,9 @@ public class CountryController {
             model.addAttribute("countryVO", countryVO);
         }
 
-        return "country/add_country"; // 등록 or 수정 페이지
+        return "country/add_country";
     }
-
-    // ✅ (3) 글 등록 처리
+ // ✅ (3) 글 등록 처리
     @PostMapping("/country/add.do")
     public String insert(HttpSession session,
                          @RequestParam(defaultValue = "") String nickname,
@@ -115,11 +137,13 @@ public class CountryController {
                          @RequestParam(defaultValue = "") String recipeIntro,
                          @RequestParam(defaultValue = "") String ingredient,
                          @RequestParam(defaultValue = "") String recipeContent,
-                         @RequestParam(defaultValue = "1") Integer countryCategoryId,
-                         @RequestParam(defaultValue = "7") Integer ingredientCategoryId,
-                         @RequestParam(defaultValue = "15") Integer situationCategoryId,
+                         @RequestParam(defaultValue = "7") Integer countryCategoryId,
+                         @RequestParam(defaultValue = "13") Integer ingredientCategoryId,
+                         @RequestParam(defaultValue = "18") Integer situationCategoryId,
                          @RequestParam(required = false) MultipartFile standardRecipeImage,
-                         @RequestParam(defaultValue = "1") Integer filter3
+                         @RequestParam(required = false) Integer filterCountry,
+                         @RequestParam(required = false) Integer filterIngredient,
+                         @RequestParam(required = false) Integer filterSituation
     ) throws Exception {
         // 로그인한 사용자 정보 가져오기
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
@@ -133,13 +157,36 @@ public class CountryController {
 
         countryService.insert(countryVO);
 
-        return "redirect:/country/country.do";
+        StringBuilder redirectUrl = new StringBuilder("redirect:/country/country.do");
+        boolean hasParam = false;
+
+        if (filterCountry != null) {
+            redirectUrl.append("?filterCountry=").append(filterCountry);
+            hasParam = true;
+        }
+        if (filterIngredient != null) {
+            redirectUrl.append(hasParam ? "&" : "?");
+            redirectUrl.append("filterIngredient=").append(filterIngredient);
+            hasParam = true;
+        }
+        if (filterSituation != null) {
+            redirectUrl.append(hasParam ? "&" : "?");
+            redirectUrl.append("filterSituation=").append(filterSituation);
+        }
+
+        return redirectUrl.toString();
     }
 
  // ✅ (4) 수정 페이지 이동 (기존 게시글 상세 조회)
     @RequestMapping(value = "/country/edition.do", method = {RequestMethod.GET, RequestMethod.POST})
-    public String updateCountryView(HttpServletRequest request, Model model, HttpSession session) {
-        // 중복 전달 방지를 위한 처리
+    public String updateCountryView(HttpServletRequest request,
+                                    Model model,
+                                    HttpSession session,
+                                    @RequestParam(required = false) Integer filterCountry,
+                                    @RequestParam(required = false) Integer filterIngredient,
+                                    @RequestParam(required = false) Integer filterSituation) {
+
+        // uuid 파라미터 확인
         String[] uuidParams = request.getParameterValues("uuid");
         String uuid = (uuidParams != null && uuidParams.length > 0) ? uuidParams[0] : null;
 
@@ -147,38 +194,34 @@ public class CountryController {
             throw new IllegalArgumentException("uuid 파라미터가 없습니다.");
         }
 
+        // 게시글 조회
         CountryVO countryVO = countryService.selectCountry(uuid);
-
         if (countryVO.getStandardRecipeImage() != null) {
             countryVO.setStandardRecipeImageUrl("/country/download.do?uuid=" + uuid);
         }
-        model.addAttribute("countryVO",countryVO);
-        
-     // ✅ [① 최근 본 레시피 - 세션 저장]
+        model.addAttribute("countryVO", countryVO);
+
+        // ✅ 최근 본 레시피 저장
         List<String> recent = (List<String>) session.getAttribute("recent");
         if (recent == null) {
             recent = new java.util.ArrayList<>();
         }
-        recent.remove(uuid);          // 중복 제거
-        recent.add(0, uuid);          // 맨 앞에 추가
+        recent.remove(uuid);
+        recent.add(0, uuid);
         if (recent.size() > 5) {
             recent = recent.subList(0, 5);
         }
         session.setAttribute("recent", recent);
 
-        // ✅ [② UUID → CountryVO 리스트로 변환]
+        // 최근 레시피 목록 가져오기
         List<CountryVO> recentCountries = recent.stream()
             .map(id -> countryService.selectCountry(id))
             .collect(java.util.stream.Collectors.toList());
-
-        // ✅ [③ 모델에 추가]
         model.addAttribute("recentCountries", recentCountries);
 
-
-        // 좋아요 상태 조회
+        // 좋아요 상태
         MemberVO current = (MemberVO) session.getAttribute("memberVO");
         boolean isLiked = false;
-
         if (current != null) {
             LikeVO likeVO = new LikeVO();
             likeVO.setUserId(current.getUserId());
@@ -188,14 +231,16 @@ public class CountryController {
         }
 
         int likeCount = likeService.countLikesByUuid(uuid);
-
         model.addAttribute("isLiked", isLiked);
         model.addAttribute("likeCount", likeCount);
 
+        // ✅ 필터 상태 전달 (다시 목록으로 돌아갈 때 사용)
+        model.addAttribute("filterCountry", filterCountry);
+        model.addAttribute("ingredient", filterIngredient);
+        model.addAttribute("situation", filterSituation);
+
         return "country/update_country";
     }
-
-
 
     // ✅ (5) 수정 처리
     @PostMapping("/country/edit.do")
@@ -210,7 +255,9 @@ public class CountryController {
                          @RequestParam(defaultValue = "7") Integer ingredientCategoryId,
                          @RequestParam(defaultValue = "15") Integer situationCategoryId,
                          @RequestParam(required = false) MultipartFile standardRecipeImage,
-                         @RequestParam(defaultValue = "1") Integer filter3
+                         @RequestParam(required = false) Integer filterCountry,
+                         @RequestParam(required = false) Integer filterIngredient,
+                         @RequestParam(required = false) Integer filterSituation
     ) throws Exception {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
@@ -223,14 +270,48 @@ public class CountryController {
 
         countryService.update(countryVO);
 
-        return "redirect:/country/country.do";
+        StringBuilder redirectUrl = new StringBuilder("redirect:/country/country.do");
+        boolean hasParam = false;
+
+        if (filterCountry != null) {
+            redirectUrl.append("?filterCountry=").append(filterCountry);
+            hasParam = true;
+        }
+        if (filterIngredient != null) {
+            redirectUrl.append(hasParam ? "&" : "?");
+            redirectUrl.append("filterIngredient=").append(filterIngredient);
+            hasParam = true;
+        }
+        if (filterSituation != null) {
+            redirectUrl.append(hasParam ? "&" : "?");
+            redirectUrl.append("filterSituation=").append(filterSituation);
+        }
+        
+        System.out.println("▶▶ Redirect URL: " + redirectUrl.toString());
+        return redirectUrl.toString();
     }
 
-    // ✅ (6) 삭제 처리
+ // ✅ (6) 삭제 처리
     @PostMapping("/country/delete.do")
-    public String delete(@ModelAttribute CountryVO countryVO) {
+    public String delete(@ModelAttribute CountryVO countryVO,
+                         @RequestParam(required = false) Integer filterCountry,
+                         @RequestParam(required = false) Integer filterIngredient,
+                         @RequestParam(required = false) Integer filterSituation) {
+
         countryService.delete(countryVO);
-        return "redirect:/country/country.do";
+
+        // ✅ 필터값 유지해서 목록으로 redirect
+        String redirectUrl = "/country/country.do?";
+        if (filterCountry != null) redirectUrl += "filterCountry=" + filterCountry + "&";
+        if (filterIngredient != null) redirectUrl += "ingredient=" + filterIngredient + "&";
+        if (filterSituation != null) redirectUrl += "situation=" + filterSituation + "&";
+
+        // 마지막 & 제거
+        if (redirectUrl.endsWith("&")) {
+            redirectUrl = redirectUrl.substring(0, redirectUrl.length() - 1);
+        }
+
+        return "redirect:" + redirectUrl;
     }
 
     // ✅ (7) 이미지 다운로드 처리

@@ -60,7 +60,7 @@ public class QnaServiceImpl implements QnaService {
 
 	@Override
 	public void incrementQnaCount(String uuid) {
-		// TODO Auto-generated method stub
+		qnaMapper.incrementQnaCount(uuid);
 		
 	}
 

@@ -24,7 +24,9 @@
         <!-- ✅ 로그인 사용자 정보 -->
         <input type="hidden" name="userId" value="${memberVO.userId}" />
         <input type="hidden" name="nickname" value="${memberVO.nickname}" />
-        <input type="hidden" name="filter3" value="${param.filter3}" />
+        <input type="hidden" name="filterCountry" value="${param.filterCountry}" />
+		<input type="hidden" name="filterIngredient" value="${param.filterIngredient}" />
+		<input type="hidden" name="filterSituation" value="${param.filterSituation}" />
         <input type="hidden" name="uuid" value="${countryVO.uuid}" />
 
         <!-- ✅ 제목 -->
@@ -51,16 +53,28 @@
             <textarea class="form-control" id="recipeContent" name="recipeContent" rows="6" required>${countryVO.recipeContent}</textarea>
         </div>
 
-        <!-- ✅ 이미지 업로드 -->
-        <div class="mb-3">
-            <label for="standardRecipeImage" class="form-label">대표 이미지</label>
-            <input type="file" class="form-control" id="standardRecipeImage" name="standardRecipeImage">
-            <c:if test="${not empty countryVO.standardRecipeImageUrl}">
-                <img src="${countryVO.standardRecipeImageUrl}" class="img-thumbnail mt-2" style="max-width: 200px;">
-            </c:if>
-        </div>
+			<!-- ✅ 이미지 업로드 (커스텀 스타일 적용) -->
+			<div class="mb-3">
+				<label for="standardRecipeImage" class="form-label"></label>
 
-        <!-- ✅ 나라 카테고리 -->
+				<!-- ✅ 커스텀 버튼 역할을 하는 label -->
+				<label class="custom-file-upload"> 이미지 업로드 <input
+					type="file" name="standardRecipeImage" id="standardRecipeImage">
+				</label>
+
+				<!-- ✅ 선택된 파일명 표시 -->
+				<span id="file-name" class="ms-2 text-muted">선택된 파일 없음</span>
+
+				<!-- ✅ 미리보기 이미지 -->
+				<c:if test="${not empty countryVO.standardRecipeImageUrl}">
+					<div class="mt-2">
+						<img src="${countryVO.standardRecipeImageUrl}"
+							class="img-thumbnail" style="max-width: 200px;">
+					</div>
+				</c:if>
+			</div>
+
+			<!-- ✅ 나라 카테고리 -->
         <div class="mb-3">
             <label for="countryCategoryId" class="form-label">나라 카테고리</label>
             <select class="form-select" id="countryCategoryId" name="countryCategoryId" required>
@@ -118,6 +132,13 @@ function fn_save() {
 function fn_cancel() {
     history.back();
 }
+</script>
+
+<script>
+  document.getElementById("standardRecipeImage").addEventListener("change", function () {
+    const fileName = this.files[0] ? this.files[0].name : "선택된 파일 없음";
+    document.getElementById("file-name").textContent = fileName;
+  });
 </script>
 
 <jsp:include page="/common/footer.jsp"></jsp:include>

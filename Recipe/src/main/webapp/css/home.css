@@ -1,0 +1,391 @@
+/* main banner */
+.main-banner {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 55vh;
+}
+
+.main-banner video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  z-index: 0;
+}
+
+/* 섹션 제목 */
+.section-title,
+.orderby-title,
+.method-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* 최신 레시피 본문 */
+.recent-section {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+.recent-grid {
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.recipe-link {
+  width: 220px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.recipe-link:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(109, 73, 41, 0.3);
+}
+
+.recipe-card {
+  background-color: var(--mocha);
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.recipe-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+
+/* 테마 슬라이드 */
+/* 전체 네모 박스 */
+.slider-wrapper.horizontal-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  max-width: 1000px;
+  margin: 40px auto;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background-color: #fffaf7;
+}
+
+/* 왼쪽 설명 영역 */
+.theme-info {
+  flex: 0.7;
+  padding: 30px;
+  background-color: #fffaf7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.theme-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+
+.theme-info p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* 오른쪽 슬라이드 영역 */
+.themeSwiper {
+  flex: 1.3;
+  height: 400px;
+}
+
+.themeSwiper .swiper-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.themeSwiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.themeSwiper .swiper-slide span {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+}
+
+/* 인기레시피 */
+.popular-recipes {
+  padding: 30px;
+  background-color: #fff8f0;
+}
+
+.popular-recipes h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.recipe-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+}
+
+.recipe-thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.recipe-info {
+  padding: 10px;
+  text-align: center;
+}
+
+.recipe-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.recipe-likes {
+  color: #ff4d4d;
+  font-size: 14px;
+}
+
+
+/* 추천 레시피 */
+.recommended {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.section-header p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.mySwiper {
+  width: 100%;
+  height: 200px; /* 원하는 높이로 조절 */
+}
+
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px; /* 필요에 따라 조절 */
+  height: 200px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 200px; /* 이미지 크기 고정 */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+
+/* 손질/보관 */
+
+/* 아코디언 전체 박스 */
+.method-section {
+  background-color: #fdf8f5;
+  border: 2px solid var(--mocha);
+  border-radius: 16px;
+  margin: 30px auto;
+  max-width: 1000px;
+  box-shadow: 0 4px 12px rgba(109, 73, 41, 0.2);
+  overflow: hidden;
+}
+
+/* Tip! 토글 버튼 */
+.accordion-toggle {
+  background-color: var(--mocha);
+  color: white;
+  font-size: 20px;
+  padding: 16px 20px;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.accordion-toggle:hover {
+  background-color: #5a3922;
+}
+
+/* 펼쳐지는 영역 */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  padding: 0 20px;
+  background-color: #fffdfb;
+}
+
+.accordion-content.open {
+  max-height: 1500px;
+  padding-bottom: 20px;
+}
+
+/* 소제목 (손질법, 보관법) */
+.method-section h2 {
+  color: var(--dark);
+  font-size: 20px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #e0cfc6;
+  padding-bottom: 6px;
+}
+
+/* 리스트 정렬 */
+.method-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* 각 항목 카드 */
+.method-item {
+  width: 150px;
+  background-color: #fffaf7;
+  border: 1px solid #e6d5cc;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(109, 73, 41, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.method-item:hover {
+  transform: translateY(-4px);
+}
+
+.method-item a {
+  text-decoration: none;
+  color: var(--dark);
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+
+.method-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.method-title {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .slide img {
+    height: 200px;
+  }
+  .slider-wrapper.horizontal-box {
+    flex-direction: column;
+  }
+
+  .theme-info,
+  .themeSwiper {
+    width: 100%;
+    flex: none;
+    height: auto;
+  }
+
+  .themeSwiper {
+    height: 250px;
+  }
+
+  .theme-info {
+    padding: 20px;
+    text-align: center;
+  }
+}

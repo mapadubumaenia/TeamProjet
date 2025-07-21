@@ -20,55 +20,70 @@
 <jsp:include page="/common/header.jsp" />
 
 <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">QnA 게시판</h2>
-        <button class="btn btn-primary" onclick="location.href='/qna/addition.do'">QnA 글쓰기</button>
+  <form id="listForm" method="get" action="<c:url value='/qna/qna.do'/>">
+    <input type="hidden" id="pageIndex" name="pageIndex" value="${empty criteria.pageIndex ? 1 : criteria.pageIndex}" />
+
+   <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>번호</th>
+      <th>작성자</th>
+      <th>작성일</th>
+      <th>제목</th>
+      <th>답변자</th>
+      <th>답변일</th>
+      <th>조회수</th>
+      <th>댓글수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="item" items="${qnaList}" varStatus="status">
+      <tr>
+        <td>${paginationInfo.totalRecordCount - (criteria.pageIndex - 1) * criteria.pageUnit - status.index}</td>
+        <td>${item.userNickname}</td>
+        <td>${item.qnaCreatedAt}</td>
+        <td>
+          <a href="<c:url value='/qna/detail.do'/>?uuid=${item.uuid}">
+            ${item.qnaTitle}
+          </a>
+        </td>
+        <td><c:out value="${item.answerNickname != null ? item.answerNickname : '-'}"/></td>
+        <td>
+          <c:choose>
+            <c:when test="${item.answerCreatedAt != null}">
+              ${item.answerCreatedAt}
+            </c:when>
+            <c:otherwise>-</c:otherwise>
+          </c:choose>
+        </td>
+        <td>${item.count}</td>
+        <td>${item.commentCount}</td>
+      </tr>
+    </c:forEach>
+  </tbody>
+</table>
+
+
+    <!-- 페이지네이션 + 글쓰기 버튼 -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <ul class="pagination mb-0" id="pagination"></ul>
+      <a href="<c:url value='/qna/addition.do'/>" class="btn btn-custom-brown">글쓰기</a>
     </div>
 
-    <form id="listForm" action="/qna/qna.do" method="get">
-        <input type="hidden" id="pageIndex" name="pageIndex" value="${paginationInfo.currentPageNo}" />
-    </form>
-
-    <table class="table table-hover text-center align-middle">
-        <thead class="table-light">
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>조회수</th>
-            </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="qna" items="${qnaList}" varStatus="status">
-            <tr onclick="location.href='/qna/detail.do?uuid=${qna.uuid}'" style="cursor:pointer;">
-                <td>${paginationInfo.totalRecordCount - (paginationInfo.currentPageNo - 1) * paginationInfo.recordCountPerPage - status.index}</td>
-                <td class="text-start">${qna.qnaTitle}</td>
-                <td>${qna.userNickname}</td>
-                <td>${qna.qnaCreatedAt}</td>
-                <td>${qna.count}</td>
-            </tr>
-        </c:forEach>
-        <c:if test="${empty qnaList}">
-            <tr>
-                <td colspan="5" class="text-center">등록된 QnA가 없습니다.</td>
-            </tr>
-        </c:if>
-        </tbody>
-    </table>
-
-    <div id="pagination" class="d-flex justify-content-center mt-4"></div>
+    <!-- 검색창 -->
+    <div class="search-bar mt-4 text-center">
+      <input type="text" name="keyword" value="${param.keyword}" placeholder="제목으로 검색" />
+      <input type="hidden" name="pageIndex" value="1" />
+      <button type="submit" class="btn btn-outline-secondary btn-sm">검색</button>
+    </div>
+  </form>
 </div>
-
-
-
-
-
-
-
 
 <jsp:include page="/common/footer.jsp" />
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/jquery.twbsPagination.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function () {
@@ -84,6 +99,5 @@
     });
   });
 </script>
-
 </body>
 </html>
