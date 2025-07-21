@@ -96,8 +96,8 @@ href="<c:url value='/community/community.do'/>">자유게시판</a></li>
 		</ul>
   </nav>
   <div class="search-bar pt3">
-  <form action="/search" method="get">
-    <input type="text" name="query" placeholder="검색어를 입력하세요" aria-label="검색어 입력" />
+  <form action="/search/search.do" method="get">
+    <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" aria-label="검색어 입력" />
     <button type="submit">검색</button>
   </form>
 </div>

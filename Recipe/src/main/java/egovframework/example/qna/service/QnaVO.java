@@ -39,7 +39,7 @@ public class QnaVO extends Criteria{
 	private byte[] answerImage;  
 	private String userNickname;
 	private String answerNickname;
-	
+	private int commentCount;
 	
 	public String getUserNickname() {
 	    return userNickname;

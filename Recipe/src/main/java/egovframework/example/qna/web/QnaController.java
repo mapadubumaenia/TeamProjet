@@ -1,5 +1,6 @@
 package egovframework.example.qna.web;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -39,7 +40,6 @@ public class QnaController {
     @Autowired
     private QnaService qnaService;
 
-    // QnA 목록 조회
     @GetMapping("/qna.do")
     public String selectQnaList(@ModelAttribute Criteria criteria, Model model) {
         PaginationInfo paginationInfo = new PaginationInfo();
@@ -56,13 +56,11 @@ public class QnaController {
         return "qna/qna_all";
     }
 
-    // QnA 글쓰기 폼 이동
     @GetMapping("/addition.do")
     public String createQnaView() {
         return "qna/add_qna";
     }
 
-    // QnA 등록
     @PostMapping("/addition.do")
     public String insertQna(@ModelAttribute QnaVO qnaVO,
                             @RequestParam("uploadFile") MultipartFile file,
@@ -90,6 +88,12 @@ public class QnaController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
             qnaVO.setQnaCreatedAt(LocalDateTime.now().format(formatter));
 
+            // ✨ 방어적으로 답변 필드 초기화
+            qnaVO.setAnswerContent(null);
+            qnaVO.setAnswerImage(null);
+            qnaVO.setAnswerCreatedAt(null);
+            qnaVO.setAnswerUserId(null);
+
             qnaService.insertQna(qnaVO);
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,22 +102,17 @@ public class QnaController {
         return "redirect:/qna/qna.do";
     }
 
-    // QnA 상세 조회
-    @GetMapping("/detail.do")
+    @RequestMapping("/detail.do")
     public String detail(@RequestParam("uuid") String uuid, Model model) {
         qnaService.incrementQnaCount(uuid);
-
         QnaVO qna = qnaService.selectQnaDetail(uuid);
-        if (qna == null) {
-            return "redirect:/qna/qna.do";
-        }
+        if (qna == null) return "redirect:/qna/qna.do";
+
         model.addAttribute("qna", qna);
         model.addAttribute("community", qna);
-        
         return "qna/detail_qna";
     }
 
-    // QnA 수정 폼
     @GetMapping("/editForm.do")
     public String editForm(@RequestParam String uuid, Model model) {
         QnaVO vo = qnaService.selectQnaDetail(uuid);
@@ -121,7 +120,6 @@ public class QnaController {
         return "qna/edit_qna";
     }
 
-    // QnA 수정
     @PostMapping("/update.do")
     public String updateQna(@ModelAttribute QnaVO qnaVO,
                             @RequestParam("uploadFile") MultipartFile file,
@@ -132,7 +130,17 @@ public class QnaController {
                 if (contentType != null && contentType.startsWith("image/")) {
                     qnaVO.setQnaImage(file.getBytes());
                 }
+                else {
+                    QnaVO original = qnaService.selectQnaDetail(qnaVO.getUuid());
+                    qnaVO.setQnaImage(original.getQnaImage());
+                }
             }
+
+            // ✨ 답변 필드 방어적 제거
+            qnaVO.setAnswerContent(null);
+            qnaVO.setAnswerImage(null);
+            qnaVO.setAnswerCreatedAt(null);
+            qnaVO.setAnswerUserId(null);
 
             qnaService.updateQna(qnaVO);
             redirectAttributes.addFlashAttribute("message", "수정이 완료되었습니다.");
@@ -144,7 +152,6 @@ public class QnaController {
         return "redirect:/qna/detail.do?uuid=" + qnaVO.getUuid() + "&t=" + System.currentTimeMillis();
     }
 
-    // QnA 삭제
     @PostMapping("/delete.do")
     public String delete(@RequestParam(defaultValue = "") String uuid) {
         log.info("삭제 UUID: {}", uuid);
@@ -152,12 +159,12 @@ public class QnaController {
         return "redirect:/qna/qna.do";
     }
 
-    // QnA 이미지 출력
     @GetMapping("/image.do")
     @ResponseBody
-    public ResponseEntity<byte[]> getImage(@RequestParam("uuid") String uuid) {
+    public ResponseEntity<byte[]> getImage(@RequestParam("uuid") String uuid,
+                                           @RequestParam(value = "answer", required = false) Boolean answer) {
         QnaVO vo = qnaService.selectQnaDetail(uuid);
-        byte[] image = vo.getQnaImage();
+        byte[] image = (answer != null && answer) ? vo.getAnswerImage() : vo.getQnaImage();
 
         if (image == null || image.length == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -165,14 +172,12 @@ public class QnaController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
-
         return new ResponseEntity<>(image, headers, HttpStatus.OK);
     }
 
-    // QnA 답변 등록
-    @PostMapping("/answer.do")
+    @RequestMapping("/answer/add.do")
     public String insertAnswer(@ModelAttribute QnaVO vo,
-                               @RequestParam("uploadFile") MultipartFile file,
+                               @RequestParam(value = "answerUploadFile", required = false) MultipartFile file,
                                HttpServletRequest request,
                                RedirectAttributes redirectAttributes) {
         try {
@@ -184,7 +189,7 @@ public class QnaController {
             MemberVO loginMember = (MemberVO) session.getAttribute("memberVO");
             vo.setAnswerUserId(loginMember.getUserId());
 
-            if (!file.isEmpty()) {
+            if (file != null && !file.isEmpty()) {
                 String contentType = file.getContentType();
                 if (contentType == null || !contentType.startsWith("image/")) {
                     throw new IllegalArgumentException("이미지 파일만 업로드 가능합니다.");
@@ -194,6 +199,12 @@ public class QnaController {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
             vo.setAnswerCreatedAt(LocalDateTime.now().format(formatter));
+
+            // ✨ 질문 필드 명확히 제거
+            vo.setQnaImage(null);
+            vo.setQnaTitle(null);
+            vo.setQnaContent(null);
+            vo.setQnaCreatedAt(null);
 
             qnaService.insertQnaAnswer(vo);
             redirectAttributes.addFlashAttribute("message", "답변이 등록되었습니다.");
@@ -205,32 +216,37 @@ public class QnaController {
         return "redirect:/qna/detail.do?uuid=" + vo.getUuid();
     }
 
-
-    // QnA 답변 수정
-    @PostMapping("/updateAnswer.do")
-    public String updateAnswer(@ModelAttribute QnaVO vo,
-                               @RequestParam("uploadFile") MultipartFile file,
-                               RedirectAttributes redirectAttributes) {
+    
+    
+    
+    @PostMapping("/answer/update.do")
+    public String updateQnaAnswer(@ModelAttribute QnaVO qnaVO,
+                                  @RequestParam(value = "answerUploadFile", required = false) MultipartFile file,
+                                  RedirectAttributes redirectAttributes) {
         try {
-            if (!file.isEmpty()) {
+            if (file != null && !file.isEmpty()) {
                 String contentType = file.getContentType();
                 if (contentType != null && contentType.startsWith("image/")) {
-                    vo.setAnswerImage(file.getBytes());
-                } else {
-                    throw new IllegalArgumentException("이미지 파일만 업로드 가능합니다.");
+                    qnaVO.setAnswerImage(file.getBytes());
                 }
+            } else {
+                QnaVO original = qnaService.selectQnaDetail(qnaVO.getUuid());
+                qnaVO.setAnswerImage(original.getAnswerImage());
             }
 
-            qnaService.updateQnaAnswer(vo);
-            redirectAttributes.addFlashAttribute("message", "답변이 수정되었습니다.");
-        } catch (Exception e) {
+            // ✨ 질문 필드 명확히 제거
+            qnaVO.setQnaImage(null);
+            qnaVO.setQnaTitle(null);
+            qnaVO.setQnaContent(null);
+            qnaVO.setQnaCreatedAt(null);
+
+            qnaService.updateQnaAnswer(qnaVO);
+            redirectAttributes.addFlashAttribute("message", "답변이 저장되었습니다.");
+        } catch (IOException e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("message", "답변 수정 중 오류 발생");
+            redirectAttributes.addFlashAttribute("message", "이미지 처리 중 오류 발생");
         }
 
-        return "redirect:/qna/detail.do?uuid=" + vo.getUuid() + "&t=" + System.currentTimeMillis();
+        return "redirect:/qna/detail.do?uuid=" + qnaVO.getUuid();
     }
-    
-    
-
 }
