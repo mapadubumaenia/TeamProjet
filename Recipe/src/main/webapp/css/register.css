@@ -1,9 +1,10 @@
 .registerbox{
     width :99vw;
+    padding-bottom:5rem;
 }
 .registerpage{
     width: 99vw;
-    height : 700px;
+    height:1000px;
 	display:flex;
     justify-content: center;
 }
@@ -95,11 +96,11 @@ label {
 @media screen and (min-width: 768px){
 .registerbox{
     width : 450px;
-    height :500px;
+    padding-bottom:5rem;
 }
 .registerpage{
     width: 99vw;
-	height: 800px;
+
 }
 .brandtext{
 	margin-top : 1rem;
@@ -152,12 +153,11 @@ label {
 @media screen and (min-width: 1024px){
 .registerbox{
     width : 450px;
-    height :850px;
+    padding-bottom : 3rem;
     border : 2px solid  var(--dark);
 }
 .registerpage{
     width: 99vw;
-	height: 1000px;
 	align-items: center;
 }
 .btn{

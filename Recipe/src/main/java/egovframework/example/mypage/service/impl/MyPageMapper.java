@@ -5,16 +5,21 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import egovframework.example.auth.service.MemberVO;
-import egovframework.example.mypage.service.MyInfoVO;
+import egovframework.example.common.Criteria;
 import egovframework.example.mypage.service.MyPostVO;
 
 @Mapper
 public interface MyPageMapper {
 	// 1. 내가 작성한 레시피
-    public List<MyPostVO> selectMyRecipes(String userId);
+    public List<MyPostVO> selectMyRecipes(Criteria criteria);
     public MyPostVO selectOneByUuid(String uuid);
-	// 5. 내 정보 조회
-    public MyInfoVO selectMyInfo(String userId);
+    public int selectMyRecipesCount(Criteria criteria);
+    
+    // 2. 좋아요레시피
+    public List<MyPostVO> selectLikedRecipes(Criteria criteria);
+    public int selectLikedRecipesCount(Criteria criteria);
+
+    // 5. 내 정보 조회
     public String getPasswordByUserId(String userId);
     public MemberVO getMemberById(String userId);
     public void updateMember(MemberVO vo);

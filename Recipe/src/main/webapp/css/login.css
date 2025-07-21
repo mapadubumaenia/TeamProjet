@@ -1,9 +1,10 @@
 .loginbox{
     width :99vw;
+    padding-bottom:5rem;
 }
 .loginpage{
     width: 99vw;
-    height : 80vh;
+    height:1000px;
 	display:flex;
     justify-content: center;
 }
@@ -100,12 +101,11 @@ label {
 @media screen and (min-width: 768px){
   .loginbox{
     width : 450px;
-    height : 550px;
+    padding-bottom:5rem;
 }
 
 .loginpage{
     width: 99vw;
-	height: 80vh;
 	align-items: center;
 }
 
@@ -169,9 +169,7 @@ label {
 @media screen and (min-width: 1024px){
 .loginbox{
     border : 2px solid  var(--dark);
+        padding-bottom : 3rem;
 }
-.loginpage{
 
-    height : 90vh;
-}
 }

@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="/css/mypost.css">
 </head>
 <body>
+
+
 <!-- 머리말 -->
 <jsp:include page="/common/header.jsp" />
 
@@ -26,7 +28,6 @@
 
 <div class="mymenu">
 <div class="accordion" id="accordionExample">
-
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -36,36 +37,23 @@
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <button class = "my_btn" onclick="loadMyRecipes()">내가 쓴 레시피</button><br>
-        <button class = "my_btn btn_content">스크랩</button><br>
-        <button class = "my_btn btn_content">좋아요</button>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        댓글
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <button class = "my_btn ">내가 쓴 댓글</button><br>
-        <button class = "my_btn btn_comment">좋아요</button>
+        <button class = "my_btn btn_content" onclick="likedRecipes()">좋아요</button>
       </div>
     </div>
   </div>
     <div class="accordion-item">
     <h2 class="accordion-header" id="headingThree">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-        <strong>회원정보</strong>
+       회원정보
       </button>
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <button class = "my_btn btn_info" onclick="passforedit()" >조회 / 수정</button>
+        <button class = "my_btn" onclick="passforedit()" >조회 / 수정</button>
       </div>
     </div>
   </div>
+</div>
 </div>
  <div id="myPageContent" class="myPageContent">
    <c:if test="${not empty message}">
@@ -73,8 +61,6 @@
   </c:if>
  
  </div>
-</div>
-
 
 
 
@@ -86,19 +72,81 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <!-- 토글 애니메이션 js -->
 <script src="/js/nav.js"></script>	
-	
+<!-- 페이징 라이브러리 -->
+	<script src="/js/jquery.twbsPagination.js" type="text/javascript"></script>
 	
 <!-- AJAX용 -->
 <!-- 내가 작성한 레시피 -->
 <script>   
-function loadMyRecipes() {
-  fetch('/mypage/myrecipes.do')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("myPageContent").innerHTML = html;
-    });
+function loadMyRecipes(page = 1) {
+  fetch(`/mypage/myrecipes.do?pageIndex=${'${page}'}`)
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("myPageContent").innerHTML = html;
+
+    const totalPages = parseInt(document.getElementById("totalPagesVal").value);
+    const currentPage = parseInt(document.getElementById("currentPageVal").value);
+
+    // 기존 페이징 제거
+    if ($('#pagination').data('twbs-pagination')) {
+      $('#pagination').twbsPagination('destroy');
+    }
+
+    if (totalPages >= 1) {
+      $('#pagination').twbsPagination({
+        totalPages: totalPages,
+        startPage: currentPage,
+        visiblePages: 5,
+        first: null,
+        last: null,
+        prev: '<',
+        next: '>',
+        initiateStartPageClick: false,
+        onPageClick: function (event, page) {
+        	loadMyRecipes(page); // 재호출
+        }
+      });
+    }
+  });
 }
 </script>
+
+<script>
+/* 페이지번호 클릭시 전체조회 */
+//좋아요누른 레시피  
+function likedRecipes(page = 1) {
+	  fetch(`/mypage/likedrecipes.do?pageIndex=${'${page}'}`)
+	    .then(res => res.text())
+	    .then(html => {
+	      document.getElementById("myPageContent").innerHTML = html;
+
+	      const totalPages = parseInt(document.getElementById("totalPagesVal").value);
+	      const currentPage = parseInt(document.getElementById("currentPageVal").value);
+
+	      // 기존 페이징 제거
+	      if ($('#pagination').data('twbs-pagination')) {
+	        $('#pagination').twbsPagination('destroy');
+	      }
+
+	      if (totalPages >= 1) {
+	        $('#pagination').twbsPagination({
+	          totalPages: totalPages,
+	          startPage: currentPage,
+	          visiblePages: 5,
+	          first: null,
+	          last: null,
+	          prev: '<',
+	          next: '>',
+	          initiateStartPageClick: false,
+	          onPageClick: function (event, page) {
+	            likedRecipes(page); // 재호출
+	          }
+	        });
+	      }
+	    });
+	}
+</script> 
+
 
 <!-- 개인정보 조회 및 수정 -->
 <script>  
@@ -161,7 +209,8 @@ document.addEventListener("submit", function (e) {
 
     const fileInput = document.getElementById("image");
     const previewImage = document.getElementById("previewImage");
-
+    
+    if (fileInput && previewImage) {
     fileInput.addEventListener("change", function (event) {
       const file = event.target.files[0];
 
@@ -176,7 +225,8 @@ document.addEventListener("submit", function (e) {
         previewImage.src = "/mypage/profile-image.do";
       }
     });
-  });
+    }
+    });
   
   function bindImagePreview() {
 
@@ -207,6 +257,8 @@ document.addEventListener("submit", function (e) {
 	    });
 	  }
 </script>
+
+
 
 <!-- 꼬리말 -->
 <jsp:include page="/common/footer.jsp" />

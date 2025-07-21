@@ -1,26 +1,21 @@
-.findpasswordbox{
+.registerbox{
     width :99vw;
     padding-bottom:5rem;
 }
-
-.findpasswordpage{
+.registerpage{
     width: 99vw;
-    height:1000px;
+
 	display:flex;
     justify-content: center;
 }
-.findpassword_home:hover{
+.register_home:hover{
 	color:var(--mocha);
 }
-.findpassword_home{
+.register_home{
 	color:var(--dark);
 }
-.findpassword_regi{
-	font-weight: bold;
-    color:var(--mocha);
-}
 .brandtext{
-	margin-top: 2rem;
+    margin-top : 2rem;
 	font-size: 50px;
 	display:flex;
     justify-content: center;
@@ -28,12 +23,25 @@
     padding-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
+.tcenter{
+	margin-bottom:1rem; 
+}
+.pro_text{
+	font-size :20px;
+}
+.profile{
+	display : flex;
+    align-items: center;
+    flex-direction: column;
+}
 .form-control{
-    margin-bottom:0.3rem;
 	width : 200px;
 	height : 30px;
 	font-size : 15px;
+    margin-top : 0.5rem;
+    
 }
+
 .inputbox{
 	width : 99vw;
 	display:flex;
@@ -44,8 +52,7 @@
 	width : 200px;
 	display:flex;
 }
-
-.btn{
+.regibtn{
 	margin-top:0.5rem;
 	background-color: var(--mocha);
 	color: white;
@@ -54,8 +61,11 @@
     font-size : 15px;
 	padding-top: 0.1rem !important;
 }
-
-.btn:hover {
+.btn{
+	    margin-top : 0.5rem;
+		height : 30px;
+}
+.regibtn:hover {
 	background-color: var(--dark);
 	color: white;
 }
@@ -63,21 +73,18 @@
 	margin : 0;
 	font-size : 15px;
 }
-.boxcenter{
-    display:flex;
-    justify-content: center;	
-}
-.move_regi:hover{
-		color:var(--dark);
-}
+
 .error_box{
 	display:flex;
 	justify-content: center;
 }
-
+.register_error .regi_error{
+	color: red !important;
+    font-size: 15px;
+}
 label {
     color: red !important;
-    font-size: 14px;
+    font-size: 15px;
     margin-top: 2px;
     display: block !important; 
 }
@@ -85,76 +92,77 @@ label {
 
 
 
+
 @media screen and (min-width: 768px){
-  .findpasswordbox{
+.registerbox{
     width : 450px;
-padding-bottom:5rem;
+    padding-bottom:5rem;
 }
-
-.findpasswordpage{
+.registerpage{
     width: 99vw;
-		align-items: center;
+
 }
-
 .brandtext{
-
+	margin-top : 1rem;
 	font-size: 40px;
     padding-top: 2rem;
 }
+.pro_text{
+	font-size : 20px;
+}
 .form-control{
+	margin-top:0.75rem;
 	width : 350px;
 	height : 40px;
+	font-size:16px;
 }
 .inputbox{
 	width : 450px;
-
+}
+.tcenter{
+	margin-bottom:1rem; 
 }
 .input_center{
 	width : 350px;
-	display:flex;
 }
-.id_result{
-	width : 250px;
-	height : 100px;
-}
-.btn{
+.regibtn{
 	width : 350px;
 	height : 40px;
 	margin-top: 0.75rem;
+	font-size : 16px;
+    padding-top: 0.7rem !important;
 }
-
-
+.btn{
+	    margin-top : 0.75rem;
+		height : 40px;
+}
 .input_name{
-	margin : 0;
 	font-size : 16px;
 }
-.logmn{
-		font-size : 20px;
-}
-.logmn:hover{
-	color :var(--dark) !important;
-}
-.findpassword_menu{
-	width : 350px;
-	padding : 0;
-}
-.result_findid{
-	font-size : 18px;
-	margin : 0 !important;
-}
-.regi{
-	font-size : 14px !important;
-}
 
-
+.register_error .regi_error{
+    font-size: 14px;
+}
 label {
     font-size: 14px;
     margin-top: 2px;
 }
+	
 }
+
 @media screen and (min-width: 1024px){
-  .findpasswordbox{
+.registerbox{
+    width : 450px;
+    padding-bottom : 3rem;
     border : 2px solid  var(--dark);
-        padding-bottom : 3rem;
+}
+.registerpage{
+    width: 99vw;
+	height: 1000px;
+	align-items: center;
+}
+.btn{
+	    margin-top : 0.8rem;
+		height : 40px;
 }
 }

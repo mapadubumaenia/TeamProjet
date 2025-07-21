@@ -809,10 +809,10 @@ a {text-decoration: none; color: var(--black);}
 #drinkListContainer .card .card-title {
   font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
   font-weight: 700 !important;      /* 굵게 */
-  font-size: 1.2rem;                /* 크기 살짝 키우기 */
-  color: var(--dark);               /* 시인성 좋은 어두운 컬러 */
+  font-size: 1rem;                /* 크기 살짝 키우기 */
   line-height: 1.3;                 /* 가독성 향상 */
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);  /* 약간의 그림자 효과로 떠 보이게 */
+  color: var(--dark);               /* 시인성 좋은 어두운 컬러 */
 }
 
 
@@ -842,36 +842,90 @@ a {text-decoration: none; color: var(--black);}
 }
 
 
-/* ─── 반응형 2×2 그리드 카테고리 ─── */
+
+
+/* 모바일(767px 이하)에서 카테고리 & 업로드 버튼 정렬 개선 */
 @media screen and (max-width: 767px) {
-  /* 카테고리 버튼 그룹을 2열 그리드로 */
+  /* 카테고리 그룹: 2열 그리드 → 플렉스 래핑으로 변경 */
   .category-btn-group {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0.5rem;
     padding: 0.5rem;
-    /* 배경/테두리 원한다면 여기서 추가 가능 */
   }
-  /* 라벨을 박스 중앙정렬 */
   .category-btn-group label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* 높이 조정 */
-    min-height: 3.5rem;
-    /* 기존 패딩 덮어쓰기 */
-    padding: 0 !important;
-    font-size: 0.9rem;
+    flex: 1 1 calc(50% - 0.5rem);  /* 가로 50% 너비에서 gap 절반만큼 제외 */
+    min-width: 120px;              /* 너무 작아지면 이 너비 유지 */
+    text-align: center;
+    padding: 0.6rem 0.4rem !important;
+    font-size: 0.9rem !important;
+    box-sizing: border-box;
   }
-  /* 화면이 좁아지면 글씨도 약간 줄여보기 */
-  .category-btn-group label.btn-outline-primary {
-    font-size: 0.85rem !important;
-  }
-  /* 글쓰기 버튼을 중앙 배치 */
+
+  /* 글쓰기 버튼: 카테고리 밑으로 내려서 중앙 배치 */
   .drink-upload {
     position: static !important;
     margin: 1rem auto !important;
     text-align: center;
+    width: 100%;
+  }
+  .drink-upload .btn {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  /* 카드 1열로 보여주기 */
+  .col4 {
+    width: 100% !important;
+  }
+
+  /* 페이지 컨테이너 여백 조정 */
+  .page {
+    width: 98vw;
+  }
+}
+/* ─── 데스크탑 전용: 1200px 이상일 때만 절대위치 ─── */
+@media screen and (min-width: 1200px) {
+  .drink-upload {
+    position: absolute;
+    top: 0.4rem;    /* 기존 값 유지 */
+    right: 3.4rem;  /* 기존 값 유지 */
+    width: auto;    /* 버튼 너비 자동 */
+    margin: 0;      /* 마진 초기화 */
+    text-align: right;
   }
 }
 
+/* ─── 중간 크기: 1199px 이하일 때 무조건 아래 배치 ─── */
+@media screen and (max-width: 1600px) {
+  .drink-upload {
+    position: static !important;
+    margin: 1rem auto !important;
+    text-align: center !important;
+    width: 90%;          /* 폭을 좀 주면 버튼이 길어 보여요 */
+    max-width: 300px;    /* 너무 넓어지지 않도록 제한 */
+  }
+}
+
+/* 기존 모바일 (<768px) 룰은 그대로 두셔도 됩니다 */
+@media screen and (max-width: 767px) {
+  /* 그리드 컨테이너에 좌우 패딩 추가 */
+  #drinkListContainer {
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+  }
+
+  /* 카드 칸에 좌우 여유, 아래 마진 추가 */
+  .col4 {
+    width: calc(100% - 1rem) !important;  /* 100% 너비에서 좌우 0.5rem씩 제외 */
+    margin: 0 0.5rem 1rem;                /* 좌우 0.5rem, 아래 1rem */
+    padding: 0 !important;                /* 기존 패딩은 제거 */
+    box-sizing: border-box;
+  }
+
+  /* 카드 자체에도 아래 마진을 한 번 더 줘서 분리감 강화 (선택) */
+  .col4 .card {
+    margin-bottom: 0.5rem;
+  }
+}

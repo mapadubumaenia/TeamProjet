@@ -121,6 +121,7 @@
 
   <jsp:include page="/common/footer.jsp"/>
 
+
   <!-- Bootstrap JS -->
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -156,6 +157,8 @@
   </script>
   
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
    
    <script>
   $('#likeBtn').on('click', function(){
