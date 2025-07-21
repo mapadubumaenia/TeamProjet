@@ -32,7 +32,7 @@
           <h5 class="text-white fw-bold">요즘 대세 K-food 레시피</h5>
         </div>
         <p class="hover-text text-white mt-2">한식 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=1" class="stretched-link"></a>
+        <a href="/country/country.do?filterCountry=1" class="stretched-link"></a>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
           <h5 class="text-white fw-bold">정통 중식 요리를 집에서 즐겨보세요</h5>
         </div>
         <p class="hover-text text-white mt-2">중식 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=2" class="stretched-link"></a>
+        <a href="/country/country.do?filterCountry=2" class="stretched-link"></a>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
           <h5 class="text-white fw-bold">간단하지만 섬세한 일식 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">일식 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=3" class="stretched-link"></a>
+        <a href="/country/country.do?filterCountry=3" class="stretched-link"></a>
       </div>
     </div>
 
@@ -71,7 +71,7 @@
           <h5 class="text-white fw-bold">고급스러운 프렌치 요리를 손쉽게</h5>
         </div>
         <p class="hover-text text-white mt-2">프랑스 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=4" class="stretched-link"></a>
+        <a href="/country/country.do?filterCountry=4" class="stretched-link"></a>
       </div>
     </div>
 
@@ -84,7 +84,7 @@
           <h5 class="text-white fw-bold">누구나 좋아하는 이탈리안 파스타 피자</h5>
         </div>
         <p class="hover-text text-white mt-2">이태리 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=5" class="stretched-link"></a>
+        <a href="/country/country.do?filterCountry=5" class="stretched-link"></a>
       </div>
     </div>
 
@@ -97,7 +97,7 @@
           <h5 class="text-white fw-bold">이국적인 향신료가 살아있는 중동 요리</h5>
         </div>
         <p class="hover-text text-white mt-2">중동 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=6" class="stretched-link"></a>
+        <a href="/country/country.do?filterCountry=6" class="stretched-link"></a>
       </div>
     </div>
 
@@ -110,7 +110,7 @@
           <h5 class="text-white fw-bold">다양한 나라의 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">다양한 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=7" class="stretched-link"></a>
+        <a href="/country/country.do?filterCountry=7" class="stretched-link"></a>
       </div>
     </div>
     <!-- 전체 레시피 보기 카드 (hover 있음, 링크 작동) -->
@@ -123,7 +123,7 @@
       <h5 class="text-white fw-bold">전체 레시피 보기</h5>
     </div>
     <p class="hover-text text-white mt-2">전체 레시피 모음 바로가기</p>
-    <a href="/country/country.do?filter3=19" class="stretched-link"></a> 
+    <a href="/country/country.do?filterCountry=19" class="stretched-link"></a> 
   </div>
 </div>
 
@@ -156,7 +156,7 @@
           <h5 class="text-white fw-bold">돼지고기 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">돼지고기 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=8" class="stretched-link"></a>
+        <a href="/country/country.do?filterIngredient=8" class="stretched-link"></a>
       </div>
     </div> 
 
@@ -168,7 +168,7 @@
           <h5 class="text-white fw-bold">소고기 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">소고기 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=9" class="stretched-link"></a>
+        <a href="/country/country.do?filterIngredient=9" class="stretched-link"></a>
       </div>
     </div> 
 	    <div class="col-md-4">
@@ -179,7 +179,7 @@
           <h5 class="text-white fw-bold">닭고기 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">닭고기 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=10" class="stretched-link"></a>
+        <a href="/country/country.do?filterIngredient=10" class="stretched-link"></a>
       </div>
     </div> 
     
@@ -191,7 +191,7 @@
           <h5 class="text-white fw-bold">해산물 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">해산물 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=11" class="stretched-link"></a>
+        <a href="/country/country.do?filterIngredient=11" class="stretched-link"></a>
       </div>
     </div> 
     
@@ -203,7 +203,7 @@
           <h5 class="text-white fw-bold">야채 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">야채 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=12" class="stretched-link"></a>
+        <a href="/country/country.do?filterIngredient=12" class="stretched-link"></a>
       </div>
     </div> 
 
@@ -215,7 +215,7 @@
           <h5 class="text-white fw-bold">기타재료 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">기타재료 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=13" class="stretched-link"></a>
+        <a href="/country/country.do?filterIngredient=13" class="stretched-link"></a>
       </div>
     </div> 
   </div>
@@ -238,7 +238,7 @@
           <h5 class="text-white fw-bold">파티요리 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">파티요리 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=14" class="stretched-link"></a>
+        <a href="/country/country.do?filterSituation=14" class="stretched-link"></a>
       </div>
     </div> 
     
@@ -250,7 +250,7 @@
           <h5 class="text-white fw-bold">간단요리 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">간단요리 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=15" class="stretched-link"></a>
+        <a href="/country/country.do?filterSituation=15" class="stretched-link"></a>
       </div>
     </div> 
     
@@ -262,7 +262,7 @@
           <h5 class="text-white fw-bold">명절 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">명절 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=16" class="stretched-link"></a>
+        <a href="/country/country.do?filterSituation=16" class="stretched-link"></a>
       </div>
     </div> 
       <div class="col-md-4">
@@ -273,7 +273,7 @@
           <h5 class="text-white fw-bold">다이어트 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">다이어트 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=17" class="stretched-link"></a>
+        <a href="/country/country.do?filterSituation=17" class="stretched-link"></a>
       </div>
     </div> 
     
@@ -285,7 +285,7 @@
           <h5 class="text-white fw-bold">기타 레시피 모음</h5>
         </div>
         <p class="hover-text text-white mt-2">기타 레시피 모음 바로가기</p>
-        <a href="/country/country.do?filter3=18" class="stretched-link"></a>
+        <a href="/country/country.do?filterSituation=18" class="stretched-link"></a>
       </div>
     </div> 
     <div class="col-md-4">

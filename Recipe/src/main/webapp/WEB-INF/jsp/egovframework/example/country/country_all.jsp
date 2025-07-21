@@ -18,10 +18,12 @@
   <div class="page custom-page mt3">
     <form id="listForm" name="listForm" method="get">
       <input type="hidden" id="pageIndex" name="pageIndex" value="${criteria.pageIndex}" />
-      <input type="hidden" name="filter3" value="${param.filter3}" />
+	  <input type="hidden" name="filterCountry" value="${param.filterCountry}" />
+	  <input type="hidden" name="filterIngredient" value="${param.filterIngredient}" />
+ 	  <input type="hidden" name="filterSituation" value="${param.filterSituation}" />
+
 
       <div class="container">
-        <!-- 분류 드롭다운 -->
         
         <!-- ✅ 에디터 추천 (디자인용 더미) -->
 				<div
@@ -42,7 +44,7 @@
   <div>
     <label for="sortOption" class="form-label me-2">분류</label>
     <select class="form-select form-select-sm w-auto d-inline" id="sortOption" name="sortOption" onchange="fn_sort()">
-      <option value="latest" ${param.sortOption == 'recent' ? 'selected' : ''}>최신순</option>
+      <option value="recent" ${param.sortOption == 'recent' ? 'selected' : ''}>최신순</option>
       <option value="likes" ${param.sortOption == 'likes' ? 'selected' : ''}>좋아요순</option>
       <option value="title" ${param.sortOption == 'title' ? 'selected' : ''}>가나다순</option>
       <option value="comments" ${param.sortOption == 'comments' ? 'selected' : ''}>댓글 많은순</option>
@@ -56,9 +58,15 @@
         <!-- 레시피 목록 -->
 <div class="card-grid">
   <c:forEach var="recipe" items="${countries}">
-    <a href="/country/edition.do?uuid=${recipe.uuid}" class="card text-decoration-none text-dark">
-      <img src="${empty recipe.standardRecipeImageUrl ? '/images/no-image.png' : recipe.standardRecipeImageUrl}"
+    <a href="/country/edition.do?uuid=${recipe.uuid}
+&country=${recipe.countryCategoryId}
+&ingredient=${recipe.ingredientCategoryId}
+&situation=${recipe.situationCategoryId}"
+class="card text-decoration-none text-dark">
+     <img src="${fn:trim(recipe.standardRecipeImageUrl) eq '' ? '/images/recipe/no-image.png' : recipe.standardRecipeImageUrl}"
      class="card-img-top" alt="이미지">
+
+
       
       <div class="card-body">
         <h5 class="card-title">${recipe.recipeTitle}</h5>
@@ -145,13 +153,18 @@
     });
 
     function fn_create() {
-      const filter = "${param.filter3}";
-      if (filter) {
-        location.href = "/country/addition.do?filter3=" + filter;
-      } else {
-        alert("국가 필터 값이 없습니다.");
-      }
-    }
+    	const country = "${param.filterCountry}";
+    	const ingredient = "${param.filterIngredient}";
+    	const situation = "${param.filterSituation}";
+
+    	  const params = [];
+    	  if (country) params.push("filterCountry=" + country);
+    	  if (ingredient) params.push("filterIngredient=" + ingredient);
+    	  if (situation) params.push("filterSituation=" + situation);
+
+    	  const query = params.length > 0 ? "?" + params.join("&") : "";
+    	  location.href = "/country/addition.do" + query;
+    	}
 
     function fn_sort() {
       $("#pageIndex").val(1);

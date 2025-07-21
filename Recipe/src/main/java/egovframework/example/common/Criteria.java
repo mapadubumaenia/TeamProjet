@@ -50,9 +50,11 @@ public class Criteria {
 	/** 정렬 옵션: recent, likes, reviewed */
 	private String sortOption = "recent";
 	
-	// filter3 처리용
-	/** 나라별 필터링 */
-	private Integer filterCountryCategoryId;  
+	// 필터링
+	private Integer filterCountryCategoryId;  /** 나라별 필터링 */
+	private Integer filterIngredientCategoryId; // 재료별 필터링
+	private Integer filterSituationCategoryId; // 상황별 필터링
+	
 	
 	private int mediaCategory;
 	
