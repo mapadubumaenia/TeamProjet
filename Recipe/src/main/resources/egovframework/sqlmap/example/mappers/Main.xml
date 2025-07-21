@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="egovframework.example.main.service.impl.MainMapper">
+<select id="selectRandomRecommendedRecipes" resultType="egovframework.example.main.service.MainVO">
+  SELECT *
+  FROM (
+    SELECT UUID,
+           TITLE,
+           IMAGE_URL,
+           IMAGE,
+           TYPE,
+           DBMS_RANDOM.VALUE AS RAND_ORDER
+    FROM (
+      -- MEDIA_RECIPES
+      SELECT
+        UUID,
+        TITLE,
+        RECIPE_IMAGE_URL AS IMAGE_URL,
+        RECIPE_IMAGE AS IMAGE,
+        'media' AS TYPE
+      FROM MEDIA_RECIPES
+
+      UNION ALL
+
+      -- STANDARD_RECIPES
+      SELECT
+        UUID,
+        RECIPE_TITLE AS TITLE,
+        STANDARD_RECIPE_IMAGE_URL AS IMAGE_URL,
+        STANDARD_RECIPE_IMAGE AS IMAGE,
+        'standard' AS TYPE
+      FROM STANDARD_RECIPES
+
+      UNION ALL
+
+      -- FOOD_COLUMNS
+      SELECT
+        UUID,
+        COLUMN_TITLE AS TITLE,
+        COLUMN_URL AS IMAGE_URL,
+        COLUMN_IMAGE AS IMAGE,
+        'column' AS TYPE
+      FROM FOOD_COLUMNS
+    )
+  ORDER BY RAND_ORDER
+  )
+  WHERE ROWNUM &lt; = 8
+</select>
+
+<select id="selectRandomTrimmingMethods" resultType="egovframework.example.main.service.MainVO">
+  SELECT *
+  FROM (
+    SELECT UUID,
+           METHOD_TITLE AS TITLE,
+           METHOD_URL AS IMAGE_URL,
+           METHOD_IMAGE AS IMAGE,
+           'trim' AS TYPE
+    FROM FOOD_METHODS
+    WHERE METHOD_TYPE = 'trim'
+    ORDER BY DBMS_RANDOM.VALUE
+  )
+  WHERE ROWNUM &lt; = 4
+</select>
+
+<select id="selectRandomStorageMethods" resultType="egovframework.example.main.service.MainVO">
+  SELECT *
+  FROM (
+    SELECT UUID,
+           METHOD_TITLE AS TITLE,
+           METHOD_URL AS IMAGE_URL,
+           METHOD_IMAGE AS IMAGE,
+           'storage' AS TYPE
+    FROM FOOD_METHODS
+    WHERE METHOD_TYPE = 'storage'
+    ORDER BY DBMS_RANDOM.VALUE
+  )
+  WHERE ROWNUM &lt; = 4
+</select>
+
+<!-- 최근레시피 -->
+<select id="selectRecentRecipes" resultType="egovframework.example.main.service.MainVO">
+  SELECT *
+  FROM (
+    SELECT UUID,
+           TITLE,
+           IMAGE_URL,
+           IMAGE,
+           TYPE,
+           CREATED_AT
+    FROM (
+      SELECT
+        UUID,
+        TITLE,
+        RECIPE_IMAGE_URL AS IMAGE_URL,
+        RECIPE_IMAGE AS IMAGE,
+        'media' AS TYPE,
+        RECIPE_CREATED_AT AS CREATED_AT
+      FROM MEDIA_RECIPES
+
+      UNION ALL
+
+      SELECT
+        UUID,
+        RECIPE_TITLE AS TITLE,
+        STANDARD_RECIPE_IMAGE_URL AS IMAGE_URL,
+        STANDARD_RECIPE_IMAGE AS IMAGE,
+        'standard' AS TYPE,
+        RECIPE_CREATED_AT AS CREATED_AT
+      FROM STANDARD_RECIPES
+
+      UNION ALL
+
+      SELECT
+        UUID,
+        COLUMN_TITLE AS TITLE,
+        COLUMN_URL AS IMAGE_URL,
+        COLUMN_IMAGE AS IMAGE,
+        'column' AS TYPE,
+        COLUMN_CREATED_AT AS CREATED_AT
+      FROM FOOD_COLUMNS
+    )
+    ORDER BY CREATED_AT DESC
+  )
+  WHERE ROWNUM &lt; = 4
+</select>
+
+<!-- 인기레시피 -->
+<select id="selectTopLiked" resultType="egovframework.example.main.service.MainVO">
+  SELECT *
+  FROM (
+    SELECT UUID,
+           TITLE,
+           IMAGE_URL,
+           IMAGE,
+           TYPE,
+           LIKE_COUNT
+    FROM (
+      SELECT
+        UUID,
+        TITLE,
+        RECIPE_IMAGE_URL AS IMAGE_URL,
+        RECIPE_IMAGE AS IMAGE,
+        'media' AS TYPE,
+        LIKE_COUNT
+      FROM MEDIA_RECIPES
+
+      UNION ALL
+
+      SELECT
+        UUID,
+        RECIPE_TITLE AS TITLE,
+        STANDARD_RECIPE_IMAGE_URL AS IMAGE_URL,
+        STANDARD_RECIPE_IMAGE AS IMAGE,
+        'standard' AS TYPE,
+        LIKE_COUNT
+      FROM STANDARD_RECIPES
+
+      UNION ALL
+      
+      SELECT
+        C.UUID,
+        C.COLUMN_TITLE AS TITLE,
+        C.COLUMN_URL AS IMAGE_URL,
+        C.COLUMN_IMAGE AS IMAGE,
+        'column' AS TYPE,
+        NVL(L.LIKE_COUNT, 0) AS LIKE_COUNT
+      FROM FOOD_COLUMNS C
+      LEFT JOIN (
+        SELECT UUID, TARGET_TYPE, COUNT(*) AS LIKE_COUNT
+        FROM LIKES
+        WHERE TARGET_TYPE = 'column'
+        GROUP BY UUID, TARGET_TYPE
+      ) L ON C.UUID = L.UUID
+    )
+    ORDER BY LIKE_COUNT DESC
+  )
+  WHERE ROWNUM &lt;= 4
+      
+</select>
+
+
+</mapper>

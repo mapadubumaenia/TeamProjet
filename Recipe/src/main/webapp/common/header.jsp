@@ -3,7 +3,7 @@
 
 <div class="custom-header">
   <div class="brand">
-    <a class="navbar-brand" href="/home.do">RecipeCode</a>
+    <a class="navbar-brand" href="/main.do">RecipeCode</a>
   </div>
   
 <!-- 나중에 세션에따라 안 보이게 바꾸는 코딩 필요 -->  

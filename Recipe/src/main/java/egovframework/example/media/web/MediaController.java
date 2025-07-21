@@ -3,8 +3,6 @@
  */
 package egovframework.example.media.web;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -179,7 +177,6 @@ public class MediaController {
             .map(id -> mediaService.selectMedia(id)) //uuid로 조회
             .filter(Objects::nonNull)                //null 제거
             .collect(Collectors.toList());
-
         model.addAttribute("recentMediaList", recentMediaList);
 
 		return "media/open/media_open";
@@ -307,7 +304,20 @@ MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 			return "redirect:/login.do";
 		}
 		String userId = memberVO.getUserId();
-		MediaVO mediaVO2 = new MediaVO(uuid, userId, title, mediaCategory, ingredient, content, recipeImage.getBytes());
+		
+		byte[] imageBytes;
+
+	    if (recipeImage != null && !recipeImage.isEmpty()) {
+	        // 새 이미지가 업로드된 경우
+	        imageBytes = recipeImage.getBytes();
+	    } else {
+	        // 업로드된 파일이 없으면 기존 이미지 유지
+	        MediaVO original = mediaService.selectMedia(uuid);
+	        imageBytes = original.getRecipeImage();
+	    }
+
+		
+		MediaVO mediaVO2 = new MediaVO(uuid, userId, title, mediaCategory, ingredient, content, imageBytes);
 		mediaService.update(mediaVO2);
 		return "redirect:/media/media.do";
 	}
@@ -328,34 +338,7 @@ MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 	        return "redirect:/media/detail.do?uuid=" + uuid; // 상세페이지로 다시 이동
 	    }
 	}
-//댓글	
-	@PostMapping("/commentInsert.do")
-    public String insertComment(HttpServletRequest request,
-                                @RequestParam String uuid,
-                                @RequestParam String writer,
-                                @RequestParam String content) {
-        HttpSession session = request.getSession();
-        Map<String, List<Map<String, String>>> allComments =
-                (Map<String, List<Map<String, String>>>) session.getAttribute("allComments");
 
-        if (allComments == null) {
-            allComments = new HashMap<>();
-        }
-
-        // 새 댓글 추가
-        List<Map<String, String>> commentList = allComments.getOrDefault(uuid, new ArrayList<>());
-        Map<String, String> newComment = new HashMap<>();
-        newComment.put("writer", writer);
-        newComment.put("content", content);
-        newComment.put("timestamp", LocalDateTime.now().toString());
-
-        commentList.add(newComment);
-        allComments.put(uuid, commentList);
-        session.setAttribute("allComments", allComments);
-
-        return "redirect:/community/detail.do?uuid=" + uuid;
-    }
-	
 
 	
 }
