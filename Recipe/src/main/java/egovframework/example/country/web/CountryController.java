@@ -67,6 +67,20 @@ public class CountryController {
         // 게시글 목록 및 전체 개수
         List<?> countries = countryService.selectCountryList(criteria);
         int totcnt = countryService.selectCountryListTotCnt(criteria);
+        
+     // ✅ 선택된 필터 이름 조회 및 모델에 추가
+        if (criteria.getFilterCountryCategoryId() != null) {
+            String countryCategoryName = countryService.getCategoryNameById(criteria.getFilterCountryCategoryId());
+            model.addAttribute("countryCategoryName", countryCategoryName);
+        }
+        if (criteria.getFilterIngredientCategoryId() != null) {
+            String ingredientCategoryName = countryService.getCategoryNameById(criteria.getFilterIngredientCategoryId());
+            model.addAttribute("ingredientCategoryName", ingredientCategoryName);
+        }
+        if (criteria.getFilterSituationCategoryId() != null) {
+            String situationCategoryName = countryService.getCategoryNameById(criteria.getFilterSituationCategoryId());
+            model.addAttribute("situationCategoryName", situationCategoryName);
+        }
 
         // 모델에 데이터 전달
         model.addAttribute("countries", countries);
