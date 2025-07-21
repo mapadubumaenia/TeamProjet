@@ -35,11 +35,24 @@
   <img alt="메뉴" src="/images/my-hamburger.png" width="20">
   </div>
            
-  <div class="login-mobile">
+  <div class="login-mobile">          
+          <!-- memberVO 가 세션에 없으면 메뉴을 보이고, 있으면 안보임 -->
+        <c:if test="${sessionScope.memberVO == null}">
       <a class="link" href="<c:url value='/login.do'/>">
           <img class="login_image" alt="로그인" src="/images/login.png"><br>
-                 <p class="login_text">Login</p>
+          <p class="login_text">Login</p>
       </a>
+        </c:if>
+          <!-- {/* 로그인 끝 */} -->
+          
+          
+          <!-- {/* 로그아웃 시작 */} -->
+        <c:if test="${sessionScope.memberVO != null}">
+       <a class="link" href="<c:url value='/logout.do'/>">
+          <img class="login_image" alt="로그아웃" src="/images/logout.jpg"><br>
+                 <p class="login_text">Logout</p>
+      </a>
+        </c:if>
   </div>
             
  
@@ -93,6 +106,14 @@ href="<c:url value='/community/community.do'/>">자유게시판</a></li>
 					<li><a class="dropdown-item"
 						href="<c:url value='/qna/qna.do'/>">질문게시판</a></li>
 				</ul></li>
+					
+		<c:if test="${sessionScope.memberVO != null}">
+		<li class="nav-item mypage_list">
+          <a class="nav-link" href="<c:url value='/mypage.do'/>" role="button">
+             mypage
+          </a>
+        </li>
+        </c:if>
 		</ul>
   </nav>
   <div class="search-bar pt3">

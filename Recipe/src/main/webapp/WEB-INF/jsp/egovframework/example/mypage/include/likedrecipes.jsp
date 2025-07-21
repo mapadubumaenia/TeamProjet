@@ -4,6 +4,8 @@
 <input type="hidden" id="totalPagesVal" value="${paginationInfo.totalPageCount}" />
 <input type="hidden" id="currentPageVal" value="${paginationInfo.currentPageNo}" />
 
+
+ <h2>좋아요한 레시피</h2>
 <div class="card-grid">
   <c:forEach var="recipe" items="${recipeList}">
     <!-- 링크 URL 분기 -->

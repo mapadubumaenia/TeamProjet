@@ -218,8 +218,13 @@ public class MyPageController {
 			 String userId = sessionMember.getUserId();
 			 
 			 
+			// 닉네임 중복 확인
+	        if (myPageService.isNicknameDuplicate(memberVO.getNickname(), userId)) {
+	        rttr.addFlashAttribute("message", "이미 사용 중인 닉네임입니다.");			       
+	        return "redirect:/mypage.do";
+	        }
+			 
 			//이미지처리
-	        
 			try {
 				 MultipartFile imageFile = memberVO.getImage();
 	        if (imageFile != null && !imageFile.isEmpty()) {
@@ -235,7 +240,6 @@ public class MyPageController {
 	            rttr.addFlashAttribute("message", "이미지 업로드 중 오류 발생");
 	        }
 	      //비밀번호 
-		 
 		    if(memberVO.getPassword() == null || memberVO.getPassword().isEmpty()) {
 		        // 기존유지
 		    	   String existingPassword = myPageService.getPasswordByUserId(memberVO.getUserId());
@@ -246,8 +250,12 @@ public class MyPageController {
 			        String hashedPassword = BCrypt.hashpw(memberVO.getPassword(), BCrypt.gensalt());
 			        memberVO.setPassword(hashedPassword);
 		    }
-		    session.setAttribute("memberVO", memberVO);
+		    
+		    
 		    myPageService.updateMember(memberVO);
+		    
+		    session.setAttribute("memberVO", memberVO);
+		    rttr.addFlashAttribute("message", "수정이 완료되었습니다.");
 		    
 	        return "redirect:/mypage.do";
 	    }

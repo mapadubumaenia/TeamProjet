@@ -22,7 +22,7 @@ public interface MyPageService {
 	void updateMember(MemberVO vo);
 	byte[] getProfileImage(String userId);
 	void deleteMember(String userId);
-
+	boolean isNicknameDuplicate(String nickname, String userId); 
 
 
 }

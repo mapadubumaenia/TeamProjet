@@ -13,7 +13,7 @@ $("#addForm").validate({
     repassword: {  // 비밀번호 재확인 필드
       required: true,    // 필수 입력
       minlength: 6,      // 최소 입력 길이,
-        maxlength: 15, // 최대입력길이
+      maxlength: 15, // 최대입력길이
       equalTo: password, // 비밀번호 필드와 동일한 값을 가지도록
     },
     userName: {       // 유저이름

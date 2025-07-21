@@ -7,34 +7,36 @@
   <c:if test="${not empty message}">
     <div class="alert alert-success">${message}</div>
   </c:if>
-
-  <form action="/mypage/updateMember.do" method="post" enctype="multipart/form-data">
-  <div class="profile">
-         <div class="form-group">
+<div class="informpage">
+  <div class="informbox">
+  <form id="addForm" name="addForm" action="/mypage/updateMember.do" method="post" enctype="multipart/form-data">
+  <div class="profile edit_box mb-3">
+         <div class="form-group edit_box">
          <img id="previewImage" src="/member/profile-image.do" 
-          alt="미리보기" width="70" height="70" 
+          alt="미리보기" width="100" height="100" 
           style="object-fit: cover; border: 1px solid #ccc; border-radius: 50%;" />
           </div>
-		  <div class="form-group file_select">
+		  <div class="form-group file_select edit_box">
           <input type="file"
-                 class="form-control"
+                 class="form-control edittext_box"
                  id="image"
                  name="image"
                  >
           </div>
    </div>
-    <div class="mb-3">
-      <label for="userId" class="form-label">아이디</label>
-      <input type="text" class="form-control" id="userId" name="userId" value="${memberVO.userId}" readonly>
+    <div class="mb-3 edit_box">
+ <label for="userId" class="form-label">아이디</label>
+      <input type="text" class="form-control edittext_box" id="userId" name="userId" value="${memberVO.userId}" readonly>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 edit_box">
       <label for="userName" class="form-label">이름</label>
-      <input type="text" class="form-control" id="userName" name="userName" value="${memberVO.userName}" readonly>
+      <input type="text" class="form-control edittext_box" id="userName" name="userName" value="${memberVO.userName}" readonly>
     </div>
-
-        <div class="input-group">
-         <label for="userId" class="form-label">닉네임</label>
+        <div class="form-group edit_box">
+         <label for="userNickname" class="form-label">닉네임</label>
+        </div>
+        <div class="input-group edit_box mb-3">
              <input type="text" class="form-control"
              	               id="nickname"
             		           name="nickname"
@@ -42,43 +44,53 @@
                                value="${memberVO.nickname}"
                                aria-label="nickname"
                                aria-describedby="button-addon2">
-             <button class="btn btn-outline-secondary" onclick="checknickname()" type="button" id="button-addon2">중복확인</button>
+             <button class="btn btn-outline-secondary btn_confirm btn_nick" onclick="checknickname()" type="button" id="button-addon2">중복확인</button>
         </div>
         <div id="nickname-check-result" class="form-text"></div>
-    <div class="mb-3">
-      <label for="email" class="form-label">이메일</label>
-      <input type="email" class="form-control" id="email" name="email" value="${memberVO.email}" required>
-    </div>
-
-		<div class="form-group">
+        
+		<div class="form-group edit_box mb-3">
 		      <label for="password" class="form-label">새 비밀번호</label>
-			<input type="password" class="form-control"
+			<input type="password" class="form-control edittext_box"
             		               id="password"
             		               name="password"										
 								   placeholder="변경시에만 입력"  />
 		</div>
-		<div class="form-group">
+		<div class="form-group edit_box mb-3">
 		      <label for="repassword" class="form-label">비밀번호확인</label>
-			<input type="password" class="form-control"
+			<input type="password" class="form-control edittext_box"
             		               id="repassword"
             		               name="repassword"										
 								   placeholder="비밀번호 확인"  />
 		</div>
-		<div class="form-group">
+		<div class="form-group edit_box mb-3">
 		      <label for="phoneNum" class="form-label">전화번호</label>
-			<input type="text" class="form-control"
+			<input type="text" class="form-control edittext_box"
             		            id="phoneNum"
             		            name="phoneNum"
             		            value="${memberVO.phoneNum}"								
 							    placeholder="휴대폰 번호('-'빼고입력하시오)" required  />
 		</div>
-		<button type="submit" class="btn btn-primary">수정</button>
+		<div class="mb-3 edit_box">
+             <label for="email" class="form-label">이메일</label>
+             <input type="email" class="form-control edittext_box" 
+                                 id="email" name="email" 
+                                 value="${memberVO.email}" required>
+        </div>
+ 	    <div class="form-group edit_box">
+		<button type="submit" class="btn btn-primary btn_confirm">수정</button>
+        </div>
 		</div>
-  </form>
+     </div>
+     </form>
+     <div class="removepage">
+		 <h2>회원탈퇴</h2>
 <div class="mt-4">
     <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">회원 탈퇴</button>
 </div>
-</div>
+  </div>
+  </div>
+  
+  
 <script>
 function confirmDelete() {
     if (confirm("정말로 회원을 탈퇴하시겠습니까? 탈퇴 후 복구는 불가능합니다.")) {

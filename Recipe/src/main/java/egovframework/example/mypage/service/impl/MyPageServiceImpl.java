@@ -61,6 +61,14 @@ public class MyPageServiceImpl extends EgovAbstractServiceImpl implements MyPage
 	}
 
 	@Override
+	public boolean isNicknameDuplicate(String nickname, String userId) {
+		// TODO Auto-generated method stub
+		 String existingUserId = myPageMapper.selectUserIdByNickname(nickname);
+		  return existingUserId != null && !existingUserId.equals(userId);
+	
+	}
+
+	@Override
 	public String getPasswordByUserId(String userId) {
 		// TODO Auto-generated method stub
 		return myPageMapper.getPasswordByUserId(userId);
