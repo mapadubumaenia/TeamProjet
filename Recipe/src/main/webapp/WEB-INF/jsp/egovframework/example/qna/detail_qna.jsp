@@ -176,10 +176,13 @@
 
   const viewTitle = document.getElementById('view-title');
   const editTitle = document.getElementById('edit-title');
+
   const viewContent = document.getElementById('view-content');
   const editContent = document.getElementById('edit-content');
+
   const viewImage = document.getElementById('view-image');
   const editImage = document.getElementById('edit-image');
+
   const editButtons = document.getElementById('edit-buttons');
   const commentArea = document.getElementById('comment-area');
 

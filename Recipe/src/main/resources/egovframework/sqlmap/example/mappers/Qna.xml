@@ -115,5 +115,4 @@
         WHERE UUID = #{uuid}
     </update>
 
-
 </mapper>
