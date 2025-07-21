@@ -15,7 +15,7 @@
 <!-- 사용법: typeAlias type="풀클래스명" alias="별명"  -->
     <typeAliases>
 		<typeAlias alias="egovMap" type="org.egovframe.rte.psl.dataaccess.util.EgovMap"/>
-		<typeAlias alias="searchVO" type="egovframework.example.sample.service.SampleDefaultVO"/>
+		
 		<typeAlias alias="sampleVO" type="egovframework.example.sample.service.SampleVO"/>
 		<typeAlias alias="DrinkVO" type="egovframework.example.drink.service.DrinkVO"/>
         <typeAlias alias="MediaVO" type="egovframework.example.media.service.MediaVO"/>
@@ -24,8 +24,8 @@
         <typeAlias alias="MyPageVO" type="egovframework.example.mypage.service.MyPageVO" />
         <typeAlias alias="MyInfoVO" type="egovframework.example.mypage.service.MyInfoVO" />
 		<typeAlias alias="CommunityVO" type="egovframework.example.community.service.CommunityVO" />
-		
-        
+		<typeAlias alias="QnaVO" type="egovframework.example.qna.service.QnaVO" />
+        <typeAlias alias="SearchVO" type="egovframework.example.search.service.SearchVO" />
 		<typeAlias alias="Criteria"  type="egovframework.example.common.Criteria" />
 		<typeAlias alias="CountryVO"  type="egovframework.example.country.service.CountryVO" />
 		<typeAlias alias="LikeVO"  type="egovframework.example.like.service.LikeVO" />

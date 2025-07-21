@@ -40,6 +40,9 @@ public class Criteria {
 
 	/** OFFSET 계산용 시작 인덱스 */
 	private int firstIndex = 1;
+	
+	/** 기본값 지정 */
+	private int pageSize = 10; 
 
 	/** 등록 시간 (필요시) */
 	private String insertTime;

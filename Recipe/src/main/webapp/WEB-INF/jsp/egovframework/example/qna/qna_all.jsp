@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>게시판 목록</title>
+  <title>QnA 목록</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/exstyle.css">
@@ -14,47 +14,59 @@
 <jsp:include page="/common/header.jsp" />
 
 <div class="container mt-5">
-  <form id="listForm" method="get" action="<c:url value='/community/community.do'/>">
+  <form id="listForm" method="get" action="<c:url value='/qna/qna.do'/>">
     <input type="hidden" id="pageIndex" name="pageIndex" value="${empty criteria.pageIndex ? 1 : criteria.pageIndex}" />
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>작성자</th>
-          <th>제목</th>
-          <th>조회수</th>
-          <th>작성일</th>
-          <th>댓글수</th> <!-- ✅ 댓글 수 헤더 -->
-        </tr>
-      </thead>
-      <tbody>
-        <c:forEach var="item" items="${CommuNts}" varStatus="status">
-          <tr>
-            <td>${paginationInfo.totalRecordCount - (criteria.pageIndex - 1) * criteria.pageUnit - status.index}</td>
-            <td>${item.userNickname}</td>
-            <td>
-              <a href="<c:url value='/community/detail.do'/>?uuid=${item.uuid}">
-                ${item.communityTitle}
-              </a>
-            </td>
-            <td>${item.communityCount}</td>
-            <td>${item.communityCreatedAt}</td>
-            <td>${item.commentCount}</td> <!-- ✅ 댓글 수 출력 -->
-          </tr>
-        </c:forEach>
-      </tbody>
-    </table>
+   <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>번호</th>
+      <th>작성자</th>
+      <th>작성일</th>
+      <th>제목</th>
+      <th>답변자</th>
+      <th>답변일</th>
+      <th>조회수</th>
+      <th>댓글수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="item" items="${qnaList}" varStatus="status">
+      <tr>
+        <td>${paginationInfo.totalRecordCount - (criteria.pageIndex - 1) * criteria.pageUnit - status.index}</td>
+        <td>${item.userNickname}</td>
+        <td>${item.qnaCreatedAt}</td>
+        <td>
+          <a href="<c:url value='/qna/detail.do'/>?uuid=${item.uuid}">
+            ${item.qnaTitle}
+          </a>
+        </td>
+        <td><c:out value="${item.answerNickname != null ? item.answerNickname : '-'}"/></td>
+        <td>
+          <c:choose>
+            <c:when test="${item.answerCreatedAt != null}">
+              ${item.answerCreatedAt}
+            </c:when>
+            <c:otherwise>-</c:otherwise>
+          </c:choose>
+        </td>
+        <td>${item.count}</td>
+        <td>${item.commentCount}</td>
+      </tr>
+    </c:forEach>
+  </tbody>
+</table>
+
 
     <!-- 페이지네이션 + 글쓰기 버튼 -->
     <div class="d-flex justify-content-between align-items-center mt-3">
       <ul class="pagination mb-0" id="pagination"></ul>
-      <a href="<c:url value='/community/addition.do'/>" class="btn btn-custom-brown">글쓰기</a>
+      <a href="<c:url value='/qna/addition.do'/>" class="btn btn-custom-brown">글쓰기</a>
     </div>
 
     <!-- 검색창 -->
     <div class="search-bar mt-4 text-center">
-      <input type="text" name="searchKeyword" value="${criteria.searchKeyword}" placeholder="제목으로 검색" />
+      <input type="text" name="keyword" value="${param.keyword}" placeholder="제목으로 검색" />
       <input type="hidden" name="pageIndex" value="1" />
       <button type="submit" class="btn btn-outline-secondary btn-sm">검색</button>
     </div>

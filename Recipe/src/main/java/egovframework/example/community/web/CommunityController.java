@@ -147,14 +147,7 @@ public class CommunityController {
         return "community/detail_community";
     }
 
-    /**
-     * 좋아요 수 증가 (AJAX 처리용)
-     */
-    @PostMapping("/like.do")
-    @ResponseBody
-    public int increaseLikeCount(@RequestParam("uuid") String uuid) {
-        return communityService.increaseLikeCount(uuid);
-    }
+ 
 
     /**
      * 이미지 출력

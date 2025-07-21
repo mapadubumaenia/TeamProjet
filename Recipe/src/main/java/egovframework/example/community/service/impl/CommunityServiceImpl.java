@@ -66,10 +66,7 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityMapper.increaseViewCount(uuid);
 	}
 
-	public int increaseLikeCount(String uuid) {
-	    communityMapper.increaseLikeCount(uuid);              // 좋아요 +1
-	    return communityMapper.getLikeCount(uuid);            // 현재 좋아요 수 반환
-	}
+
 	
 	
 	

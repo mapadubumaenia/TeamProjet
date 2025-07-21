@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="egovframework.example.qna.service.impl.QnaMapper">
+
+    <!-- QnA 전체 목록 조회 + 질문/답변 작성자 닉네임 포함 (페이징 처리) -->
+    <select id="selectQnaList" resultType="egovframework.example.qna.service.QnaVO"
+            parameterType="egovframework.example.common.Criteria">
+        SELECT 
+            Q.UUID,
+            Q.USER_ID,
+            U.NICKNAME AS userNickname,
+            Q.COMMUNITY_CATEGORY_ID,
+            Q.QNA_TITLE,
+            TO_CHAR(Q.QNA_CREATED_AT, 'YYYY-MM-DD') AS QNA_CREATED_AT,
+            Q.QNA_CONTENT,
+            Q.COUNT,
+            Q.QNA_URL,
+            Q.CONTENT_TYPE,
+            Q.QNA_IMAGE,
+            Q.ANSWER_USERID,
+            Q.ANSWER_CONTENT,
+            TO_CHAR(Q.ANSWER_CREATED_AT, 'YYYY-MM-DD') AS ANSWER_CREATED_AT,
+            Q.ANSWER_IMAGE,
+            U2.NICKNAME AS answerNickname,
+            (SELECT COUNT(*) FROM COMMENTS C WHERE C.UUID = Q.UUID AND C.TARGET_TYPE = 'qna') AS commentCount
+        FROM QNA Q
+        JOIN USERS U ON Q.USER_ID = U.USER_ID
+        LEFT JOIN USERS U2 ON Q.ANSWER_USERID = U2.USER_ID
+        ORDER BY Q.QNA_CREATED_AT DESC
+        OFFSET #{firstIndex} ROWS
+        FETCH NEXT #{pageUnit} ROWS ONLY
+    </select>
+
+    <!-- QnA 총 개수 조회 -->
+    <select id="selectQnaListTotalCount" resultType="int" parameterType="egovframework.example.common.Criteria">
+        SELECT COUNT(*) FROM QNA
+    </select>
+
+    <!-- QnA 상세 조회 + 질문/답변 작성자 닉네임 포함 -->
+    <select id="selectQnaDetail" resultType="egovframework.example.qna.service.QnaVO" parameterType="String">
+        SELECT 
+            Q.UUID,
+            Q.USER_ID,
+            U.NICKNAME AS userNickname,
+            Q.COMMUNITY_CATEGORY_ID,
+            Q.QNA_TITLE,
+            TO_CHAR(Q.QNA_CREATED_AT, 'YYYY-MM-DD') AS QNA_CREATED_AT,
+            Q.QNA_CONTENT,
+            Q.COUNT,
+            Q.QNA_URL,
+            Q.CONTENT_TYPE,
+            Q.QNA_IMAGE,
+            Q.ANSWER_USERID,
+            Q.ANSWER_CONTENT,
+            TO_CHAR(Q.ANSWER_CREATED_AT, 'YYYY-MM-DD') AS ANSWER_CREATED_AT,
+            Q.ANSWER_IMAGE,
+            U2.NICKNAME AS answerNickname,
+            (SELECT COUNT(*) FROM COMMENTS C WHERE C.UUID = Q.UUID AND C.TARGET_TYPE = 'qna') AS commentCount
+        FROM QNA Q
+        JOIN USERS U ON Q.USER_ID = U.USER_ID
+        LEFT JOIN USERS U2 ON Q.ANSWER_USERID = U2.USER_ID
+        WHERE Q.UUID = #{uuid}
+    </select>
+
+    <!-- QnA 등록 -->
+    <insert id="insertQna" parameterType="egovframework.example.qna.service.QnaVO">
+        INSERT INTO QNA (
+            UUID, USER_ID, COMMUNITY_CATEGORY_ID, QNA_TITLE, QNA_CREATED_AT,
+            QNA_CONTENT, COUNT, QNA_IMAGE, QNA_URL, CONTENT_TYPE
+        ) VALUES (
+            #{uuid}, #{userId}, #{communityCategoryId}, #{qnaTitle}, SYSDATE,
+            #{qnaContent}, #{count}, #{qnaImage}, #{qnaUrl}, #{contentType}
+        )
+    </insert>
+
+    <!-- QnA 수정 -->
+    <update id="updateQna" parameterType="egovframework.example.qna.service.QnaVO">
+        UPDATE QNA
+        SET QNA_TITLE = #{qnaTitle},
+            QNA_CONTENT = #{qnaContent},
+            QNA_IMAGE = #{qnaImage},
+            QNA_URL = #{qnaUrl}
+        WHERE UUID = #{uuid}
+    </update>
+
+    <!-- QnA 삭제 -->
+    <delete id="deleteQna" parameterType="String">
+        DELETE FROM QNA
+        WHERE UUID = #{uuid}
+    </delete>
+
+    <!-- 조회수 증가 -->
+    <update id="incrementQnaCount" parameterType="String">
+        UPDATE QNA
+        SET COUNT = COUNT + 1
+        WHERE UUID = #{uuid}
+    </update>
+
+    <!-- QnA 답변 등록 -->
+    <update id="insertQnaAnswer" parameterType="egovframework.example.qna.service.QnaVO">
+        UPDATE QNA
+        SET ANSWER_USERID = #{answerUserId},
+            ANSWER_CONTENT = #{answerContent},
+            ANSWER_CREATED_AT = SYSDATE,
+            ANSWER_IMAGE = #{answerImage}
+        WHERE UUID = #{uuid}
+    </update>
+
+    <!-- QnA 답변 수정 -->
+    <update id="updateQnaAnswer" parameterType="egovframework.example.qna.service.QnaVO">
+        UPDATE QNA
+        SET ANSWER_CONTENT = #{answerContent},
+            ANSWER_IMAGE = #{answerImage}
+        WHERE UUID = #{uuid}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="egovframework.example.search.service.impl.SearchMapper">
+
+  <!-- 통합 검색: 제목(title) 기준 -->
+  <select id="searchAllByTitle" parameterType="Criteria" resultType="SearchVO">
+  SELECT UUID, TITLE, TYPE, CREATED_AT, NICKNAME, LIKE_COUNT, IMAGE FROM (
+  
+    -- Drink
+    SELECT
+      C.UUID,
+      C.COLUMN_TITLE AS TITLE,
+      'drink' AS TYPE,
+      C.COLUMN_CREATED_AT AS CREATED_AT,
+      U.NICKNAME,
+      (SELECT COUNT(*) FROM LIKES L WHERE L.UUID = C.UUID AND L.TARGET_TYPE = 'column') AS LIKE_COUNT,
+      C.COLUMN_DATA AS IMAGE
+    FROM FOOD_COLUMNS C
+    JOIN USERS U ON C.USER_ID = U.USER_ID
+    WHERE C.COLUMN_TITLE LIKE '%' || #{searchKeyword} || '%'
+
+    UNION ALL
+
+    -- Country
+    SELECT
+      S.UUID,
+      S.RECIPE_TITLE AS TITLE,
+      'country' AS TYPE,
+      S.RECIPE_CREATED_AT AS CREATED_AT,
+      U.NICKNAME,
+      (SELECT COUNT(*) FROM LIKES L WHERE L.UUID = S.UUID AND L.TARGET_TYPE = 'standard') AS LIKE_COUNT,
+      S.STANDARD_RECIPE_IMAGE AS IMAGE
+    FROM STANDARD_RECIPES S
+    JOIN USERS U ON S.USER_ID = U.USER_ID
+    WHERE S.RECIPE_TITLE LIKE '%' || #{searchKeyword} || '%'
+
+    UNION ALL
+
+    -- Media
+    SELECT
+      M.UUID,
+      M.TITLE,
+      'media' AS TYPE,
+      M.RECIPE_CREATED_AT AS CREATED_AT,
+      U.NICKNAME,
+      (SELECT COUNT(*) FROM LIKES L WHERE L.UUID = M.UUID AND L.TARGET_TYPE = 'media') AS LIKE_COUNT,
+      M.RECIPE_IMAGE AS IMAGE
+    FROM MEDIA_RECIPES M
+    JOIN USERS U ON M.USER_ID = U.USER_ID
+    WHERE M.TITLE LIKE '%' || #{searchKeyword} || '%'
+
+    UNION ALL
+
+    -- Method
+    SELECT
+      F.UUID,
+      F.METHOD_TITLE AS TITLE,
+      'method' AS TYPE,
+      F.METHOD_CREATED_AT AS CREATED_AT,
+      U.NICKNAME,
+      (SELECT COUNT(*) FROM LIKES L WHERE L.UUID = F.UUID AND L.TARGET_TYPE = 'method') AS LIKE_COUNT,
+      F.METHOD_DATA AS IMAGE
+    FROM FOOD_METHODS F
+    JOIN USERS U ON F.USER_ID = U.USER_ID
+    WHERE F.METHOD_TITLE LIKE '%' || #{searchKeyword} || '%'
+  
+  )
+  ORDER BY CREATED_AT DESC
+  OFFSET #{firstIndex} ROWS FETCH NEXT #{pageUnit} ROWS ONLY
+</select>
+
+
+<select id="searchAllByTitleTotCnt" parameterType="Criteria" resultType="int">
+  SELECT COUNT(*) FROM (
+  
+    SELECT C.UUID
+    FROM FOOD_COLUMNS C
+    JOIN USERS U ON C.USER_ID = U.USER_ID
+    WHERE C.COLUMN_TITLE LIKE '%' || #{searchKeyword} || '%'
+
+    UNION ALL
+
+    SELECT S.UUID
+    FROM STANDARD_RECIPES S
+    JOIN USERS U ON S.USER_ID = U.USER_ID
+    WHERE S.RECIPE_TITLE LIKE '%' || #{searchKeyword} || '%'
+
+    UNION ALL
+
+    SELECT M.UUID
+    FROM MEDIA_RECIPES M
+    JOIN USERS U ON M.USER_ID = U.USER_ID
+    WHERE M.TITLE LIKE '%' || #{searchKeyword} || '%'
+
+    UNION ALL
+
+    SELECT F.UUID
+    FROM FOOD_METHODS F
+    JOIN USERS U ON F.USER_ID = U.USER_ID
+    WHERE F.METHOD_TITLE LIKE '%' || #{searchKeyword} || '%'
+
+  )
+</select>
+
+<select id="getSearchResultByUuid" parameterType="String" resultType="SearchVO">
+  SELECT
+    UUID,
+    TITLE,
+    TYPE,
+    CREATED_AT,
+    NICKNAME,
+    LIKE_COUNT,
+    IMAGE
+  FROM (
+    -- FOOD_COLUMNS
+    SELECT
+      C.UUID,
+      C.COLUMN_TITLE AS TITLE,
+      'drink' AS TYPE,
+      C.COLUMN_CREATED_AT AS CREATED_AT,
+      U.NICKNAME,
+      (SELECT COUNT(*) FROM LIKES WHERE UUID = C.UUID AND TARGET_TYPE = 'column') AS LIKE_COUNT,
+      C.COLUMN_DATA AS IMAGE
+    FROM FOOD_COLUMNS C
+    JOIN USERS U ON C.USER_ID = U.USER_ID
+
+    UNION ALL
+
+    -- STANDARD_RECIPES
+    SELECT
+      S.UUID,
+      S.RECIPE_TITLE AS TITLE,
+      'country' AS TYPE,
+      S.RECIPE_CREATED_AT AS CREATED_AT,
+      U.NICKNAME,
+      (SELECT COUNT(*) FROM LIKES WHERE UUID = S.UUID AND TARGET_TYPE = 'standard') AS LIKE_COUNT,
+      S.STANDARD_RECIPE_IMAGE AS IMAGE
+    FROM STANDARD_RECIPES S
+    JOIN USERS U ON S.USER_ID = U.USER_ID
+
+    UNION ALL
+
+    -- MEDIA_RECIPES
+    SELECT
+      M.UUID,
+      M.TITLE,
+      'media' AS TYPE,
+      M.RECIPE_CREATED_AT AS CREATED_AT,
+      U.NICKNAME,
+      (SELECT COUNT(*) FROM LIKES WHERE UUID = M.UUID AND TARGET_TYPE = 'media') AS LIKE_COUNT,
+      M.RECIPE_IMAGE AS IMAGE
+    FROM MEDIA_RECIPES M
+    JOIN USERS U ON M.USER_ID = U.USER_ID
+
+    UNION ALL
+
+    -- FOOD_METHODS
+    SELECT
+      F.UUID,
+      F.METHOD_TITLE AS TITLE,
+      'method' AS TYPE,
+      F.METHOD_CREATED_AT AS CREATED_AT,
+      U.NICKNAME,
+      (SELECT COUNT(*) FROM LIKES WHERE UUID = F.UUID AND TARGET_TYPE = 'method') AS LIKE_COUNT,
+      F.METHOD_DATA AS IMAGE
+    FROM FOOD_METHODS F
+    JOIN USERS U ON F.USER_ID = U.USER_ID
+  )
+  WHERE UUID = #{uuid}
+</select>
+
+
+</mapper>
