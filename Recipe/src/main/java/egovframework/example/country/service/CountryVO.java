@@ -42,6 +42,9 @@ public class CountryVO extends Criteria{
 	private String recipeIntro; //레시피 소개
 	private int id;
 	private String name;
+	private String countryCategoryName; // 카테고리 네이밍용
+	private String ingredientCategoryName; // 카테고리 네이밍용
+	private String situationCategoryName; // 카테고리 네이밍용
 
 	
 	
