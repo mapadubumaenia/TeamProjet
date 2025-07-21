@@ -90,12 +90,25 @@
           class="form-control"/>
       </div>
 
-      <div class="d-flex justify-content-center gap-2">
+      <div class="d-flex justify-content-center gap-2 mt-3">
+        <!-- 저장 버튼 -->
         <button
           type="submit"
           class="btn btn-mocha">
           저장
         </button>
+
+        <!-- 삭제 버튼 (같은 form에서 form action 별도 지정) -->
+        <button
+          type="submit"
+          formaction="<c:url value='/drink/delete.do'/>"
+          formmethod="post"
+          onclick="return confirm('정말 이 게시물을 삭제하시겠습니까?');"
+          class="btn btn-danger">
+          삭제
+        </button>
+
+        <!-- 취소 버튼 -->
         <button
           type="button"
           class="btn btn-outline-secondary"

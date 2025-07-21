@@ -2,6 +2,7 @@ package egovframework.example.method.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import egovframework.example.common.Criteria;
@@ -14,10 +15,11 @@ public interface MethodMapper {
      public int  selectMethodListTotCnt(Criteria criteria);  //총 갯수 구하기
 	 public int insert(MethodVO methodVO);     // insert
 	 public MethodVO selectMethod(String uuid);     //상세조회
-	 public int delete(String uuid);      //삭제
+//	 public int delete(String uuid);      //삭제
 	 public int update(MethodVO methodVO);   // ← 추가
 	
-	
+	 public int delete(@Param("uuid") String uuid,
+	           @Param("methodType") String methodType);
 	
 	
 	
