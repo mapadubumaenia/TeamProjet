@@ -209,5 +209,11 @@
   WHERE UUID = #{uuid}
 </update>
 
+<select id="getCategoryNameById" parameterType="int" resultType="string">
+  SELECT RECIPE_LOWM_NAME
+  FROM RECIPE_CATEGORIES
+  WHERE RECIPE_LOWM_ID = #{categoryId}
+</select>
+
 
 </mapper>

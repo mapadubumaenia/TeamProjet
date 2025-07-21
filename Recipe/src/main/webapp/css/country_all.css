@@ -185,3 +185,32 @@ select.form-select {
   object-fit: cover;                   /* 비율 유지하며 채우기 */
   max-height: 240px;                  /* 세로 높이 제한 */
 }
+/* ✅ 화면 너비가 1024px 이하인 경우 (태블릿 및 작은 노트북 등) */
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 카드를 한 줄에 2개씩 배치 */
+  }
+}
+
+/* ✅ 화면 너비가 600px 이하인 경우 (스마트폰 등 모바일 기기) */
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr; /* 한 줄에 카드 1개만 보이도록 설정 */
+  }
+
+  .card-grid .card {
+    max-width: 100%; /* 카드 너비를 부모 너비 100%로 확장 (작은 화면에 꽉 차게) */
+  }
+
+  .card-rating {
+    font-size: 0.8rem; /* 평점, 좋아요, 댓글 등의 글씨 크기를 살짝 줄임 */
+  }
+
+  .card-grid .card-title {
+    font-size: 1rem; /* 카드 제목 글씨도 살짝 축소 */
+  }
+
+  .card-grid .card-body {
+    padding: 0.75rem; /* 카드 안 여백을 약간 줄여 공간 확보 */
+  }
+}

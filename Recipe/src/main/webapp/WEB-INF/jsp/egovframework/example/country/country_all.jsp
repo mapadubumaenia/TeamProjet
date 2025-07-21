@@ -23,34 +23,53 @@
  	  <input type="hidden" name="filterSituation" value="${param.filterSituation}" />
 
 
-      <div class="container">
-        
-        <!-- ✅ 에디터 추천 (디자인용 더미) -->
-				<div
-					class="editor-pick d-flex justify-content-between align-items-center mb4">
-					<div class="editor-meta">
-						<h6 class="subtitle">EDITORS’ PICK</h6>
-						<h2 class="title">가볍게 먹기 좋은 오늘의 추천 레시피</h2>
-						<p class="description">팬에 살짝 구워 간단하게 만들 수 있는 최고의 저녁 레시피를
-							소개합니다. 따뜻한 한 끼로 하루를 마무리해보세요.</p>
-						<a href="#" class="btn btn-outline-dark btn-sm mt2">이 레시피 바로 가기</a>
-					</div>
+<div class="container mt-5 mb-4">
 
-					<div class="editor-image">
-						<img src="/images/recipe/korea_main.jpg" alt="추천 이미지" />
-					</div>
-				</div>
-				<div class="d-flex justify-content-between align-items-center mb-3">
-  <div>
-    <label for="sortOption" class="form-label me-2">분류</label>
-    <select class="form-select form-select-sm w-auto d-inline" id="sortOption" name="sortOption" onchange="fn_sort()">
-      <option value="recent" ${param.sortOption == 'recent' ? 'selected' : ''}>최신순</option>
-      <option value="likes" ${param.sortOption == 'likes' ? 'selected' : ''}>좋아요순</option>
-      <option value="title" ${param.sortOption == 'title' ? 'selected' : ''}>가나다순</option>
-      <option value="comments" ${param.sortOption == 'comments' ? 'selected' : ''}>댓글 많은순</option>
-    </select>
+  <!-- ✅ 에디터 추천 -->
+  <div class="editor-pick d-flex justify-content-between align-items-center mb-4">
+    <!-- 에디터 텍스트 -->
+    <div class="editor-meta">
+      <h6 class="subtitle">EDITORS’ PICK</h6>
+      <h2 class="title">가볍게 먹기 좋은 오늘의 추천 레시피</h2>
+      <p class="description">팬에 살짝 구워 간단하게 만들 수 있는 최고의 저녁 레시피를 소개합니다.</p>
+      <a href="#" class="btn btn-outline-dark btn-sm mt-2">이 레시피 바로 가기</a>
+    </div>
+    <!-- 에디터 이미지 -->
+    <div class="editor-image">
+      <img src="/images/recipe/korea_main.jpg" alt="추천 이미지" />
+    </div>
   </div>
-  <div>
+
+<!-- ✅ 필터 상태 출력 -->
+<c:if test="${not empty countryCategoryName || not empty ingredientCategoryName || not empty situationCategoryName}">
+  <div class="mb-2">
+    <p class="fs-6 fw-semibold text-dark-emphasis mb-0">
+      🔍
+      <c:if test="${not empty countryCategoryName}">
+        국가별 > <strong>${countryCategoryName}</strong>
+      </c:if>
+      <c:if test="${not empty ingredientCategoryName}">
+        재료별 > <strong>${ingredientCategoryName}</strong>
+      </c:if>
+      <c:if test="${not empty situationCategoryName}">
+        상황별 > <strong>${situationCategoryName}</strong>
+      </c:if>
+    </p>
+  </div>
+</c:if>
+
+  <!-- ✅ 정렬 + 글쓰기 버튼: 한 줄에 -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <label for="sortOption" class="form-label me-2">분류</label>
+      <select class="form-select form-select-sm w-auto d-inline" id="sortOption" name="sortOption" onchange="fn_sort()">
+        <option value="recent" ${param.sortOption == 'recent' ? 'selected' : ''}>최신순</option>
+        <option value="likes" ${param.sortOption == 'likes' ? 'selected' : ''}>좋아요순</option>
+        <option value="title" ${param.sortOption == 'title' ? 'selected' : ''}>가나다순</option>
+        <option value="comments" ${param.sortOption == 'comments' ? 'selected' : ''}>댓글 많은순</option>
+      </select>
+    </div>
+    <div>
     <button type="button" class="btn btn-primary btn-sm" onclick="fn_create()">글쓰기</button>
   </div>
 </div>

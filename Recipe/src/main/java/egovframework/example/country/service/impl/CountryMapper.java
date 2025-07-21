@@ -27,4 +27,5 @@ public interface CountryMapper {
 	public List<CountryVO> selectIngredientCategories(); //재료별
 	public List<CountryVO> selectSituationCategories(); // 상황별
     public int updateLikeCount(@Param("uuid") String uuid, @Param("likeCount") int likeCount);  // 좋아요 수
+    public String getCategoryNameById(int categoryId); //카테고리 id조회
 }

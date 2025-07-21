@@ -149,4 +149,10 @@ public class CountryServiceImpl implements CountryService{
 		// TODO Auto-generated method stub
 		return countryMapper.updateLikeCount(uuid, likeCount);
 	}
+	@Override
+	public String getCategoryNameById(int categoryId) {
+		// TODO Auto-generated method stub
+		return countryMapper.getCategoryNameById(categoryId);
+	}
+	
 }

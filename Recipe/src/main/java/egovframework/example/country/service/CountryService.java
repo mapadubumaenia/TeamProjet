@@ -25,6 +25,7 @@ public interface CountryService {
     boolean toggleLike(String uuid, String userId);
     int getLikeCount(String uuid);
     int updateLikeCount(String uuid, int likeCount);  // 좋아요 DB
+    String getCategoryNameById(int categoryId); // 카테고리 id조회
 
 }
 
