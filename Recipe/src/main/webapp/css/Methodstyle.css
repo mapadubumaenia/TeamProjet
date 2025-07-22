@@ -47,11 +47,6 @@ a {text-decoration: none; color: var(--black);}
 #methodDetailModal .btn-secondary {background:none;border:1px solid #3f3021;color:#3f3021;padding:.4rem 1rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;border-radius:0;}
 #methodDetailModal .btn-secondary:hover {background:rgba(0,0,0,0.03);}
 
-/* 페이지네이션 */
-#pagination{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;padding:1rem 0;}
-#pagination li{list-style:none;}
-#pagination li a,#pagination li span{display:inline-block;min-width:2.5rem;padding:0 .6rem;height:2.5rem;line-height:2.5rem;text-align:center;font-weight:500;text-decoration:none;color:#3f3021;background:#faf4e1;border:1px solid #ddd;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.05),0 2px 4px rgba(0,0,0,0.08);border-radius:.15rem;transition:background .2s,color .2s;overflow:hidden;white-space:nowrap;}
-#pagination li a:hover{background:#f5e8d6;color:var(--mocha);}#pagination li.active span{background:var(--mocha);color:#faf4e1;border-color:var(--mocha);box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1),0 2px 4px rgba(0,0,0,0.12);}#pagination li .page-link{font-size:1rem;}#pagination li.disabled span{opacity:.5;cursor:default;}
 
 /* 카드 이미지 크롭 */
 .col4 .card{display:flex;flex-direction:column;} .col4 .card-img-top{width:100%;height:200px;object-fit:cover;object-position:center;} .col4 .card-body{flex:1;padding:.75rem;display:flex;align-items:center;justify-content:center;text-align:center;} .col4 .card-title{font-size:1rem;font-weight:500;margin:0;}

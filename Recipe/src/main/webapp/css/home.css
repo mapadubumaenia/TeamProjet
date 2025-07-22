@@ -57,11 +57,11 @@
 
 .recipe-link:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(109, 73, 41, 0.3);
+  box-shadow: 0 10px 20px rgba(247, 228, 212, 0.4) !important; /* 위 색에 맞춘 RGBA */
 }
 
 .recipe-card {
-  background-color: var(--mocha);
+  background-color: #F7E4D4 !important; /* 원하는 연한 모카색으로 변경 */
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   height: 100%;
@@ -83,6 +83,7 @@
 
 .recipe-card h3 {
   font-size: 1.1rem;
+  font-weight: 600;
   color: var(--black);
   margin: 0;
   line-height: 1.3;

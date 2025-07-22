@@ -120,63 +120,41 @@ a {text-decoration: none; color: var(--black);}
 /* ────────────────────────────────── */
 
 #pagination {
+  /* flex container로 바꾸고 gap, margin-top 조정 */
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 1rem 0;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  padding: 0;            /* 기존 padding 제거 */
 }
 
-#pagination li {
-  list-style: none;
-}
-
-/* 공통 버튼 스타일 */
-#pagination li a,
-#pagination li span {
-  display: inline-block;
-  min-width: 2.5rem;           /* 최소 너비 */
-  padding: 0 0.6rem;           /* 좌우 패딩으로 유연하게 */
-  height: 2.5rem;
-  line-height: 2.5rem;         /* 수직 중앙 정렬 */
-  text-align: center;
-  font-weight: 500;
-  text-decoration: none;
-  color: #3f3021;              /* 진한 갈색 텍스트 */
-  background: #faf4e1;         /* 종이빛 배경 */
-  border: 1px solid #ddd;      /* 연한 회색 테두리 */
-  box-shadow:
-    inset 0 0 0 1px rgba(0,0,0,0.05),   /* 종이 질감 안쪽 라인 */
-    0 2px 4px rgba(0,0,0,0.08);         /* 외곽 그림자 */
-  border-radius: 0.15rem;
-  transition: background 0.2s, color 0.2s;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-/* 호버 */
-#pagination li a:hover {
-  background: #f5e8d6;         /* 약간 더 진한 종이 색 */
+/* 버튼(링크) 공통 스타일 */
+#pagination .page-link {
   color: var(--mocha);
+  border: 1px solid #e2d4cd;
+  background-color: #fff;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
-/* 활성화 페이지 */
-#pagination li.active span {
-  background: var(--mocha);
-  color: #faf4e1;
+/* hover 스타일 */
+#pagination .page-link:hover {
+  background-color: #f9f4f2;
+  border-color: #d3bfb5;
+  color: #5e3c26;
+}
+
+/* 활성화된 페이지 */
+#pagination .page-item.active .page-link {
+  background-color: var(--mocha);
   border-color: var(--mocha);
-  box-shadow:
-    inset 0 0 0 1px rgba(0,0,0,0.1),
-    0 2px 4px rgba(0,0,0,0.12);
+  color: #fff;
+  font-weight: bold;
 }
 
-/* 이전/다음 버튼 (화살표) */
-#pagination li .page-link {
-  font-size: 1rem;
-}
-
-/* disabled 상태 */
-#pagination li.disabled span {
+/* (선택) disabled 상태 유지 */
+#pagination .page-item.disabled .page-link {
   opacity: 0.5;
   cursor: default;
 }
