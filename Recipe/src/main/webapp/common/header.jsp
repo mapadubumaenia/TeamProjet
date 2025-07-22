@@ -46,7 +46,7 @@
   <nav class="main-nav pr4">
     <ul class="menu">
       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button">
+          <a class="nav-link dropdown-toggle" href="<c:url value='/country/country.do'/>#country" role="button">
              recipes
           </a>
           <ul class="dropdown-menu">
