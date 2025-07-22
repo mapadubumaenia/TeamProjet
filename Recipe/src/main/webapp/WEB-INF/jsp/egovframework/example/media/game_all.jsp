@@ -31,18 +31,23 @@
 	</form>
 
 	<!-- 본문 -->
-	<div class="fbuttons">
-	<c:if test="${not empty sessionScope.memberVO}">
-   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a></c:if>
-   </div>
-   
    	<div class="info-card">
   <h3 class="info-title">게임 속 레시피</h3>
   <p class="info-desc">
     게임 속 환상을 맛으로 구현하는 특별한 공간. 현실의 식탁 위로 초대합니다.
   </p>
 </div>
-   
+
+   <!-- 카드 섹션 -->
+<div class="container px-4">
+  
+  <!-- 업로드 버튼: 카드 내부 상단 오른쪽 정렬 -->
+  <div class="d-flex justify-content-end mb-3">
+    <c:if test="${not empty sessionScope.memberVO}">
+      <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark">업로드</a>
+    </c:if>
+  </div>
+  <!-- 카드 -->
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="data" items="${ask}">
 			<div class="col">
@@ -64,6 +69,7 @@
 				</a>
 			</div>
 		</c:forEach>
+	</div>
 	</div>
 
 	<!-- 여기: 페이지번호 -->

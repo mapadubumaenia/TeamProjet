@@ -31,9 +31,11 @@
 	<div class="container">
     <h2>${mediaVO.title}</h2>
     <p><strong>작성자:</strong> ${mediaVO.nickname}</p>
+    <div class="meta">
     <p><strong>등록일:</strong> ${mediaVO.recipeCreatedAt} 
     <c:if test="${not empty mediaVO.recipeupdated}">&nbsp;&nbsp;
     <strong>수정일:</strong> ${mediaVO.recipeupdated}</c:if></p>
+    </div>    
         
     <div class="media-header">
     <div>

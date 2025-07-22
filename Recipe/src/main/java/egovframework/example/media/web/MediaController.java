@@ -254,7 +254,17 @@ public class MediaController {
 		MediaVO mediaVO = new MediaVO(userId, title, mediaCategory, ingredient, content, recipeImage.getBytes());
 //		서비스의 insert 메소드 실행
 		mediaService.insert(mediaVO);
-		return "redirect:/media/media.do";	
+		
+//카테고리별로 이동하는 페이지 다르게 지정		
+		 String redirectUrl;
+		    switch (mediaCategory) {
+		        case 1: redirectUrl = "redirect:/media/movie.do"; break;
+		        case 2: redirectUrl = "redirect:/media/drama.do"; break;
+		        case 3: redirectUrl = "redirect:/media/game.do"; break;
+		        default: redirectUrl = "redirect:/media/media.do"; break;
+		    }
+		
+		return redirectUrl;	
 	}
 
 //	다운로드 메소드: 사용자가 다운로드URL을 웹브라우저에서 실행하면 이 메소드가 첨부파일을 전달해줌
@@ -316,10 +326,19 @@ MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 	        imageBytes = original.getRecipeImage();
 	    }
 
-		
 		MediaVO mediaVO2 = new MediaVO(uuid, userId, title, mediaCategory, ingredient, content, imageBytes);
 		mediaService.update(mediaVO2);
-		return "redirect:/media/media.do";
+		
+		//카테고리별로 이동하는 페이지 다르게 지정		
+		 String redirectUrl;
+		    switch (mediaCategory) {
+		        case 1: redirectUrl = "redirect:/media/movie.do"; break;
+		        case 2: redirectUrl = "redirect:/media/drama.do"; break;
+		        case 3: redirectUrl = "redirect:/media/game.do"; break;
+		        default: redirectUrl = "redirect:/media/media.do"; break;
+		    }
+		
+		return redirectUrl;	
 	}
 	
 //삭제

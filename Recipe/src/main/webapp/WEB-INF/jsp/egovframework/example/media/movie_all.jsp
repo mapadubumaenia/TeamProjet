@@ -31,11 +31,6 @@
 	</form>
 
 	<!-- 본문 -->
-	<div class="fbuttons">
-	<c:if test="${not empty sessionScope.memberVO}">
-   <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark me-2">업로드</a></c:if>
-   </div>
-
 <!-- 정보 -->
 	<div class="info-card">
   <h3 class="info-title">영화 속 레시피</h3>
@@ -44,6 +39,16 @@
   </p>
 </div>
 
+<!-- 카드 섹션 -->
+<div class="container px-4">
+  
+  <!-- 업로드 버튼: 카드 내부 상단 오른쪽 정렬 -->
+  <div class="d-flex justify-content-end mb-3">
+    <c:if test="${not empty sessionScope.memberVO}">
+      <a href="<c:out value='/media/addition.do'/>" class="btn btn-outline-dark">업로드</a>
+    </c:if>
+  </div>
+  
 <!-- 카드 -->
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="data" items="${ask}">
@@ -67,6 +72,7 @@
 			</div>
 		</c:forEach>
 	</div>
+</div>
 
 	<!-- 여기: 페이지번호 -->
 	<div class="d-flex justify-content-center mt-3">
