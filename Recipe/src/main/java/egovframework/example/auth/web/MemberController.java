@@ -51,14 +51,14 @@ public class MemberController {
 		session.setAttribute("memberVO", memberVO);
 		session.setAttribute("CSRF_TOKEN", UUID.randomUUID().toString());
 		
-		return "redirect:/";
+		return "redirect:/main.do";
 	}
     
 	//로그아웃
 	@GetMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/home.do";
+		return "redirect:/main.do";
 	}
 	
 	//회원가입 페이지
