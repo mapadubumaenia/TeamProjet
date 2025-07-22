@@ -15,7 +15,7 @@
   <c:when test="${recipe.contentType eq 'media'}">
     <c:set var="urlPrefix" value="/media/open.do?uuid=" />
   </c:when>
-  <c:when test="${recipe.contentType eq 'country'}">
+  <c:when test="${recipe.contentType eq 'standard'}">
     <c:set var="urlPrefix" value="/country/edition.do?uuid=" />
   </c:when>
   <c:when test="${recipe.contentType eq 'column'}">
