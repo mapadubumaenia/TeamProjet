@@ -32,7 +32,7 @@
 
 
 <!-- ===== 1) 메인 배너 (Team Swiper) ===== -->
- 
+
   <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper mb-5">
     <div class="swiper-wrapper">
      <a class="swiper-slide"
@@ -202,7 +202,7 @@
     </c:forEach>
   </div>
 </div>
-
+</div>
   <jsp:include page="/common/footer.jsp"/>
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <!-- JQuery, Bootstrap JS -->
