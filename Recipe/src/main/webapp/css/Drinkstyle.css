@@ -555,16 +555,7 @@ a {text-decoration: none; color: var(--black);}
   color: #3f3021;
 }
 
-/* 답글 등록 버튼 */
-.reply-input button {
-  background: var(--mocha) !important;
-  border: none !important;
-  color: #faf4e1 !important;
-  padding: 0.3rem 0.8rem;
-  border-radius: 0.5rem;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-}
+
 
 /* ─── 댓글 디자인 모카톤 적용 ─── */
 .comment-box {
@@ -589,37 +580,6 @@ a {text-decoration: none; color: var(--black);}
   padding: 0.3rem 0.6rem;
 }
 
-/* — 버튼별 컬러 커스터마이징 — */
-/* 수정 버튼 (모카톤) */
-.comment-buttons .edit-btn {
-  background: var(--mocha);
-  color: #faf4e1;
-  border: none;
-}
-.comment-buttons .edit-btn:hover {
-  background: var(--dark);
-}
-
-/* 삭제 버튼 (경고 레드 톤) */
-.comment-buttons .delete-btn {
-  background: #e74c3c;
-  color: #fff;
-  border: none;
-}
-.comment-buttons .delete-btn:hover {
-  background: #c0392b;
-}
-
-/* 답글 버튼 (다크라인) */
-.comment-buttons .reply-btn {
-  background: transparent;
-  color: var(--dark);
-  border: 1px solid var(--dark);
-}
-.comment-buttons .reply-btn:hover {
-  background: var(--dark);
-  color: #faf4e1;
-}
 
 .reply-box {
   margin-left: 2rem;              /* 답글은 들여쓰기 */
@@ -629,12 +589,7 @@ a {text-decoration: none; color: var(--black);}
   border: 1px solid var(--mocha);
 }
 
-.reply-input button {
-  background: var(--mocha);
-  border: none;
-  color: #faf4e1;
-  margin-top: 0.5rem;
-}
+
 
 /* ──────────────────────────────────────────────────── */
 /* 최근 본 레시피 섹션 재디자인 */

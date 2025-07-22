@@ -83,9 +83,13 @@
 		</div>
 		<!-- drinkListContainer 끝 -->
          
- <div class="flex-center">
-      <ul class="pagination" id="pagination"></ul>
-    </div>
+ <c:set var="totalPages" value="${paginationInfo.totalPageCount}" />
+
+<c:if test="${totalPages > 1}">
+  <div id="paginationWrap" class="flex-center">
+    <ul class="pagination" id="pagination"></ul>
+  </div>
+</c:if>
 
 
 
@@ -146,23 +150,38 @@ $(function(){
 
 
 
-<script type="text/javascript">
-<!-- 페이징 처리 -->
-$('#pagination').twbsPagination({
-    totalPages: "${paginationInfo.totalPageCount}",
-    startPage: parseInt("${paginationInfo.currentPageNo}"),
-    visiblePages: "${paginationInfo.recordCountPerPage}",
-    initiateStartPageClick: false,
-    onPageClick: function (event, page) {
-    	/*여기에 재조회 함수  */
-    	fn_egov_link_page(page);
-    	
-    }
-});
+<script>
+(function () {
+  var totalPages  = parseInt("${paginationInfo.totalPageCount}", 10) || 0;
+  var currentPage = parseInt("${paginationInfo.currentPageNo}",   10) || 1;
 
+  if (totalPages > 1) {
+    $('#pagination').twbsPagination({
+      totalPages: totalPages,
+      startPage: currentPage,
+      visiblePages: Math.min(5, totalPages),
+      first: null,
+      last : null,
+      prev : '<',
+      next : '>',
+      initiateStartPageClick: false,
+      onPageClick: function (e, page) {
+        fn_egov_link_page(page);
+      }
+    });
+  }
+})();
 </script>
 
-
+<script>
+$(function(){
+  $('.category-btn-group .btn-check').on('change', function(){
+    const category = $(this).val() || '';
+    $('#pageIndex').val(1);
+    location.href = '<c:url value="/drink/drink.do"/>' + '?category=' + encodeURIComponent(category) + '&pageIndex=1';
+  });
+});
+</script>
 
 
 

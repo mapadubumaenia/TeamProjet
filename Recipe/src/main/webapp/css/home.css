@@ -19,6 +19,7 @@
 /* 섹션 제목 */
 .section-title,
 .orderby-title,
+.popular-recipes h2,
 .method-section h2 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -374,6 +375,23 @@
   margin-top: 8px;
   font-size: 15px;
   font-weight: 500;
+}
+
+
+/* 인기 레시피 카드 이미지 강제 크롭 (우선순위 최상) */
+.popular-recipes .recipe-card img {
+  width: 100% !important;
+  height: 140px !important;
+  object-fit: cover !important;
+  display: block !important;
+  border-radius: 6px !important;
+  margin-bottom: 10px !important;
+}
+/* (선택) 카드 컨테이너 크기도 고정하고 싶다면 */
+.popular-recipes .recipe-card {
+  width: 220px;        /* 기존 폭 */
+  /* height: 200px;    고정 높이가 필요하면 주석 해제 */
+  /* overflow: hidden; 필요 시 주석 해제 */
 }
 
 
