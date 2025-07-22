@@ -32,7 +32,7 @@
         <!-- ✅ 제목 -->
         <div class="mb-3">
             <label for="recipeTitle" class="form-label">레시피 제목</label>
-            <input type="text" class="form-control" id="recipeTitle" name="recipeTitle" value="${countryVO.recipeTitle}" required>
+            <input type="text" class="form-control" id="recipeTitle" name="recipeTitle" placeholder="제목을 입력하세요." value="${countryVO.recipeTitle}" required>
         </div>
 
         <!-- ✅ 레시피 소개 -->
@@ -49,7 +49,7 @@
 
         <!-- ✅ 내용 -->
         <div class="mb-3">
-            <label for="recipeContent" class="form-label">레시피 내용</label>
+            <label for="recipeContent" class="form-label" >레시피 내용</label>
             <textarea class="form-control" id="recipeContent" name="recipeContent" rows="6" required>${countryVO.recipeContent}</textarea>
         </div>
 

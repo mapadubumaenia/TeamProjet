@@ -31,12 +31,12 @@
     <div class="editor-meta">
       <h6 class="subtitle">EDITORS’ PICK</h6>
       <h2 class="title">가볍게 먹기 좋은 오늘의 추천 레시피</h2>
-      <p class="description">팬에 살짝 구워 간단하게 만들 수 있는 최고의 저녁 레시피를 소개합니다.</p>
-      <a href="#" class="btn btn-outline-dark btn-sm mt-2">이 레시피 바로 가기</a>
+      <p class="description">집에 있는 재료로 간단하게 만들 수 있는 김치볶음밥 레시피를 추천합니다.</p>
+      <a href="/country/edition.do?uuid=e518a11a-bcdc-46f5-bd2f-1a9efa831e25&country=1&ingredient=13&situation=15" class="btn btn-outline-dark btn-sm mt-2">이 레시피 바로 가기</a>
     </div>
     <!-- 에디터 이미지 -->
     <div class="editor-image">
-      <img src="/images/recipe/korea_main.jpg" alt="추천 이미지" />
+      <img src="/images/recipe/friedrice.jpg" alt="추천 이미지" />
     </div>
   </div>
 
