@@ -22,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import egovframework.example.common.Criteria;
 import egovframework.example.community.service.CommunityService;
 import egovframework.example.community.service.CommunityVO;
+import egovframework.example.like.service.LikeService;
+import egovframework.example.like.service.LikeVO;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -37,14 +39,20 @@ public class CommunityController {
      */
     @GetMapping("/community.do")
     public String selectCommunityList(@ModelAttribute Criteria criteria, Model model) {
-        // 페이징 처리 설정
         PaginationInfo paginationInfo = new PaginationInfo();
         paginationInfo.setCurrentPageNo(criteria.getPageIndex());
         paginationInfo.setRecordCountPerPage(criteria.getPageUnit());
         criteria.setFirstIndex(paginationInfo.getFirstRecordIndex());
 
-        // 게시글 목록 및 전체 건수 조회
-        List<?> commuNts = communityService.selectCommuList(criteria);
+        // ✅ 명확한 타입 지정
+        @SuppressWarnings("unchecked")
+        List<CommunityVO> commuNts = (List<CommunityVO>) communityService.selectCommuList(criteria);
+
+        for (CommunityVO vo : commuNts) {
+            int likeCount = likeService.countLikesByUuid(vo.getUuid());
+            vo.setLikeCount(likeCount);
+        }
+
         int toCnt = communityService.selectCommuListToCnt(criteria);
         paginationInfo.setTotalRecordCount(toCnt);
 
@@ -52,6 +60,7 @@ public class CommunityController {
         model.addAttribute("paginationInfo", paginationInfo);
         return "community/community_all";
     }
+
 
     /**
      * 글쓰기 페이지 이동
@@ -132,8 +141,11 @@ public class CommunityController {
     /**
      * 게시글 상세 조회
      */
+    @Autowired
+    private LikeService likeService; // 👈 추가
+
     @GetMapping("/detail.do")
-    public String detail(@RequestParam("uuid") String uuid, Model model) {
+    public String detail(@RequestParam("uuid") String uuid, Model model, HttpSession session) {
         // 조회수 증가
         communityService.increaseViewCount(uuid);
 
@@ -143,7 +155,25 @@ public class CommunityController {
             return "redirect:/community/community.do";
         }
 
+        // ❤️ 좋아요 수 조회
+        int likeCount = likeService.countLikesByUuid(uuid);
+        community.setLikeCount(likeCount); // VO에 필드 있어야 함
+
+        // ❤️ 로그인 사용자의 좋아요 여부 확인
+        boolean isLiked = false;
+        MemberVO loginMember = (MemberVO) session.getAttribute("memberVO");
+        if (loginMember != null) {
+            LikeVO likeVO = new LikeVO();
+            likeVO.setUserId(loginMember.getUserId());
+            likeVO.setTargetType("community");
+            likeVO.setUuid(uuid);
+
+            isLiked = likeService.countLikeByUser(likeVO) > 0;
+        }
+
         model.addAttribute("community", community);
+        model.addAttribute("isLiked", isLiked); // JSP에서 버튼 상태 토글용
+
         return "community/detail_community";
     }
 

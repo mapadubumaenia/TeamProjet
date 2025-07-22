@@ -18,7 +18,9 @@
 </head>
 <body>
 <jsp:include page="/common/header.jsp" />
-
+<div class="comubody">
+<br>
+<h3>질문 게시판</h3>
 <div class="container mt-5">
   <form id="listForm" method="get" action="<c:url value='/qna/qna.do'/>">
     <input type="hidden" id="pageIndex" name="pageIndex" value="${empty criteria.pageIndex ? 1 : criteria.pageIndex}" />
@@ -78,7 +80,7 @@
     </div>
   </form>
 </div>
-
+</div>
 <jsp:include page="/common/footer.jsp" />
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
