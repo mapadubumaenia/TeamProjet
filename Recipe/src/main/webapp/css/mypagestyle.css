@@ -1,11 +1,14 @@
+
 .mypage{
+	height : auto;
     display: flex;
-        justify-content: center;
+        justify-content:flex-start;
             flex-direction: column;
 }
 .mymenu{
 	width : 60%;
     display: flex;
+
     justify-content: center;
     margin : 0 auto; 
    padding-bottom: 2rem;
