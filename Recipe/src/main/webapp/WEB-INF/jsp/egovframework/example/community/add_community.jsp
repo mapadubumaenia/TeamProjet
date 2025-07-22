@@ -11,6 +11,7 @@
    <link rel="stylesheet" href="/css/style.css">
    <link rel="stylesheet" href="/css/exstyle.css">
    <link rel="stylesheet" href="/css/Community.css">
+   <link rel="stylesheet" href="/css/add_community.css">
 </head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -18,49 +19,59 @@
 <body>
 <jsp:include page="/common/header.jsp" />
 
-<br>
-<h3>자유 게시판</h3>
+<div class="add-community-wrapper">
+  <h3>자유게시판 글쓰기</h3>
 
+  <form action="<c:url value='/community/add.do'/>" method="post" enctype="multipart/form-data">
+    <c:if test="${not empty message}">
+      <div class="alert alert-info">${message}</div>
+    </c:if>
 
-<div class="comubody">
-
-<div class="container mt-4">
-<br>
-<br>
-    
-        
-       <form method="post" action="/community/addition.do" enctype="multipart/form-data">
-    <input type="hidden" name="communityCategoryId" value="1" />
-
-    
-
-    <div class="mb-3">
-        <label for="communityTitle" class="form-label">제목</label>
-        <input type="text" class="form-control" id="communityTitle" name="communityTitle" required />
+    <div class="form-group">
+      <label for="communityTitle" class="form-label">제목</label>
+      <input type="text" name="communityTitle" id="communityTitle" class="form-control" required>
     </div>
 
-    <div class="mb-3">
-        <label for="communityImage" class="form-label">이미지 첨부</label>
-        <input type="file" class="form-control" id="communityImage" name="uploadFile" accept="image/*" />
+    <div class="form-group">
+      <label for="uploadFile" class="form-label">이미지 업로드</label>
+      <input type="file" name="uploadFile" id="uploadFile" class="form-control" accept="image/*">
+          <img id="preview" src="#" alt="미리보기" style="display: none; max-width: 200px; margin-top: 10px;">
+      
+   
     </div>
 
-    <div class="mb-3">
-        <label for="communityContent" class="form-label">내용</label>
-        <textarea class="form-control" id="communityContent" name="communityContent" rows="10" required></textarea>
+    <div class="form-group">
+      <label for="communityContent" class="form-label">내용</label>
+      <textarea name="communityContent" id="communityContent" rows="8" class="form-control" required></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary">등록</button>
-    <a href="<c:url value='/community/community.do'/>" class="btn btn-secondary">목록으로</a>
-</form>
-    
-</div>
+    <div class="btn-group-responsive mt-3">
+    <button type="submit" class="btn btn-mocha">등록</button>
+      <a href="<c:url value='/community/community.do'/>" class="btn btn-secondary">취소</a>
+    </div>
+  </form>
 </div>
 
+<jsp:include page="/common/footer.jsp" />
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("uploadFile").addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const preview = document.getElementById("preview");
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  });
+</script>
 
 </body>
-
-
-
-
 </html>

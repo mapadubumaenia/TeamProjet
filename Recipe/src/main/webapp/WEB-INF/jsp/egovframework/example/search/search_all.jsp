@@ -41,7 +41,10 @@
                                                    item.type eq "method" ? "/method/detail.do?uuid=" : ""}'/>${item.uuid}"
                              style="text-decoration: none; color: inherit;">
                             <div class="card h-100 shadow-sm">
-                              <img src="${pageContext.request.contextPath}/search/image.do?uuid=${item.uuid}" class="card-img-top" alt="${item.title}">
+                             <img src="${pageContext.request.contextPath}/search/image.do?uuid=${item.uuid}" 
+     class="card-img-top"
+     alt="${item.title}"
+     style="width: 100%; height: 180px; object-fit: cover;">
                               <div class="card-body">
                                 <h6 class="card-title">${item.title}</h6>
                                 <p class="card-text small text-muted mb-1">작성자: ${item.nickname}</p>
