@@ -120,10 +120,12 @@
     </form>
 </div>
 
+
 <!-- ✅ JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<!-- 토글 애니메이션 js -->
+<script src="/js/nav.js"></script>
 <script type="text/javascript">
 function fn_save() {
     const actionUrl = '${empty countryVO.uuid ? "/country/add.do" : "/country/edit.do"}';

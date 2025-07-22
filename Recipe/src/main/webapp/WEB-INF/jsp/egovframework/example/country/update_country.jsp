@@ -41,11 +41,11 @@
 				</div>
 
 				<!-- ✅ 제목, 작성자, 카테고리 -->
-					<div class="col-12 col-md-7 d-flex flex-column justify-content-between">
+						<div class="col-12 col-md-7 d-flex flex-column justify-content-between">
 						<!-- 제목 -->
-						<h2 class="fw-bold mb-2">${countryVO.recipeTitle}</h2>
+						<h2 class="fw-bold mb-2 recipe-title">${countryVO.recipeTitle}</h2>
 						<!-- 작성자 -->
-						<p class="text-muted small mb-3">작성자: ${countryVO.nickname}</p>
+						<p class="text-muted small mb-3 recipe-author">작성자: ${countryVO.nickname}</p>
 						<!-- 해시태그 -->
 						<div class="mb-3">
 							<span class="badge badge-category country">#${countryVO.countryCategoryName}</span>
@@ -65,8 +65,8 @@
 						</div>
 						<!-- 레시피 소개 -->
 						<div>
-							<h5 class="fw-semibold">레시피 소개</h5>
-							<p class="text-body">${countryVO.recipeIntro}</p>
+							<h5 class="fw-semibold recipe-subtitle">레시피 소개</h5>
+							<p class="text-body recipe-intro">${countryVO.recipeIntro}</p>
 						</div>
 					</div>
 				</div>
@@ -75,12 +75,10 @@
 			<!-- ✅ 요리 설명 전체 영역 -->
 			<div class="mt-5">
 			<!-- ✅ 재료 정보 -->
-					<h5 class="section-title">재료 정보</h5>
+					<h5 class="section-title recipe-subtitle">재료 정보</h5>
 					<div class="recipe-info">${countryVO.ingredient}</div>
-					<h5 class="section-title">요리 설명</h5>
-					<div class="recipe-description">
-  					<div>${countryVO.recipeContent}</div>
-					</div>
+					<h5 class="section-title recipe-subtitle">요리 설명</h5>
+					<div class="recipe-description">${countryVO.recipeContent}</div>
 
 			<!-- ✅ 수정/삭제 버튼 (작성자만 노출) -->
 			<c:if test="${memberVO.userId == countryVO.userId}">
@@ -124,9 +122,12 @@
 	</form>
 </div>
 
+
 <jsp:include page="/common/footer.jsp" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 토글 애니메이션 js -->
+<script src="/js/nav.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
