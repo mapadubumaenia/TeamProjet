@@ -81,7 +81,7 @@
       </li>
 
     	<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle"   href="<c:url value='/column.do'/>" role="button"> crumb </a>
+				class="nav-link dropdown-toggle"   href="<c:url value='/column.do'/>" role="button"> coulmn </a>
 				<ul class="dropdown-menu">
 					<li><a class="dropdown-item"
 						href="<c:url value='/drink/drink.do'/>"> 드링크 </a></li>

@@ -140,10 +140,7 @@ $(function(){
     // query parameter 형태로 GET 요청
     const url = '<c:url value="/drink/drink.do"/>' + '?category=' + encodeURIComponent(category);
 
-    // 전체 페이지가 아닌 #drinkListContainer 부분만 GET으로 로드
-    $('#drinkListContainer').load(
-      url + ' #drinkListContainer'
-    );
+   
   });
 });
 </script>
