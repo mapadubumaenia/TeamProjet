@@ -339,3 +339,37 @@ pre {
 .recent-link:hover .img-title {
 	color: var(--black);
 }
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .media-meta p {
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+   .recent-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recent-list li {
+    width: 80%;  /* 모바일에선 너비 넓히기 */
+  }
+
+  .img-wrapper {
+    width: 100%;
+    height: auto;
+  }
+
+  .img-wrapper img {
+    width: 100%;
+    height: auto;
+  }
+}
+

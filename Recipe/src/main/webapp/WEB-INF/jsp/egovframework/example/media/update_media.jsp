@@ -63,7 +63,7 @@
             </c:if>
 
             <div class="mb-3">
-                <label for="recipeImage" class="form-label">이미지 수정</label>
+                <label for="recipeImage" class="form-label">이미지 수정 (10MB 이하)</label>
                 <input type="file" class="form-control" id="recipeImage" name="recipeImage" />
             </div>
 
