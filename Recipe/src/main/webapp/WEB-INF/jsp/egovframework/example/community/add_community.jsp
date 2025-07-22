@@ -18,6 +18,12 @@
 <body>
 <jsp:include page="/common/header.jsp" />
 
+<br>
+<h3>자유 게시판</h3>
+
+
+<div class="comubody">
+
 <div class="container mt-4">
 <br>
 <br>
@@ -48,9 +54,13 @@
 </form>
     
 </div>
-
+</div>
 
 
 
 </body>
+
+
+
+
 </html>

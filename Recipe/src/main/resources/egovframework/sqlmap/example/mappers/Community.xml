@@ -89,18 +89,19 @@
    <select id="selectCommunity"
         parameterType="String"
         resultType="egovframework.example.community.service.CommunityVO">
-    SELECT UUID AS uuid,
-           USER_ID AS userId,
-           COMMUNITY_CATEGORY_ID AS communityCategoryId,
-           COMMUNITY_TITLE AS communityTitle,
-           COMMUNITY_CREATED_AT AS communityCreatedAt,
-           
-           COMMUNITY_CONTENT AS communityContent,
-           COUNT AS communityCount,
-           COMMUNITY_IMAGE AS communityImage,
-           COMMUNITY_URL AS communityUrl
+    SELECT COMMUNITY.UUID AS uuid,
+           COMMUNITY.USER_ID AS userId,
+           USERS.NICKNAME AS userNickname, <!-- ✅ 닉네임 추가 -->
+           COMMUNITY.COMMUNITY_CATEGORY_ID AS communityCategoryId,
+           COMMUNITY.COMMUNITY_TITLE AS communityTitle,
+           COMMUNITY.COMMUNITY_CREATED_AT AS communityCreatedAt,
+           COMMUNITY.COMMUNITY_CONTENT AS communityContent,
+           COMMUNITY.COUNT AS communityCount,
+           COMMUNITY.COMMUNITY_IMAGE AS communityImage,
+           COMMUNITY.COMMUNITY_URL AS communityUrl
     FROM COMMUNITY
-    WHERE UUID = #{uuid}
+    JOIN USERS ON COMMUNITY.USER_ID = USERS.USER_ID <!-- ✅ JOIN 추가 -->
+    WHERE COMMUNITY.UUID = #{uuid}
 </select>
 
 
