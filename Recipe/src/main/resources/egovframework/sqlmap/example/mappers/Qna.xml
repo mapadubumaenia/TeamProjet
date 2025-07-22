@@ -3,7 +3,6 @@
 
 <mapper namespace="egovframework.example.qna.service.impl.QnaMapper">
 
-    <!-- QnA 전체 목록 조회 + 질문/답변 작성자 닉네임 포함 (페이징 처리) -->
     <select id="selectQnaList" resultType="egovframework.example.qna.service.QnaVO"
             parameterType="egovframework.example.common.Criteria">
         SELECT 
@@ -27,17 +26,26 @@
         FROM QNA Q
         JOIN USERS U ON Q.USER_ID = U.USER_ID
         LEFT JOIN USERS U2 ON Q.ANSWER_USERID = U2.USER_ID
+        <where>
+            <if test="searchKeyword != null and searchKeyword != ''">
+                AND Q.QNA_TITLE LIKE '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
         ORDER BY Q.QNA_CREATED_AT DESC
         OFFSET #{firstIndex} ROWS
         FETCH NEXT #{pageUnit} ROWS ONLY
     </select>
 
-    <!-- QnA 총 개수 조회 -->
     <select id="selectQnaListTotalCount" resultType="int" parameterType="egovframework.example.common.Criteria">
-        SELECT COUNT(*) FROM QNA
+        SELECT COUNT(*)
+        FROM QNA Q
+        <where>
+            <if test="searchKeyword != null and searchKeyword != ''">
+                Q.QNA_TITLE LIKE '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
     </select>
 
-    <!-- QnA 상세 조회 + 질문/답변 작성자 닉네임 포함 -->
     <select id="selectQnaDetail" resultType="egovframework.example.qna.service.QnaVO" parameterType="String">
         SELECT 
             Q.UUID,
@@ -63,7 +71,6 @@
         WHERE Q.UUID = #{uuid}
     </select>
 
-    <!-- QnA 등록 -->
     <insert id="insertQna" parameterType="egovframework.example.qna.service.QnaVO">
         INSERT INTO QNA (
             UUID, USER_ID, COMMUNITY_CATEGORY_ID, QNA_TITLE, QNA_CREATED_AT,
@@ -74,7 +81,6 @@
         )
     </insert>
 
-    <!-- QnA 수정 -->
     <update id="updateQna" parameterType="egovframework.example.qna.service.QnaVO">
         UPDATE QNA
         SET QNA_TITLE = #{qnaTitle},
@@ -84,20 +90,17 @@
         WHERE UUID = #{uuid}
     </update>
 
-    <!-- QnA 삭제 -->
     <delete id="deleteQna" parameterType="String">
         DELETE FROM QNA
         WHERE UUID = #{uuid}
     </delete>
 
-    <!-- 조회수 증가 -->
     <update id="incrementQnaCount" parameterType="String">
         UPDATE QNA
         SET COUNT = COUNT + 1
         WHERE UUID = #{uuid}
     </update>
 
-    <!-- QnA 답변 등록 -->
     <update id="insertQnaAnswer" parameterType="egovframework.example.qna.service.QnaVO">
         UPDATE QNA
         SET ANSWER_USERID = #{answerUserId},
@@ -107,7 +110,6 @@
         WHERE UUID = #{uuid}
     </update>
 
-    <!-- QnA 답변 수정 -->
     <update id="updateQnaAnswer" parameterType="egovframework.example.qna.service.QnaVO">
         UPDATE QNA
         SET ANSWER_CONTENT = #{answerContent},

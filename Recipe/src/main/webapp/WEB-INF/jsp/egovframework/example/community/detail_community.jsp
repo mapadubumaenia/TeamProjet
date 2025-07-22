@@ -5,17 +5,20 @@
 <html>
 <head>
   <title>게시글 상세</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/exstyle.css">
   <link rel="stylesheet" href="/css/Community.css">
+  <link rel="stylesheet" href="/css/detail_Community.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <jsp:include page="/common/header.jsp" />
 <div class="comubody">
-<h3>자유게시판 </h3>
+<h3 class="title">자유게시판 </h3>
 <div class="container mt-5">
+
   <!-- 수정용 form -->
   <form id="updateForm" method="post" action="<c:url value='/community/update.do'/>" enctype="multipart/form-data">
     <input type="hidden" name="uuid" value="${community.uuid}">
@@ -31,10 +34,11 @@
         <small class="text-muted">
           ${fn:substring(community.communityCreatedAt, 2, 16)} · ${community.userNickname}
         </small>
-       <div class="button-box" id="author-buttons">
-  <button type="button" class="btn btn-outline-danger btn-sm" id="delete-btn" onclick="submitDelete()">삭제</button>
-  <button type="button" class="btn btn-sm edit-btn" id="edit-btn">수정</button>
-</div>
+
+        <div class="button-box" id="author-buttons">
+          <button type="button" class="btn btn-outline-danger btn-sm" id="delete-btn" onclick="submitDelete()">삭제</button>
+          <button type="button" class="btn btn-sm edit-btn" id="edit-btn">수정</button>
+        </div>
       </div>
 
       <div class="card-body">
@@ -68,32 +72,30 @@
   <!-- 댓글 영역 -->
   <div id="comment-area" class="mb-3 mt-4">
     <h5>댓글</h5>
-    <!-- Ajax로 댓글 목록 + 등록/답글 UI를 list.jsp에서 로딩 -->
     <div id="commentListArea"></div>
   </div>
 
+  <c:if test="${not empty sessionScope.memberVO}">
+    <div class="mt-3">
+      <button id="likeBtn"
+              type="button"
+              class="btn btn-outline-danger btn-sm px-3 ${isLiked ? 'text-danger' : ''}"
+              data-uuid="${community.uuid}">
+        <span id="likeIcon">${isLiked ? '&#9829;' : '&#9825;'}</span>
+        <span id="likeLabel">${isLiked ? '취소' : '좋아요'}</span>
+      </button>
+      <span id="likeCount" class="ms-2">${community.likeCount}</span>
+    </div>
+  </c:if>
 
-<c:if test="${not empty sessionScope.memberVO}">
-  <div class="mt-3">
-    <button id="likeBtn"
-            type="button"
-            class="btn btn-outline-primary btn-sm px-3 ${isLiked ? 'text-danger' : ''}"
-            data-uuid="${community.uuid}">
-      <span id="likeIcon">${isLiked ? '&#9829;' : '&#9825;'}</span>
-      <span id="likeLabel">${isLiked ? '취소' : '좋아요'}</span>
-    </button>
-    <span id="likeCount" class="ms-2">${community.likeCount}</span>
-  </div>
-</c:if>
-<br>
-  
-
+  <br>
   <a href="<c:url value='/community/community.do'/>" class="btn btn-secondary">목록으로</a>
 </div>
 </div>
 
 <jsp:include page="/common/footer.jsp" />
 
+<!-- 수정/취소 버튼 동작 -->
 <script>
   const editBtn = document.getElementById('edit-btn');
   const saveBtn = document.getElementById('save-btn');
@@ -143,10 +145,10 @@
       document.getElementById('deleteForm').submit();
     }
   }
+</script>
 
- 
-
-  // ✅ 댓글 Ajax 로딩
+<!-- 댓글 Ajax 로딩 -->
+<script>
   $(function () {
     const uuid = '${community.uuid}';
     const targetType = 'community';
@@ -157,11 +159,9 @@
       pageIndex: 1
     });
   });
-  
 </script>
 
-
-
+<!-- 좋아요 Ajax 처리 -->
 <script>
   $(function () {
     $('#likeBtn').on('click', function () {
@@ -175,23 +175,19 @@
         data: JSON.stringify({
           uuid: uuid,
           targetType: 'community',
-          userId: '${sessionScope.memberVO.userId}' // 로그인 시에만 노출
+          userId: '${sessionScope.memberVO.userId}'
         }),
-        dataType: 'text' // 서버 응답은 'liked' 또는 'unliked'
+        dataType: 'text'
       })
       .done(function (status) {
-        const liked = (status === 'liked');
-
-        // 아이콘 및 텍스트 변경
-        $('#likeIcon').html(liked ? '&#9829;' : '&#9825;');
-        $('#likeLabel').text(liked ? '취소' : '좋아요');
-        btn.toggleClass('text-danger', liked);
-
-        // 좋아요 수 갱신
-        $.get('/like/count.do', { uuid: uuid }, function (count) {
-          $('#likeCount').text(count);
-        });
-      })
+  const liked = (status === 'liked');
+  $('#likeIcon').html(liked ? '&#9829;' : '&#9825;');
+  $('#likeLabel').text(liked ? '취소' : '좋아요');
+  // ✅ 클래스 추가 제거 필요 없음 (항상 빨간색 유지하므로 제거)
+  $.get('/like/count.do', { uuid: uuid }, function (count) {
+    $('#likeCount').text(count);
+  });
+})
       .fail(function (xhr) {
         if (xhr.status === 401) {
           alert('로그인 후 이용해 주세요.');
@@ -203,10 +199,10 @@
   });
 </script>
 
+<!-- 작성자만 수정/삭제 버튼 노출 -->
 <script>
   const loginUserId = '${sessionScope.memberVO.userId}';
   const writerUserId = '${community.userId}';
-
   if (loginUserId !== writerUserId) {
     document.getElementById('author-buttons').style.display = 'none';
   }

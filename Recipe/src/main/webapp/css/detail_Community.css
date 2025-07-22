@@ -1,0 +1,83 @@
+.comubody {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem;
+  }
+
+  .card h3#view-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .button-box {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .card-text, textarea.pre-line {
+    white-space: pre-wrap;
+  }
+
+  #edit-image input[type="file"],
+  #edit-content {
+    width: 100%;
+  }
+
+  .btn-group-responsive {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .btn-group-responsive .btn {
+    flex: 1 1 auto;
+  }
+
+  #comment-area {
+    margin-top: 2rem;
+  }
+
+  .comment-item {
+    font-size: 1rem;
+  }
+  
+  
+   .title {
+    text-align: center;
+    color: #c9a383; /* 모카색 */
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .card h3#view-title {
+      font-size: 1.2rem;
+    }
+
+    .button-box {
+      position: static;
+      margin-top: 1rem;
+      justify-content: flex-end;
+    }
+
+    .card-body .btn,
+    .button-box .btn {
+      width: 100%;
+    }
+
+    .btn-group-responsive {
+      flex-direction: column;
+    }
+
+    .comment-item {
+      font-size: 0.95rem;
+    }
+
+    textarea#edit-content {
+      min-height: 180px;
+    }
+  }

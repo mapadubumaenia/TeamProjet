@@ -3,8 +3,6 @@
  */
 package egovframework.example.qna.service;
 
-import java.util.Date;
-
 /**
  * @author user
  *
@@ -40,6 +38,7 @@ public class QnaVO extends Criteria{
 	private String userNickname;
 	private String answerNickname;
 	private int commentCount;
+	public String searchKeyword;
 	
 	public String getUserNickname() {
 	    return userNickname;
@@ -48,6 +47,9 @@ public class QnaVO extends Criteria{
 	public void setUserNickname(String userNickname) {
 	    this.userNickname = userNickname;
 	}
+	
+	
+
 	
 
 }

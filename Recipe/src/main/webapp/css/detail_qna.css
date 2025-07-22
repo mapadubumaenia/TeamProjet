@@ -1,0 +1,90 @@
+.qna-detail-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem;
+  }
+
+  .qna-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #c9a383;
+    text-align: center;
+  }
+
+  .qna-meta {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .qna-content {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    white-space: pre-wrap;
+    margin-bottom: 2rem;
+    background-color: #f9f9f9;
+  }
+
+  .btn-group-responsive {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 2rem;
+    justify-content: center;
+  }
+
+  .btn-group-responsive .btn {
+    flex: 1 1 auto;
+  }
+
+  .qna-answer-box {
+    background-color: #fff7f1;
+    border-left: 5px solid #c9a383;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+    h3.page-title {
+    text-align: center;
+    color: #c9a383;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  
+ .btn-yellow {
+  background-color: #f0ad4e !important;  /* 노란색 */
+  border-color: #f0ad4e !important;
+  color: white !important;
+}
+
+.btn-yellow:hover {
+  background-color: #ec971f !important;
+  border-color: #ec971f !important;
+}
+
+  @media screen and (max-width: 768px) {
+    .button-box {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-end;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .qna-title {
+      font-size: 1.2rem;
+    }
+
+    .btn-group-responsive {
+      flex-direction: column;
+    }
+
+    .qna-meta {
+      font-size: 0.8rem;
+    }
+  }
