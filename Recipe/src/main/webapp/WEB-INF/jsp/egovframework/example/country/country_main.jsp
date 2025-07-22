@@ -17,7 +17,7 @@
 <!-- 추천 테마 타이틀 -->
 <div id="country" class="custom-container my-5">
   <div class="section-divider"></div>
-  <h1 class="fw-bold">국가별 레시피</h1>
+  <h1 class="fw-bold">나라별 레시피</h1>
 </div>
 
 <!-- 국가별 카드들 -->
@@ -300,6 +300,9 @@
   </div>
 </div>
 
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- 토글 애니메이션 js -->
+	<script src="/js/nav.js"></script>
 <jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>

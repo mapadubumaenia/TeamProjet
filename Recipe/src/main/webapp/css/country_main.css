@@ -123,4 +123,14 @@
   .theme-card .hover-text {
     font-size: 0.8rem; /* 글자 크기 축소 */
   }
+  
+  /* ✅ 모바일 화면에서 custom-container의 좌우 여백 줄이기
+   → 햄버거 메뉴가 화면 가장자리에 닿도록 하기 위함
+   → 기존 4rem은 너무 넓어 클릭이 막히는 문제 발생 */
+@media (max-width: 576px) {
+  .custom-container {
+    padding-left: 1rem;  /* 모바일에서는 좌측 여백을 1rem으로 축소 */
+    padding-right: 1rem; /* 모바일에서는 우측 여백도 1rem으로 축소 */
+  }
+}
 }
