@@ -203,7 +203,7 @@ function confirmPassword() {
 <script>
 
 document.addEventListener("submit", function (e) {
-	  console.log("📨 submit 이벤트 발생");
+	  console.log("submit 이벤트 발생");
 	}, true);
 
   document.addEventListener("DOMContentLoaded", function () {

@@ -189,7 +189,7 @@ function checknickname() {
     
 //  글자수 제한
      if (nickname.length < 2) {
-        resultElement.textContent = '아이디는 2자 이상이어야 합니다.';
+        resultElement.textContent = '별명은 2자 이상이어야 합니다.';
         resultElement.style.color = 'red';
         return;
     }
