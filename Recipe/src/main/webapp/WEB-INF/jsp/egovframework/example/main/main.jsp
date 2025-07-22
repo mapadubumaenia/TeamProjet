@@ -100,22 +100,36 @@
 
 </div>
 
-<section class="popular-recipes">
+<!-- 인기 레시피 -->
+<div class="popular-recipes">
   <h2>인기 레시피 TOP 4</h2>
   <div class="recipe-grid">
-    <c:forEach var="recipe" items="${popularRecipes}">
+    <c:forEach var="recipe" items="${selectTopLiked}">
+      <c:choose>
+        <c:when test='${recipe.type eq "media"}'>
+          <c:set var="recipeUrl" value="${pageContext.request.contextPath}/media/open.do?uuid=${recipe.uuid}" />
+        </c:when>
+        <c:when test='${recipe.type eq "standard"}'>
+          <c:set var="recipeUrl" value="${pageContext.request.contextPath}/country/edition.do?uuid=${recipe.uuid}" />
+        </c:when>
+        <c:when test='${recipe.type eq "column"}'>
+          <c:set var="recipeUrl" value="${pageContext.request.contextPath}/drink/detail.do?uuid=${recipe.uuid}" />
+        </c:when>
+        <c:otherwise>
+          <c:set var="recipeUrl" value="#" />
+        </c:otherwise>
+      </c:choose>
+
       <div class="recipe-card">
-        <a href="/recipe/detail?uuid=${recipe.uuid}&type=${recipe.type}">
+        <a href="${recipeUrl}">
           <img src="${recipe.imageUrl}" alt="${recipe.title}" class="recipe-thumbnail" />
-          <div class="recipe-info">
             <h3 class="recipe-title">${recipe.title}</h3>
-            <p class="recipe-likes">❤️ ${recipe.likeCount}</p>
-          </div>
         </a>
       </div>
     </c:forEach>
   </div>
-</section>
+</div>
+
 
 
 
@@ -219,10 +233,6 @@
       depth: 100,
       modifier: 1,
       slideShadows: true,
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
     },
   });
 </script>
