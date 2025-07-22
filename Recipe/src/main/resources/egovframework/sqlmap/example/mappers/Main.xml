@@ -160,12 +160,17 @@
       SELECT
         C.UUID,
         C.COLUMN_TITLE AS TITLE,
-        C.COLUMN_URL AS IMAGE_URL,
+        C.COLUMN_URL   AS IMAGE_URL,
         C.COLUMN_IMAGE AS IMAGE,
-        'column' AS TYPE,
-         0 AS LIKE_COUNT
+        'column'       AS TYPE,
+        NVL(lc.LIKE_COUNT, 0) AS LIKE_COUNT
       FROM FOOD_COLUMNS C
-      JOIN USERS U ON C.USER_ID = U.USER_ID
+      LEFT JOIN (
+        SELECT UUID, COUNT(*) AS LIKE_COUNT
+        FROM LIKES
+        WHERE TARGET_TYPE = 'column'
+        GROUP BY UUID
+      ) lc ON C.UUID = lc.UUID
     )
     ORDER BY LIKE_COUNT DESC
   )
