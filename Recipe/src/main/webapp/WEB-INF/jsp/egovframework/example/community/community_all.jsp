@@ -11,8 +11,11 @@
   <link rel="stylesheet" href="/css/Community.css">
 </head>
 <body>
+
 <jsp:include page="/common/header.jsp" />
 
+<div class="comubody">
+<h3>자유게시판</h3>
 <div class="container mt-5">
   <form id="listForm" method="get" action="<c:url value='/community/community.do'/>">
     <input type="hidden" id="pageIndex" name="pageIndex" value="${empty criteria.pageIndex ? 1 : criteria.pageIndex}" />
@@ -24,8 +27,9 @@
           <th>작성자</th>
           <th>제목</th>
           <th>조회수</th>
+          <th>좋아요</th> <!-- ✅ 추가: 좋아요 헤더 -->
+          <th>댓글수</th>
           <th>작성일</th>
-          <th>댓글수</th> <!-- ✅ 댓글 수 헤더 -->
         </tr>
       </thead>
       <tbody>
@@ -39,8 +43,9 @@
               </a>
             </td>
             <td>${item.communityCount}</td>
+            <td>♥ ${item.likeCount}</td> <!-- ✅ 추가: 좋아요 수 출력 -->
+            <td>${item.commentCount}</td>
             <td>${item.communityCreatedAt}</td>
-            <td>${item.commentCount}</td> <!-- ✅ 댓글 수 출력 -->
           </tr>
         </c:forEach>
       </tbody>
@@ -60,7 +65,7 @@
     </div>
   </form>
 </div>
-
+</div>
 <jsp:include page="/common/footer.jsp" />
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -81,5 +86,6 @@
     });
   });
 </script>
+
 </body>
 </html>

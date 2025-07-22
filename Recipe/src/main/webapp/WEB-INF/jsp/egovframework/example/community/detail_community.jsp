@@ -13,33 +13,52 @@
 </head>
 <body>
 <jsp:include page="/common/header.jsp" />
-
+<div class="comubody">
+<h3>자유게시판 </h3>
 <div class="container mt-5">
   <!-- 수정용 form -->
-  <form id="answerEditForm" method="post"
-      action="<c:url value='${empty qna.answerContent ? "/qna/answer/add.do" : "/qna/answer/update.do"}'/>"
-      enctype="multipart/form-data" style="display: none;">
-  <input type="hidden" name="uuid" value="${qna.uuid}">
+  <form id="updateForm" method="post" action="<c:url value='/community/update.do'/>" enctype="multipart/form-data">
+    <input type="hidden" name="uuid" value="${community.uuid}">
 
-  <!-- ✅ 답변 이미지 업로드 영역 -->
-  <div class="mb-3">
-    <label class="form-label">답변 이미지</label>
-    <!-- ✅ name=uploadFile 반드시 일치해야 함 -->
-    <input class="form-control" type="file" name="uploadFile" id="answerUploadFile" accept="image/*">
-    <!-- ✅ 미리보기 이미지 -->
-    <img id="answerPreview" class="img-fluid mt-3" style="display:none;" alt="답변 미리보기 이미지" />
-  </div>
+    <c:if test="${not empty message}">
+      <div class="alert alert-success">${message}</div>
+    </c:if>
 
-  <!-- 답변 텍스트 영역 -->
-  <div class="mb-2">
-    <label class="form-label">답변 내용</label>
-    <textarea class="form-control" name="answerContent" rows="4">${qna.answerContent}</textarea>
-  </div>
+    <div class="card">
+      <div class="card-header position-relative">
+        <h3 class="mb-0" id="view-title">${community.communityTitle}</h3>
+        <input type="text" class="form-control d-none" id="edit-title" name="communityTitle" value="${community.communityTitle}">
+        <small class="text-muted">
+          ${fn:substring(community.communityCreatedAt, 2, 16)} · ${community.userNickname}
+        </small>
+       <div class="button-box" id="author-buttons">
+  <button type="button" class="btn btn-outline-danger btn-sm" id="delete-btn" onclick="submitDelete()">삭제</button>
+  <button type="button" class="btn btn-sm edit-btn" id="edit-btn">수정</button>
+</div>
+      </div>
 
-  <!-- 저장/취소 버튼 -->
-  <button type="submit" class="btn btn-success btn-sm">저장</button>
-  <button type="button" class="btn btn-secondary btn-sm" onclick="toggleAnswerEdit()">취소</button>
-</form>
+      <div class="card-body">
+        <div id="view-image">
+          <c:if test="${not empty community.communityImage}">
+            <img src="/community/image.do?uuid=${community.uuid}" class="img-fluid mb-3" alt="찾는 이미지" />
+          </c:if>
+        </div>
+
+        <div id="edit-image" class="d-none mb-3">
+          <label class="form-label">이미지 변경</label>
+          <input type="file" class="form-control" name="uploadFile">
+        </div>
+
+        <p class="card-text pre-line" id="view-content">${community.communityContent}</p>
+        <textarea class="form-control d-none pre-line" id="edit-content" name="communityContent">${community.communityContent}</textarea>
+
+        <div class="mt-3 d-none" id="edit-buttons">
+          <button type="submit" class="btn btn-success btn-sm" id="save-btn">저장</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="cancel-btn">취소</button>
+        </div>
+      </div>
+    </div>
+  </form>
 
   <!-- 삭제용 form -->
   <form id="deleteForm" method="post" action="<c:url value='/community/delete.do'/>">
@@ -53,9 +72,24 @@
     <div id="commentListArea"></div>
   </div>
 
- 
+
+<c:if test="${not empty sessionScope.memberVO}">
+  <div class="mt-3">
+    <button id="likeBtn"
+            type="button"
+            class="btn btn-outline-primary btn-sm px-3 ${isLiked ? 'text-danger' : ''}"
+            data-uuid="${community.uuid}">
+      <span id="likeIcon">${isLiked ? '&#9829;' : '&#9825;'}</span>
+      <span id="likeLabel">${isLiked ? '취소' : '좋아요'}</span>
+    </button>
+    <span id="likeCount" class="ms-2">${community.likeCount}</span>
+  </div>
+</c:if>
+<br>
+  
 
   <a href="<c:url value='/community/community.do'/>" class="btn btn-secondary">목록으로</a>
+</div>
 </div>
 
 <jsp:include page="/common/footer.jsp" />
@@ -110,6 +144,8 @@
     }
   }
 
+ 
+
   // ✅ 댓글 Ajax 로딩
   $(function () {
     const uuid = '${community.uuid}';
@@ -121,7 +157,62 @@
       pageIndex: 1
     });
   });
+  
 </script>
+
+
+
+<script>
+  $(function () {
+    $('#likeBtn').on('click', function () {
+      const btn = $(this);
+      const uuid = btn.data('uuid');
+
+      $.ajax({
+        url: '/like/toggle.do',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          uuid: uuid,
+          targetType: 'community',
+          userId: '${sessionScope.memberVO.userId}' // 로그인 시에만 노출
+        }),
+        dataType: 'text' // 서버 응답은 'liked' 또는 'unliked'
+      })
+      .done(function (status) {
+        const liked = (status === 'liked');
+
+        // 아이콘 및 텍스트 변경
+        $('#likeIcon').html(liked ? '&#9829;' : '&#9825;');
+        $('#likeLabel').text(liked ? '취소' : '좋아요');
+        btn.toggleClass('text-danger', liked);
+
+        // 좋아요 수 갱신
+        $.get('/like/count.do', { uuid: uuid }, function (count) {
+          $('#likeCount').text(count);
+        });
+      })
+      .fail(function (xhr) {
+        if (xhr.status === 401) {
+          alert('로그인 후 이용해 주세요.');
+        } else {
+          alert('좋아요 처리 중 오류가 발생했습니다.');
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  const loginUserId = '${sessionScope.memberVO.userId}';
+  const writerUserId = '${community.userId}';
+
+  if (loginUserId !== writerUserId) {
+    document.getElementById('author-buttons').style.display = 'none';
+  }
+</script>
+
+
 
 </body>
 </html>

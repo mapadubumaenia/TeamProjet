@@ -5,7 +5,7 @@
   --mocha: #A47764;
 }
 
-body {
+.comubody {
   font-family: 'Noto Sans KR', 'GowunBatang-Regular', sans-serif;
   background-color: #fffaf7;
   color: var(--black);
@@ -14,7 +14,8 @@ body {
 }
 
 h3 {
-  color: var(--dark);
+  text-align: center;
+  color: var(--mocha);
 }
 
 .card {
@@ -57,10 +58,7 @@ h3 {
   white-space: pre-line;
 }
 
-.header-btn {
-  position: absolute;
-  top: 10px;
-}
+
 
 .pagination-and-write {
   display: flex;
@@ -77,19 +75,6 @@ h3 {
   color: white;
 }
 
-.commu-title {
-	display: flex;
-	justify-content: center;
-	font-size: 30px;
-	align-items: center;
-	gap: 12px;
-	margin-bottom: 1rem;
-	margin-top: 2rem;
-}
-
-.commu-title .navbar-commu-title {
-	color: var(--dark);
-}
 
 .button-box {
   position: absolute;
@@ -133,6 +118,3 @@ h3 {
 
 
 
-.header-btn-edit { right: 10px; }
-.header-btn-save { right: 70px; }
-.header-btn-cancel { right: 130px; }

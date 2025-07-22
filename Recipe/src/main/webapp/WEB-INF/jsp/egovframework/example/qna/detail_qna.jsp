@@ -18,6 +18,9 @@
 <!-- 공통 헤더 include -->
 <jsp:include page="/common/header.jsp" />
 
+<br>
+<h3>질문 게시판</h3>
+
 <div class="container mt-5">
   <h2 class="fw-bold mb-4">QnA 상세보기</h2>
 

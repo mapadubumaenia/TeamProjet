@@ -18,6 +18,18 @@
   
     .reply-box { margin-left: 2rem; }
     .reply-input { margin-top: 5px; }
+    
+    .btn-modify {
+    background-color: #ffe08c;  /* 연한 금색 */
+    color: black;
+    border: 1px solid #d4b01a;
+  }
+
+  .btn-delete {
+    background-color: #8b3e2f;  /* 적갈색 계열 */
+    color: white;
+    border: 1px solid #6e2b20;
+  }
   </style>
 </head>
 <body>
@@ -45,11 +57,11 @@
     <div class="comment-buttons mt-2">
       <c:if test="${sessionScope.memberVO.userId eq comment.userId}">
 
-        <button type="button" class="btn btn-sm btn-secondary edit-btn" data-id="${comment.commentId}" data-content="${comment.content}">수정</button>
+        <button type="button" class="btn btn-modify btn-sm edit-btn" data-id="${comment.commentId}" data-content="${comment.content}">수정</button>
 
         <button class="btn btn-sm btn-success save-btn" data-id="${comment.commentId}" style="display: none;">등록</button>
         <button class="btn btn-sm btn-light cancel-btn" data-id="${comment.commentId}" style="display: none;">취소</button>
-        <button class="btn btn-sm btn-danger delete-btn" data-id="${comment.commentId}">삭제</button>
+        <button class="btn btn-delete btn-sm delete-btn" data-id="${comment.commentId}">삭제</button>
       </c:if>
 <c:if test="${not empty sessionScope.memberVO}">
   <c:set var="nicknameSafe" value="${empty comment.nickname ? '알수없음' : fn:trim(comment.nickname)}" />
@@ -160,7 +172,7 @@
     }).val(nicknameText + " ");
 
     const submitBtn = $("<button>", {
-      class: "btn btn-sm btn-primary mt-1",
+      class: "btn btn-mocha mt-2",
       text: "등록"
     }).on("click", function () {
       const content = textarea.val();

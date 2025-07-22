@@ -25,6 +25,7 @@ public class CommunityVO extends Criteria {
 	private String contentType;
 	private String userNickname;
 	private int commentCount;
+	private int likeCount;
 	
 	public String getUserNickname() {
 	    return userNickname;
