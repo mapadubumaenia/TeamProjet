@@ -926,6 +926,7 @@ a {text-decoration: none; color: var(--black);}
  .recent-recipes .card {
   max-width: 120px;  /* 필요에 따라 조절 */
   width: calc((100% - 1.5rem) / 3);
+  min-width: 100px;
 }
   /* (선택) 스크롤바 숨기기 */
   .recent-recipes::-webkit-scrollbar {
