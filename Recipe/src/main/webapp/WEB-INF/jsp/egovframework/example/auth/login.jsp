@@ -21,7 +21,7 @@
 <div class="loginpage">
   <div class="loginbox">
       <div class="brandtext">
-       <a class="login_home" href="<c:url value='home.do'/>">RecipeCode</a>
+       <a class="login_home" href="<c:url value='main.do'/>">RecipeCode</a>
     </div>
       <div class="error_box">
       <c:if test="${not empty msg}">

@@ -21,7 +21,7 @@
 <div class="registerpage">
   <div class="registerbox">
     <div class="brandtext">
-       <a class="register_home" href="<c:url value='home.do'/>">RecipeCode</a>
+       <a class="register_home" href="<c:url value='main.do'/>">RecipeCode</a>
     </div>
     <div class="tcenter">
 	   <h4 class="pro_text">회원 가입</h4>

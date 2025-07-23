@@ -21,7 +21,7 @@
 <div class="findpasswordpage">
   <div class="findpasswordbox">
     <div class="brandtext mt5">
-       <a class="findpassword_home" href="<c:url value='home.do'/>">RecipeCode</a>
+       <a class="findpassword_home" href="<c:url value='main.do'/>">RecipeCode</a>
     </div>
     <div class="tcenter">
       <h5>비밀번호 찾기</h5>
