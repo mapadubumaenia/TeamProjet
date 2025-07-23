@@ -7,6 +7,7 @@
   <title>게시글 상세</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="/images/01.png" type="image/png">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/exstyle.css">
   <link rel="stylesheet" href="/css/Community.css">
@@ -83,8 +84,9 @@
               data-uuid="${community.uuid}">
         <span id="likeIcon">${isLiked ? '&#9829;' : '&#9825;'}</span>
         <span id="likeLabel">${isLiked ? '취소' : '좋아요'}</span>
+         <span id="likeCount" class="ms-2">${community.likeCount}</span>
       </button>
-      <span id="likeCount" class="ms-2">${community.likeCount}</span>
+     
     </div>
   </c:if>
 
@@ -208,7 +210,7 @@
   }
 </script>
 
-
+<script src="/js/nav.js"></script>
 
 </body>
 </html>

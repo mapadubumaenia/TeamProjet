@@ -5,10 +5,12 @@
 <html>
 <head>
   <title>게시판 목록</title>
+  <link rel="icon" href="/images/01.png" type="image/png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/exstyle.css">
   <link rel="stylesheet" href="/css/Community_all.css">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -16,30 +18,29 @@
 <jsp:include page="/common/header.jsp" />
 
 <div class="community-wrapper">
-  <h3>자유게시판</h3>
+<br>
+  <h3 class="cmtitle">자유게시판</h3>
   <div class="container mt-5">
     <form id="listForm" method="get" action="<c:url value='/community/community.do'/>">
       <input type="hidden" id="pageIndex" name="pageIndex" value="${empty criteria.pageIndex ? 1 : criteria.pageIndex}" />
 
-      <!-- 카드 레이아웃 출력 영역 -->
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-        <c:forEach var="item" items="${CommuNts}" varStatus="status">
-          <div class="col">
-            <div class="card h-100 shadow-sm">
-              <div class="card-body">
-                <div class="card-title">
-                  <a href="<c:url value='/community/detail.do'/>?uuid=${item.uuid}">
-                    ${item.communityTitle}
-                  </a>
-                </div>
-                <div class="card-meta">작성자: ${item.userNickname}</div>
-                <div class="card-meta">작성일: ${item.communityCreatedAt}</div>
-                <div class="card-meta">조회수: ${item.communityCount} | 좋아요: ♥ ${item.likeCount} | 댓글: ${item.commentCount}</div>
-              </div>
-            </div>
+ <!-- 카드 레이아웃 출력 영역 -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+  <c:forEach var="item" items="${CommuNts}" varStatus="status">
+    <div class="col">
+      <a href="<c:url value='/community/detail.do'/>?uuid=${item.uuid}" class="card h-100 shadow-sm text-decoration-none text-dark">
+        <div class="card-body">
+          <div class="card-title">
+            ${item.communityTitle}
           </div>
-        </c:forEach>
-      </div>
+          <div class="card-meta">작성자: ${item.userNickname}</div>
+          <div class="card-meta">작성일: ${item.communityCreatedAt}</div>
+          <div class="card-meta">조회수: ${item.communityCount} | 좋아요: ♥ ${item.likeCount} | 댓글: ${item.commentCount}</div>
+        </div>
+      </a>
+    </div>
+  </c:forEach>
+</div>
 
       <!-- 페이지네이션 + 글쓰기 버튼 -->
       <div class="d-flex justify-content-between align-items-center mt-4">
@@ -77,6 +78,6 @@
     });
   });
 </script>
-
+<script src="/js/nav.js"></script>
 </body>
 </html>

@@ -38,6 +38,15 @@
     font-weight: bold;
     margin-bottom: 1.5rem;
   }
+  .main-nav {
+  display: none;
+}
+@media (min-width: 769px) {
+  .main-nav {
+    display: flex !important;
+  }
+}
+  
 
     @media screen and (max-width: 768px) {
       .search-bar input[type="text"],

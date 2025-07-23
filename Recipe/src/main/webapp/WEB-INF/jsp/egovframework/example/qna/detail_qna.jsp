@@ -7,7 +7,9 @@
 <head>
   <title>QnA 상세</title>
   <!-- Bootstrap, 스타일, 스타일2, 커뮤니티 CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="/images/01.png" type="image/png">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/exstyle.css">
   <link rel="stylesheet" href="/css/Community.css">
@@ -18,10 +20,10 @@
 <body>
 <!-- 공통 헤더 include -->
 <jsp:include page="/common/header.jsp" />
-
-<h3 class="page-title">질문 게시판</h3>
+<br>
+<h3 class="qna-title">질문 게시판</h3>
 <div class="container mt-5">
-  <h2 class="fw-bold mb-4">QnA 상세보기</h2>
+  
   <form id="updateForm" method="post" action="<c:url value='/qna/update.do'/>" enctype="multipart/form-data">
     <input type="hidden" name="uuid" value="${qna.uuid}">
     <c:if test="${not empty message}">
@@ -225,5 +227,6 @@
     }
   });
 </script>
+<script src="/js/nav.js"></script>
 </body>
 </html>

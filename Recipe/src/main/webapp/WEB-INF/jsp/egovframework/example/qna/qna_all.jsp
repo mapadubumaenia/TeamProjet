@@ -5,10 +5,11 @@
 <html>
 <head>
   <title>QnA 목록</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery.twbsPagination.js"></script>
-
+  <link rel="icon" href="/images/01.png" type="image/png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/exstyle.css">
@@ -24,37 +25,35 @@
   <form id="listForm" method="get" action="<c:url value='/qna/qna.do'/>" class="mb-4">
     
 
-    <!-- 카드형 목록 -->
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-      <c:forEach var="item" items="${qnaList}" varStatus="status">
-        <div class="col">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <div class="card-title">
-                <a href="<c:url value='/qna/detail.do'/>?uuid=${item.uuid}">
-                  ${item.qnaTitle}
-                </a>
-              </div>
-              <div class="card-meta">작성자: ${item.userNickname}</div>
-              <div class="card-meta">작성일: ${item.qnaCreatedAt}</div>
-              <div class="card-meta">답변자: 
-                <c:out value="${item.answerNickname != null ? item.answerNickname : '-'}"/>
-              </div>
-              <div class="card-meta">
-                답변일: 
-                <c:choose>
-                  <c:when test="${item.answerCreatedAt != null}">
-                    ${item.answerCreatedAt}
-                  </c:when>
-                  <c:otherwise>-</c:otherwise>
-                </c:choose>
-              </div>
-              <div class="card-meta">조회수: ${item.count} | 댓글수: ${item.commentCount}</div>
-            </div>
+   <!-- 카드형 목록 -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+  <c:forEach var="item" items="${qnaList}" varStatus="status">
+    <div class="col">
+      <a href="<c:url value='/qna/detail.do'/>?uuid=${item.uuid}" class="card h-100 shadow-sm text-decoration-none text-dark">
+        <div class="card-body">
+          <div class="card-title">
+            ${item.qnaTitle}
           </div>
+          <div class="card-meta">작성자: ${item.userNickname}</div>
+          <div class="card-meta">작성일: ${item.qnaCreatedAt}</div>
+          <div class="card-meta">답변자: 
+            <c:out value="${item.answerNickname != null ? item.answerNickname : '-'}"/>
+          </div>
+          <div class="card-meta">
+            답변일: 
+            <c:choose>
+              <c:when test="${item.answerCreatedAt != null}">
+                ${item.answerCreatedAt}
+              </c:when>
+              <c:otherwise>-</c:otherwise>
+            </c:choose>
+          </div>
+          <div class="card-meta">조회수: ${item.count} | 댓글수: ${item.commentCount}</div>
         </div>
-      </c:forEach>
+      </a>
     </div>
+  </c:forEach>
+</div>
 
     <!-- 페이지네이션 + 글쓰기 버튼 -->
     <div class="d-flex justify-content-between align-items-center mt-4">
@@ -86,6 +85,6 @@
     });
   });
 </script>
-
+<script src="/js/nav.js"></script>
 </body>
 </html>
