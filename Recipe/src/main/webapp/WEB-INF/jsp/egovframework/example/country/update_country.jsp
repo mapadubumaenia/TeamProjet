@@ -11,6 +11,7 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<link rel="icon" href="/images/01.png" type="image/png">
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/exstyle.css">
 <link rel="stylesheet" href="/css/update_country.css">
@@ -170,25 +171,19 @@ function fn_delete() {
       });
     });
 
-    // ✅ 댓글 목록 로딩
-    const uuid = '${countryVO.uuid}';
-    const targetType = 'standard';
+    <!-- 댓글 Ajax 로딩 -->
 
-    $("#commentListArea").load(
-      '<c:url value="/comment/list.do"/>',
-      { uuid, targetType, pageIndex: 1 }
-    );
-    
-    
-    // ✅ 필터 값 확인 (디버깅용)
-    console.log("filterCountry:", document.querySelector("input[name=filterCountry]")?.value);
-    console.log("filterIngredient:", document.querySelector("input[name=filterIngredient]")?.value);
-    console.log("filterSituation:", document.querySelector("input[name=filterSituation]")?.value);
-    
-    console.log("수정 페이지 파라미터 확인:",
-    	    "${param.filterCountry}",
-    	    "${param.filterIngredient}",
-    	    "${param.filterSituation}");
+      $(function () {
+        const uuid = '${countryVO.uuid}';
+        const targetType = 'standard';
+
+        $("#commentListArea").load("/comment/list.do", {
+          uuid: uuid,
+          targetType: targetType,
+          pageIndex: 1
+        });
+      });
+
     
   });
 </script>
