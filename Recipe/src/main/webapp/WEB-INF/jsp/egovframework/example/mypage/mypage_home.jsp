@@ -262,9 +262,10 @@ document.addEventListener("submit", function (e) {
 
 <script>
 function bindFormValidation() {
-$.validator.addMethod("pwRule", function(value, element) {
-  return this.optional(element) || /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{6,}$/.test(value);
-	}, "＊비밀번호는 영문자와 숫자를 포함하여 6자 이상이어야 합니다.");
+ $.validator.addMethod("pwRule", function(value, element) {
+		  if (value === "") return true; // 입력 안 했으면 통과
+		   return /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d!@#$%^&*]{6,15}$/.test(value);
+ }, "＊비밀번호는 영문자와 숫자를 포함하여야합니다.");
 
   $("#addForm").validate({
     rules: {
@@ -272,7 +273,7 @@ $.validator.addMethod("pwRule", function(value, element) {
         required: false,
         minlength: 6,
         maxlength: 15,
-        pattern: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{6,}$/,
+        pwRule : true,
       },
       repassword: {
         required: false,
@@ -287,28 +288,28 @@ $.validator.addMethod("pwRule", function(value, element) {
       phoneNum: {
         required: true,
         digits: true,
+        maxlength: 15,
       },
     },
     messages: {
-      password: {
-        required: "＊필수 입력 항목입니다.",
+      password: {,
         minlength: "＊최소 {0}글자 이상 입력하세요.",
         maxlength: "＊최대 {0}글자 이하 입력하세요.",
-        pattern: "＊비밀번호는 영문자와 숫자를 포함하여 입력하세요.",
       },
       repassword: {
-        required: "＊필수 입력 항목입니다.",
         minlength: "＊최소 {0}글자 이상 입력하세요.",
+        maxlength: "＊최대 {0}글자 이하 입력하세요.",
         equalTo: "＊동일한 비밀번호를 입력해 주세요.",
       },
       email: {
         required: "＊필수 입력 항목입니다.",
         email: "＊올바른 이메일 형식으로 입력하세요.",
-      },
+        },
       phoneNum: {
         required: "＊필수 입력 항목입니다.",
         digits: "＊반드시 숫자만 입력하세요.",
-      },
+        maxlength: "＊최대 {0}글자 이하 입력하세요.",
+        }
     },
     submitHandler: function(form) {
       const formData = new FormData(form);
@@ -345,10 +346,9 @@ function checknickname() {
         return;
     }
     
-    
 //  글자수 제한
      if (nickname.length < 2) {
-        resultElement.textContent = '아이디는 2자 이상이어야 합니다.';
+        resultElement.textContent = '별명은 2자 이상이어야 합니다.';
         resultElement.style.color = 'red';
         return;
     }

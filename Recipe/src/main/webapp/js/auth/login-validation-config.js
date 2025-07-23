@@ -24,5 +24,5 @@ $("#addForm").validate({
       required: "＊필수 입력 항목입니다.",
       minlength: "＊최소 {0}글자 이상 입력하세요.",
     }
-  }
+  },
 });

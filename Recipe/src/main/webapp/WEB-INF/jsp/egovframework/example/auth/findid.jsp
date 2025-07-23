@@ -21,7 +21,7 @@
 <div class="findidpage">
   <div class="findidbox">
     <div class="brandtext">
-       <a class="findid_home" href="<c:url value='home.do'/>">RecipeCode</a>
+       <a class="findid_home" href="<c:url value='main.do'/>">RecipeCode</a>
     </div>
       <div class="error_box">
      <div class="tcenter">
