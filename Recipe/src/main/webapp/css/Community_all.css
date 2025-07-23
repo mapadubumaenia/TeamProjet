@@ -110,12 +110,22 @@ button.btn.btn-primary.btn-sm:hover,
   color: #fff !important;
 }
 
+.cmtitle{
+	text-align: center;
+    color: #c9a383; /* 모카색 */
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
 /* ✅ 반응형 설정 */
 @media (max-width: 1024px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+
+
 
 @media (max-width: 600px) {
   .card-grid {

@@ -217,6 +217,18 @@ public class QnaController {
     }
 
     
+    @PostMapping("/answer/delete.do")
+    public String deleteAnswer(@RequestParam("uuid") String uuid) {
+        QnaVO vo = new QnaVO();
+        vo.setUuid(uuid);
+        vo.setAnswerContent(null);
+        vo.setAnswerImage(null);
+        vo.setAnswerUserId(null);
+        vo.setAnswerCreatedAt(null);
+        vo.setAnswerNickname(null);
+        qnaService.updateQnaAnswer(vo); // 기존 updateAnswer 메서드를 재활용
+        return "redirect:/qna/detail.do?uuid=" + uuid;
+    }
     
     
     @PostMapping("/answer/update.do")
