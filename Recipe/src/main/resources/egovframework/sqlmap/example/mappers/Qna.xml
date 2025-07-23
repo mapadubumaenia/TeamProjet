@@ -113,7 +113,10 @@
     <update id="updateQnaAnswer" parameterType="egovframework.example.qna.service.QnaVO">
         UPDATE QNA
         SET ANSWER_CONTENT = #{answerContent},
-            ANSWER_IMAGE = #{answerImage}
+            ANSWER_IMAGE = #{answerImage},
+            ANSWER_USERID = #{answerUserId},
+            ANSWER_CREATED_AT = #{answerCreatedAt}
+            
         WHERE UUID = #{uuid}
     </update>
 

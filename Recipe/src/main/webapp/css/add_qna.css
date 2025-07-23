@@ -25,9 +25,19 @@
       flex: 1 1 auto;
     }
 
+
+    
+
     @media screen and (max-width: 768px) {
       .btn-group-responsive {
         flex-direction: column;
         align-items: stretch;
       }
+        .main-nav {
+    display: flex !important;
+  }
+        .menu-toggle {
+      display: block !important;
     }
+  }
+    

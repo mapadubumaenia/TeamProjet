@@ -7,6 +7,7 @@
   <title>추천 테마</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="/images/01.png" type="image/png">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/exstyle.css">
   <link rel="stylesheet" href="/css/country_main.css">
@@ -113,17 +114,13 @@
         <a href="/country/country.do?filterCountry=7" class="stretched-link"></a>
       </div>
     </div>
-    <!-- 전체 레시피 보기 카드 (hover 있음, 링크 작동) -->
-<!-- 전체 레시피 보기 카드 -->
+<!-- 커밍순 카드 (hover 없음, 클릭 불가) -->
 <div class="col-md-4">
-  <div class="card border-0 shadow-sm position-relative theme-card text-decoration-none">
-    <img src="/images/recipe/all_main.jpg" class="card-img" alt="전체보기">
-    <div class="badge position-absolute top-0 start-0 m-3 bg-mocha text-white px-3 py-1">ALL</div>
-    <div class="card-img-overlay d-flex flex-column justify-content-end">
-      <h5 class="text-white fw-bold">전체 레시피 보기</h5>
+  <div class="card border-0 shadow-sm d-flex align-items-center justify-content-center theme-card no-hover" style="background-color: #f1f1f1; height: 360px;">
+    <div class="text-center px-4">
+      <h5 class="fw-bold mb-2 text-muted">COMING SOON</h5>
+      <p class="text-muted mb-0">더 많은 국가의 레시피를 준비하고 있어요.</p>
     </div>
-    <p class="hover-text text-white mt-2">전체 레시피 모음 바로가기</p>
-    <a href="/country/country.do?filterCountry=19" class="stretched-link"></a> 
   </div>
 </div>
 
